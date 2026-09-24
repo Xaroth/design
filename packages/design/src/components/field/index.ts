@@ -2,7 +2,7 @@
 // wires the control's id and aria attributes. IDs come from props, never generated, so Astro and React match.
 
 export type InputType = 'text' | 'email' | 'search' | 'number' | 'password' | 'url' | 'tel'
-export type RadioGroupOrientation = 'vertical' | 'horizontal'
+export type ChoiceGroupOrientation = 'vertical' | 'horizontal'
 
 const join = (...parts: (string | false | undefined | null)[]) => parts.filter(Boolean).join(' ')
 
@@ -42,30 +42,38 @@ export type ChoiceKind = 'checkbox' | 'radio' | 'switch'
 export const choiceClass = (kind: ChoiceKind, { className }: { className?: string } = {}) =>
   join(`x-${kind}`, className)
 
-export const radioGroupClass = ({
+export const choiceGroupClass = ({
   orientation = 'vertical',
   invalid,
   className,
-}: { orientation?: RadioGroupOrientation; invalid?: boolean; className?: string } = {}) =>
+}: { orientation?: ChoiceGroupOrientation; invalid?: boolean; className?: string } = {}) =>
   join(
-    'x-radio-group',
-    orientation === 'horizontal' && 'x-radio-group--horizontal',
-    invalid && 'x-radio-group--invalid',
+    'x-choice-group',
+    orientation === 'horizontal' && 'x-choice-group--horizontal',
+    invalid && 'x-choice-group--invalid',
     className,
   )
 
-export const radioGroupAttrs = ({ id, hasDescription, hasError, required }: FieldWiringInput) => {
+// Radio groups are a radiogroup; checkbox groups stay a plain fieldset, which already groups them.
+export const choiceGroupAttrs = ({
+  id,
+  hasDescription,
+  hasError,
+  required,
+  kind,
+}: FieldWiringInput & { kind: 'radio' | 'checkbox' }) => {
   const { 'aria-describedby': describedBy, 'aria-invalid': invalid } = fieldControlAttrs({
     id,
     hasDescription,
     hasError,
   })
+  const radio = kind === 'radio'
   return {
     id,
-    role: 'radiogroup' as const,
+    role: radio ? ('radiogroup' as const) : undefined,
     'aria-describedby': describedBy,
-    'aria-invalid': invalid,
-    'aria-required': required ? ('true' as const) : undefined,
+    'aria-invalid': radio ? invalid : undefined,
+    'aria-required': radio && required ? ('true' as const) : undefined,
   }
 }
 

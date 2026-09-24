@@ -3,7 +3,7 @@
 @include theme.parts('eve-online') {
   // EVE v2 inputs: square panel fields, cyan glow on focus, hatched disabled fill, glowing square and diamond marks.
   .x-field,
-  .x-radio-group,
+  .x-choice-group,
   .x-input,
   .x-input-wrap,
   .x-textarea,

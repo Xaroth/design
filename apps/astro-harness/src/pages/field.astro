@@ -1,4 +1,5 @@
 ---
+import CheckboxGroup from '@xaroth.nl/design/astro/checkbox-group'
 import '@xaroth.nl/design/themes/xaroth.css'
 import '@xaroth.nl/design/themes/eve-online.css'
 import Checkbox from '@xaroth.nl/design/astro/checkbox'
@@ -77,31 +78,25 @@ const grid = 'display: grid; gap: 24px; grid-template-columns: repeat(auto-fill,
             <Field id={`${theme}-area-dis`} label="Textarea disabled">
               <Textarea disabled value="Archived" />
             </Field>
-            <fieldset class="x-radio-group">
-              <legend class="x-radio-group__legend">Checkbox</legend>
-              <div class="x-radio-group__options">
+            <CheckboxGroup id={`${theme}-f1`} legend="Checkbox">
               <Checkbox checked>Combat</Checkbox>
               <Checkbox>Industry</Checkbox>
               <Checkbox aria-invalid="true">Invalid</Checkbox>
               <Checkbox disabled>Disabled</Checkbox>
               <Checkbox disabled checked>Disabled on</Checkbox>
-              </div>
-            </fieldset>
+              </CheckboxGroup>
             <RadioGroup id={`${theme}-radio`} legend="Radio" description="Pick one server" required>
               <Radio name={`${theme}-r`} checked>Tranquility</Radio>
               <Radio name={`${theme}-r`}>Singularity</Radio>
               <Radio name={`${theme}-r`} disabled>Duality</Radio>
               <Radio name={`${theme}-rd`} disabled checked>Disabled on</Radio>
             </RadioGroup>
-            <fieldset class="x-radio-group">
-              <legend class="x-radio-group__legend">Toggle</legend>
-              <div class="x-radio-group__options">
+            <CheckboxGroup id={`${theme}-f2`} legend="Toggle">
               <Switch checked>Auto refresh</Switch>
               <Switch>Hide completed</Switch>
               <Switch disabled>Disabled</Switch>
               <Switch disabled checked>Disabled on</Switch>
-              </div>
-            </fieldset>
+              </CheckboxGroup>
             <RadioGroup id={`${theme}-hr`} legend="Horizontal" orientation="horizontal" error="Choose a region">
               <Radio name={`${theme}-h`}>Delve</Radio>
               <Radio name={`${theme}-h`}>Fountain</Radio>

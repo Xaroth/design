@@ -152,7 +152,7 @@
       .x-filters--side & {
         grid-template-columns: minmax(0, 1fr);
 
-        .x-radio-group__options {
+        .x-choice-group__options {
           flex-direction: column;
         }
 
@@ -171,7 +171,7 @@
           flex: 1 1 14rem;
         }
 
-        > .x-radio-group {
+        > .x-choice-group {
           flex: 1.6 1 auto;
         }
 
@@ -181,7 +181,7 @@
           margin-left: auto;
         }
 
-        .x-radio-group__options {
+        .x-choice-group__options {
           align-items: center;
           min-height: var(--x-control-md);
         }

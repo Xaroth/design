@@ -1,4 +1,5 @@
 ---
+import CheckboxGroup from '@xaroth.nl/design/astro/checkbox-group'
 import Harness from '../layouts/Harness.astro'
 import Checkbox from '@xaroth.nl/design/astro/checkbox'
 import Container from '@xaroth.nl/design/astro/container'
@@ -50,12 +51,9 @@ const layouts = [
             </Field>
             {/* Each site orders its own fields; xaroth puts grouped choices on their own row. */}
             {theme === 'xaroth' && <Switch name="hide">Hide completed</Switch>}
-            <fieldset class="x-radio-group x-radio-group--horizontal">
-              <legend class="x-radio-group__legend">Category</legend>
-              <div class="x-radio-group__options">
+            <CheckboxGroup id={`${theme}-flt1`} legend="Category" orientation="horizontal">
                 {categories.map((c, i) => <Checkbox name="category" value={c} checked={i < 2}>{c}</Checkbox>)}
-              </div>
-            </fieldset>
+              </CheckboxGroup>
             {theme !== 'xaroth' && <Switch name="hide">Hide completed</Switch>}
           </FilterPanel>
           <Table columns={columns} rows={rows} label="Achievements" />

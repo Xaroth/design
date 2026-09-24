@@ -1,4 +1,4 @@
-import { Checkbox, Field, FilterPanel, Input, Select, Switch, Table } from '@xaroth.nl/design/react'
+import { Checkbox, CheckboxGroup, Field, FilterPanel, Input, Select, Switch, Table } from '@xaroth.nl/design/react'
 
 const factions = ['All factions', 'Amarr Empire', 'Caldari State', 'Gallente Federation', 'Minmatar Republic']
 const categories = ['Combat', 'Industry', 'Exploration']
@@ -41,21 +41,22 @@ export const filterFields = (
         ))}
       </Select>
     </Field>
-    <fieldset className="x-radio-group x-radio-group--horizontal">
-      <legend className="x-radio-group__legend">Category</legend>
-      <div className="x-radio-group__options">
-        {categories.map((c, i) => (
-          <Checkbox
-            key={c}
-            name="category"
-            value={c}
-            defaultChecked={i < 2}
-          >
-            {c}
-          </Checkbox>
-        ))}
-      </div>
-    </fieldset>
+    <CheckboxGroup
+      id="filter-category"
+      legend="Category"
+      orientation="horizontal"
+    >
+      {categories.map((c, i) => (
+        <Checkbox
+          key={c}
+          name="category"
+          value={c}
+          defaultChecked={i < 2}
+        >
+          {c}
+        </Checkbox>
+      ))}
+    </CheckboxGroup>
     <Switch name="hide">Hide completed</Switch>
   </>
 )

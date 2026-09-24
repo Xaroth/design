@@ -83,6 +83,10 @@
       "source": "./src/components/empty-state/empty-state.astro",
       "default": "./dist/components/empty-state/empty-state.astro"
     },
+    "./astro/checkbox-group": {
+      "source": "./src/components/field/checkbox-group.astro",
+      "default": "./dist/components/field/checkbox-group.astro"
+    },
     "./astro/checkbox": {
       "source": "./src/components/field/checkbox.astro",
       "default": "./dist/components/field/checkbox.astro"

@@ -10,7 +10,7 @@
 
   // Grouped choices take their own row under the fields when the filters sit on top.
   @media (min-width: 1024px) {
-    .x-filters--top .x-filter-panel > .x-radio-group {
+    .x-filters--top .x-filter-panel > .x-choice-group {
       flex-basis: 100%;
     }
   }

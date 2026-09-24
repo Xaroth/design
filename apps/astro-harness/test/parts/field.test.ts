@@ -6,10 +6,21 @@ import AstroField from '@xaroth.nl/design/astro/field'
 import AstroInput from '@xaroth.nl/design/astro/input'
 import AstroRadio from '@xaroth.nl/design/astro/radio'
 import AstroRadioGroup from '@xaroth.nl/design/astro/radio-group'
+import AstroCheckboxGroup from '@xaroth.nl/design/astro/checkbox-group'
 import AstroSelect from '@xaroth.nl/design/astro/select'
 import AstroSwitch from '@xaroth.nl/design/astro/switch'
 import AstroTextarea from '@xaroth.nl/design/astro/textarea'
-import { Checkbox, Field, Input, Radio, RadioGroup, Select, Switch, Textarea } from '@xaroth.nl/design/react'
+import {
+  Checkbox,
+  CheckboxGroup,
+  Field,
+  Input,
+  Radio,
+  RadioGroup,
+  Select,
+  Switch,
+  Textarea,
+} from '@xaroth.nl/design/react'
 import { expectSameHtml } from '../compare.ts'
 
 const container = await AstroContainer.create()
@@ -223,6 +234,35 @@ describe('RadioGroup', () => {
         AstroRadioGroup,
         { props, slots: { default: await radios() } },
         createElement(RadioGroup, split(props) as never, reactRadios),
+      )
+    })
+  }
+})
+
+describe('CheckboxGroup', () => {
+  const boxes = async () =>
+    (
+      await Promise.all(
+        ['combat', 'industry'].map((value) =>
+          container.renderToString(AstroCheckbox, { props: { name: 'category', value }, slots: { default: value } }),
+        ),
+      )
+    ).join('')
+  const reactBoxes = ['combat', 'industry'].map((value) =>
+    createElement(Checkbox, { key: value, name: 'category', value }, value),
+  )
+
+  const cases: [string, Record<string, unknown>][] = [
+    ['legend', { id: 'category', legend: 'Category' }],
+    ['description and error', { id: 'category', legend: 'Category', description: 'Pick any', error: 'Pick one' }],
+    ['required horizontal', { id: 'category', legend: 'Category', required: true, orientation: 'horizontal' }],
+  ]
+  for (const [name, props] of cases) {
+    it(name, async () => {
+      await expectSameHtml(
+        AstroCheckboxGroup,
+        { props, slots: { default: await boxes() } },
+        createElement(CheckboxGroup, split(props) as never, reactBoxes),
       )
     })
   }

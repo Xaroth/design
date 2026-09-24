@@ -18,13 +18,13 @@ import {
   fieldIds,
   inputClass,
   mergeDescribedBy,
-  radioGroupAttrs,
-  radioGroupClass,
+  choiceGroupAttrs,
+  choiceGroupClass,
   selectClass,
   textareaClass,
   type ChoiceKind,
   type InputType,
-  type RadioGroupOrientation,
+  type ChoiceGroupOrientation,
 } from './index.ts'
 
 // Matches Astro, where an empty string prop counts as absent.
@@ -203,17 +203,18 @@ export const Switch = (props: SwitchProps) => (
   />
 )
 
-export type RadioGroupProps = Omit<FieldsetHTMLAttributes<HTMLFieldSetElement>, 'id' | 'role'> & {
+export type ChoiceGroupProps = Omit<FieldsetHTMLAttributes<HTMLFieldSetElement>, 'id' | 'role'> & {
   /** Help and error text get `${id}-help` and `${id}-error`. */
   id: string
   legend?: ReactNode
   description?: ReactNode
   error?: ReactNode
   required?: boolean
-  orientation?: RadioGroupOrientation
+  orientation?: ChoiceGroupOrientation
 }
 
-export function RadioGroup({
+function ChoiceGroup({
+  kind,
   id,
   legend,
   description,
@@ -223,18 +224,18 @@ export function RadioGroup({
   className,
   children,
   ...rest
-}: RadioGroupProps) {
+}: ChoiceGroupProps & { kind: 'radio' | 'checkbox' }) {
   const hasDescription = present(description)
   const hasError = present(error)
   const ids = fieldIds(id)
   return (
     <fieldset
-      className={radioGroupClass({ orientation, invalid: hasError, className })}
-      {...radioGroupAttrs({ id, hasDescription, hasError, required })}
+      className={choiceGroupClass({ orientation, invalid: hasError, className })}
+      {...choiceGroupAttrs({ id, hasDescription, hasError, required, kind })}
       {...rest}
     >
       {present(legend) && (
-        <legend className="x-radio-group__legend">
+        <legend className="x-choice-group__legend">
           {legend}
           {required && (
             <span
@@ -246,7 +247,7 @@ export function RadioGroup({
           )}
         </legend>
       )}
-      <div className="x-radio-group__options">{children}</div>
+      <div className="x-choice-group__options">{children}</div>
       {hasDescription && (
         <p
           className="x-field__help"
@@ -266,3 +267,20 @@ export function RadioGroup({
     </fieldset>
   )
 }
+
+export type RadioGroupProps = ChoiceGroupProps
+export type CheckboxGroupProps = ChoiceGroupProps
+
+export const RadioGroup = (props: RadioGroupProps) => (
+  <ChoiceGroup
+    kind="radio"
+    {...props}
+  />
+)
+
+export const CheckboxGroup = (props: CheckboxGroupProps) => (
+  <ChoiceGroup
+    kind="checkbox"
+    {...props}
+  />
+)

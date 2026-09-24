@@ -17,7 +17,7 @@
 
   // Every block of this part carries the defaults, so help text and icons inside can read them.
   .x-field,
-  .x-radio-group,
+  .x-choice-group,
   .x-input,
   .x-input-wrap,
   .x-textarea,
@@ -339,7 +339,7 @@
   }
 
   // Group of radios (or other choices): fieldset with a legend styled like a field label.
-  .x-radio-group {
+  .x-choice-group {
     display: grid;
     gap: var(--x-space-2);
     align-content: start;

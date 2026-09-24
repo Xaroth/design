@@ -23,7 +23,7 @@ const ids = fieldIds(id)
 
 <fieldset
   class={choiceGroupClass({ orientation, invalid: hasError, className })}
-  {...choiceGroupAttrs({ id, hasDescription, hasError, required, kind: 'radio' })}
+  {...choiceGroupAttrs({ id, hasDescription, hasError, required, kind: 'checkbox' })}
   {...rest}
 >
   {
