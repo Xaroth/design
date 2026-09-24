@@ -1,6 +1,6 @@
 // Builds dist: theme and all.css bundles, one stylesheet per component family, and the .astro files with their
 // imports pointed at compiled output. TypeScript output comes from tsc (build:js).
-import { copyFile, mkdir, readdir, readFile, writeFile } from 'node:fs/promises'
+import { copyFile, mkdir, readdir, readFile, rm, writeFile } from 'node:fs/promises'
 import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import * as sass from 'sass'
@@ -8,6 +8,7 @@ import { themeIds } from '../src/config.ts'
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..')
 const dist = join(root, 'dist')
+await rm(dist, { recursive: true, force: true })
 
 const compile = async (src: string, out: string) => {
   const { css } = sass.compile(join(root, src), { style: 'expanded' })
@@ -35,6 +36,12 @@ for (const family of await readdir(join(root, 'src/components'))) {
   }
 }
 await copyFile(join(root, 'src/env.d.ts'), join(dist, 'env.d.ts'))
+
+// Public Sass helpers for sites that build on the system.
+await mkdir(join(dist, 'scss'), { recursive: true })
+for (const file of ['_layers.scss', '_theme.scss', '_chamfer.scss']) {
+  await copyFile(join(root, 'src/styles', file), join(dist, 'scss', file))
+}
 
 // The Astro barrel only re-exports .astro files, which tsc cannot compile; ship it as JS with matching types.
 const barrel = await readFile(join(root, 'src/astro.ts'), 'utf8')

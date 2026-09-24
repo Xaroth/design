@@ -1,8 +1,8 @@
 import { createElement, type ReactElement } from 'react'
 import { describe, it } from 'vitest'
-import AstroTooltip from '@xaroth.nl/design/astro/tooltip'
 import { Tooltip } from '@xaroth.nl/design/react'
 import { expectSameHtml } from '../compare.ts'
+import { Tooltip as AstroTooltip } from '@xaroth.nl/design/astro'
 
 type Trigger = { html: string; react: () => ReactElement }
 

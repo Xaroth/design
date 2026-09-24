@@ -1,8 +1,8 @@
 import { createElement } from 'react'
 import { describe, it } from 'vitest'
-import AstroBreadcrumbs from '@xaroth.nl/design/astro/breadcrumbs'
 import { Breadcrumbs } from '@xaroth.nl/design/react'
 import { expectSameHtml } from '../compare.ts'
+import { Breadcrumbs as AstroBreadcrumbs } from '@xaroth.nl/design/astro'
 
 const cases: { name: string; props: Record<string, unknown> }[] = [
   {

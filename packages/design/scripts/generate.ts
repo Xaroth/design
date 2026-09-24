@@ -44,34 +44,6 @@ for (const theme of themeIds) {
     `${header}@use 'sass:meta';\n\n${families.map((f) => `@include meta.load-css('../../components/${f}/${f}.${theme}');\n`).join('')}`
 }
 
-const pkgPath = join(root, 'package.json')
-const pkg = JSON.parse(await readFile(pkgPath, 'utf8'))
-const exports: Record<string, unknown> = {}
-for (const theme of themeIds) {
-  exports[`./themes/${theme}.css`] = {
-    source: `./src/styles/themes/${theme}.scss`,
-    default: `./dist/themes/${theme}.css`,
-  }
-}
-exports['./themes.css'] = { source: './src/styles/themes.scss', default: './dist/themes.css' }
-exports['./all.css'] = { source: './src/styles/all.scss', default: './dist/all.css' }
-exports['./scss/*'] = './src/styles/*'
-exports['./astro'] = { source: './src/astro.ts', types: './dist/astro.d.ts', default: './dist/astro.js' }
-for (const entry of ['parts', 'react']) {
-  exports[`./${entry}`] = {
-    source: `./src/${entry}.ts`,
-    types: `./dist/${entry}.d.ts`,
-    import: `./dist/${entry}.js`,
-  }
-}
-for (const [name, family] of Object.entries(astro)) {
-  exports[`./astro/${name}`] = {
-    source: `./src/components/${family}/${name}.astro`,
-    default: `./dist/components/${family}/${name}.astro`,
-  }
-}
-files['package.json'] = `${JSON.stringify({ ...pkg, exports }, null, 2)}\n`
-
 let stale = 0
 for (const [path, content] of Object.entries(files)) {
   const full = join(root, path)

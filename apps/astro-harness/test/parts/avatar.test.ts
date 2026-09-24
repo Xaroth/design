@@ -1,8 +1,8 @@
 import { createElement } from 'react'
 import { describe, it } from 'vitest'
-import AstroAvatar from '@xaroth.nl/design/astro/avatar'
 import { Avatar } from '@xaroth.nl/design/react'
 import { expectSameHtml } from '../compare.ts'
+import { Avatar as AstroAvatar } from '@xaroth.nl/design/astro'
 
 const cases: { name: string; props: Record<string, unknown> }[] = [
   { name: 'initials from one word', props: { name: 'Xaroth' } },

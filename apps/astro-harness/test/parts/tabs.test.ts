@@ -1,8 +1,8 @@
 import { createElement } from 'react'
 import { describe, it } from 'vitest'
-import AstroTabs from '@xaroth.nl/design/astro/tabs'
 import { Tabs } from '@xaroth.nl/design/react'
 import { expectSameHtml } from '../compare.ts'
+import { Tabs as AstroTabs } from '@xaroth.nl/design/astro'
 
 const items = [
   { label: 'Overview', href: '/tool', current: true },

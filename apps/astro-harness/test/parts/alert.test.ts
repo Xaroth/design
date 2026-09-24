@@ -1,8 +1,8 @@
 import { createElement, type ReactNode } from 'react'
 import { describe, it } from 'vitest'
-import AstroAlert from '@xaroth.nl/design/astro/alert'
 import { Alert } from '@xaroth.nl/design/react'
 import { expectSameHtml } from '../compare.ts'
+import { Alert as AstroAlert } from '@xaroth.nl/design/astro'
 
 type Slot = 'title' | 'actions'
 

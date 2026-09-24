@@ -1,8 +1,8 @@
 import { createElement } from 'react'
 import { describe, it } from 'vitest'
-import AstroTag from '@xaroth.nl/design/astro/tag'
 import { Tag } from '@xaroth.nl/design/react'
 import { expectSameHtml } from '../compare.ts'
+import { Tag as AstroTag } from '@xaroth.nl/design/astro'
 
 const cases: { name: string; props: Record<string, unknown> }[] = [
   { name: 'span', props: {} },

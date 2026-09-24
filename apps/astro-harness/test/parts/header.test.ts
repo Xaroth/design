@@ -1,8 +1,8 @@
 import { createElement } from 'react'
 import { describe, it } from 'vitest'
-import AstroHeader from '@xaroth.nl/design/astro/header'
 import { Header } from '@xaroth.nl/design/react'
 import { expectSameHtml } from '../compare.ts'
+import { Header as AstroHeader } from '@xaroth.nl/design/astro'
 
 const items = [
   { label: 'Home', href: '/', current: true },

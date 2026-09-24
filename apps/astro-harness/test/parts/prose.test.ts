@@ -1,9 +1,8 @@
 import { createElement, type ReactElement, type ReactNode } from 'react'
 import { describe, it } from 'vitest'
-import AstroCodeBlock from '@xaroth.nl/design/astro/code-block'
-import AstroProse from '@xaroth.nl/design/astro/prose'
 import { CodeBlock, Prose } from '@xaroth.nl/design/react'
 import { expectSameHtml } from '../compare.ts'
+import { CodeBlock as AstroCodeBlock, Prose as AstroProse } from '@xaroth.nl/design/astro'
 
 // Props are loose per case, so the element is built untyped.
 const el = (type: unknown, props: object, ...children: ReactNode[]) =>

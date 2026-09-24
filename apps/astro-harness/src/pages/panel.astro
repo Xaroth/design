@@ -1,7 +1,6 @@
 ---
 import Harness from '../layouts/Harness.astro'
-import Panel from '@xaroth.nl/design/astro/panel'
-import Button from '@xaroth.nl/design/astro/button'
+import { Button, Panel } from '@xaroth.nl/design/astro'
 
 const variants = ['plain', 'raised', 'accent', 'callout'] as const
 const grid = 'display: grid; gap: 24px; grid-template-columns: repeat(auto-fill, minmax(min(100%, 260px), 1fr)); margin-top: 16px'

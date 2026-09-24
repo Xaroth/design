@@ -15,13 +15,24 @@
   ],
   "type": "module",
   "exports": {
-    "./themes/xaroth.css": {
-      "source": "./src/styles/themes/xaroth.scss",
-      "default": "./dist/themes/xaroth.css"
+    "./astro": {
+      "source": "./src/astro.ts",
+      "types": "./dist/astro.d.ts",
+      "default": "./dist/astro.js"
     },
-    "./themes/eve-online.css": {
-      "source": "./src/styles/themes/eve-online.scss",
-      "default": "./dist/themes/eve-online.css"
+    "./react": {
+      "source": "./src/react.ts",
+      "types": "./dist/react.d.ts",
+      "import": "./dist/react.js"
+    },
+    "./parts": {
+      "source": "./src/parts.ts",
+      "types": "./dist/parts.d.ts",
+      "import": "./dist/parts.js"
+    },
+    "./themes/*.css": {
+      "source": "./src/styles/themes/*.scss",
+      "default": "./dist/themes/*.css"
     },
     "./themes.css": {
       "source": "./src/styles/themes.scss",
@@ -31,182 +42,10 @@
       "source": "./src/styles/all.scss",
       "default": "./dist/all.css"
     },
-    "./scss/*": "./src/styles/*",
-    "./astro": {
-      "source": "./src/astro.ts",
-      "types": "./dist/astro.d.ts",
-      "default": "./dist/astro.js"
-    },
-    "./parts": {
-      "source": "./src/parts.ts",
-      "types": "./dist/parts.d.ts",
-      "import": "./dist/parts.js"
-    },
-    "./react": {
-      "source": "./src/react.ts",
-      "types": "./dist/react.d.ts",
-      "import": "./dist/react.js"
-    },
-    "./astro/alert": {
-      "source": "./src/components/alert/alert.astro",
-      "default": "./dist/components/alert/alert.astro"
-    },
-    "./astro/avatar": {
-      "source": "./src/components/avatar/avatar.astro",
-      "default": "./dist/components/avatar/avatar.astro"
-    },
-    "./astro/badge": {
-      "source": "./src/components/badge/badge.astro",
-      "default": "./dist/components/badge/badge.astro"
-    },
-    "./astro/breadcrumbs": {
-      "source": "./src/components/breadcrumbs/breadcrumbs.astro",
-      "default": "./dist/components/breadcrumbs/breadcrumbs.astro"
-    },
-    "./astro/button": {
-      "source": "./src/components/button/button.astro",
-      "default": "./dist/components/button/button.astro"
-    },
-    "./astro/card": {
-      "source": "./src/components/card/card.astro",
-      "default": "./dist/components/card/card.astro"
-    },
-    "./astro/description-list": {
-      "source": "./src/components/description-list/description-list.astro",
-      "default": "./dist/components/description-list/description-list.astro"
-    },
-    "./astro/divider": {
-      "source": "./src/components/divider/divider.astro",
-      "default": "./dist/components/divider/divider.astro"
-    },
-    "./astro/empty-state": {
-      "source": "./src/components/empty-state/empty-state.astro",
-      "default": "./dist/components/empty-state/empty-state.astro"
-    },
-    "./astro/checkbox-group": {
-      "source": "./src/components/field/checkbox-group.astro",
-      "default": "./dist/components/field/checkbox-group.astro"
-    },
-    "./astro/checkbox": {
-      "source": "./src/components/field/checkbox.astro",
-      "default": "./dist/components/field/checkbox.astro"
-    },
-    "./astro/field": {
-      "source": "./src/components/field/field.astro",
-      "default": "./dist/components/field/field.astro"
-    },
-    "./astro/input": {
-      "source": "./src/components/field/input.astro",
-      "default": "./dist/components/field/input.astro"
-    },
-    "./astro/radio-group": {
-      "source": "./src/components/field/radio-group.astro",
-      "default": "./dist/components/field/radio-group.astro"
-    },
-    "./astro/radio": {
-      "source": "./src/components/field/radio.astro",
-      "default": "./dist/components/field/radio.astro"
-    },
-    "./astro/select": {
-      "source": "./src/components/field/select.astro",
-      "default": "./dist/components/field/select.astro"
-    },
-    "./astro/switch": {
-      "source": "./src/components/field/switch.astro",
-      "default": "./dist/components/field/switch.astro"
-    },
-    "./astro/textarea": {
-      "source": "./src/components/field/textarea.astro",
-      "default": "./dist/components/field/textarea.astro"
-    },
-    "./astro/filter-layout": {
-      "source": "./src/components/filters/filter-layout.astro",
-      "default": "./dist/components/filters/filter-layout.astro"
-    },
-    "./astro/filter-panel": {
-      "source": "./src/components/filters/filter-panel.astro",
-      "default": "./dist/components/filters/filter-panel.astro"
-    },
-    "./astro/footer": {
-      "source": "./src/components/footer/footer.astro",
-      "default": "./dist/components/footer/footer.astro"
-    },
-    "./astro/header": {
-      "source": "./src/components/header/header.astro",
-      "default": "./dist/components/header/header.astro"
-    },
-    "./astro/icon": {
-      "source": "./src/components/icon/icon.astro",
-      "default": "./dist/components/icon/icon.astro"
-    },
-    "./astro/container": {
-      "source": "./src/components/layout/container.astro",
-      "default": "./dist/components/layout/container.astro"
-    },
-    "./astro/grid": {
-      "source": "./src/components/layout/grid.astro",
-      "default": "./dist/components/layout/grid.astro"
-    },
-    "./astro/section-head": {
-      "source": "./src/components/layout/section-head.astro",
-      "default": "./dist/components/layout/section-head.astro"
-    },
-    "./astro/section": {
-      "source": "./src/components/layout/section.astro",
-      "default": "./dist/components/layout/section.astro"
-    },
-    "./astro/pagination": {
-      "source": "./src/components/pagination/pagination.astro",
-      "default": "./dist/components/pagination/pagination.astro"
-    },
-    "./astro/panel": {
-      "source": "./src/components/panel/panel.astro",
-      "default": "./dist/components/panel/panel.astro"
-    },
-    "./astro/progress": {
-      "source": "./src/components/progress/progress.astro",
-      "default": "./dist/components/progress/progress.astro"
-    },
-    "./astro/code-block": {
-      "source": "./src/components/prose/code-block.astro",
-      "default": "./dist/components/prose/code-block.astro"
-    },
-    "./astro/prose": {
-      "source": "./src/components/prose/prose.astro",
-      "default": "./dist/components/prose/prose.astro"
-    },
-    "./astro/stat-group": {
-      "source": "./src/components/stat/stat-group.astro",
-      "default": "./dist/components/stat/stat-group.astro"
-    },
-    "./astro/stat": {
-      "source": "./src/components/stat/stat.astro",
-      "default": "./dist/components/stat/stat.astro"
-    },
-    "./astro/table": {
-      "source": "./src/components/table/table.astro",
-      "default": "./dist/components/table/table.astro"
-    },
-    "./astro/tabs": {
-      "source": "./src/components/tabs/tabs.astro",
-      "default": "./dist/components/tabs/tabs.astro"
-    },
-    "./astro/tag": {
-      "source": "./src/components/tag/tag.astro",
-      "default": "./dist/components/tag/tag.astro"
-    },
-    "./astro/timeline": {
-      "source": "./src/components/timeline/timeline.astro",
-      "default": "./dist/components/timeline/timeline.astro"
-    },
-    "./astro/tooltip": {
-      "source": "./src/components/tooltip/tooltip.astro",
-      "default": "./dist/components/tooltip/tooltip.astro"
-    }
+    "./scss/*": "./dist/scss/*"
   },
   "files": [
-    "dist",
-    "src"
+    "dist"
   ],
   "repository": {
     "type": "git",
@@ -245,5 +84,25 @@
     "react": "catalog:",
     "sass": "catalog:",
     "typescript": "catalog:"
+  },
+  "publishConfig": {
+    "exports": {
+      "./astro": {
+        "types": "./dist/astro.d.ts",
+        "default": "./dist/astro.js"
+      },
+      "./react": {
+        "types": "./dist/react.d.ts",
+        "import": "./dist/react.js"
+      },
+      "./parts": {
+        "types": "./dist/parts.d.ts",
+        "import": "./dist/parts.js"
+      },
+      "./themes/*.css": "./dist/themes/*.css",
+      "./themes.css": "./dist/themes.css",
+      "./all.css": "./dist/all.css",
+      "./scss/*": "./dist/scss/*"
+    }
   }
 }

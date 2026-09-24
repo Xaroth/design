@@ -1,8 +1,8 @@
 import { createElement } from 'react'
 import { describe, expect, it } from 'vitest'
-import AstroPagination from '@xaroth.nl/design/astro/pagination'
 import { Pagination, paginationPages } from '@xaroth.nl/design/react'
 import { expectSameHtml } from '../compare.ts'
+import { Pagination as AstroPagination } from '@xaroth.nl/design/astro'
 
 const href = '/blog/page/{page}'
 

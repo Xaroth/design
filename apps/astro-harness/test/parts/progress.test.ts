@@ -1,8 +1,8 @@
 import { createElement } from 'react'
 import { describe, it } from 'vitest'
-import AstroProgress from '@xaroth.nl/design/astro/progress'
 import { Progress } from '@xaroth.nl/design/react'
 import { expectSameHtml } from '../compare.ts'
+import { Progress as AstroProgress } from '@xaroth.nl/design/astro'
 
 const cases: { name: string; props: Record<string, unknown> }[] = [
   { name: 'value', props: { value: 72, label: 'Upload' } },

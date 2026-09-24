@@ -1,11 +1,13 @@
 import { createElement, type ReactElement, type ReactNode } from 'react'
 import { describe, it } from 'vitest'
-import AstroContainer from '@xaroth.nl/design/astro/container'
-import AstroGrid from '@xaroth.nl/design/astro/grid'
-import AstroSection from '@xaroth.nl/design/astro/section'
-import AstroSectionHead from '@xaroth.nl/design/astro/section-head'
 import { Container, Grid, Section, SectionHead } from '@xaroth.nl/design/react'
 import { expectSameHtml } from '../compare.ts'
+import {
+  Container as AstroContainer,
+  Grid as AstroGrid,
+  Section as AstroSection,
+  SectionHead as AstroSectionHead,
+} from '@xaroth.nl/design/astro'
 
 // Props are loose per case, so the element is built untyped.
 const el = (type: unknown, props: object, ...children: ReactNode[]) =>

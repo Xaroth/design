@@ -1,15 +1,6 @@
 import { experimental_AstroContainer as AstroContainer } from 'astro/container'
 import { createElement, type ReactElement } from 'react'
 import { describe, it } from 'vitest'
-import AstroCheckbox from '@xaroth.nl/design/astro/checkbox'
-import AstroField from '@xaroth.nl/design/astro/field'
-import AstroInput from '@xaroth.nl/design/astro/input'
-import AstroRadio from '@xaroth.nl/design/astro/radio'
-import AstroRadioGroup from '@xaroth.nl/design/astro/radio-group'
-import AstroCheckboxGroup from '@xaroth.nl/design/astro/checkbox-group'
-import AstroSelect from '@xaroth.nl/design/astro/select'
-import AstroSwitch from '@xaroth.nl/design/astro/switch'
-import AstroTextarea from '@xaroth.nl/design/astro/textarea'
 import {
   Checkbox,
   CheckboxGroup,
@@ -22,6 +13,17 @@ import {
   Textarea,
 } from '@xaroth.nl/design/react'
 import { expectSameHtml } from '../compare.ts'
+import {
+  Checkbox as AstroCheckbox,
+  CheckboxGroup as AstroCheckboxGroup,
+  Field as AstroField,
+  Input as AstroInput,
+  Radio as AstroRadio,
+  RadioGroup as AstroRadioGroup,
+  Select as AstroSelect,
+  Switch as AstroSwitch,
+  Textarea as AstroTextarea,
+} from '@xaroth.nl/design/astro'
 
 const container = await AstroContainer.create()
 const icon = '<svg viewBox="0 0 16 16"></svg>'

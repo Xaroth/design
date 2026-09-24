@@ -1,9 +1,8 @@
 import { createElement, type ReactNode } from 'react'
 import { describe, it } from 'vitest'
-import AstroStat from '@xaroth.nl/design/astro/stat'
-import AstroStatGroup from '@xaroth.nl/design/astro/stat-group'
 import { Stat, StatGroup } from '@xaroth.nl/design/react'
 import { expectSameHtml } from '../compare.ts'
+import { Stat as AstroStat, StatGroup as AstroStatGroup } from '@xaroth.nl/design/astro'
 
 type Slot = 'label' | 'unit' | 'hint'
 

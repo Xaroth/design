@@ -2,9 +2,9 @@ import { experimental_AstroContainer as AstroContainer } from 'astro/container'
 import { createElement } from 'react'
 import { renderToStaticMarkup } from 'react-dom/server'
 import { describe, expect, it } from 'vitest'
-import AstroButton from '@xaroth.nl/design/astro/button'
 import { Button } from '@xaroth.nl/design/react'
 import { normalize } from '../normalize.ts'
+import { Button as AstroButton } from '@xaroth.nl/design/astro'
 
 const container = await AstroContainer.create()
 

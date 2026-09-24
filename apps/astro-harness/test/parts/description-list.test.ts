@@ -1,8 +1,8 @@
 import { createElement } from 'react'
 import { describe, it } from 'vitest'
-import AstroDescriptionList from '@xaroth.nl/design/astro/description-list'
 import { DescriptionList } from '@xaroth.nl/design/react'
 import { expectSameHtml } from '../compare.ts'
+import { DescriptionList as AstroDescriptionList } from '@xaroth.nl/design/astro'
 
 const items = [
   { term: 'Published', value: '2026-03-14' },

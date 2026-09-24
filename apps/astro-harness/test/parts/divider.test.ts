@@ -1,8 +1,8 @@
 import { createElement } from 'react'
 import { describe, it } from 'vitest'
-import AstroDivider from '@xaroth.nl/design/astro/divider'
 import { Divider } from '@xaroth.nl/design/react'
 import { expectSameHtml } from '../compare.ts'
+import { Divider as AstroDivider } from '@xaroth.nl/design/astro'
 
 const cases: { name: string; props: Record<string, unknown>; text?: string }[] = [
   { name: 'default', props: {} },

@@ -1,8 +1,8 @@
 import { createElement } from 'react'
 import { describe, it } from 'vitest'
-import AstroIcon from '@xaroth.nl/design/astro/icon'
 import { Icon, iconNames } from '@xaroth.nl/design/react'
 import { expectSameHtml } from '../compare.ts'
+import { Icon as AstroIcon } from '@xaroth.nl/design/astro'
 
 const cases: { name: string; props: Record<string, unknown> }[] = [
   { name: 'labelled', props: { name: 'search', label: 'Search' } },

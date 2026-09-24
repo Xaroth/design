@@ -2,11 +2,10 @@ import { experimental_AstroContainer as AstroContainer } from 'astro/container'
 import { createElement } from 'react'
 import { renderToStaticMarkup } from 'react-dom/server'
 import { describe, expect, it } from 'vitest'
-import AstroFilterLayout from '@xaroth.nl/design/astro/filter-layout'
-import AstroFilterPanel from '@xaroth.nl/design/astro/filter-panel'
 import { FilterLayout, FilterPanel, filterSwitchScript } from '@xaroth.nl/design/react'
 import { expectSameHtml } from '../compare.ts'
 import { normalize } from '../normalize.ts'
+import { FilterLayout as AstroFilterLayout, FilterPanel as AstroFilterPanel } from '@xaroth.nl/design/astro'
 
 const container = await AstroContainer.create()
 const form = '<form class="x-filter-panel"><input name="q"></form>'

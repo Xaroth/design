@@ -1,8 +1,8 @@
 import { createElement } from 'react'
 import { describe, it } from 'vitest'
-import AstroPanel from '@xaroth.nl/design/astro/panel'
 import { Panel } from '@xaroth.nl/design/react'
 import { expectSameHtml } from '../compare.ts'
+import { Panel as AstroPanel } from '@xaroth.nl/design/astro'
 
 const variants = ['plain', 'raised', 'accent', 'callout'] as const
 const paddings = ['none', 'sm', 'md', 'lg', 'xl'] as const

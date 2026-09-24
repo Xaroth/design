@@ -1,9 +1,9 @@
 import { createElement, type ReactNode } from 'react'
 import { describe, it } from 'vitest'
-import AstroTable from '@xaroth.nl/design/astro/table'
 import { Table } from '@xaroth.nl/design/react'
 import { tableCellSlot, type TableColumn } from '@xaroth.nl/design/parts'
 import { expectSameHtml } from '../compare.ts'
+import { Table as AstroTable } from '@xaroth.nl/design/astro'
 
 const columns: TableColumn[] = [
   { key: 'name', label: 'Achievement' },

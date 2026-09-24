@@ -1,8 +1,8 @@
 import { createElement, type ReactNode } from 'react'
 import { describe, it } from 'vitest'
-import AstroEmptyState from '@xaroth.nl/design/astro/empty-state'
 import { EmptyState } from '@xaroth.nl/design/react'
 import { expectSameHtml } from '../compare.ts'
+import { EmptyState as AstroEmptyState } from '@xaroth.nl/design/astro'
 
 type Slot = 'title' | 'icon' | 'actions'
 

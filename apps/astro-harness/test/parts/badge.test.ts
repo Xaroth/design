@@ -1,8 +1,8 @@
 import { createElement } from 'react'
 import { describe, it } from 'vitest'
-import AstroBadge from '@xaroth.nl/design/astro/badge'
 import { Badge } from '@xaroth.nl/design/react'
 import { expectSameHtml } from '../compare.ts'
+import { Badge as AstroBadge } from '@xaroth.nl/design/astro'
 
 const cases: { name: string; props: Record<string, unknown> }[] = [
   { name: 'default', props: {} },
