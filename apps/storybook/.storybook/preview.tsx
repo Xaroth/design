@@ -1,28 +1,19 @@
 import type { Decorator, Preview } from '@storybook/react-vite'
+import { themes } from '@xaroth.nl/design/parts'
 import '@xaroth.nl/design/scss/core.scss'
 import '@xaroth.nl/design/scss/themes/xaroth.scss'
 import '@xaroth.nl/design/scss/themes/eve-online.scss'
+import './preview.css'
 
-const themes = ['xaroth', 'eve-online'] as const
+const titles: Record<(typeof themes)[number], string> = {
+  xaroth: 'xaroth.nl',
+  'eve-online': 'eve-online.tools',
+}
 
-// Stories always render inside a theme wrapper; "both" shows the story once per theme.
+// Theme lives on <html>, like a real site, so the whole canvas takes the theme background.
 const withTheme: Decorator = (Story, context) => {
-  const selected = context.globals.theme as string
-  document.documentElement.dataset.xTheme = 'multi'
-  const shown = selected === 'both' ? themes : [selected]
-  return (
-    <div style={{ display: 'grid', gap: 0 }}>
-      {shown.map((theme) => (
-        <div
-          key={theme}
-          data-x-theme={theme}
-          style={{ padding: 24 }}
-        >
-          <Story />
-        </div>
-      ))}
-    </div>
-  )
+  document.documentElement.dataset.xTheme = context.globals.theme as string
+  return <Story />
 }
 
 const preview: Preview = {
@@ -33,18 +24,14 @@ const preview: Preview = {
       toolbar: {
         title: 'Theme',
         icon: 'paintbrush',
-        items: [
-          { value: 'xaroth', title: 'xaroth.nl' },
-          { value: 'eve-online', title: 'eve-online.tools' },
-          { value: 'both', title: 'Both' },
-        ],
+        items: themes.map((value) => ({ value, title: titles[value] })),
         dynamicTitle: true,
       },
     },
   },
-  initialGlobals: { theme: 'both' },
+  initialGlobals: { theme: themes[0] },
   parameters: {
-    layout: 'fullscreen',
+    backgrounds: { disable: true },
     a11y: { test: 'error' },
   },
 }

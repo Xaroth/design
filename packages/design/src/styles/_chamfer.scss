@@ -1,0 +1,36 @@
+@use 'sass:math';
+
+// Cut top-left and bottom-right corners.
+@function shape($c) {
+  @return polygon(
+    $c 0,
+    100% 0,
+    100% calc(100% - #{$c}),
+    calc(100% - #{$c}) 100%,
+    0 100%,
+    0 $c
+  );
+}
+
+// The same outline as a ring of width $w, for drawing edges along the cut. A 45 degree edge moved inward by $w
+// meets the straight sides at $c + $w * (sqrt(2) - 1).
+@function ring($c, $w) {
+  $d: $w * (math.sqrt(2) - 1);
+  @return polygon(
+    evenodd,
+    $c 0,
+    100% 0,
+    100% calc(100% - #{$c}),
+    calc(100% - #{$c}) 100%,
+    0 100%,
+    0 $c,
+    $c 0,
+    calc(#{$c} + #{$d}) $w,
+    calc(100% - #{$w}) $w,
+    calc(100% - #{$w}) calc(100% - #{$c} - #{$d}),
+    calc(100% - #{$c} - #{$d}) calc(100% - #{$w}),
+    $w calc(100% - #{$w}),
+    $w calc(#{$c} + #{$d}),
+    calc(#{$c} + #{$d}) $w
+  );
+}

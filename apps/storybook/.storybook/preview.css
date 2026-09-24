@@ -1,0 +1,10 @@
+/* Let the themed <html> background fill the whole canvas. */
+html,
+body,
+#storybook-root {
+  min-height: 100%;
+}
+
+body {
+  background: transparent !important;
+}
