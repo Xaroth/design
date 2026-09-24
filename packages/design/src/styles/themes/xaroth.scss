@@ -22,3 +22,7 @@
   @include meta.load-css('xaroth/tokens');
   @include meta.load-css('xaroth-parts');
 }
+
+@layer x.utility {
+  @include meta.load-css('../utilities');
+}

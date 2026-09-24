@@ -31,7 +31,8 @@ A site loads one theme and needs nothing else. To show several themes on one pag
 
 - Classes: `x-` prefix, BEM. `x-card`, `x-card__title`, `x-button--primary`.
 - Tokens: `--x-*`. Core owns layout tokens (space, type scale, control sizes); themes own color, font and shape tokens.
-- Layers: `x.reset`, `x.core`, `x.theme`. Site CSS outside layers always wins.
+- Layers: `x.reset`, `x.core`, `x.theme`, `x.utility`. Site CSS outside layers always wins.
+- Spacing utilities: `x-{p,m}{,x,y,t,r,b,l}-{size}` and `x-gap{,-x,-y}-{size}`, sizes `none 2xs xs sm md lg xl 2xl 3xl 4xl` (margins also `section`, `auto`). They ship with the theme file.
 - Each part lives in `src/components/<part>/`; see CONTRIBUTING.md. Class names come from the folder's `index.ts`, shared by the Astro and React components.
 - Browsers: Baseline widely available.
 

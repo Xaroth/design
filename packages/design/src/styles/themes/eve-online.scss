@@ -19,3 +19,7 @@
   @include meta.load-css('eve-online/tokens');
   @include meta.load-css('eve-online-parts');
 }
+
+@layer x.utility {
+  @include meta.load-css('../utilities');
+}
