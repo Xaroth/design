@@ -2,8 +2,6 @@
 @use '../../styles/layers';
 
 @layer x.core {
-  // Structure: scroll region, density, alignment, sticky header. The shared cell layout is in _table-look.scss.
-
   // Wide tables scroll inside their frame instead of widening the page.
   .x-table-wrap {
     max-width: 100%;

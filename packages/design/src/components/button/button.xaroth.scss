@@ -1,7 +1,5 @@
 @use '../../styles/theme';
 
-// Dune v4 buttons: Cinzel caps, square corners, primary with an inner double line, framed secondary,
-// underlined tertiary. Any tone recolors all three.
 @include theme.parts('xaroth') {
   .x-button {
     --x-button-font: var(--x-font-display);
@@ -11,7 +9,6 @@
     --x-button-text-hi: var(--x-button-tone-hi);
     --x-button-edge: var(--x-button-tone);
     --x-button-line: color-mix(in oklab, var(--x-button-tone) 65%, var(--x-color-bg));
-    // Toned secondaries follow the v4 danger button: tone wash, full tone edge, filled on hover.
     --x-button-wash: color-mix(in oklab, var(--x-button-tone) 8%, transparent);
     --x-button-hover-bg: var(--x-button-tone);
     --x-button-hover-fg: var(--x-button-on-tone);
@@ -25,7 +22,7 @@
       box-shadow var(--x-duration) var(--x-ease);
   }
 
-  // Default tone uses the exact v4 colors: gold fills, bright gold text, sand on hover, bronze hairlines.
+  // Default tone uses the palette colors instead of the tone mixes.
   .x-button:not(.x-button--danger, .x-button--warning, .x-button--success) {
     --x-button-tone-hi: var(--x-color-accent-strong);
     --x-button-text: var(--x-color-accent-strong);
@@ -90,7 +87,7 @@
     --x-button-fs: 0.9375rem;
   }
 
-  // v4 greys out inactive buttons instead of fading them.
+  // Inactive buttons grey out instead of fading.
   .x-button:disabled,
   .x-button[aria-disabled='true']:not(.x-button--loading) {
     --x-button-fg: var(--x-color-text-faint);

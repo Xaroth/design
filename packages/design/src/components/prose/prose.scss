@@ -2,8 +2,7 @@
 @use '../../styles/layers';
 
 @layer x.core {
-  // Long-form content. Text keeps the reading width; code, tables and figures may use the full column.
-  // Themes set list markers, quote, table and code looks.
+  // Text keeps the reading width; code, tables and figures may use the full column.
   .x-prose {
     --x-prose-block: 2em;
 
@@ -81,7 +80,7 @@
       color: var(--x-color-text-muted);
     }
 
-    // Same look as the Table part; a Table inside prose keeps its own wrapper and is left alone here.
+    // A Table inside prose keeps its own wrapper and is left alone here.
     :where(table:not(.x-table)) {
       @include table-look.table;
       @include table-look.hover;

@@ -1,3 +1,5 @@
+import { bem } from '../../bem.ts'
+
 export type TabItem = {
   label: string
   href: string
@@ -10,13 +12,15 @@ export type TabsOptions = {
   className?: string
 }
 
-export const tabsClass = ({ className }: TabsOptions = {}): string => ['x-tabs', className].filter(Boolean).join(' ')
+const tabs = bem('x-tabs')
+
+export const tabsClass = ({ className }: TabsOptions = {}): string => tabs({}, className)
 
 export const tabsClasses = {
-  list: 'x-tabs__list',
-  item: 'x-tabs__item',
-  link: 'x-tabs__link',
-  count: 'x-tabs__count',
+  list: tabs.el('list'),
+  item: tabs.el('item'),
+  link: tabs.el('link'),
+  count: tabs.el('count'),
 } as const
 
 export const tabLinkAttrs = ({ href, current }: TabItem) => ({

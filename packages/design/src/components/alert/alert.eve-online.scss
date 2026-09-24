@@ -1,12 +1,11 @@
 @use '../../styles/theme';
 
 @include theme.parts('eve-online') {
-  // Panel with the tone fading in from a lit left edge; hexagon and octagon icon outlines.
   .x-alert {
     --x-alert-bg: linear-gradient(90deg, var(--x-alert-wash), transparent 80%), var(--x-color-surface);
   }
 
-  // Info takes the cyan accent, not the brighter info text color, so it reads as the site's own voice.
+  // Info uses the accent, not the info color, so it reads as the site's own voice.
   .x-alert--info {
     --x-alert-tone: var(--x-color-accent);
   }

@@ -1,7 +1,7 @@
 @use '../../styles/layers';
 
 @layer x.core {
-  // Structure and tone. Themes draw the marker (::before) and the frame.
+  // Themes draw the marker (::before) and the frame.
   .x-badge {
     --x-badge-tone: var(--x-badge-default, var(--x-color-text-muted));
     --x-badge-wash: transparent;

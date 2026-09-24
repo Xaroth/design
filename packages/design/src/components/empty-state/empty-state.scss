@@ -1,7 +1,7 @@
 @use '../../styles/layers';
 
 @layer x.core {
-  // Centered block for an empty result. Themes draw the surface or outline and tint the icon.
+  // Themes draw the surface or outline and tint the icon.
   .x-empty-state {
     display: grid;
     gap: var(--x-space-3);

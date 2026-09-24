@@ -1,3 +1,5 @@
+import { bem } from '../../bem.ts'
+
 // plain is a rule, ornament adds the theme's centre mark, label puts text in the middle.
 export type DividerVariant = 'plain' | 'ornament' | 'label'
 
@@ -6,8 +8,10 @@ export type DividerOptions = {
   className?: string
 }
 
+const divider = bem('x-divider', { defaults: { variant: 'plain' } })
+
 export const dividerClass = ({ variant = 'plain', className }: DividerOptions = {}): string =>
-  ['x-divider', variant !== 'plain' && `x-divider--${variant}`, className].filter(Boolean).join(' ')
+  divider({ variant }, className)
 
 // A plain rule is an <hr>. The ornament needs a child, which <hr> cannot hold, so it is a div with the
 // separator role. A label is readable text, and separator children are hidden from assistive tech, so the

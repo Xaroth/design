@@ -1,5 +1,5 @@
 import './layout.scss'
-import type { HTMLAttributes, ReactNode } from 'react'
+import { createElement, type HTMLAttributes, type ReactNode } from 'react'
 import { Button } from '../button/button.tsx'
 import {
   containerClass,
@@ -64,7 +64,6 @@ export type SectionHeadProps = Omit<HTMLAttributes<HTMLElement>, 'title'> & {
 }
 
 export function SectionHead({ title, eyebrow, sub, link, level, titleId, className, ...rest }: SectionHeadProps) {
-  const Heading = sectionHeadTag(level)
   return (
     <header
       {...rest}
@@ -72,12 +71,7 @@ export function SectionHead({ title, eyebrow, sub, link, level, titleId, classNa
     >
       <div className="x-section-head__titles">
         {eyebrow != null && eyebrow !== '' && <p className="x-section-head__eyebrow">{eyebrow}</p>}
-        <Heading
-          className="x-section-head__title"
-          id={titleId}
-        >
-          {title}
-        </Heading>
+        {createElement(sectionHeadTag(level), { className: 'x-section-head__title', id: titleId }, title)}
         {sub != null && sub !== '' && <p className="x-section-head__sub">{sub}</p>}
       </div>
       {link && (

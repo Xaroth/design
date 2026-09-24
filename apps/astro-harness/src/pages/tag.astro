@@ -1,22 +1,11 @@
 ---
-import '@xaroth.nl/design/themes/xaroth.css'
-import '@xaroth.nl/design/themes/eve-online.css'
+import Harness from '../layouts/Harness.astro'
 import { Tag } from '@xaroth.nl/design/astro'
-
-const themes = ['xaroth', 'eve-online']
 ---
 
-<html lang="en" data-x-theme="multi">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Tag</title>
-  </head>
-  <body>
-    {
-      themes.map((theme) => (
-        <section data-x-theme={theme} style="padding: 32px">
-          <h2>{theme}</h2>
+<Harness title="Tag">
+  {() => (
+    <div style="padding: 32px">
           <p style="display: flex; gap: 6px; flex-wrap: wrap; margin-top: 16px">
             <Tag>esi</Tag>
             <Tag>sde</Tag>
@@ -29,8 +18,6 @@ const themes = ['xaroth', 'eve-online']
               fittings
             </Tag>
           </p>
-        </section>
-      ))
-    }
-  </body>
-</html>
+    </div>
+  )}
+</Harness>

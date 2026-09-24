@@ -1,3 +1,5 @@
+import { bem } from '../../bem.ts'
+
 // Same tone mapping as Badge: each tone maps to the theme's --x-color-<tone> token.
 export type ProgressTone = 'default' | 'info' | 'success' | 'warning' | 'danger'
 export type ProgressSize = 'sm' | 'md'
@@ -29,6 +31,8 @@ const resolve = (value: number | undefined, max = 100) => {
   return { top, now, ratio: now / top }
 }
 
+const progress = bem('x-progress', { defaults: { tone: 'default', size: 'md' }, prefixed: ['from'] })
+
 export const progressClass = ({
   value,
   max,
@@ -38,19 +42,18 @@ export const progressClass = ({
   className,
 }: Omit<ProgressOptions, 'showValue'> = {}): string => {
   const { ratio } = resolve(value, max)
-  return [
-    'x-progress',
-    size !== 'md' && `x-progress--${size}`,
-    ratio === undefined && 'x-progress--indeterminate',
-    ratio === 0 && 'x-progress--empty',
-    ratio === 1 && 'x-progress--done',
-    tone !== 'default' && `x-progress--${tone}`,
-    startTone && 'x-progress--gradient',
-    startTone && `x-progress--from-${startTone}`,
+  return progress(
+    {
+      size,
+      indeterminate: ratio === undefined,
+      empty: ratio === 0,
+      done: ratio === 1,
+      tone,
+      gradient: Boolean(startTone),
+      from: startTone,
+    },
     className,
-  ]
-    .filter(Boolean)
-    .join(' ')
+  )
 }
 
 // Attributes for the progressbar root, plus the visible text. Style is a string so Astro and React

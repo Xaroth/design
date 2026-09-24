@@ -1,3 +1,5 @@
+import { bem } from '../../bem.ts'
+
 // A URL pattern with {page} in it, or a function. Astro takes the pattern only.
 export type PaginationHref = string | ((page: number) => string)
 
@@ -32,16 +34,18 @@ export type PaginationEntry =
   | { kind: 'gap'; key: string }
   | { kind: 'edge'; key: Edge; label: string; href?: string; rel?: 'prev' | 'next' }
 
+const pagination = bem('x-pagination')
+
 export const paginationClass = ({ align = 'center', className }: PaginationOptions = {}): string =>
-  ['x-pagination', `x-pagination--${align}`, className].filter(Boolean).join(' ')
+  pagination({ align }, className)
 
 export const paginationClasses = {
-  list: 'x-pagination__list',
-  item: 'x-pagination__item',
-  link: 'x-pagination__link',
-  edge: 'x-pagination__link x-pagination__link--edge',
-  disabled: 'x-pagination__link x-pagination__link--edge x-pagination__link--disabled',
-  gap: 'x-pagination__gap',
+  list: pagination.el('list'),
+  item: pagination.el('item'),
+  link: pagination.el('link'),
+  edge: pagination.el('link', { edge: true }),
+  disabled: pagination.el('link', { edge: true, disabled: true }),
+  gap: pagination.el('gap'),
 } as const
 
 export const paginationHref = (href: PaginationHref, page: number, firstHref?: string): string =>

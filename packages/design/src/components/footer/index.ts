@@ -1,4 +1,6 @@
-// columns: brand and note left, one column per link group (EVE v3). row: brand and links on one line, note below (Dune v3).
+import { bem } from '../../bem.ts'
+
+// columns: brand and note left, one column per link group. row: brand and links on one line, note below.
 export type FooterLayout = 'columns' | 'row'
 
 export type FooterLink = {
@@ -16,16 +18,18 @@ export type FooterOptions = {
   className?: string
 }
 
+const footer = bem('x-footer')
+
 export const footerClass = ({ layout = 'columns', className }: FooterOptions = {}): string =>
-  ['x-footer', `x-footer--${layout}`, className].filter(Boolean).join(' ')
+  footer({ layout }, className)
 
 export const footerClasses = {
-  inner: 'x-footer__inner',
-  brand: 'x-footer__brand',
-  note: 'x-footer__note',
-  nav: 'x-footer__nav',
-  group: 'x-footer__group',
-  title: 'x-footer__title',
-  links: 'x-footer__links',
-  link: 'x-footer__link',
+  inner: footer.el('inner'),
+  brand: footer.el('brand'),
+  note: footer.el('note'),
+  nav: footer.el('nav'),
+  group: footer.el('group'),
+  title: footer.el('title'),
+  links: footer.el('links'),
+  link: footer.el('link'),
 } as const

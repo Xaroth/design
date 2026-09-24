@@ -4,7 +4,6 @@
 $mark: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='24 0 40 14' fill='none' stroke='%23000'%3E%3Cpath d='M28 7l4-4 4 4-4 4zM52 7l4-4 4 4-4 4z' fill='%23000' stroke='none'/%3E%3Ccircle cx='44' cy='7' r='5.5'/%3E%3Ccircle cx='44' cy='7' r='1.8' fill='%23000' stroke='none'/%3E%3Cellipse cx='44' cy='7' rx='8.5' ry='2.2' stroke-width='.6' transform='rotate(-14 44 7)'/%3E%3C/svg%3E";
 
 @include theme.parts('xaroth') {
-  // Gold hairlines that fade in towards the mark.
   .x-divider--ornament,
   .x-divider--label {
     --x-divider-line: var(--x-color-rule);

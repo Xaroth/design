@@ -1,7 +1,6 @@
 @use '../../styles/theme';
 
 @include theme.parts('xaroth') {
-  // Tight UI face tabs, gold underline drawn inside the link.
   .x-tabs__list {
     gap: var(--x-space-5);
   }

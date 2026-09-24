@@ -1,7 +1,6 @@
 @use '../../styles/theme';
 
 @include theme.parts('eve-online') {
-  // Small body text, slash separators.
   .x-breadcrumbs__item {
     font-size: var(--x-fs-small);
     line-height: 1.5;

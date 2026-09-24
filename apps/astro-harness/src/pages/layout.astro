@@ -1,22 +1,13 @@
 ---
-import '@xaroth.nl/design/themes/xaroth.css'
-import '@xaroth.nl/design/themes/eve-online.css'
+import Harness from '../layouts/Harness.astro'
 import { Container, Grid, Section, SectionHead } from '@xaroth.nl/design/astro'
 
-const themes = ['xaroth', 'eve-online']
 const cell = 'display: grid; place-items: center; min-height: 48px; font-family: var(--x-font-mono); font-size: var(--x-fs-label); color: var(--x-color-text-muted); background: var(--x-color-accent-wash)'
 ---
 
-<html lang="en" data-x-theme="multi">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Layout</title>
-  </head>
-  <body>
-    {
-      themes.map((theme) => (
-        <div data-x-theme={theme}>
+<Harness title="Layout">
+  {(theme: string) => (
+    <div>
           <Section tight>
             <Container>
               <SectionHead
@@ -60,8 +51,6 @@ const cell = 'display: grid; place-items: center; min-height: 48px; font-family:
               </p>
             </Container>
           </Section>
-        </div>
-      ))
-    }
-  </body>
-</html>
+    </div>
+  )}
+</Harness>

@@ -1,7 +1,6 @@
 @use '../../styles/theme';
 
 @include theme.parts('xaroth') {
-  // Sand segmented switch, sentence-case label.
   .x-filters {
     --x-filters-option-hover: var(--x-color-sand);
     --x-filters-option-on-color: var(--x-color-on-accent);

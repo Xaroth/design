@@ -1,7 +1,6 @@
 @use '../../styles/theme';
 
 @include theme.parts('eve-online') {
-  // EVE v3 bar: glass over the page, hairline below, cyan underline with a glow on the current page.
   .x-header {
     --x-header-bg: color-mix(in oklab, var(--x-color-bg) 88%, transparent);
 

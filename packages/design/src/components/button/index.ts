@@ -1,3 +1,5 @@
+import { bem } from '../../bem.ts'
+
 // How loud the button is. Named by role, not look: each theme draws them its own way.
 export type ButtonVariant = 'primary' | 'secondary' | 'tertiary'
 // What the button means. Any tone combines with any variant.
@@ -19,7 +21,8 @@ export type ButtonStateInput = {
   loading?: boolean
 }
 
-// Single source for class names and state attributes, used by the Astro and React parts so their HTML cannot drift.
+const button = bem('x-button', { defaults: { tone: 'default', size: 'md' } })
+
 export const buttonClass = ({
   variant = 'primary',
   tone = 'default',
@@ -27,18 +30,7 @@ export const buttonClass = ({
   fullWidth,
   loading,
   className,
-}: ButtonOptions = {}): string =>
-  [
-    'x-button',
-    `x-button--${variant}`,
-    tone !== 'default' && `x-button--${tone}`,
-    size !== 'md' && `x-button--${size}`,
-    fullWidth && 'x-button--full',
-    loading && 'x-button--loading',
-    className,
-  ]
-    .filter(Boolean)
-    .join(' ')
+}: ButtonOptions = {}): string => button({ variant, tone, size, full: fullWidth, loading }, className)
 
 // Links cannot be disabled natively, so an inactive link drops its href and is marked aria-disabled.
 // Loading keeps a button focusable (aria-disabled instead of disabled) so keyboard focus is not lost mid-action.

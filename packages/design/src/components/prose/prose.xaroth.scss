@@ -10,7 +10,6 @@
       color: var(--x-color-sand);
     }
 
-    // Dune v3 subheads drop to the body face.
     > :is(h3, h4) {
       font-family: var(--x-font-body);
       font-weight: 600;
@@ -31,7 +30,6 @@
       color: var(--x-color-sand);
     }
 
-    // Dune v3 lists: plain numbers and bullets in gold.
     :where(li)::marker {
       color: var(--x-color-accent);
     }
@@ -42,7 +40,6 @@
       font-weight: 600;
     }
 
-    // Dune v3 quote: italic lead text on a gold rule.
     :where(blockquote) {
       padding-left: var(--x-space-5);
       border-left: 2px solid var(--x-color-accent);
@@ -68,7 +65,6 @@
       border-radius: var(--x-radius);
     }
 
-    // Dune divider: hairline fading out from a center diamond.
     :where(hr) {
       position: relative;
       height: 9px;
@@ -102,7 +98,6 @@
     }
   }
 
-  // Dune v3 code block: sunk panel, plain line numbers, one text color for every token.
   .x-code {
     --x-code-bg: var(--x-color-bg-sunk);
 

@@ -1,7 +1,6 @@
 @use '../../styles/theme';
 
 @include theme.parts('eve-online') {
-  // Rule fading out at both ends, lit segments running into a hollow diamond or the label.
   .x-divider--ornament,
   .x-divider--label {
     --x-divider-line: var(--x-color-line-strong);

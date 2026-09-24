@@ -1,7 +1,6 @@
 @use '../../styles/theme';
 
 @include theme.parts('xaroth') {
-  // Dune v2 inputs: see-through dark fields, gold glow on focus, dashed edges when disabled, diamond marks.
   .x-field,
   .x-choice-group,
   .x-input,
@@ -61,7 +60,6 @@
     }
   }
 
-  // Diamond mark.
   .x-checkbox__input {
     &::before {
       background: var(--x-color-accent-strong);
@@ -91,7 +89,6 @@
     background: var(--x-color-text-faint);
   }
 
-  // Pill track, diamond knob.
   .x-switch__input {
     border-color: var(--x-check-edge);
     border-radius: 999px;

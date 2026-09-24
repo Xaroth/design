@@ -5,7 +5,6 @@ import { badgeClass, type BadgeOptions } from './index.ts'
 
 type Props = Omit<HTMLAttributes<'span'>, 'class'> & Omit<BadgeOptions, 'className'> & { class?: string }
 
-// `slot` is how a parent places this badge; it is not an attribute of the badge.
 const { tone, class: className, slot: _slot, ...rest } = Astro.props
 ---
 

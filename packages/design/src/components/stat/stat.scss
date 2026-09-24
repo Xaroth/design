@@ -1,7 +1,6 @@
 @use '../../styles/layers';
 
 @layer x.core {
-  // A description list of label and value pairs. Themes decide order, framing and value color.
   .x-stat-group {
     --x-stat-cols: 4;
 

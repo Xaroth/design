@@ -1,7 +1,6 @@
 @use '../../styles/theme';
 
 @include theme.parts('xaroth') {
-  // Glass block capped with a centered gold hairline, roman numeral index, ruled foot (Dune v2).
   .x-card {
     --x-card-gap: var(--x-space-4);
     --x-card-glass-hover: rgb(48 37 24 / 66%);
@@ -36,7 +35,6 @@
       }
     }
 
-    // Featured: the hairline runs wider and brighter, the frame warms.
     &--featured {
       border-color: var(--x-card-edge-hover);
 

@@ -1,4 +1,10 @@
-const join = (...parts: (string | false | undefined)[]) => parts.filter(Boolean).join(' ')
+import { clsx } from 'clsx'
+import { bem } from '../../bem.ts'
+
+const container = bem('x-container', { defaults: { width: 'page' } })
+const grid = bem('x-grid')
+const section = bem('x-section')
+const sectionHead = bem('x-section-head')
 
 // Page is the shared 1200px container. Prose narrows it to the reading width, for pages with no grid.
 export type ContainerWidth = 'page' | 'prose'
@@ -9,13 +15,13 @@ export type ContainerOptions = {
 }
 
 export const containerClass = ({ width = 'page', className }: ContainerOptions = {}): string =>
-  join('x-container', width !== 'page' && `x-container--${width}`, className)
+  container({ width }, className)
 
 export type GridOptions = {
   className?: string
 }
 
-export const gridClass = ({ className }: GridOptions = {}): string => join('x-grid', className)
+export const gridClass = ({ className }: GridOptions = {}): string => grid({}, className)
 
 export type ColSpan = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12
 
@@ -30,15 +36,14 @@ export type ColOptions = {
 
 // Grid children are plain elements, so spans are a class helper rather than a component.
 export const colClass = ({ span, stack = 'md', className }: ColOptions): string =>
-  join(`x-col-${span}`, stack === 'sm' && 'x-col--stack-sm', stack === 'never' && 'x-col--keep', className)
+  clsx(`x-col-${span}`, stack === 'sm' && 'x-col--stack-sm', stack === 'never' && 'x-col--keep', className)
 
 export type SectionOptions = {
   tight?: boolean
   className?: string
 }
 
-export const sectionClass = ({ tight, className }: SectionOptions = {}): string =>
-  join('x-section', tight && 'x-section--tight', className)
+export const sectionClass = ({ tight, className }: SectionOptions = {}): string => section({ tight }, className)
 
 export type SectionHeadLink = { label: string; href: string }
 
@@ -46,7 +51,7 @@ export type SectionHeadOptions = {
   className?: string
 }
 
-export const sectionHeadClass = ({ className }: SectionHeadOptions = {}): string => join('x-section-head', className)
+export const sectionHeadClass = ({ className }: SectionHeadOptions = {}): string => sectionHead({}, className)
 
 export type SectionHeadLevel = 2 | 3
 

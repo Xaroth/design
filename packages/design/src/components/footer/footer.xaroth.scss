@@ -1,7 +1,6 @@
 @use '../../styles/theme';
 
 @include theme.parts('xaroth') {
-  // Dune v3: one quiet row under a hairline, legal line below.
   .x-footer {
     padding-block: var(--x-space-7) var(--x-space-8);
     border-top: 1px solid var(--x-color-line);

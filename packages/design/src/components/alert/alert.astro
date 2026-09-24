@@ -12,7 +12,6 @@ type Props = Omit<HTMLAttributes<'div'>, 'class' | 'title'> &
     urgent?: boolean
   }
 
-// `slot` is how a parent places this alert; it is not an attribute of the alert.
 const { tone, framed, title, urgent, role, class: className, slot: _slot, ...rest } = Astro.props
 const hasTitle = title !== undefined || Astro.slots.has('title')
 ---

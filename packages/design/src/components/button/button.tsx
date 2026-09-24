@@ -43,6 +43,7 @@ export function Button(props: ButtonProps) {
 
   if (tag === 'a') {
     return (
+      // oxlint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions -- an inactive link has no href and is meant to be inert
       <a
         {...(rest as AnchorHTMLAttributes<HTMLAnchorElement>)}
         {...attrs}

@@ -1,7 +1,6 @@
 @use '../../styles/theme';
 
 @include theme.parts('xaroth') {
-  // Open cells in the display face, caps edges; the current page is a gold block.
   .x-pagination__link,
   .x-pagination__gap {
     font-family: var(--x-font-display);

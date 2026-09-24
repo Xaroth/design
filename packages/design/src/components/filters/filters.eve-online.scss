@@ -1,7 +1,6 @@
 @use '../../styles/theme';
 
 @include theme.parts('eve-online') {
-  // Caps label, panel buttons, the pressed one lit cyan with an underline.
   .x-filters {
     --x-filters-switch-font: var(--x-font-display);
     --x-filters-switch-fs: var(--x-fs-label);

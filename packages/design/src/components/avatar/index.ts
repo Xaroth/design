@@ -1,3 +1,5 @@
+import { bem } from '../../bem.ts'
+
 export type AvatarSize = 'sm' | 'md' | 'lg' | 'xl'
 
 export type AvatarOptions = {
@@ -13,12 +15,13 @@ export type AvatarOptions = {
   className?: string
 }
 
+const avatar = bem('x-avatar')
+
 export const avatarClass = ({
   size = 'md',
   src,
   className,
-}: Pick<AvatarOptions, 'size' | 'src' | 'className'> = {}): string =>
-  ['x-avatar', `x-avatar--${size}`, src && 'x-avatar--image', className].filter(Boolean).join(' ')
+}: Pick<AvatarOptions, 'size' | 'src' | 'className'> = {}): string => avatar({ size, image: Boolean(src) }, className)
 
 // First letter of the first and last word, so "Xaroth Brook" gives "XB" and "Xaroth" gives "X".
 export const avatarInitials = (name: string): string => {

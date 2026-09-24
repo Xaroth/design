@@ -1,7 +1,6 @@
 @use '../../styles/theme';
 
 @include theme.parts('xaroth') {
-  // Glass surface with a soft edge; marks cap it with a centered gold hairline.
   .x-panel {
     --x-panel-line: var(--x-color-accent);
     --x-panel-line-inset: 22%;
@@ -34,8 +33,7 @@
       background: linear-gradient(90deg, transparent, var(--x-panel-line), transparent);
     }
 
-    // The one inverted block: a sand slab inside a double frame. Tokens flip so any content inside stays
-    // legible, buttons included.
+    // Inverted surface: tokens flip so content inside, buttons included, stays legible.
     &--callout {
       --x-color-text: #0b0806;
       --x-color-text-muted: #3d2e1a;

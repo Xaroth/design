@@ -1,7 +1,6 @@
 @use '../../styles/layers';
 
 @layer x.core {
-  // Structure only. Themes add type, color and surface in themes/<name>/_footer.scss.
   .x-footer {
     &__inner {
       display: grid;
@@ -62,7 +61,6 @@
       }
     }
 
-    // Columns: brand and note on the left half, one column per link group on the right.
     &--columns {
       .x-footer__inner {
         grid-template-columns: minmax(0, 1fr);
@@ -106,7 +104,6 @@
       }
     }
 
-    // Row: brand and a flat link list on one line, the note underneath.
     &--row {
       .x-footer__inner {
         grid-template-columns: 1fr auto;

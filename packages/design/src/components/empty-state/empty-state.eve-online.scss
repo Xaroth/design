@@ -1,7 +1,6 @@
 @use '../../styles/theme';
 
 @include theme.parts('eve-online') {
-  // Filled panel.
   .x-empty-state {
     background: var(--x-color-surface);
   }

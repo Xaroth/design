@@ -43,7 +43,6 @@
       opacity: 0.5;
     }
 
-    // Tones
     &--danger {
       --x-button-tone: var(--x-color-danger);
       --x-button-on-tone: var(--x-color-on-danger);
@@ -62,7 +61,6 @@
       --x-button-quiet-fg: var(--x-color-success);
     }
 
-    // Variants
     &--primary {
       --x-button-fg: var(--x-button-on-tone);
       --x-button-bg: var(--x-button-tone);
@@ -92,7 +90,6 @@
       }
     }
 
-    // Sizes and layout
     &--sm {
       --x-button-fs: var(--x-fs-label);
 

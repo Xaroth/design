@@ -1,4 +1,6 @@
-// What the badge reports. Each tone maps to the theme's --x-color-<tone> token.
+import { bem } from '../../bem.ts'
+
+// Maps to the --x-color-<tone> token.
 export type BadgeTone = 'default' | 'info' | 'success' | 'warning' | 'danger'
 
 export type BadgeOptions = {
@@ -6,5 +8,6 @@ export type BadgeOptions = {
   className?: string
 }
 
-export const badgeClass = ({ tone = 'default', className }: BadgeOptions = {}): string =>
-  ['x-badge', tone !== 'default' && `x-badge--${tone}`, className].filter(Boolean).join(' ')
+const badge = bem('x-badge', { defaults: { tone: 'default' } })
+
+export const badgeClass = ({ tone = 'default', className }: BadgeOptions = {}): string => badge({ tone }, className)

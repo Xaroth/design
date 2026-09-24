@@ -1,7 +1,7 @@
 @use '../../styles/layers';
 
 @layer x.core {
-  // Structure only. Themes draw the separator in .x-breadcrumbs__item + .x-breadcrumbs__item::before.
+  // Themes draw the separator in .x-breadcrumbs__item + .x-breadcrumbs__item::before.
   .x-breadcrumbs {
     &__list {
       display: flex;

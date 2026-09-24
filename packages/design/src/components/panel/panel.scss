@@ -1,7 +1,6 @@
 @use '../../styles/layers';
 
 @layer x.core {
-  // Structure only: padding and stacking. Themes draw the surface, edge and marks.
   .x-panel {
     --x-panel-pad: var(--x-space-4);
 

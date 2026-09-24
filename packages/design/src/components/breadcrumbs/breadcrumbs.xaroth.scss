@@ -1,7 +1,6 @@
 @use '../../styles/theme';
 
 @include theme.parts('xaroth') {
-  // Display caps with bronze diamonds between items.
   .x-breadcrumbs {
     --x-breadcrumbs-gap: var(--x-space-3);
   }

@@ -1,5 +1,4 @@
-// eve-online table look (EVE v2 table), shared by .x-table and raw tables in .x-prose. No CSS of its own.
-// Header on a lighter band in cyan caps over an accent line; hovered rows get a wash and a cyan edge.
+// Shared by .x-table and raw tables in .x-prose. No CSS of its own.
 @mixin frame {
   background: var(--x-color-glass);
   border: 1px solid var(--x-color-line-strong);

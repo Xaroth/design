@@ -1,7 +1,6 @@
 @use '../../styles/theme';
 
 @include theme.parts('xaroth') {
-  // Framed mono chips in caps (Dune v2). Link tags grow to a comfortable target.
   .x-tag {
     min-height: 0;
     padding: 0.125rem var(--x-space-2);
@@ -9,6 +8,7 @@
     text-transform: uppercase;
     background: var(--x-color-surface);
 
+    // Link tags grow to a comfortable target.
     &:where(a) {
       min-height: var(--x-control-sm);
       padding-inline: var(--x-space-3);

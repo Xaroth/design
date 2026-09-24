@@ -42,8 +42,8 @@ Entry files (`src/parts.ts`, `src/astro.ts`, `src/react.ts`, `src/styles/all.scs
 ## Comments
 
 - Only where the code does not explain itself: a non-obvious reason, a browser quirk, a constraint. Say why, not what.
-- Short and rare. No history ("was", "v2", "ported from"), no design version names, no restating the folder or theme a file is in.
+- Short and rare. No history ("was", "ported from"), no design version names, no restating the folder or theme a file is in.
 
-## Design references
+## Reference
 
-The looks come from the design guide (`../design-guide`), concepts 8 (EVE v4, theme `eve-online`) and 9 (Dune v4, theme `xaroth`). Layout values come from `../design-guide/LAYOUT.md`, including Revision 2. User picks are in `../design-guide/decisions/round-1.md`.
+Storybook is the reference for how every part looks and behaves in each theme. Change a look there first, and keep the harness page and same-HTML tests in step. `pnpm test` builds Storybook and fails when a story does not render or has an axe (WCAG 2.2 AA) violation.

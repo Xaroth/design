@@ -1,7 +1,6 @@
 @use '../../styles/theme';
 
 @include theme.parts('xaroth') {
-  // Dune v2 section head: centered, eyebrow between open diamonds, caps title, italic line, centered link.
   .x-section-head {
     flex-direction: column;
     gap: var(--x-space-4);

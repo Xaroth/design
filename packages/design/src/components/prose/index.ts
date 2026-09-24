@@ -1,16 +1,19 @@
-const join = (...parts: (string | false | undefined)[]) => parts.filter(Boolean).join(' ')
+import { bem } from '../../bem.ts'
+
+const prose = bem('x-prose')
+const codeBlock = bem('x-code')
 
 export type ProseOptions = {
   className?: string
 }
 
-export const proseClass = ({ className }: ProseOptions = {}): string => join('x-prose', className)
+export const proseClass = ({ className }: ProseOptions = {}): string => prose({}, className)
 
 export type CodeBlockOptions = {
   className?: string
 }
 
-export const codeBlockClass = ({ className }: CodeBlockOptions = {}): string => join('x-code', className)
+export const codeBlockClass = ({ className }: CodeBlockOptions = {}): string => codeBlock({}, className)
 
 export type CodeToken = 'kw' | 'str' | 'num' | 'com' | 'fn'
 

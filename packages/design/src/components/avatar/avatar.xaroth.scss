@@ -1,7 +1,6 @@
 @use '../../styles/theme';
 
 @include theme.parts('xaroth') {
-  // Ring with a lit top and a Cinzel initial.
   .x-avatar {
     --x-avatar-scale: 0.4375;
     --x-avatar-weight: 500;

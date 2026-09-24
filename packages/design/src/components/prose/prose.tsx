@@ -35,6 +35,7 @@ export function CodeBlock({ code, lang, title, className, ...rest }: CodeBlockPr
       )}
       <pre
         className="x-code__pre"
+        // oxlint-disable-next-line jsx-a11y/no-noninteractive-tabindex -- keyboard users scroll long lines
         tabIndex={0}
       >
         <code dangerouslySetInnerHTML={{ __html: codeHtml(code, lang) }} />

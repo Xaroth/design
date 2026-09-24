@@ -1,7 +1,6 @@
 @use '../../styles/theme';
 
 @include theme.parts('eve-online') {
-  // Display face tabs with a cyan bar on the list's hairline under the current page.
   .x-tabs__link {
     padding: 0 20px;
     font-family: var(--x-font-display);
@@ -20,6 +19,7 @@
         content: '';
         position: absolute;
         right: 0;
+        // Sits on the list's hairline.
         bottom: -1px;
         left: 0;
         height: 2px;

@@ -1,9 +1,7 @@
 ---
-import '@xaroth.nl/design/themes/xaroth.css'
-import '@xaroth.nl/design/themes/eve-online.css'
+import Harness from '../layouts/Harness.astro'
 import { Timeline } from '@xaroth.nl/design/astro'
 
-const themes = ['xaroth', 'eve-online']
 const items = [
   {
     date: '2026',
@@ -17,22 +15,13 @@ const items = [
 ]
 ---
 
-<html lang="en" data-x-theme="multi">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Timeline harness</title>
-  </head>
-  <body>
-    {
-      themes.map((theme) => (
-        <section data-x-theme={theme} style="padding: 32px">
+<Harness title="Timeline harness">
+  {(theme: string) => (
+    <div style="padding: 32px">
           <h2 style="margin-bottom: 24px">{theme}</h2>
           <div style="max-width: 48rem">
             <Timeline items={items} />
           </div>
-        </section>
-      ))
-    }
-  </body>
-</html>
+    </div>
+  )}
+</Harness>

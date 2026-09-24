@@ -18,7 +18,6 @@
       color: var(--x-color-text);
     }
 
-    // EVE v3 lists: mono 01/02 numbers and open diamond bullets in cyan.
     :where(ul, ol) {
       padding-left: 0;
       list-style: none;
@@ -55,7 +54,6 @@
       transform: rotate(45deg);
     }
 
-    // EVE v2 quote: heading face on a cyan wash, open quote mark, caps cite.
     :where(blockquote) {
       padding: var(--x-space-5) var(--x-space-5) var(--x-space-5) var(--x-space-6);
       font-family: var(--x-font-heading);
@@ -121,7 +119,6 @@
     }
   }
 
-  // EVE v2 code block: flat cut panel, labelled bar, zero padded line numbers, colored tokens.
   .x-code {
     --x-code-kw: var(--x-color-accent);
     --x-code-str: var(--x-color-warning);

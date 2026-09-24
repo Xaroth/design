@@ -1,7 +1,7 @@
 @use '../../styles/theme';
 
 @include theme.parts('eve-online') {
-  // Segmented gauge with a glowing fill (EVE v2). Gaps are cut with a mask so the glow stays whole.
+  // Segment gaps are cut with a mask so the glow stays whole.
   .x-progress {
     --x-progress-md: 8px;
     --x-progress-sm: 6px;

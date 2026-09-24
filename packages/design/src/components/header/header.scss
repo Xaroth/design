@@ -1,7 +1,6 @@
 @use '../../styles/layers';
 
 @layer x.core {
-  // Structure only. Themes add type, color and ornament in themes/<name>/_header.scss.
   // The bar folds its nav into a <details> menu below 860px, so no script is needed.
   .x-header {
     --x-header-height: 72px;
@@ -69,7 +68,6 @@
       align-items: center;
     }
 
-    // Small screen menu, hidden until the nav no longer fits.
     &__menu {
       display: none;
 
@@ -99,7 +97,6 @@
       padding-top: var(--x-space-2);
     }
 
-    // Inline: one row, brand left, nav right, actions at the far end.
     &--inline {
       .x-header__inner {
         display: flex;
@@ -129,7 +126,6 @@
       }
     }
 
-    // Stacked: centered brand over a centered nav. Actions sit at the end of the brand row.
     &--stacked {
       .x-header__inner {
         display: grid;

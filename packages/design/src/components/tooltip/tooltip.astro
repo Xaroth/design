@@ -12,7 +12,6 @@ type Props = Omit<HTMLAttributes<'span'>, 'class' | 'id'> &
     text: string
   }
 
-// `slot` is how a parent places this tooltip; it is not an attribute of the tooltip.
 const { id, text, placement, open, class: className, slot: _slot, ...rest } = Astro.props
 const trigger = describeTrigger(await Astro.slots.render('default'), id)
 ---

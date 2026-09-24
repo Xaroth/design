@@ -1,3 +1,5 @@
+import { bem } from '../../bem.ts'
+
 export type BreadcrumbItem = {
   label: string
   href?: string
@@ -7,15 +9,16 @@ export type BreadcrumbsOptions = {
   className?: string
 }
 
-export const breadcrumbsClass = ({ className }: BreadcrumbsOptions = {}): string =>
-  ['x-breadcrumbs', className].filter(Boolean).join(' ')
+const breadcrumbs = bem('x-breadcrumbs')
+
+export const breadcrumbsClass = ({ className }: BreadcrumbsOptions = {}): string => breadcrumbs({}, className)
 
 export const breadcrumbsClasses = {
-  list: 'x-breadcrumbs__list',
-  item: 'x-breadcrumbs__item',
-  link: 'x-breadcrumbs__link',
-  text: 'x-breadcrumbs__text',
-  current: 'x-breadcrumbs__current',
+  list: breadcrumbs.el('list'),
+  item: breadcrumbs.el('item'),
+  link: breadcrumbs.el('link'),
+  text: breadcrumbs.el('text'),
+  current: breadcrumbs.el('current'),
 } as const
 
 // The last item is the page itself, so it is never a link even when it has an href.

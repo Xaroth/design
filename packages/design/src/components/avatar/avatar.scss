@@ -1,7 +1,7 @@
 @use '../../styles/layers';
 
 @layer x.core {
-  // Box, sizes and initials. Themes draw the shape and frame.
+  // Themes draw the shape and frame.
   .x-avatar {
     --x-avatar-size: 64px;
 

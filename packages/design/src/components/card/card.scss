@@ -1,7 +1,7 @@
 @use '../../styles/layers';
 
 @layer x.core {
-  // Structure only: slots, spacing and the stretched link. Themes draw the surface and ornament.
+  // Themes draw the surface and ornament.
   .x-card {
     --x-card-pad: var(--x-space-4);
 

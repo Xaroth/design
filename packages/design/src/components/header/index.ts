@@ -1,3 +1,4 @@
+import { bem } from '../../bem.ts'
 import { buttonClass } from '../button/index.ts'
 
 // inline: one 72px row, brand left, nav right. stacked: centered brand over a centered nav. The site picks one.
@@ -15,21 +16,23 @@ export type HeaderOptions = {
   className?: string
 }
 
+const header = bem('x-header')
+
 export const headerClass = ({ layout = 'inline', sticky, className }: HeaderOptions = {}): string =>
-  ['x-header', `x-header--${layout}`, sticky && 'x-header--sticky', className].filter(Boolean).join(' ')
+  header({ layout, sticky }, className)
 
 export const headerClasses = {
-  inner: 'x-header__inner',
-  brand: 'x-header__brand',
-  nav: 'x-header__nav',
-  list: 'x-header__list',
-  item: 'x-header__item',
-  link: 'x-header__link',
-  actions: 'x-header__actions',
-  menu: 'x-header__menu',
-  toggle: `${buttonClass({ variant: 'tertiary', size: 'sm' })} x-header__toggle`,
-  panel: 'x-header__panel',
-  panelActions: 'x-header__panel-actions',
+  inner: header.el('inner'),
+  brand: header.el('brand'),
+  nav: header.el('nav'),
+  list: header.el('list'),
+  item: header.el('item'),
+  link: header.el('link'),
+  actions: header.el('actions'),
+  menu: header.el('menu'),
+  toggle: header.el('toggle', {}, buttonClass({ variant: 'tertiary', size: 'sm' })),
+  panel: header.el('panel'),
+  panelActions: header.el('panel-actions'),
 } as const
 
 export const navLinkAttrs = ({ href, current }: HeaderNavItem) => ({
@@ -37,5 +40,4 @@ export const navLinkAttrs = ({ href, current }: HeaderNavItem) => ({
   'aria-current': current ? ('page' as const) : undefined,
 })
 
-// Brand is a home link when brandHref is set, a plain box otherwise.
 export const brandTag = (href?: string) => (href === undefined ? ('div' as const) : ('a' as const))

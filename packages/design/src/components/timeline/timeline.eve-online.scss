@@ -1,6 +1,5 @@
 @use '../../styles/theme';
 
-// EVE v2 timeline: lit spine fading down, diamond nodes, glowing current node, cyan mono dates.
 @include theme.parts('eve-online') {
   .x-timeline {
     --x-timeline-date-fs: 0.9375rem;

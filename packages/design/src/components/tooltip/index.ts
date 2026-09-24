@@ -1,3 +1,5 @@
+import { bem } from '../../bem.ts'
+
 export type TooltipPlacement = 'top' | 'bottom'
 
 export type TooltipOptions = {
@@ -7,10 +9,10 @@ export type TooltipOptions = {
   className?: string
 }
 
+const tooltip = bem('x-tooltip', { defaults: { placement: 'top' } })
+
 export const tooltipClass = ({ placement = 'top', open, className }: TooltipOptions = {}): string =>
-  ['x-tooltip', placement !== 'top' && `x-tooltip--${placement}`, open && 'x-tooltip--open', className]
-    .filter(Boolean)
-    .join(' ')
+  tooltip({ placement, open }, className)
 
 export const tooltipId = (id: string): string => `${id}-tip`
 

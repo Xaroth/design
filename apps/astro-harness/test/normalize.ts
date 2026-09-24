@@ -13,7 +13,11 @@ export function normalize(html: string): string {
       return ''
     }
     const attrs = [...node.attributes]
-      .map((a: any) => `${a.name}="${a.value}"`)
+      // Class order carries no meaning, so compare classes as a sorted set.
+      .map(
+        (a: any) =>
+          `${a.name}="${a.name === 'class' ? a.value.split(/\s+/).filter(Boolean).sort().join(' ') : a.value}"`,
+      )
       .sort()
       .join(' ')
     const tag = node.tagName.toLowerCase()

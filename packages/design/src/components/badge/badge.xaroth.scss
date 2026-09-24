@@ -1,7 +1,6 @@
 @use '../../styles/theme';
 
 @include theme.parts('xaroth') {
-  // Framed caps with a diamond marker (Dune v2). The default badge gets a hollow diamond.
   .x-badge {
     --x-badge-gap: 0.5em;
     --x-badge-edge-mix: 55%;
@@ -18,6 +17,7 @@
       transform: rotate(45deg);
     }
 
+    // The default badge gets a hollow marker.
     &:not(.x-badge--info, .x-badge--success, .x-badge--warning, .x-badge--danger)::before {
       background: transparent;
       border: 1px solid currentcolor;

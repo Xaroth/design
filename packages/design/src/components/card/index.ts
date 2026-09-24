@@ -1,3 +1,5 @@
+import { bem } from '../../bem.ts'
+
 export type CardElement = 'article' | 'div' | 'li'
 export type CardHeadingLevel = 2 | 3 | 4 | 5 | 6
 
@@ -7,10 +9,12 @@ export type CardOptions = {
   className?: string
 }
 
-export const cardClass = ({ featured, link, className }: CardOptions = {}): string =>
-  ['x-card', link && 'x-card--link', featured && 'x-card--featured', className].filter(Boolean).join(' ')
+const card = bem('x-card')
 
-// The index is passed as a number; each theme formats it with a CSS counter (T-01, IV, ...).
+export const cardClass = ({ featured, link, className }: CardOptions = {}): string =>
+  card({ link, featured }, className)
+
+// Passed as a number; each theme formats it with a CSS counter (T-01, IV).
 export const cardIndexProperty = '--x-card-index'
 
 export const cardIndexValue = (index: number): string => String(Math.trunc(index))

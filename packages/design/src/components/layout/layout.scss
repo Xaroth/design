@@ -1,7 +1,6 @@
 @use '../../styles/layers';
 
 @layer x.core {
-  // Page container, 12 column grid, section spacing and the section heading block. Themes add ornament only.
   .x-container {
     width: 100%;
     max-width: calc(var(--x-page) + 2 * var(--x-gutter));

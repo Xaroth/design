@@ -1,3 +1,5 @@
+import { bem } from '../../bem.ts'
+
 export type TagOptions = {
   active?: boolean
   className?: string
@@ -8,8 +10,9 @@ export type TagStateInput = {
   active?: boolean
 }
 
-export const tagClass = ({ active, className }: TagOptions = {}): string =>
-  ['x-tag', active && 'x-tag--active', className].filter(Boolean).join(' ')
+const tag = bem('x-tag')
+
+export const tagClass = ({ active, className }: TagOptions = {}): string => tag({ active }, className)
 
 // An active link tag is the current filter, so assistive tech hears it too; a span tag is only a label.
 export const tagState = ({ href, active }: TagStateInput) =>

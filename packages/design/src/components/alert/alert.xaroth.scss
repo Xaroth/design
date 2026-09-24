@@ -1,7 +1,6 @@
 @use '../../styles/theme';
 
 @include theme.parts('xaroth') {
-  // Tinted strip with one toned edge; diamond and circle icon outlines, fine square-capped strokes.
   .x-alert {
     --x-alert-gap: var(--x-space-4);
     --x-alert-glyph-width: 1.5;

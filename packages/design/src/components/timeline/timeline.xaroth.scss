@@ -1,6 +1,5 @@
 @use '../../styles/theme';
 
-// Dune v2 timeline: dates right-aligned, gold spine between date and body, diamond points, newest point in spice.
 @include theme.parts('xaroth') {
   .x-timeline {
     --x-timeline-gap: var(--x-space-6);

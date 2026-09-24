@@ -2,8 +2,6 @@
 @use '../panel/surface';
 
 @include theme.parts('eve-online') {
-  // Every stat is its own cut tile with corner marks and a glowing value. Plain tiles are glass, framed tiles
-  // get the lit panel fill.
   .x-stat-group {
     list-style: none;
   }

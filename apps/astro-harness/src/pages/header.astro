@@ -1,9 +1,7 @@
 ---
-import '@xaroth.nl/design/themes/xaroth.css'
-import '@xaroth.nl/design/themes/eve-online.css'
+import Harness from '../layouts/Harness.astro'
 import { Button, Header } from '@xaroth.nl/design/astro'
 
-const themes = ['xaroth', 'eve-online'] as const
 const layouts = ['stacked', 'inline'] as const
 const items = [
   { label: 'Home', href: '#', current: true },
@@ -14,16 +12,9 @@ const items = [
 ]
 ---
 
-<html lang="en" data-x-theme="multi">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Header</title>
-  </head>
-  <body>
-    {
-      themes.map((theme) => (
-        <section data-x-theme={theme} style="padding-bottom: 48px">
+<Harness title="Header">
+  {(theme: string) => (
+    <div style="padding-bottom: 48px">
           {layouts.map((layout) => (
             <div style="padding-bottom: 64px">
               <Header layout={layout} items={items} brandHref="#">
@@ -55,14 +46,15 @@ const items = [
               </Header>
             </div>
           ))}
-        </section>
-      ))
-    }
+    </div>
+  )}
+  <Fragment slot="end">
     <script is:inline>
       // Harness only: header?open shows every small screen menu opened, for screenshots.
       if (new URLSearchParams(location.search).has('open')) {
         document.querySelectorAll('details').forEach((d) => (d.open = true))
       }
     </script>
-  </body>
-</html>
+  
+  </Fragment>
+</Harness>

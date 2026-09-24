@@ -1,7 +1,6 @@
 @use '../../styles/theme';
 
 @include theme.parts('xaroth') {
-  // Dune v2 top bar: hairline closed by a gold center, diamonds between items and under the current page.
   .x-header {
     --x-header-brand-gap: var(--x-space-4);
     --x-header-mark: 2.25rem;

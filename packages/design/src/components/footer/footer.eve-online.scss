@@ -1,7 +1,6 @@
 @use '../../styles/theme';
 
 @include theme.parts('eve-online') {
-  // EVE v3: a panel band with the brand and legal line left, labelled link columns right.
   .x-footer {
     padding-block: var(--x-space-8) var(--x-space-9);
     background: var(--x-color-surface);

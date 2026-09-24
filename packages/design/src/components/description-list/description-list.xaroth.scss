@@ -1,7 +1,6 @@
 @use '../../styles/theme';
 
 @include theme.parts('xaroth') {
-  // Quiet UI rows: muted term, plain value, links in gold.
   .x-description-list {
     --x-description-list-term-width: 4.5rem;
     --x-description-list-line: var(--x-color-line-strong);

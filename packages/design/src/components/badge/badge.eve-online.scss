@@ -1,7 +1,6 @@
 @use '../../styles/theme';
 
 @include theme.parts('eve-online') {
-  // Framed caps with a lit square dot (EVE v2).
   .x-badge {
     --x-badge-default: var(--x-color-text-faint);
 

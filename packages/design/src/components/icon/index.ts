@@ -1,3 +1,5 @@
+import { bem } from '../../bem.ts'
+
 // Path data from Tabler Icons (MIT, https://tabler.io/icons), outline set on a 24px grid.
 export const icons = {
   'arrow-right': ['M5 12l14 0', 'M13 18l6 -6', 'M13 6l6 6'],
@@ -76,8 +78,9 @@ export type IconOptions = {
   className?: string
 }
 
-export const iconClass = ({ className }: Pick<IconOptions, 'className'> = {}): string =>
-  ['x-icon', className].filter(Boolean).join(' ')
+const icon = bem('x-icon')
+
+export const iconClass = ({ className }: Pick<IconOptions, 'className'> = {}): string => icon({}, className)
 
 export const iconState = ({ size, label }: Pick<IconOptions, 'size' | 'label'>) => ({
   width: size,

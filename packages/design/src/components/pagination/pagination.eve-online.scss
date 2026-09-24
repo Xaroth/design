@@ -1,7 +1,6 @@
 @use '../../styles/theme';
 
 @include theme.parts('eve-online') {
-  // Mono number cells on panels; the current page is a lit cyan cell.
   .x-pagination__list {
     gap: 6px;
   }

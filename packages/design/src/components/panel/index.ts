@@ -1,3 +1,5 @@
+import { bem } from '../../bem.ts'
+
 // How much the surface stands out. Named by role: each theme draws them its own way.
 // Callout is the one loud block on a page, such as a closing call to action.
 export type PanelVariant = 'plain' | 'raised' | 'accent' | 'callout'
@@ -12,13 +14,7 @@ export type PanelOptions = {
   className?: string
 }
 
+const panel = bem('x-panel', { defaults: { variant: 'plain', pad: 'md' }, prefixed: ['pad'] })
+
 export const panelClass = ({ variant = 'plain', marks, padding = 'md', className }: PanelOptions = {}): string =>
-  [
-    'x-panel',
-    variant !== 'plain' && `x-panel--${variant}`,
-    padding !== 'md' && `x-panel--pad-${padding}`,
-    marks && 'x-panel--marks',
-    className,
-  ]
-    .filter(Boolean)
-    .join(' ')
+  panel({ variant, pad: padding, marks }, className)

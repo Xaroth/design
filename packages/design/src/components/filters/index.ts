@@ -1,4 +1,4 @@
-const join = (...parts: (string | false | undefined)[]) => parts.filter(Boolean).join(' ')
+import { bem } from '../../bem.ts'
 
 // Side: filters in 3 columns beside 9 columns of results from 1024px. Top: filters in a row above full-width
 // results. Both stack the same below 1024px.
@@ -11,16 +11,18 @@ export type FilterLayoutOptions = {
   className?: string
 }
 
-export const filterLayoutClass = ({ position = 'top', className }: FilterLayoutOptions = {}): string =>
-  join('x-filters', `x-filters--${position}`, className)
+const filters = bem('x-filters')
+const filterPanel = bem('x-filter-panel')
 
-export const filterPanelClass = ({ className }: { className?: string } = {}): string =>
-  join('x-filter-panel', className)
+export const filterLayoutClass = ({ position = 'top', className }: FilterLayoutOptions = {}): string =>
+  filters({ position }, className)
+
+export const filterPanelClass = ({ className }: { className?: string } = {}): string => filterPanel({}, className)
 
 export const filterSwitchLabels: Record<FilterPosition, string> = { top: 'Top', side: 'Side' }
 
 export const filterSwitchButtonAttrs = (option: FilterPosition, position: FilterPosition = 'top') => ({
-  class: 'x-filters__switch-option',
+  class: filters.el('switch-option'),
   'data-x-filters-position': option,
   'aria-pressed': option === position ? ('true' as const) : ('false' as const),
 })

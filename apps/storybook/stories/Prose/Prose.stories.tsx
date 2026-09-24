@@ -63,6 +63,7 @@ const content = (
         viewBox="0 0 640 80"
         fill="none"
         stroke="currentColor"
+        // oxlint-disable-next-line jsx-a11y/prefer-tag-over-role -- an inline diagram needs role img to carry its label
         role="img"
         aria-label="Request flow"
       >

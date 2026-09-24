@@ -1,5 +1,5 @@
-// xaroth table look (Dune v2 tool table), shared by .x-table and raw tables in .x-prose. No CSS of its own.
-// Header sits on a dark band in gold caps under a gold line, so it reads apart from the glass body rows.
+// Shared by .x-table and raw tables in .x-prose. No CSS of its own.
+// The header sits on a dark band so it reads apart from the glass body rows.
 @mixin frame {
   background: var(--x-color-glass);
   backdrop-filter: var(--x-blur);

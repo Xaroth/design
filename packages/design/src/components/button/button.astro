@@ -9,7 +9,6 @@ type Props = Omit<HTMLAttributes<'button'>, 'class'> &
     href?: string
   }
 
-// `slot` is how a parent places this button; it is not an attribute of the button.
 const { variant, tone, size, fullWidth, loading, disabled, class: className, href, type = 'button', slot: _slot, ...rest } =
   Astro.props
 const classes = buttonClass({ variant, tone, size, fullWidth, loading, className })

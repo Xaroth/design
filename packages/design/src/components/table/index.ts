@@ -1,3 +1,5 @@
+import { bem } from '../../bem.ts'
+
 export type TableAlign = 'start' | 'end' | 'center'
 export type TableDensity = 'comfortable' | 'compact'
 
@@ -39,19 +41,15 @@ export type TableWrapOptions = {
   className?: string
 }
 
+const tableWrap = bem('x-table-wrap')
+const table = bem('x-table', { defaults: { density: 'comfortable', align: 'start' } })
+
 // className goes on the wrapper, the outermost element.
 export const tableWrapClass = ({ stickyHeader, className }: TableWrapOptions = {}): string =>
-  ['x-table-wrap', stickyHeader && 'x-table-wrap--sticky', className].filter(Boolean).join(' ')
+  tableWrap({ sticky: stickyHeader }, className)
 
 export const tableClass = ({ density = 'comfortable', striped, hover }: TableOptions = {}): string =>
-  [
-    'x-table',
-    density !== 'comfortable' && `x-table--${density}`,
-    striped && 'x-table--striped',
-    hover && 'x-table--hover',
-  ]
-    .filter(Boolean)
-    .join(' ')
+  table({ density, striped, hover })
 
 export const tableCellAlign = ({ align, numeric }: Pick<TableColumn, 'align' | 'numeric'>): TableAlign =>
   align ?? (numeric ? 'end' : 'start')
@@ -63,9 +61,7 @@ export const tableCellClass = (column: TableColumn, part: 'head' | 'body'): stri
   if (align === 'start' && !numeric) {
     return undefined
   }
-  return ['x-table__cell', align !== 'start' && `x-table__cell--${align}`, numeric && 'x-table__cell--num']
-    .filter(Boolean)
-    .join(' ')
+  return table.el('cell', { align, num: numeric })
 }
 
 // Astro: markup for one cell goes in a named slot, overriding the row value.

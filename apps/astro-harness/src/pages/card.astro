@@ -1,24 +1,14 @@
 ---
-import '@xaroth.nl/design/themes/xaroth.css'
-import '@xaroth.nl/design/themes/eve-online.css'
+import Harness from '../layouts/Harness.astro'
 import { Badge, Card, Tag } from '@xaroth.nl/design/astro'
 
-const themes = ['xaroth', 'eve-online']
 const grid = 'display: grid; gap: 24px; grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr)); margin-top: 16px'
 ---
 
-<html lang="en" data-x-theme="multi">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Card</title>
-  </head>
-  <body>
-    {
-      themes.map((theme) => (
-        <section data-x-theme={theme} style="padding: 32px">
-          <h2>{theme}</h2>
-          <p style="margin-top: 8px">Tags row, foot meta and action (EVE layout)</p>
+<Harness title="Card">
+  {() => (
+    <div style="padding: 32px">
+          <p style="margin-top: 8px">Tags row, foot meta and action</p>
           <div style={grid}>
             <Card href="#" index={1} title="Fit checker">
               <Badge slot="status" tone="success">Stable</Badge>
@@ -46,7 +36,7 @@ const grid = 'display: grid; gap: 24px; grid-template-columns: repeat(auto-fill,
               <Fragment slot="footStart">Offline</Fragment>
             </Card>
           </div>
-          <p style="margin-top: 24px">Tags in the foot, meta right (Dune layout)</p>
+          <p style="margin-top: 24px">Tags in the foot, meta right</p>
           <div style={grid}>
             <Card href="#" index={3} title="Mission tracker">
               <Badge slot="status" tone="success">Stable</Badge>
@@ -67,8 +57,6 @@ const grid = 'display: grid; gap: 24px; grid-template-columns: repeat(auto-fill,
             </Card>
             <Card title="Title and body only">Nothing else: no head, no foot.</Card>
           </div>
-        </section>
-      ))
-    }
-  </body>
-</html>
+    </div>
+  )}
+</Harness>

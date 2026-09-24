@@ -1,7 +1,6 @@
 @use '../../styles/theme';
 
 @include theme.parts('eve-online') {
-  // EVE v2 section head: eyebrow with a lit dash, rule with a lit segment and range ticks fading out.
   .x-section-head {
     position: relative;
     padding-bottom: var(--x-space-4);

@@ -1,7 +1,7 @@
 @use '../../styles/layers';
 
 @layer x.core {
-  // Structure, size and tone. Themes draw the track and fill (segments, diamond head) through the hooks below.
+  // Themes draw the track and fill through the --x-progress-* hooks.
   .x-progress {
     --x-progress-tone: var(--x-progress-default, var(--x-color-accent));
     --x-progress-height: var(--x-progress-md, 8px);
@@ -101,7 +101,7 @@
     text-align: end;
   }
 
-  // Indeterminate: a short fill sweeps the track. Reduced motion gets a still, dimmed full bar instead.
+  // Reduced motion gets a still, dimmed full bar instead of the sweep.
   .x-progress--indeterminate {
     .x-progress__track {
       clip-path: inset(-8px 0);

@@ -45,7 +45,6 @@
     --x-switch-knob: 14px;
   }
 
-  // Wrapper: label, control, help, error.
   .x-field {
     display: grid;
     gap: var(--x-space-2);
@@ -85,7 +84,6 @@
     }
   }
 
-  // Text controls
   .x-input,
   .x-textarea,
   .x-select {

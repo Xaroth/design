@@ -1,4 +1,4 @@
-const join = (...parts: (string | false | undefined)[]) => parts.filter(Boolean).join(' ')
+import { bem } from '../../bem.ts'
 
 // Stacked: term above value. Inline: term left, value pushed right. Columns: term in a fixed column, value left
 // next to it; stacks under 640px.
@@ -12,17 +12,13 @@ export type DescriptionListOptions = {
   className?: string
 }
 
+const descriptionList = bem('x-description-list', { defaults: { layout: 'stacked' } })
+
 export const descriptionListClass = ({
   layout = 'stacked',
   dividers,
   className,
-}: DescriptionListOptions = {}): string =>
-  join(
-    'x-description-list',
-    layout !== 'stacked' && `x-description-list--${layout}`,
-    dividers && 'x-description-list--dividers',
-    className,
-  )
+}: DescriptionListOptions = {}): string => descriptionList({ layout, dividers }, className)
 
 // Astro: markup for one value goes in a named slot, overriding the item value.
 export const descriptionListValueSlot = (index: number): string => `value-${index}`

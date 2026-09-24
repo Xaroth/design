@@ -1,7 +1,6 @@
 @use '../../styles/theme';
 
 @include theme.parts('xaroth') {
-  // Thin bar, bronze to tone, with a diamond head at the fill end (Dune v2).
   .x-progress {
     --x-progress-md: 4px;
     --x-progress-sm: 3px;

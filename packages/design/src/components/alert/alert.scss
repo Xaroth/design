@@ -1,7 +1,7 @@
 @use '../../styles/layers';
 
 @layer x.core {
-  // Structure and tone. Themes set the surface, the edge and which icon outline shows.
+  // Themes set the surface, the edge and which icon outline shows.
   .x-alert {
     --x-alert-tone: var(--x-color-info);
     --x-alert-wash: var(--x-color-info-wash);

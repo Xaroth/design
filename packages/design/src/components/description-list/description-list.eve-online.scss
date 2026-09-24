@@ -1,7 +1,6 @@
 @use '../../styles/theme';
 
 @include theme.parts('eve-online') {
-  // Readout rows: caps label, mono value, cyan links.
   .x-description-list {
     --x-description-list-term-font: var(--x-font-display);
     --x-description-list-term-fs: var(--x-fs-label);
@@ -16,7 +15,6 @@
       color: var(--x-color-accent);
     }
 
-    // Prose-like rows: plain term, body value.
     &--columns {
       --x-description-list-term-font: var(--x-font-body);
       --x-description-list-term-fs: var(--x-fs-ui);

@@ -2,7 +2,6 @@
 @use 'surface';
 
 @include theme.parts('eve-online') {
-  // Cut-corner panel; the edge carries the emphasis, raised panels get a lit top.
   .x-panel {
     --x-surface-cut: var(--x-cut-md);
     --x-surface-edge: var(--x-color-line);

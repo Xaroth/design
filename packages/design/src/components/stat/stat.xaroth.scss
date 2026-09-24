@@ -1,8 +1,6 @@
 @use '../../styles/theme';
 
 @include theme.parts('xaroth') {
-  // Centered Cinzel numbers above their label. Framed groups become one glass band under gold rules, with lines
-  // between the cells.
   .x-stat {
     --x-stat-value: var(--x-color-sand);
     --x-stat-inner-gap: var(--x-space-1);

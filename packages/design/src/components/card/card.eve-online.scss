@@ -2,8 +2,8 @@
 @use '../../styles/chamfer';
 
 @include theme.parts('eve-online') {
-  // Chamfered panel (EVE v2 tool card): ::before paints the edge, ::after the fill 1px inside it, so the
-  // element stays unclipped and the focus ring shows. The edge lights up on hover.
+  // ::before paints the edge and ::after the fill 1px inside it, so the element stays unclipped and the focus
+  // ring shows.
   .x-card {
     --x-card-cut: var(--x-cut-md);
     --x-card-edge: var(--x-color-line-strong);
@@ -44,7 +44,7 @@
       --x-card-fill: linear-gradient(180deg, var(--x-color-surface-3), var(--x-color-surface) 70%);
     }
 
-    // Strong treatment: cyan edge plus L brackets on the two uncut corners.
+    // Brackets go on the two uncut corners.
     &--featured {
       --x-card-edge: linear-gradient(
         135deg,

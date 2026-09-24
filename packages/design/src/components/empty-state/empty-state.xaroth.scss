@@ -1,7 +1,6 @@
 @use '../../styles/theme';
 
 @include theme.parts('xaroth') {
-  // Dashed outline on the page, bronze icon, sand title.
   .x-empty-state {
     --x-empty-state-icon: 2.5rem;
     --x-empty-state-measure: 30rem;

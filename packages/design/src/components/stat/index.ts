@@ -1,3 +1,5 @@
+import { bem } from '../../bem.ts'
+
 // Plain: bare numbers, for a row under a hero. Framed: boxed readouts, for a tool summary.
 export type StatGroupVariant = 'plain' | 'framed'
 export type StatGroupColumns = 2 | 3 | 4
@@ -16,10 +18,10 @@ export type StatOptions = {
   className?: string
 }
 
-export const statGroupClass = ({ variant = 'plain', columns = 4, className }: StatGroupOptions = {}): string =>
-  ['x-stat-group', `x-stat-group--${variant}`, columns !== 4 && `x-stat-group--cols-${columns}`, className]
-    .filter(Boolean)
-    .join(' ')
+const statGroup = bem('x-stat-group', { defaults: { cols: 4 }, prefixed: ['cols'] })
+const stat = bem('x-stat', { defaults: { tone: 'default' } })
 
-export const statClass = ({ tone = 'default', className }: StatOptions = {}): string =>
-  ['x-stat', tone !== 'default' && `x-stat--${tone}`, className].filter(Boolean).join(' ')
+export const statGroupClass = ({ variant = 'plain', columns = 4, className }: StatGroupOptions = {}): string =>
+  statGroup({ variant, cols: columns }, className)
+
+export const statClass = ({ tone = 'default', className }: StatOptions = {}): string => stat({ tone }, className)

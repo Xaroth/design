@@ -1,7 +1,6 @@
 @use '../../styles/layers';
 
 @layer x.core {
-  // Framed cells. Themes set type, frame color and the current page fill.
   .x-pagination {
     &__list {
       display: flex;

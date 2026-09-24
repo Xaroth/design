@@ -55,7 +55,7 @@
   "scripts": {
     "generate": "node scripts/generate.ts",
     "build": "node scripts/generate.ts && node scripts/build.ts && tsc -p tsconfig.build.json && node scripts/postbuild.ts",
-    "typecheck": "node scripts/generate.ts --check && tsc --noEmit"
+    "typecheck": "node scripts/generate.ts --check && tsc --noEmit && astro check"
   },
   "dependencies": {
     "@fontsource-variable/cinzel": "^5.3.0",
@@ -64,7 +64,8 @@
     "@fontsource-variable/manrope": "^5.3.0",
     "@fontsource-variable/oxanium": "^5.3.0",
     "@fontsource/ibm-plex-mono": "^5.3.0",
-    "@fontsource/spectral": "^5.3.0"
+    "@fontsource/spectral": "^5.3.0",
+    "clsx": "^2.1.1"
   },
   "peerDependencies": {
     "astro": ">=7",
@@ -81,6 +82,7 @@
   "devDependencies": {
     "@types/node": "catalog:",
     "@types/react": "catalog:",
+    "astro": "catalog:",
     "react": "catalog:",
     "sass": "catalog:",
     "typescript": "catalog:"
