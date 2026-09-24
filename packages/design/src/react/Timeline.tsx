@@ -20,20 +20,20 @@ export function Timeline({ items, headingLevel, className, ...rest }: TimelinePr
       {...rest}
       className={timelineClass({ className })}
     >
-      {items.map(({ date, datetime, title, text, current }, i) => (
+      {items.map(({ date, label, title, text, current }, i) => (
         <li
           key={i}
           className={timelineItemClass({ current })}
         >
-          {datetime ? (
+          {date ? (
             <time
               className="x-timeline__date"
-              dateTime={datetime}
+              dateTime={date}
             >
-              {date}
+              {label ?? date}
             </time>
           ) : (
-            <span className="x-timeline__date">{date}</span>
+            <span className="x-timeline__date">{label}</span>
           )}
           <div className="x-timeline__body">
             <Heading className="x-timeline__title">{title}</Heading>

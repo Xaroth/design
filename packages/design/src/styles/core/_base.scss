@@ -86,3 +86,37 @@ hr {
   outline: var(--x-focus-width) solid var(--x-color-focus);
   outline-offset: var(--x-focus-offset);
 }
+
+// Text roles outside prose. Sizes come from the shared scale; themes adjust font and case per role.
+.x-display {
+  font-family: var(--x-font-display);
+  font-size: var(--x-fs-display);
+  font-weight: 600;
+  line-height: 1.1;
+  letter-spacing: var(--x-track-display);
+  text-wrap: balance;
+}
+
+.x-lead {
+  font-size: var(--x-fs-lead);
+  line-height: 1.55;
+  color: var(--x-color-text-muted);
+}
+
+.x-small {
+  font-size: var(--x-fs-small);
+  line-height: 1.5;
+}
+
+.x-label {
+  font-family: var(--x-font-ui);
+  font-size: var(--x-fs-label);
+  font-weight: 600;
+  line-height: 1.3;
+  letter-spacing: var(--x-track-label);
+  text-transform: uppercase;
+}
+
+.x-muted {
+  color: var(--x-color-text-muted);
+}

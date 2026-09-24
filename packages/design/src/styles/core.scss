@@ -18,4 +18,6 @@
   @include meta.load-css('parts/badge');
   @include meta.load-css('parts/field');
   @include meta.load-css('parts/timeline');
+  @include meta.load-css('parts/table');
+  @include meta.load-css('parts/progress');
 }

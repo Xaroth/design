@@ -1,0 +1,99 @@
+---
+import type { HTMLAttributes } from 'astro/types'
+import {
+  tableCellClass,
+  tableCellSlot,
+  tableClass,
+  tableWrapClass,
+  type TableCell,
+  type TableColumn,
+  type TableLabel,
+  type TableOptions,
+  type TableRow,
+} from '../parts/table.ts'
+
+type Props = Omit<HTMLAttributes<'div'>, 'class' | 'aria-label' | 'aria-labelledby'> &
+  Omit<TableOptions, 'className'> &
+  TableLabel & {
+    class?: string
+    columns: TableColumn[]
+    /** Plain values. For markup, use a `cell-<rowIndex>-<key>` slot or a default slot function (see below). */
+    rows: TableRow[]
+    caption?: string
+    stickyHeader?: boolean
+  }
+
+const {
+  columns,
+  rows,
+  caption,
+  density,
+  striped,
+  hover,
+  stickyHeader,
+  label,
+  class: className,
+  ...rest
+} = Astro.props
+
+// Cell markup, first match wins: the named slot `cell-<rowIndex>-<key>` (static markup), then a default slot
+// function `(cell: TableCell) => markup`, which is called per cell; rendering nothing keeps the plain value.
+const hasRenderer = Astro.slots.has('default')
+const slotted = new Map<string, string>()
+for (const [rowIndex, row] of rows.entries()) {
+  for (const column of columns) {
+    const name = tableCellSlot(rowIndex, column.key)
+    let html = Astro.slots.has(name) ? await Astro.slots.render(name) : undefined
+    if (html === undefined && hasRenderer) {
+      const cell: TableCell = { row, rowIndex, column, value: row[column.key] }
+      html = (await Astro.slots.render('default', [cell])).trim() || undefined
+    }
+    if (html !== undefined) {
+      slotted.set(name, html)
+    }
+  }
+}
+---
+
+<div
+  class={tableWrapClass({ stickyHeader, className })}
+  role="region"
+  tabindex="0"
+  aria-label={label}
+  {...rest}
+>
+  <table class={tableClass({ density, striped, hover })}>
+    {caption && <caption class="x-table__caption">{caption}</caption>}
+    <thead>
+      <tr>
+        {
+          columns.map((column) => (
+            <th
+              class={tableCellClass(column, 'head')}
+              scope="col"
+              style={column.width ? `width:${column.width}` : undefined}
+            >
+              {column.label}
+            </th>
+          ))
+        }
+      </tr>
+    </thead>
+    <tbody>
+      {
+        rows.map((row, i) => (
+          <tr>
+            {columns.map((column) => {
+              const html = slotted.get(tableCellSlot(i, column.key))
+              return (
+                <td class={tableCellClass(column, 'body')}>
+                  {html !== undefined ? <Fragment set:html={html} /> : row[column.key]}
+                </td>
+              )
+            })}
+          </tr>
+        ))
+      }
+    </tbody>
+  </table>
+</div>

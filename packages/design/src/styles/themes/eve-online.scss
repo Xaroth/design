@@ -17,4 +17,6 @@
   @include meta.load-css('eve-online/badge');
   @include meta.load-css('eve-online/field');
   @include meta.load-css('eve-online/timeline');
+  @include meta.load-css('eve-online/table');
+  @include meta.load-css('eve-online/progress');
 }

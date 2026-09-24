@@ -1,5 +1,6 @@
 @use '../../theme';
 @use '../../chamfer';
+@use 'table-look';
 
 @include theme.parts('eve-online') {
   .x-prose {
@@ -113,32 +114,10 @@
       color: var(--x-color-text-faint);
     }
 
-    // EVE v2 table: framed glass, header on its own band in cyan caps.
-    :where(table) {
-      background: var(--x-color-glass);
-      border: 1px solid var(--x-color-line-strong);
-    }
-
-    :where(th) {
-      font-family: var(--x-font-ui);
-      font-weight: 600;
-      letter-spacing: var(--x-track-label);
-      text-transform: uppercase;
-      color: var(--x-color-accent);
-      background: var(--x-color-surface-3);
-      border-bottom: 1px solid var(--x-color-accent-edge);
-    }
-
-    :where(tbody tr) {
-      transition: background var(--x-duration) var(--x-ease);
-
-      &:hover {
-        background: var(--x-color-accent-wash);
-
-        > :first-child {
-          box-shadow: inset 2px 0 0 var(--x-color-accent);
-        }
-      }
+    :where(table:not(.x-table)) {
+      @include table-look.frame;
+      @include table-look.table;
+      @include table-look.hover;
     }
   }
 
@@ -168,7 +147,9 @@
       clip-path: chamfer.shape(var(--x-cut-md));
     }
 
+    // The edge sits above the content: the sticky line-number gutter has its own background and would cover it.
     &::after {
+      z-index: 1;
       background: var(--x-color-line-strong);
       clip-path: chamfer.ring(var(--x-cut-md), 1px);
     }
@@ -192,7 +173,7 @@
 
     &__line::before {
       content: counter(x-line, decimal-leading-zero);
-      width: 3.2em;
+      width: 2ch;
       padding-right: 1em;
       margin-right: 1em;
       color: var(--x-color-text-faint);

@@ -1,0 +1,112 @@
+---
+import '@xaroth.nl/design/scss/core.scss'
+import '@xaroth.nl/design/scss/themes/xaroth.scss'
+import '@xaroth.nl/design/scss/themes/eve-online.scss'
+import Badge from '@xaroth.nl/design/astro/Badge.astro'
+import Prose from '@xaroth.nl/design/astro/Prose.astro'
+import Table from '@xaroth.nl/design/astro/Table.astro'
+import type { TableCell, TableColumn } from '@xaroth.nl/design/parts'
+
+const themes = ['xaroth', 'eve-online']
+const tones = { done: 'success', progress: 'info', locked: 'default' } as const
+const stateLabel = { done: 'Done', progress: 'In progress', locked: 'Locked' } as const
+
+const achievements = [
+  { name: 'Wardec Veteran', faction: 'Amarr Empire', category: 'Combat', progress: 100, state: 'done', reward: '25,000' },
+  { name: 'Sovereign Hauler', faction: 'Caldari State', category: 'Industry', progress: 72, state: 'progress', reward: '4,800' },
+  { name: 'Sisters of Mercy', faction: 'Gallente Federation', category: 'Exploration', progress: 40, state: 'progress', reward: '10,000' },
+  { name: 'Tribal Liberator', faction: 'Minmatar Republic', category: 'Combat', progress: 100, state: 'done', reward: '1,250' },
+  { name: 'Deep Core Miner', faction: 'Caldari State', category: 'Industry', progress: 8, state: 'locked', reward: '600' },
+] as const
+
+const columns: TableColumn[] = [
+  { key: 'name', label: 'Achievement' },
+  { key: 'faction', label: 'Faction' },
+  { key: 'category', label: 'Category' },
+  { key: 'progress', label: 'Progress', numeric: true },
+  { key: 'state', label: 'State' },
+  { key: 'reward', label: 'Reward LP', numeric: true, width: '9rem' },
+]
+const rows = achievements.map((a) => ({ ...a, progress: `${a.progress}%`, state: stateLabel[a.state] }))
+
+const wide: TableColumn[] = ['Type', 'Group', 'Race', 'Mass kg', 'Volume m³', 'Capacity m³', 'Base price ISK', 'Meta'].map(
+  (label, i) => ({ key: `c${i}`, label, numeric: i > 2 }),
+)
+const wideRows = Array.from({ length: 24 }, (_, r) => ({
+  c0: `Rifter ${r + 1}`,
+  c1: 'Frigate',
+  c2: 'Minmatar',
+  c3: (1067000 + r * 1311).toLocaleString('en'),
+  c4: '27,289',
+  c5: '140',
+  c6: (400000 + r * 7).toLocaleString('en'),
+  c7: String(r % 5),
+}))
+---
+
+<html lang="en" data-x-theme="multi">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Table</title>
+  </head>
+  <body>
+    {
+      themes.map((theme) => (
+        <section data-x-theme={theme} style="padding: 32px 16px; display: grid; gap: 32px">
+          <h2>{theme}</h2>
+          <div style="display: grid; gap: 12px">
+            <h3 id={`${theme}-tool`}>Tool table, hover, cells from slots</h3>
+            <Table
+              aria-labelledby={`${theme}-tool`}
+              columns={columns}
+              rows={rows}
+              hover
+              caption="Five achievements across the four empires."
+            >
+              {(cell: TableCell) =>
+                cell.column.key === 'state' && (
+                  <Badge tone={tones[achievements[cell.rowIndex]!.state]}>{cell.value}</Badge>
+                )
+              }
+              <strong slot="cell-0-name">Wardec Veteran</strong>
+            </Table>
+          </div>
+          <div style="display: grid; gap: 12px">
+            <h3>Compact, striped</h3>
+            <Table label="Compact achievements" columns={columns} rows={rows} density="compact" striped hover />
+          </div>
+          <div style="display: grid; gap: 12px">
+            <h3>Wide, sticky header (scrolls inside its frame)</h3>
+            <Table
+              label="Frigates"
+              columns={wide}
+              rows={wideRows}
+              stickyHeader
+              hover
+              style="--x-table-max-height: 320px"
+            />
+          </div>
+          <div style="display: grid; gap: 12px">
+            <h3>Prose: raw table and Table part</h3>
+            <Prose>
+              <p>A raw table inside prose takes the same look.</p>
+              <table>
+                <thead>
+                  <tr><th scope="col">Errors left</th><th scope="col">Behaviour</th><th scope="col">Delay</th></tr>
+                </thead>
+                <tbody>
+                  <tr><td>100 to 50</td><td>Normal</td><td>None</td></tr>
+                  <tr><td>49 to 20</td><td>Slow down</td><td>250 ms</td></tr>
+                  <tr><td>0</td><td>Stop</td><td>Until reset</td></tr>
+                </tbody>
+              </table>
+              <p>The Table part inside prose keeps its wrapper and frame.</p>
+              <Table label="Error limits" columns={columns.slice(0, 3)} rows={rows.slice(0, 3)} hover />
+            </Prose>
+          </div>
+        </section>
+      ))
+    }
+  </body>
+</html>

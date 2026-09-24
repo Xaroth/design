@@ -1,0 +1,62 @@
+@use '../../theme';
+
+@include theme.parts('xaroth') {
+  // Thin bar, bronze to tone, with a diamond head at the fill end (Dune v2).
+  .x-progress {
+    --x-progress-md: 4px;
+    --x-progress-sm: 3px;
+    --x-progress-inset: -1px;
+    --x-progress-default: var(--x-color-accent);
+    --x-progress-head: var(--x-progress-tone);
+    --x-progress-diamond: 8px;
+  }
+
+  .x-progress--sm {
+    --x-progress-diamond: 6px;
+  }
+
+  .x-progress:not(
+    .x-progress--done,
+    .x-progress--info,
+    .x-progress--success,
+    .x-progress--warning,
+    .x-progress--danger
+  ) {
+    --x-progress-head: var(--x-color-accent-strong);
+  }
+
+  .x-progress--gradient {
+    --x-progress-head: var(--x-progress-end);
+  }
+
+  .x-progress__track {
+    border-radius: var(--x-radius);
+  }
+
+  .x-progress:not(.x-progress--gradient) .x-progress__fill {
+    background: linear-gradient(90deg, var(--x-color-bronze), var(--x-progress-tone));
+  }
+
+  .x-progress__fill {
+    &::after {
+      content: '';
+      position: absolute;
+      inset-block-start: 50%;
+      inset-inline-end: calc(var(--x-progress-diamond) / -2);
+      width: var(--x-progress-diamond);
+      height: var(--x-progress-diamond);
+      background: var(--x-progress-head);
+      transform: translateY(-50%) rotate(45deg);
+    }
+  }
+
+  .x-progress--empty .x-progress__fill::after {
+    display: none;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .x-progress--indeterminate .x-progress__fill::after {
+      display: none;
+    }
+  }
+}

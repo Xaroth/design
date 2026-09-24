@@ -1,4 +1,5 @@
 @use '../../theme';
+@use 'table-look';
 
 @include theme.parts('xaroth') {
   .x-prose {
@@ -95,22 +96,9 @@
       border-radius: var(--x-radius);
     }
 
-    // Dune v3 table with a header row on its own lit band in gold caps.
-    :where(table) {
-      font-family: var(--x-font-ui);
-    }
-
-    :where(th) {
-      font-weight: 700;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--x-color-accent);
-      background: var(--x-color-surface-3);
-      border-bottom: 1px solid var(--x-color-rule);
-    }
-
-    :where(tbody tr:hover td) {
-      background: var(--x-color-accent-wash);
+    :where(table:not(.x-table)) {
+      @include table-look.frame;
+      @include table-look.table;
     }
   }
 
@@ -120,13 +108,13 @@
 
     color: var(--x-color-text);
     background: var(--x-code-bg);
-    border: 1px solid var(--x-color-line);
+    border: 1px solid var(--x-color-line-strong);
     border-radius: var(--x-radius);
 
     &__bar {
       font-family: var(--x-font-mono);
       color: var(--x-color-text-muted);
-      border-bottom: 1px solid var(--x-color-line);
+      border-bottom: 1px solid var(--x-color-line-strong);
     }
 
     &__pre {

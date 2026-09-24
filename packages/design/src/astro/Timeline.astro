@@ -20,14 +20,14 @@ const Heading = timelineHeading(headingLevel)
 
 <ol class={timelineClass({ className })} {...rest}>
   {
-    items.map(({ date, datetime, title, text, current }) => (
+    items.map(({ date, label, title, text, current }) => (
       <li class={timelineItemClass({ current })}>
-        {datetime ? (
-          <time class="x-timeline__date" datetime={datetime}>
-            {date}
+        {date ? (
+          <time class="x-timeline__date" datetime={date}>
+            {label ?? date}
           </time>
         ) : (
-          <span class="x-timeline__date">{date}</span>
+          <span class="x-timeline__date">{label}</span>
         )}
         <div class="x-timeline__body">
           <Heading class="x-timeline__title">{title}</Heading>

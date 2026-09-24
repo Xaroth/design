@@ -1,3 +1,5 @@
+@use '../table-look';
+
 // Long-form content. Text keeps the reading width; code, tables and figures may use the full column.
 // Themes set list markers, quote, table and code looks.
 .x-prose {
@@ -77,30 +79,14 @@
     color: var(--x-color-text-muted);
   }
 
-  :where(table) {
-    width: 100%;
-    font-size: var(--x-fs-ui);
-    line-height: 1.4;
-    border-collapse: collapse;
+  // Same look as the Table part; a Table inside prose keeps its own wrapper and is left alone here.
+  :where(table:not(.x-table)) {
+    @include table-look.table;
+    @include table-look.hover;
   }
 
-  :where(th) {
-    height: var(--x-row);
-    padding: 0 var(--x-space-4);
-    font-size: var(--x-fs-label);
-    text-align: left;
-    white-space: nowrap;
-  }
-
-  :where(td) {
-    height: var(--x-row);
-    padding: var(--x-space-3) var(--x-space-4);
-    vertical-align: middle;
-    border-bottom: 1px solid var(--x-color-line);
-  }
-
-  :where(tbody tr:last-child td) {
-    border-bottom: 0;
+  > .x-table-wrap {
+    margin-block: var(--x-prose-block);
   }
 
   :where(strong) {
@@ -154,7 +140,10 @@
     counter-increment: x-line;
     content: counter(x-line);
     display: inline-block;
+    box-sizing: content-box;
     width: 3.5ch;
+    // Room between the frame edge and the numbers; the gutter is sticky, so this cannot be padding on <pre>.
+    padding-left: var(--x-code-gutter-start, 1.5ch);
     padding-right: 1.5ch;
     margin-right: 1.5ch;
     text-align: right;

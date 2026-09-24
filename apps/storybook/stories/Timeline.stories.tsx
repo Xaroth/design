@@ -9,19 +9,17 @@ const meta = {
     items: [
       {
         date: '2026',
-        datetime: '2026',
         title: 'eve-online.tools',
         text: 'Rebuilt the tool collection on typed ESI and a pinned SDE.',
         current: true,
       },
       {
         date: '2024',
-        datetime: '2024',
         title: 'Fanfest schedule',
         text: 'Shipped the unofficial Fanfest schedule site.',
       },
-      { date: '2019', datetime: '2019', title: 'Joined CCP Games', text: 'Started working on EVE Online services.' },
-      { date: '2006', title: 'Undocked', text: 'First login to New Eden. Lost a Rifter within the hour.' },
+      { date: '2019', title: 'Joined CCP Games', text: 'Started working on EVE Online services.' },
+      { date: '2006-05-06', title: 'Undocked', text: 'First login to New Eden. Lost a Rifter within the hour.' },
     ],
   },
   argTypes: {

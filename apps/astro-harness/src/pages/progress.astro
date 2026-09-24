@@ -1,0 +1,45 @@
+---
+import '@xaroth.nl/design/scss/core.scss'
+import '@xaroth.nl/design/scss/themes/xaroth.scss'
+import '@xaroth.nl/design/scss/themes/eve-online.scss'
+import Progress from '@xaroth.nl/design/astro/Progress.astro'
+
+const themes = ['xaroth', 'eve-online']
+const tones = ['default', 'info', 'success', 'warning', 'danger'] as const
+---
+
+<html lang="en" data-x-theme="multi">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Progress</title>
+  </head>
+  <body>
+    {
+      themes.map((theme) => (
+        <section data-x-theme={theme} style="padding: 32px">
+          <h2>{theme}</h2>
+          <div style="display: grid; gap: 16px; max-width: 28rem; margin-top: 16px">
+            {[0, 8, 72, 100].map((v) => (
+              <Progress value={v} label={`Sample ${v}%`} showValue />
+            ))}
+            {tones.map((tone) => (
+              <Progress value={60} tone={tone} label={`${tone} tone`} showValue />
+            ))}
+            <Progress value={3} max={8} label="Steps" showValue />
+            <Progress value={45} size="sm" label="Small" showValue />
+            <Progress value={45} label="No value" />
+            {[0, 30, 70, 100].map((v) => (
+              <Progress value={v} startTone="danger" tone="success" label={`Gradient ${v}%`} showValue />
+            ))}
+            <Progress value={55} startTone="default" tone="warning" label="Gradient from default" showValue />
+            <Progress value={55} startTone="info" size="sm" label="Gradient small" showValue />
+            <Progress label="Loading" />
+            <Progress startTone="danger" tone="success" label="Loading gradient" />
+            <Progress size="sm" tone="info" label="Loading small" />
+          </div>
+        </section>
+      ))
+    }
+  </body>
+</html>

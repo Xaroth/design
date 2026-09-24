@@ -1,0 +1,68 @@
+@use '../../theme';
+
+@include theme.parts('eve-online') {
+  // Segmented gauge with a glowing fill (EVE v2). Gaps are cut with a mask so the glow stays whole.
+  .x-progress {
+    --x-progress-md: 8px;
+    --x-progress-sm: 6px;
+    --x-progress-segment: 9px;
+    --x-progress-gap: 2px;
+    --x-progress-inset: 1px;
+  }
+
+  .x-progress--sm {
+    --x-progress-segment: 6px;
+  }
+
+  .x-progress__track {
+    background: repeating-linear-gradient(
+      90deg,
+      var(--x-color-surface-3) 0 var(--x-progress-segment),
+      var(--x-color-surface) var(--x-progress-segment) calc(var(--x-progress-segment) + var(--x-progress-gap))
+    );
+    background-position: 1px 0;
+  }
+
+  .x-progress__track::before {
+    content: '';
+    position: absolute;
+    inset-block: 1px;
+    inset-inline-start: 1px;
+    width: calc(var(--x-progress, 0%) - 2px);
+    box-shadow: 0 0 8px color-mix(in srgb, var(--x-progress-end) 55%, transparent);
+  }
+
+  .x-progress--empty .x-progress__track::before {
+    display: none;
+  }
+
+  .x-progress__fill {
+    inset-inline-start: 1px;
+    width: calc(var(--x-progress, 0%) - 2px);
+    mask: repeating-linear-gradient(
+      90deg,
+      #000 0 var(--x-progress-segment),
+      transparent var(--x-progress-segment) calc(var(--x-progress-segment) + var(--x-progress-gap))
+    );
+  }
+
+  .x-progress--indeterminate {
+    .x-progress__track::before {
+      display: none;
+    }
+
+    .x-progress__fill {
+      width: 30%;
+      mask: none;
+      box-shadow: 0 0 8px color-mix(in srgb, var(--x-progress-end) 55%, transparent);
+
+      @media (prefers-reduced-motion: reduce) {
+        width: calc(100% - 2px);
+      }
+    }
+  }
+
+  .x-progress__value {
+    font-family: var(--x-font-mono);
+  }
+}

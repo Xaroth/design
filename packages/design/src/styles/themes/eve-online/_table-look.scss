@@ -1,0 +1,35 @@
+// eve-online table look (EVE v2 table), shared by .x-table and raw tables in .x-prose. No CSS of its own.
+// Header on a lighter band in cyan caps over an accent line; hovered rows get a wash and a cyan edge.
+@mixin frame {
+  background: var(--x-color-glass);
+  border: 1px solid var(--x-color-line-strong);
+}
+
+@mixin table {
+  --x-table-hover: var(--x-color-accent-wash);
+  --x-table-stripe: color-mix(in srgb, var(--x-color-accent) 4%, transparent);
+
+  color: var(--x-color-text-muted);
+
+  // Opaque, so a sticky header hides the rows under it. The line is a shadow because collapsed borders do not stick.
+  :where(thead th) {
+    font-family: var(--x-font-ui);
+    font-weight: 600;
+    letter-spacing: var(--x-track-label);
+    text-transform: uppercase;
+    color: var(--x-color-accent);
+    background: var(--x-color-surface-3);
+    box-shadow: inset 0 -1px 0 var(--x-color-accent-edge);
+  }
+
+  :where(tbody th) {
+    font-weight: 500;
+    color: var(--x-color-text);
+  }
+}
+
+@mixin hover {
+  :where(tbody tr:hover) > :first-child {
+    box-shadow: inset 2px 0 0 var(--x-color-accent);
+  }
+}

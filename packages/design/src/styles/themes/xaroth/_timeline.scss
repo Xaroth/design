@@ -1,57 +1,28 @@
 @use '../../theme';
 
-// Dune v2 timeline: gold spine between date and body, diamond points, dates right-aligned, newest point in spice.
+// Dune v2 timeline: dates right-aligned, gold spine between date and body, diamond points, newest point in spice.
 @include theme.parts('xaroth') {
   .x-timeline {
     --x-timeline-gap: var(--x-space-6);
-    --x-timeline-column-gap: var(--x-space-7);
-    --x-timeline-spine: 0.3rem;
-
-    &::before {
-      content: '';
-      position: absolute;
-      top: 0.5rem;
-      bottom: 0.5rem;
-      left: var(--x-timeline-spine);
-      width: 1px;
-      background: linear-gradient(var(--x-color-rule), var(--x-color-line-strong));
-    }
+    --x-timeline-rail: 12px;
+    --x-timeline-node: 0.6rem;
+    --x-timeline-date-fs: var(--x-fs-h3);
+    --x-timeline-spine: var(--x-color-rule);
+    --x-timeline-columns: [date-start] max-content [date-end rail-start] var(--x-timeline-rail) [rail-end body-start] minmax(0, 1fr) [body-end];
 
     @media (min-width: 640px) {
-      --x-timeline-spine: 6.25rem;
+      --x-timeline-column-gap: var(--x-space-5);
     }
   }
 
-  .x-timeline__item {
-    padding-left: var(--x-space-6);
-
-    &::before {
-      content: '';
-      position: absolute;
-      top: 0.55rem;
-      left: calc(var(--x-timeline-spine) - 0.3rem);
-      width: 0.6rem;
-      height: 0.6rem;
-      background: var(--x-color-bg);
-      border: 1px solid var(--x-color-accent);
-      transform: rotate(45deg);
-    }
-
-    @media (min-width: 640px) {
-      padding-left: 0;
-    }
-  }
-
-  .x-timeline__item--current::before {
+  .x-timeline__item--current::after {
     background: var(--x-color-spice);
     border-color: var(--x-color-spice);
   }
 
   .x-timeline__date {
     font-family: var(--x-font-display);
-    font-size: var(--x-fs-h3);
     font-weight: 500;
-    line-height: 1.3;
     color: var(--x-color-accent);
 
     @media (min-width: 640px) {
