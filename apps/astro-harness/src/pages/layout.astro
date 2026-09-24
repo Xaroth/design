@@ -1,0 +1,71 @@
+---
+import '@xaroth.nl/design/scss/core.scss'
+import '@xaroth.nl/design/scss/themes/xaroth.scss'
+import '@xaroth.nl/design/scss/themes/eve-online.scss'
+import Container from '@xaroth.nl/design/astro/Container.astro'
+import Grid from '@xaroth.nl/design/astro/Grid.astro'
+import Section from '@xaroth.nl/design/astro/Section.astro'
+import SectionHead from '@xaroth.nl/design/astro/SectionHead.astro'
+
+const themes = ['xaroth', 'eve-online']
+const cell = 'display: grid; place-items: center; min-height: 48px; font-family: var(--x-font-mono); font-size: var(--x-fs-label); color: var(--x-color-text-muted); background: var(--x-color-accent-wash)'
+---
+
+<html lang="en" data-x-theme="multi">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Layout</title>
+  </head>
+  <body>
+    {
+      themes.map((theme) => (
+        <div data-x-theme={theme}>
+          <Section tight>
+            <Container>
+              <SectionHead
+                eyebrow="Fitting / 06 modules"
+                title="Tools"
+                sub="Six tools, each doing one thing well. Most need no sign-in at all."
+                link={{ label: 'All tools', href: '#' }}
+                titleId={`${theme}-tools`}
+              />
+              <Grid>
+                {Array.from({ length: 12 }, (_, i) => (
+                  <div class="x-col-1 x-col--keep" style={cell}>{i + 1}</div>
+                ))}
+                <div class="x-col-8" style={cell}>col 8</div>
+                <div class="x-col-4" style={cell}>col 4, stacks under 1024</div>
+                <div class="x-col-6 x-col--stack-sm" style={cell}>col 6, stacks under 640</div>
+                <div class="x-col-6 x-col--stack-sm" style={cell}>col 6, stacks under 640</div>
+                <div class="x-col-3" style={cell}>3</div>
+                <div class="x-col-9" style={cell}>9</div>
+              </Grid>
+            </Container>
+          </Section>
+          <Section tight>
+            <Container>
+              <SectionHead eyebrow="Logbook" title="Recent posts" link={{ label: 'All posts', href: '#' }} />
+              <p>Section head with eyebrow and link.</p>
+            </Container>
+          </Section>
+          <Section tight>
+            <Container>
+              <SectionHead title="Title only" />
+              <p>Section head without eyebrow, subline or link.</p>
+            </Container>
+          </Section>
+          <Section tight>
+            <Container width="prose">
+              <SectionHead eyebrow="Prose width" title="Narrow container" level={3} />
+              <p>
+                The prose container keeps a page with no grid at the reading width. Running text stays under 68
+                characters so lines are easy to follow.
+              </p>
+            </Container>
+          </Section>
+        </div>
+      ))
+    }
+  </body>
+</html>

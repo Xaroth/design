@@ -1,1 +1,91 @@
-// layout: structure only; themes style it in themes/<name>/_layout.scss.
+// Page container, 12 column grid, section spacing and the section heading block. Themes add ornament only.
+.x-container {
+  width: 100%;
+  max-width: calc(var(--x-page) + 2 * var(--x-gutter));
+  padding-inline: var(--x-gutter);
+  margin-inline: auto;
+
+  &--prose {
+    max-width: calc(var(--x-prose) + 2 * var(--x-gutter));
+  }
+}
+
+.x-grid {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: var(--x-gap);
+}
+
+// Spans take the full row below 1024px (asides stack under content). --stack-sm holds the span down to 640px,
+// --keep holds it at every width.
+@for $i from 1 through 12 {
+  .x-col-#{$i} {
+    grid-column: 1 / -1;
+    min-width: 0;
+
+    &.x-col--keep {
+      grid-column: span $i;
+    }
+
+    &.x-col--stack-sm {
+      @media (min-width: 640px) {
+        grid-column: span $i;
+      }
+    }
+
+    @media (min-width: 1024px) {
+      grid-column: span $i;
+    }
+  }
+}
+
+.x-section {
+  padding-block: var(--x-section);
+
+  // Stacked sections share one gap instead of doubling it.
+  & + & {
+    padding-top: 0;
+  }
+
+  &--tight {
+    padding-block: calc(var(--x-section) / 2);
+  }
+}
+
+.x-section-head {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--x-space-3) var(--x-space-5);
+  align-items: end;
+  justify-content: space-between;
+  margin-bottom: var(--x-space-7);
+
+  &__titles {
+    display: grid;
+    gap: var(--x-space-2);
+    min-width: 0;
+  }
+
+  &__eyebrow {
+    font-family: var(--x-font-display);
+    font-size: var(--x-fs-label);
+    font-weight: 600;
+    line-height: 1.3;
+    letter-spacing: var(--x-track-label);
+    text-transform: uppercase;
+    color: var(--x-color-accent);
+  }
+
+  &__title {
+    font-size: var(--x-fs-h2);
+  }
+
+  &__sub {
+    max-width: var(--x-prose);
+    color: var(--x-color-text-muted);
+  }
+
+  &__link {
+    flex: none;
+  }
+}

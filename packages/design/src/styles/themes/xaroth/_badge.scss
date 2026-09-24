@@ -1,4 +1,26 @@
 @use '../../theme';
 
 @include theme.parts('xaroth') {
+  // Framed caps with a diamond marker (Dune v2). The default badge gets a hollow diamond.
+  .x-badge {
+    --x-badge-gap: 0.5em;
+    --x-badge-edge-mix: 55%;
+
+    padding: 0.3rem 0.6rem 0.3rem 0.5rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    background: var(--x-color-bg-sunk);
+    border-radius: var(--x-radius);
+
+    &::before {
+      width: 0.4rem;
+      height: 0.4rem;
+      transform: rotate(45deg);
+    }
+
+    &:not(.x-badge--info, .x-badge--success, .x-badge--warning, .x-badge--danger)::before {
+      background: transparent;
+      border: 1px solid currentcolor;
+    }
+  }
 }

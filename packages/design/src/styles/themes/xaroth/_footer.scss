@@ -1,4 +1,52 @@
 @use '../../theme';
 
 @include theme.parts('xaroth') {
+  // Dune v3: one quiet row under a hairline, legal line below.
+  .x-footer {
+    padding-block: var(--x-space-7) var(--x-space-8);
+    border-top: 1px solid var(--x-color-line);
+  }
+
+  .x-footer__brand {
+    font-family: var(--x-font-display);
+    font-size: 1rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    color: var(--x-color-sand);
+
+    &:hover {
+      color: var(--x-color-accent-strong);
+    }
+
+    svg {
+      color: var(--x-color-accent);
+    }
+  }
+
+  .x-footer__note {
+    color: var(--x-color-text-faint);
+  }
+
+  .x-footer__title {
+    font-family: var(--x-font-display);
+    font-weight: 600;
+    letter-spacing: var(--x-track-caps);
+    text-transform: uppercase;
+    color: var(--x-color-text-faint);
+  }
+
+  .x-footer__link {
+    font-family: var(--x-font-ui);
+    font-size: var(--x-fs-small);
+    color: var(--x-color-text-muted);
+
+    &:hover {
+      color: var(--x-color-accent-strong);
+      text-decoration: none;
+    }
+  }
+
+  .x-footer--columns .x-footer__link {
+    font-size: var(--x-fs-ui);
+  }
 }

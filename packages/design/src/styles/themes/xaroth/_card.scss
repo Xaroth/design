@@ -1,4 +1,75 @@
 @use '../../theme';
 
 @include theme.parts('xaroth') {
+  // Glass block capped with a centered gold hairline, roman numeral index, ruled foot (Dune v2).
+  .x-card {
+    --x-card-gap: var(--x-space-4);
+    --x-card-glass-hover: rgb(48 37 24 / 66%);
+    --x-card-edge-hover: rgb(228 197 135 / 32%);
+    --x-card-index-style: upper-roman;
+
+    background: linear-gradient(180deg, rgb(228 197 135 / 5%), transparent 40%) var(--x-color-glass);
+    backdrop-filter: var(--x-blur);
+    border: 1px solid var(--x-color-glass-edge);
+    box-shadow: var(--x-shadow);
+    transition:
+      border-color var(--x-duration) var(--x-ease),
+      background-color var(--x-duration) var(--x-ease);
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: -1px;
+      right: 22%;
+      left: 22%;
+      height: 1px;
+      pointer-events: none;
+      background: linear-gradient(90deg, transparent, var(--x-color-accent), transparent);
+    }
+
+    &--link:hover {
+      background-color: var(--x-card-glass-hover);
+      border-color: var(--x-card-edge-hover);
+
+      .x-card__title {
+        color: var(--x-color-accent-strong);
+      }
+    }
+
+    // Featured: the hairline runs wider and brighter, the frame warms.
+    &--featured {
+      border-color: var(--x-card-edge-hover);
+
+      &::before {
+        right: 8%;
+        left: 8%;
+        background: linear-gradient(90deg, transparent, var(--x-color-accent-strong), transparent);
+      }
+    }
+
+    &__index {
+      font-family: var(--x-font-display);
+      font-weight: 600;
+      letter-spacing: var(--x-track-caps);
+      color: var(--x-color-bronze);
+    }
+
+    &__title {
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      color: var(--x-color-sand);
+      transition: color var(--x-duration) var(--x-ease);
+    }
+
+    &__foot {
+      padding-top: var(--x-space-4);
+    }
+
+    &__foot-start,
+    &__foot-end {
+      font-family: var(--x-font-mono);
+      font-size: var(--x-fs-label);
+      color: var(--x-color-text-faint);
+    }
+  }
 }

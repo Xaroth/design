@@ -1,0 +1,110 @@
+---
+import '@xaroth.nl/design/scss/core.scss'
+import '@xaroth.nl/design/scss/themes/xaroth.scss'
+import '@xaroth.nl/design/scss/themes/eve-online.scss'
+import CodeBlock from '@xaroth.nl/design/astro/CodeBlock.astro'
+import Container from '@xaroth.nl/design/astro/Container.astro'
+import Grid from '@xaroth.nl/design/astro/Grid.astro'
+import Prose from '@xaroth.nl/design/astro/Prose.astro'
+import Section from '@xaroth.nl/design/astro/Section.astro'
+
+const themes = ['xaroth', 'eve-online']
+const code = `import { createEsiClient } from '@eve-online-tools/esi-provider'
+
+const esi = createEsiClient({ compatibilityDate: '2026-09-01' })
+
+const { data, error } = await esi.GET('/characters/{character_id}/', {
+  params: { path: { character_id: 2112625428 } },
+})
+
+if (error) throw error
+console.log(data.name) // typed as string`
+---
+
+<html lang="en" data-x-theme="multi">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Prose</title>
+  </head>
+  <body>
+    {
+      themes.map((theme) => (
+        <div data-x-theme={theme}>
+          <Section tight>
+            <Container>
+              <Grid>
+                <Prose as="article" class="x-col-8">
+                  <p>
+                    Every tool on this site talks to ESI, the EVE Swagger Interface. It is a large API: over two
+                    hundred routes, each with its own scopes, cache timers, and error shapes. Writing a client by
+                    hand is possible, but it <em>rots</em> the moment CCP adds a field.
+                  </p>
+                  <p>
+                    The good news is that ESI describes itself. The spec is published as <a href="#">OpenAPI</a>,
+                    and tools like <code>openapi-typescript</code> can turn it into <strong>types</strong>.
+                  </p>
+                  <h2 id={`${theme}-spec`}>Cleaning up the spec</h2>
+                  <p>The first pass removes legacy route versions and normalises operation names.</p>
+                  <ol>
+                    <li>Download the latest spec for the chosen compatibility date.</li>
+                    <li>Drop deprecated and legacy route versions.</li>
+                    <li>Rename operations to stable, readable identifiers.</li>
+                    <li>Generate types and commit them next to the client.</li>
+                  </ol>
+                  <CodeBlock code={code} lang="ts" title="example.ts" />
+                  <h2>Handling cache timers</h2>
+                  <p>
+                    Most ESI routes are cached server side, and the response tells you for how long. Respecting the
+                    Expires header keeps you well under the error limit.
+                  </p>
+                  <blockquote>
+                    <p>
+                      Treat the Expires header as a promise. Asking again before it passes will only get you the
+                      same answer, and a strike against your error budget.
+                    </p>
+                    <footer>ESI best practices</footer>
+                  </blockquote>
+                  <h3>Error limits in practice</h3>
+                  <p>The error limit is shared per IP, so the client backs off as the remaining budget drops.</p>
+                  <table>
+                    <thead>
+                      <tr><th scope="col">Errors left</th><th scope="col">Behaviour</th><th scope="col">Delay</th></tr>
+                    </thead>
+                    <tbody>
+                      <tr><td>100 to 50</td><td>Normal</td><td>None</td></tr>
+                      <tr><td>49 to 20</td><td>Slow down</td><td>250 ms</td></tr>
+                      <tr><td>19 to 1</td><td>Critical only</td><td>2 s</td></tr>
+                      <tr><td>0</td><td>Stop</td><td>Until reset</td></tr>
+                    </tbody>
+                  </table>
+                  <figure>
+                    <svg viewBox="0 0 640 120" fill="none" stroke="currentColor" role="img" aria-label="Request flow">
+                      {['Tool', 'Typed client', 'Cache', 'ESI'].map((label, i) => (
+                        <g>
+                          <rect x={10 + i * 160} y="30" width="130" height="60" stroke-opacity="0.6" />
+                          <text x={75 + i * 160} y="66" text-anchor="middle" fill="currentColor" stroke="none" font-size="15">{label}</text>
+                        </g>
+                      ))}
+                    </svg>
+                    <figcaption>Request flow: tool, typed client, cache, then ESI.</figcaption>
+                  </figure>
+                  <h2>What is next</h2>
+                  <ul>
+                    <li>Generated React Query hooks per route.</li>
+                    <li>Scope checks at compile time.</li>
+                    <li>A small devtools panel for cache hits and error budget.</li>
+                  </ul>
+                  <hr />
+                  <p>The client is open source. If something in the generated types looks off, open an issue.</p>
+                  <CodeBlock code={'pnpm add @eve-online-tools/esi-provider'} lang="sh" />
+                </Prose>
+                <aside class="x-col-4" style="color: var(--x-color-text-muted)">Aside, 4 columns</aside>
+              </Grid>
+            </Container>
+          </Section>
+        </div>
+      ))
+    }
+  </body>
+</html>

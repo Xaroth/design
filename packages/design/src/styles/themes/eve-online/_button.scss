@@ -1,12 +1,18 @@
 @use '../../theme';
 @use '../../chamfer';
 
+// EVE v4 buttons: wide tracked caps, lit primary, tinted secondary, bare tertiary. Any tone recolors all three.
 @include theme.parts('eve-online') {
   // Cut corners (top left, bottom right) are the EVE signature. The element stays unclipped so the focus
   // ring shows; ::before paints the fill, ::after the 1px edge as an even-odd ring so diagonals get a border
   // and transparent fills still work.
   .x-button {
     --x-cut: 8px;
+    // Lit top of the primary gradient and the dark tinted fill of the secondary, per tone.
+    --x-button-tone-hi: color-mix(in oklab, var(--x-button-tone) 55%, white);
+    --x-button-tint: color-mix(in oklab, var(--x-button-tone) 12%, var(--x-color-bg));
+    --x-button-tint-hi: color-mix(in oklab, var(--x-button-tone) 20%, var(--x-color-bg));
+    --x-button-edge: var(--x-button-tone);
 
     position: relative;
     isolation: isolate;
@@ -32,5 +38,78 @@
       background: var(--x-button-border, var(--x-button-bg));
       clip-path: chamfer.ring(var(--x-cut), 1px);
     }
+  }
+
+  // Default tone uses the exact v4 colors instead of the mixes.
+  .x-button:not(.x-button--danger, .x-button--warning, .x-button--success) {
+    --x-button-tone-hi: var(--x-color-accent-strong);
+    --x-button-tint: var(--x-color-accent-fill);
+    --x-button-tint-hi: var(--x-color-accent-fill);
+    --x-button-edge: var(--x-color-accent-edge);
+  }
+
+  .x-button--primary {
+    --x-button-bg: linear-gradient(180deg, var(--x-button-tone-hi) -40%, var(--x-button-tone) 60%);
+    --x-button-border: var(--x-button-tone);
+
+    &:hover:not(:disabled, [aria-disabled='true']) {
+      filter: brightness(1.12);
+    }
+  }
+
+  .x-button--secondary {
+    --x-button-fg: var(--x-button-tone);
+    --x-button-bg: var(--x-button-tint);
+    --x-button-border: var(--x-button-edge);
+
+    &:hover:not(:disabled, [aria-disabled='true']) {
+      --x-button-fg: var(--x-button-tone-hi);
+      --x-button-bg: var(--x-button-tint-hi);
+      --x-button-border: var(--x-button-tone);
+    }
+  }
+
+  .x-button--tertiary {
+    --x-button-fg: var(--x-button-quiet-fg);
+    --x-button-bg: transparent;
+    --x-button-border: transparent;
+
+    padding: 0 var(--x-space-3);
+
+    &:hover:not(:disabled, [aria-disabled='true']) {
+      --x-button-fg: var(--x-button-tone);
+      --x-button-bg: color-mix(in oklab, var(--x-button-tone) 8%, transparent);
+    }
+  }
+
+  .x-button:not(.x-button--danger, .x-button--warning, .x-button--success).x-button--tertiary {
+    --x-button-quiet-fg: var(--x-color-text-muted);
+  }
+
+  .x-button--sm {
+    --x-cut: 6px;
+
+    padding: 0 var(--x-space-3);
+  }
+
+  .x-button--lg {
+    --x-cut: 10px;
+  }
+
+  // v4 greys out inactive buttons instead of fading them.
+  .x-button:disabled,
+  .x-button[aria-disabled='true']:not(.x-button--loading) {
+    --x-button-fg: var(--x-color-text-faint);
+    --x-button-bg: var(--x-color-surface-2);
+    --x-button-border: var(--x-color-line-strong);
+
+    opacity: 1;
+    filter: none;
+  }
+
+  .x-button--tertiary:disabled,
+  .x-button--tertiary[aria-disabled='true']:not(.x-button--loading) {
+    --x-button-bg: transparent;
+    --x-button-border: transparent;
   }
 }

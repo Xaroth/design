@@ -1,0 +1,37 @@
+---
+import '@xaroth.nl/design/scss/core.scss'
+import '@xaroth.nl/design/scss/themes/xaroth.scss'
+import '@xaroth.nl/design/scss/themes/eve-online.scss'
+import Badge from '@xaroth.nl/design/astro/Badge.astro'
+
+const themes = ['xaroth', 'eve-online']
+const tones = [
+  ['default', 'Locked'],
+  ['info', 'Beta'],
+  ['success', 'Stable'],
+  ['warning', 'Experimental'],
+  ['danger', 'Offline'],
+] as const
+---
+
+<html lang="en" data-x-theme="multi">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Badge</title>
+  </head>
+  <body>
+    {
+      themes.map((theme) => (
+        <section data-x-theme={theme} style="padding: 32px">
+          <h2>{theme}</h2>
+          <p style="display: flex; gap: 12px; flex-wrap: wrap; margin-top: 16px">
+            {tones.map(([tone, label]) => (
+              <Badge tone={tone}>{label}</Badge>
+            ))}
+          </p>
+        </section>
+      ))
+    }
+  </body>
+</html>

@@ -1,0 +1,70 @@
+---
+import '@xaroth.nl/design/scss/core.scss'
+import '@xaroth.nl/design/scss/themes/xaroth.scss'
+import '@xaroth.nl/design/scss/themes/eve-online.scss'
+import Button from '@xaroth.nl/design/astro/Button.astro'
+import Header from '@xaroth.nl/design/astro/Header.astro'
+
+const themes = ['xaroth', 'eve-online'] as const
+const layouts = ['stacked', 'inline'] as const
+const items = [
+  { label: 'Home', href: '#', current: true },
+  { label: 'Tools', href: '#tools' },
+  { label: 'Blog', href: '#blog' },
+  { label: 'About', href: '#about' },
+  { label: 'Kit', href: '#kit' },
+]
+---
+
+<html lang="en" data-x-theme="multi">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Header</title>
+  </head>
+  <body>
+    {
+      themes.map((theme) => (
+        <section data-x-theme={theme} style="padding-bottom: 48px">
+          {layouts.map((layout) => (
+            <div style="padding-bottom: 64px">
+              <Header layout={layout} items={items} brandHref="#">
+                {theme === 'xaroth' ? (
+                  <Fragment slot="brand">
+                    <svg viewBox="0 0 40 40" fill="none" stroke="currentColor" aria-hidden="true">
+                      <circle cx="20" cy="20" r="18.5" />
+                      <circle cx="20" cy="20" r="11" />
+                      <path d="M20 1.5v37M1.5 20h37" stroke-width="0.75" />
+                      <path d="M20 12l8 8-8 8-8-8z" fill="currentColor" stroke="none" />
+                    </svg>
+                    <span>Xaroth</span>
+                  </Fragment>
+                ) : (
+                  <Fragment slot="brand">
+                    <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                      <path d="M16 2 28 9v14l-12 7-12-7V9z" />
+                      <path d="M16 8 23 12v8l-7 4-7-4v-8z" stroke-opacity="0.45" />
+                      <path d="M11 17.5 16 13l5 4.5" stroke-width="2" />
+                    </svg>
+                    <span>eve-online.tools</span>
+                  </Fragment>
+                )}
+                {layout === 'inline' && (
+                  <Button slot="actions" variant="secondary" size="sm" href="#signin">
+                    Sign in
+                  </Button>
+                )}
+              </Header>
+            </div>
+          ))}
+        </section>
+      ))
+    }
+    <script is:inline>
+      // Harness only: header?open shows every small screen menu opened, for screenshots.
+      if (new URLSearchParams(location.search).has('open')) {
+        document.querySelectorAll('details').forEach((d) => (d.open = true))
+      }
+    </script>
+  </body>
+</html>

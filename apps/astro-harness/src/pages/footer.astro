@@ -1,0 +1,65 @@
+---
+import '@xaroth.nl/design/scss/core.scss'
+import '@xaroth.nl/design/scss/themes/xaroth.scss'
+import '@xaroth.nl/design/scss/themes/eve-online.scss'
+import Footer from '@xaroth.nl/design/astro/Footer.astro'
+
+const themes = ['xaroth', 'eve-online'] as const
+const layouts = ['row', 'columns'] as const
+const groups = [
+  {
+    title: 'Navigate',
+    links: [
+      { label: 'Home', href: '#' },
+      { label: 'Tools', href: '#tools' },
+      { label: 'Blog', href: '#blog' },
+      { label: 'About', href: '#about' },
+    ],
+  },
+  {
+    title: 'Resources',
+    links: [
+      { label: 'GitHub', href: '#github' },
+      { label: 'ESI docs', href: '#esi' },
+      { label: 'Status', href: '#status' },
+      { label: 'Privacy', href: '#privacy' },
+    ],
+  },
+]
+const note =
+  'EVE Online and the EVE logo are the registered trademarks of CCP hf. This site is not affiliated with CCP.'
+---
+
+<html lang="en" data-x-theme="multi">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Footer</title>
+  </head>
+  <body>
+    {
+      themes.map((theme) => (
+        <section data-x-theme={theme}>
+          {layouts.map((layout) => (
+            <div style="padding-top: 64px">
+              <Footer layout={layout} groups={layout === 'row' ? groups.slice(1) : groups} note={note} brandHref="#">
+                {theme === 'xaroth' ? (
+                  <Fragment slot="brand">Xaroth</Fragment>
+                ) : (
+                  <Fragment slot="brand">
+                    <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                      <path d="M16 2 28 9v14l-12 7-12-7V9z" />
+                      <path d="M16 8 23 12v8l-7 4-7-4v-8z" stroke-opacity="0.45" />
+                      <path d="M11 17.5 16 13l5 4.5" stroke-width="2" />
+                    </svg>
+                    <span>eve-online.tools</span>
+                  </Fragment>
+                )}
+              </Footer>
+            </div>
+          ))}
+        </section>
+      ))
+    }
+  </body>
+</html>

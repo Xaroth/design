@@ -1,13 +1,18 @@
+// Body size lives on body, never on the root: a root font-size would rescale every rem token (page width included).
 :root,
 [data-x-theme] {
   color-scheme: dark;
   font-family: var(--x-font-body);
-  font-size: var(--x-fs-body);
   line-height: 1.65;
   color: var(--x-color-text);
   background: var(--x-color-bg);
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizelegibility;
+}
+
+body,
+[data-x-theme]:not(:root) {
+  font-size: var(--x-fs-body);
 }
 
 h1,

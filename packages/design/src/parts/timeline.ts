@@ -1,2 +1,23 @@
-// timeline class recipes and state helpers, shared by the Astro and React parts.
-export {}
+// One entry on the timeline. `datetime` is a machine-readable date (for example '2019' or '2019-03'); when given, the date renders in <time>.
+export type TimelineEntry<T = string> = {
+  date: string
+  datetime?: string
+  title: T
+  text?: T
+  // The newest or active entry. Themes light its node.
+  current?: boolean
+}
+
+export type TimelineHeadingLevel = 2 | 3 | 4 | 5 | 6
+
+export type TimelineOptions = {
+  className?: string
+}
+
+export const timelineClass = ({ className }: TimelineOptions = {}): string =>
+  ['x-timeline', className].filter(Boolean).join(' ')
+
+export const timelineItemClass = ({ current }: { current?: boolean } = {}): string =>
+  ['x-timeline__item', current && 'x-timeline__item--current'].filter(Boolean).join(' ')
+
+export const timelineHeading = (level: TimelineHeadingLevel = 3) => `h${level}` as const

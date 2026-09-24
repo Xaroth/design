@@ -1,4 +1,149 @@
 @use '../../theme';
 
 @include theme.parts('xaroth') {
+  .x-prose {
+    --x-prose-block: 1.5em;
+
+    > :is(h2, h3, h4) {
+      font-weight: 500;
+      color: var(--x-color-sand);
+    }
+
+    // Dune v3 subheads drop to the body face.
+    > :is(h3, h4) {
+      font-family: var(--x-font-body);
+      font-weight: 600;
+      letter-spacing: 0;
+    }
+
+    :where(a) {
+      color: var(--x-color-accent-strong);
+      text-decoration-color: var(--x-color-bronze);
+
+      &:hover {
+        color: var(--x-color-sand);
+        text-decoration-color: var(--x-color-accent);
+      }
+    }
+
+    :where(strong) {
+      color: var(--x-color-sand);
+    }
+
+    // Dune v3 lists: plain numbers and bullets in gold.
+    :where(li)::marker {
+      color: var(--x-color-accent);
+    }
+
+    :where(ol) > :where(li)::marker {
+      font-family: var(--x-font-ui);
+      font-size: 0.9em;
+      font-weight: 600;
+    }
+
+    // Dune v3 quote: italic lead text on a gold rule.
+    :where(blockquote) {
+      padding-left: var(--x-space-5);
+      border-left: 2px solid var(--x-color-accent);
+
+      > :not(footer, cite) {
+        font-size: var(--x-fs-lead);
+        font-style: italic;
+        line-height: 1.55;
+        color: var(--x-color-sand);
+      }
+
+      > :is(footer, cite) {
+        margin-top: var(--x-space-2);
+        font-family: var(--x-font-ui);
+        font-size: var(--x-fs-small);
+        color: var(--x-color-text-muted);
+      }
+    }
+
+    :where(:not(pre)) > :where(code) {
+      color: var(--x-color-accent-strong);
+      background: var(--x-color-surface-2);
+      border-radius: var(--x-radius);
+    }
+
+    // Dune divider: hairline fading out from a center diamond.
+    :where(hr) {
+      position: relative;
+      height: 9px;
+      overflow: visible;
+      background: linear-gradient(90deg, transparent, var(--x-color-rule) 30%, var(--x-color-rule) 70%, transparent) 0
+        50% / 100% 1px no-repeat;
+      border: 0;
+
+      &::after {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 7px;
+        height: 7px;
+        background: var(--x-color-bg);
+        border: 1px solid var(--x-color-accent);
+        transform: translate(-50%, -50%) rotate(45deg);
+      }
+    }
+
+    :where(figure:not(.x-code)) > :is(img, svg, video, picture) {
+      padding: var(--x-space-4);
+      background: var(--x-color-bg-sunk);
+      border-radius: var(--x-radius);
+    }
+
+    // Dune v3 table with a header row on its own lit band in gold caps.
+    :where(table) {
+      font-family: var(--x-font-ui);
+    }
+
+    :where(th) {
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--x-color-accent);
+      background: var(--x-color-surface-3);
+      border-bottom: 1px solid var(--x-color-rule);
+    }
+
+    :where(tbody tr:hover td) {
+      background: var(--x-color-accent-wash);
+    }
+  }
+
+  // Dune v3 code block: sunk panel, plain line numbers, one text color for every token.
+  .x-code {
+    --x-code-bg: var(--x-color-bg-sunk);
+
+    color: var(--x-color-text);
+    background: var(--x-code-bg);
+    border: 1px solid var(--x-color-line);
+    border-radius: var(--x-radius);
+
+    &__bar {
+      font-family: var(--x-font-mono);
+      color: var(--x-color-text-muted);
+      border-bottom: 1px solid var(--x-color-line);
+    }
+
+    &__pre {
+      font-size: 0.9375rem;
+      line-height: 1.65;
+    }
+
+    &__line::before {
+      color: var(--x-color-text-faint);
+    }
+
+    &__kw,
+    &__str,
+    &__num,
+    &__fn,
+    &__com {
+      color: inherit;
+    }
+  }
 }

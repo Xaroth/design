@@ -1,1 +1,50 @@
-// badge: structure only; themes style it in themes/<name>/_badge.scss.
+// Structure and tone. Themes draw the marker (::before) and the frame.
+.x-badge {
+  --x-badge-tone: var(--x-badge-default, var(--x-color-text-muted));
+  --x-badge-wash: transparent;
+
+  display: inline-flex;
+  flex: none;
+  gap: var(--x-badge-gap, 6px);
+  align-items: center;
+  min-height: 24px;
+  padding: 0 var(--x-space-2);
+  font-family: var(--x-font-ui);
+  font-size: var(--x-fs-label);
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: var(--x-track-label);
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: var(--x-badge-tone);
+  background: var(--x-badge-wash);
+  border: 1px solid color-mix(in srgb, var(--x-badge-tone) var(--x-badge-edge-mix, 45%), transparent);
+
+  &::before {
+    content: '';
+    flex: none;
+    width: 5px;
+    height: 5px;
+    background: currentcolor;
+  }
+
+  &--info {
+    --x-badge-tone: var(--x-color-info);
+    --x-badge-wash: var(--x-color-info-wash);
+  }
+
+  &--success {
+    --x-badge-tone: var(--x-color-success);
+    --x-badge-wash: var(--x-color-success-wash);
+  }
+
+  &--warning {
+    --x-badge-tone: var(--x-color-warning);
+    --x-badge-wash: var(--x-color-warning-wash);
+  }
+
+  &--danger {
+    --x-badge-tone: var(--x-color-danger);
+    --x-badge-wash: var(--x-color-danger-wash);
+  }
+}

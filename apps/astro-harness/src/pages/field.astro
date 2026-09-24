@@ -1,0 +1,128 @@
+---
+import '@xaroth.nl/design/scss/core.scss'
+import '@xaroth.nl/design/scss/themes/xaroth.scss'
+import '@xaroth.nl/design/scss/themes/eve-online.scss'
+import Checkbox from '@xaroth.nl/design/astro/Checkbox.astro'
+import Field from '@xaroth.nl/design/astro/Field.astro'
+import Input from '@xaroth.nl/design/astro/Input.astro'
+import Radio from '@xaroth.nl/design/astro/Radio.astro'
+import RadioGroup from '@xaroth.nl/design/astro/RadioGroup.astro'
+import Select from '@xaroth.nl/design/astro/Select.astro'
+import Switch from '@xaroth.nl/design/astro/Switch.astro'
+import Textarea from '@xaroth.nl/design/astro/Textarea.astro'
+
+const themes = ['xaroth', 'eve-online']
+const grid = 'display: grid; gap: 24px; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); margin-top: 24px'
+---
+
+<html lang="en" data-x-theme="multi">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Field harness</title>
+  </head>
+  <body>
+    {
+      themes.map((theme) => (
+        <section data-x-theme={theme} style="padding: 32px">
+          <h2>{theme}</h2>
+          <form style={grid} onsubmit="return false">
+            <Field id={`${theme}-text`} label="Text" description="As shown in the character sheet.">
+              <Input placeholder="Character name" />
+            </Field>
+            <Field id={`${theme}-focus`} label="Focus" description="Focus it with ?focus=<theme>">
+              <Input value="Xaroth Brook" />
+            </Field>
+            <Field id={`${theme}-error`} label="Error" error="Enter a valid email address" required>
+              <Input type="email" value="not-an-email" />
+            </Field>
+            <Field id={`${theme}-disabled`} label="Disabled" description="Not editable">
+              <Input value="Locked by SSO" disabled />
+            </Field>
+            <Field id={`${theme}-readonly`} label="Read only">
+              <Input value="Tranquility" readonly />
+            </Field>
+            <Field id={`${theme}-search`} label="Search">
+              <Input type="search" placeholder="Achievement name">
+                <svg slot="start" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75">
+                  <circle cx="11" cy="11" r="7"></circle>
+                  <path d="M20 20l-4-4"></path>
+                </svg>
+              </Input>
+            </Field>
+            <Field id={`${theme}-number`} label="Number">
+              <Input type="number" value="42" min="0" />
+            </Field>
+            <Field id={`${theme}-password`} label="Password" required>
+              <Input type="password" value="hunter2" />
+            </Field>
+            <Field id={`${theme}-select`} label="Select">
+              <Select>
+                <option>Caldari State</option>
+                <option>Amarr Empire</option>
+              </Select>
+            </Field>
+            <Field id={`${theme}-select-invalid`} label="Select invalid" error="Pick a faction">
+              <Select>
+                <option>Choose</option>
+              </Select>
+            </Field>
+            <Field id={`${theme}-select-disabled`} label="Select disabled">
+              <Select disabled>
+                <option>Minmatar Republic</option>
+              </Select>
+            </Field>
+            <Field id={`${theme}-area`} label="Textarea" description="Markdown is fine." style="grid-column: 1 / -1">
+              <Textarea placeholder="Fitting notes" />
+            </Field>
+            <Field id={`${theme}-area-dis`} label="Textarea disabled">
+              <Textarea disabled value="Archived" />
+            </Field>
+            <fieldset class="x-radio-group">
+              <legend class="x-radio-group__legend">Checkbox</legend>
+              <div class="x-radio-group__options">
+              <Checkbox checked>Combat</Checkbox>
+              <Checkbox>Industry</Checkbox>
+              <Checkbox aria-invalid="true">Invalid</Checkbox>
+              <Checkbox disabled>Disabled</Checkbox>
+              <Checkbox disabled checked>Disabled on</Checkbox>
+              </div>
+            </fieldset>
+            <RadioGroup id={`${theme}-radio`} legend="Radio" description="Pick one server" required>
+              <Radio name={`${theme}-r`} checked>Tranquility</Radio>
+              <Radio name={`${theme}-r`}>Singularity</Radio>
+              <Radio name={`${theme}-r`} disabled>Duality</Radio>
+              <Radio name={`${theme}-rd`} disabled checked>Disabled on</Radio>
+            </RadioGroup>
+            <fieldset class="x-radio-group">
+              <legend class="x-radio-group__legend">Toggle</legend>
+              <div class="x-radio-group__options">
+              <Switch checked>Auto refresh</Switch>
+              <Switch>Hide completed</Switch>
+              <Switch disabled>Disabled</Switch>
+              <Switch disabled checked>Disabled on</Switch>
+              </div>
+            </fieldset>
+            <RadioGroup id={`${theme}-hr`} legend="Horizontal" orientation="horizontal" error="Choose a region">
+              <Radio name={`${theme}-h`}>Delve</Radio>
+              <Radio name={`${theme}-h`}>Fountain</Radio>
+              <Radio name={`${theme}-h`}>Querious</Radio>
+            </RadioGroup>
+            <Field id={`${theme}-terms`} label="Terms" error="Required">
+              <Checkbox>I accept the terms</Checkbox>
+            </Field>
+            <Field id={`${theme}-alerts`} label="Alerts" description="Sends a mail on each kill.">
+              <Switch>Kill mails</Switch>
+            </Field>
+          </form>
+        </section>
+      ))
+    }
+    <script is:inline>
+      const focus = new URLSearchParams(location.search).get('focus')
+      if (focus) {
+        document.getElementById(`${focus}-focus`)?.focus()
+      }
+    </script>
+  </body>
+</html>

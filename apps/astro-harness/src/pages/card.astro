@@ -1,0 +1,77 @@
+---
+import '@xaroth.nl/design/scss/core.scss'
+import '@xaroth.nl/design/scss/themes/xaroth.scss'
+import '@xaroth.nl/design/scss/themes/eve-online.scss'
+import Badge from '@xaroth.nl/design/astro/Badge.astro'
+import Card from '@xaroth.nl/design/astro/Card.astro'
+import Tag from '@xaroth.nl/design/astro/Tag.astro'
+
+const themes = ['xaroth', 'eve-online']
+const grid = 'display: grid; gap: 24px; grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr)); margin-top: 16px'
+---
+
+<html lang="en" data-x-theme="multi">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Card</title>
+  </head>
+  <body>
+    {
+      themes.map((theme) => (
+        <section data-x-theme={theme} style="padding: 32px">
+          <h2>{theme}</h2>
+          <p style="margin-top: 8px">Tags row, foot meta and action (EVE layout)</p>
+          <div style={grid}>
+            <Card href="#" index={1} title="Fit checker">
+              <Badge slot="status" tone="success">Stable</Badge>
+              Paste a fit and see what it needs: skills, slots and a price from Jita.
+              <Fragment slot="tags">
+                <Tag>esi</Tag>
+                <Tag>sde</Tag>
+              </Fragment>
+              <Fragment slot="footStart">No sign in</Fragment>
+              <Fragment slot="footEnd">Launch →</Fragment>
+            </Card>
+            <Card href="#" index={4} title="Skill planner" featured>
+              <Badge slot="status" tone="info">Beta</Badge>
+              Plan training queues across characters and export them to the client.
+              <Fragment slot="tags">
+                <Tag>sso</Tag>
+                <Tag>skills</Tag>
+              </Fragment>
+              <Fragment slot="footStart">2 SSO scopes</Fragment>
+              <Fragment slot="footEnd">Launch →</Fragment>
+            </Card>
+            <Card index={12} title="Wormhole mapper">
+              <Badge slot="status" tone="warning">Experimental</Badge>
+              A plain container, not a link. Maps chains and keeps notes per system.
+              <Fragment slot="footStart">Offline</Fragment>
+            </Card>
+          </div>
+          <p style="margin-top: 24px">Tags in the foot, meta right (Dune layout)</p>
+          <div style={grid}>
+            <Card href="#" index={3} title="Mission tracker">
+              <Badge slot="status" tone="success">Stable</Badge>
+              Track standings and rewards per agent.
+              <Fragment slot="footStart">
+                <Tag>esi</Tag>
+                <Tag>sso</Tag>
+              </Fragment>
+              <Fragment slot="footEnd">1 scope</Fragment>
+            </Card>
+            <Card index={9} title="Featured container" featured>
+              <Badge slot="status" tone="danger">Offline</Badge>
+              Featured, not a link.
+              <Fragment slot="footStart">
+                <Tag>sde</Tag>
+              </Fragment>
+              <Fragment slot="footEnd">No sign-in</Fragment>
+            </Card>
+            <Card title="Title and body only">Nothing else: no head, no foot.</Card>
+          </div>
+        </section>
+      ))
+    }
+  </body>
+</html>

@@ -1,0 +1,15 @@
+---
+import type { HTMLAttributes } from 'astro/types'
+import { choiceClass } from '../parts/field.ts'
+
+type Props = Omit<HTMLAttributes<'input'>, 'class' | 'type' | 'role'> & {
+  class?: string
+}
+
+const { class: className, ...rest } = Astro.props
+---
+
+<label class={choiceClass('radio', { className })}>
+  <input class="x-radio__input" type="radio" {...rest} />
+  <span class="x-radio__label"><slot /></span>
+</label>

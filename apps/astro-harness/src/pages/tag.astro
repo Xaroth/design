@@ -1,0 +1,37 @@
+---
+import '@xaroth.nl/design/scss/core.scss'
+import '@xaroth.nl/design/scss/themes/xaroth.scss'
+import '@xaroth.nl/design/scss/themes/eve-online.scss'
+import Tag from '@xaroth.nl/design/astro/Tag.astro'
+
+const themes = ['xaroth', 'eve-online']
+---
+
+<html lang="en" data-x-theme="multi">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Tag</title>
+  </head>
+  <body>
+    {
+      themes.map((theme) => (
+        <section data-x-theme={theme} style="padding: 32px">
+          <h2>{theme}</h2>
+          <p style="display: flex; gap: 6px; flex-wrap: wrap; margin-top: 16px">
+            <Tag>esi</Tag>
+            <Tag>sde</Tag>
+            <Tag active>sso</Tag>
+          </p>
+          <p style="display: flex; gap: 6px; flex-wrap: wrap; margin-top: 16px">
+            <Tag href="#">industry</Tag>
+            <Tag href="#">market</Tag>
+            <Tag href="#" active>
+              fittings
+            </Tag>
+          </p>
+        </section>
+      ))
+    }
+  </body>
+</html>

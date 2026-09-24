@@ -1,0 +1,40 @@
+---
+import '@xaroth.nl/design/scss/core.scss'
+import '@xaroth.nl/design/scss/themes/xaroth.scss'
+import '@xaroth.nl/design/scss/themes/eve-online.scss'
+import Timeline from '@xaroth.nl/design/astro/Timeline.astro'
+
+const themes = ['xaroth', 'eve-online']
+const items = [
+  {
+    date: '2026',
+    datetime: '2026',
+    title: 'eve-online.tools',
+    text: 'Rebuilt the tool collection on typed ESI and a pinned SDE.',
+    current: true,
+  },
+  { date: '2024', datetime: '2024', title: 'Fanfest schedule', text: 'Shipped the unofficial Fanfest schedule site.' },
+  { date: '2019', datetime: '2019', title: 'Joined CCP Games', text: 'Started working on EVE Online services.' },
+  { date: '2006', datetime: '2006', title: 'Undocked', text: 'First login to New Eden. Lost a Rifter within the hour.' },
+]
+---
+
+<html lang="en" data-x-theme="multi">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Timeline harness</title>
+  </head>
+  <body>
+    {
+      themes.map((theme) => (
+        <section data-x-theme={theme} style="padding: 32px">
+          <h2 style="margin-bottom: 24px">{theme}</h2>
+          <div style="max-width: 48rem">
+            <Timeline items={items} />
+          </div>
+        </section>
+      ))
+    }
+  </body>
+</html>

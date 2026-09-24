@@ -1,0 +1,25 @@
+---
+import type { HTMLAttributes } from 'astro/types'
+import { codeBlockClass, codeHtml } from '../parts/prose.ts'
+
+type Props = Omit<HTMLAttributes<'figure'>, 'class' | 'title'> & {
+  class?: string
+  code: string
+  lang?: string
+  title?: string
+}
+
+const { code, lang, title, class: className, ...rest } = Astro.props
+---
+
+<figure class={codeBlockClass({ className })} {...rest}>
+  {
+    (title || lang) && (
+      <figcaption class="x-code__bar">
+        {title && <span class="x-code__title">{title}</span>}
+        {lang && <span class="x-code__lang">{lang}</span>}
+      </figcaption>
+    )
+  }
+  <pre class="x-code__pre" tabindex="0"><code set:html={codeHtml(code, lang)} /></pre>
+</figure>

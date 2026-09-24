@@ -1,4 +1,68 @@
 @use '../../theme';
 
 @include theme.parts('eve-online') {
+  // EVE v2 inputs: square panel fields, cyan glow on focus, hatched disabled fill, glowing square and diamond marks.
+  .x-field,
+  .x-radio-group,
+  .x-input,
+  .x-input-wrap,
+  .x-textarea,
+  .x-select,
+  .x-checkbox,
+  .x-radio,
+  .x-switch {
+    --x-field-font: var(--x-font-body);
+    --x-field-bg: var(--x-color-surface);
+    --x-field-glow: 0 0 0 1px var(--x-color-accent), 0 0 16px -2px var(--x-color-glow);
+    --x-field-hatch: repeating-linear-gradient(135deg, var(--x-color-surface) 0 6px, var(--x-color-surface-2) 6px 7px);
+    --x-textarea-min: 144px;
+  }
+
+  .x-field__error {
+    font-weight: 400;
+  }
+
+  .x-input,
+  .x-textarea,
+  .x-select {
+    &:disabled {
+      background-color: var(--x-color-surface);
+      background-image: var(--x-field-hatch);
+      background-size: auto;
+    }
+  }
+
+  .x-checkbox__input,
+  .x-radio__input,
+  .x-switch__input {
+    &:checked::before {
+      box-shadow: 0 0 8px var(--x-color-glow);
+    }
+
+    &:disabled {
+      opacity: 0.6;
+
+      &::before {
+        box-shadow: none;
+      }
+    }
+  }
+
+  // Diamond radio: a waypoint marker instead of a web circle.
+  .x-radio__input {
+    --x-check-size: 16px;
+
+    margin: 0 2px;
+    border-radius: 0;
+    transform: rotate(45deg);
+
+    &::before {
+      border-radius: 0;
+      transform: none;
+    }
+  }
+
+  .x-switch__input:checked {
+    background: var(--x-color-accent-fill);
+  }
 }

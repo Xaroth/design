@@ -1,4 +1,20 @@
 @use '../../theme';
 
 @include theme.parts('eve-online') {
+  // Framed mono chips with a # prefix (EVE v2); the active one glows.
+  .x-tag {
+    &::before {
+      content: '#';
+      margin-right: 2px;
+      color: var(--x-color-text-faint);
+    }
+
+    &--active {
+      box-shadow: 0 0 12px var(--x-color-glow);
+
+      &::before {
+        color: inherit;
+      }
+    }
+  }
 }

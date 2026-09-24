@@ -1,1 +1,158 @@
-// footer: structure only; themes style it in themes/<name>/_footer.scss.
+// Structure only. Themes add type, color and surface in themes/<name>/_footer.scss.
+.x-footer {
+  &__inner {
+    display: grid;
+    width: 100%;
+    max-width: calc(var(--x-page) + 2 * var(--x-gutter));
+    padding-inline: var(--x-gutter);
+    margin-inline: auto;
+  }
+
+  &__brand {
+    display: inline-flex;
+    gap: 10px;
+    align-items: center;
+    justify-self: start;
+    color: inherit;
+    text-decoration: none;
+
+    svg {
+      flex: none;
+      width: var(--x-footer-mark, 28px);
+      height: var(--x-footer-mark, 28px);
+    }
+  }
+
+  &__note {
+    max-width: var(--x-prose);
+    margin: 0;
+    font-size: var(--x-fs-small);
+    line-height: 1.5;
+  }
+
+  &__group {
+    display: grid;
+    gap: var(--x-space-3);
+    align-content: start;
+    min-width: 0;
+  }
+
+  &__title {
+    margin: 0;
+    font-size: var(--x-fs-label);
+    line-height: 1.3;
+  }
+
+  &__links {
+    display: grid;
+    gap: var(--x-space-2);
+    padding: 0;
+    margin: 0;
+    list-style: none;
+  }
+
+  &__link {
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  // Columns: brand and note on the left half, one column per link group on the right.
+  &--columns {
+    .x-footer__inner {
+      grid-template-columns: minmax(0, 1fr);
+      gap: var(--x-space-3) var(--x-gap);
+    }
+
+    .x-footer__note {
+      max-width: 30rem;
+    }
+
+    .x-footer__nav {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: var(--x-space-6) var(--x-gap);
+      margin-top: var(--x-space-5);
+    }
+
+    @media (width >= 1024px) {
+      .x-footer__inner {
+        grid-template-rows: auto 1fr;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .x-footer__brand,
+      .x-footer__note {
+        grid-column: 1;
+      }
+
+      .x-footer__note {
+        align-self: start;
+      }
+
+      .x-footer__nav {
+        grid-auto-columns: minmax(0, 1fr);
+        grid-auto-flow: column;
+        grid-row: 1 / span 2;
+        grid-column: 2;
+        grid-template-columns: none;
+        margin-top: 0;
+      }
+    }
+  }
+
+  // Row: brand and a flat link list on one line, the note underneath.
+  &--row {
+    .x-footer__inner {
+      grid-template-columns: 1fr auto;
+      gap: var(--x-space-5);
+      align-items: center;
+    }
+
+    .x-footer__brand {
+      grid-row: 1;
+      grid-column: 1;
+    }
+
+    .x-footer__nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--x-space-2) var(--x-space-5);
+      grid-row: 1;
+      grid-column: 2;
+    }
+
+    .x-footer__note {
+      grid-column: 1 / -1;
+    }
+
+    // Groups read as one list here; titles stay for screen readers.
+    .x-footer__title {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+      clip-path: inset(50%);
+      white-space: nowrap;
+    }
+
+    .x-footer__links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--x-space-2) var(--x-space-5);
+    }
+
+    @media (width < 640px) {
+      .x-footer__inner {
+        grid-template-columns: 1fr;
+      }
+
+      .x-footer__nav {
+        grid-row: 2;
+        grid-column: 1;
+      }
+    }
+  }
+}

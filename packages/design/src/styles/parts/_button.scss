@@ -91,6 +91,8 @@
 
   // Sizes and layout
   &--sm {
+    --x-button-fs: var(--x-fs-label);
+
     min-height: var(--x-control-sm);
     padding: 0 var(--x-space-4);
   }

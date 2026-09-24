@@ -1,4 +1,52 @@
 @use '../../theme';
 
 @include theme.parts('eve-online') {
+  // EVE v3: a panel band with the brand and legal line left, labelled link columns right.
+  .x-footer {
+    padding-block: var(--x-space-8) var(--x-space-9);
+    background: var(--x-color-surface);
+  }
+
+  .x-footer__brand {
+    font-family: var(--x-font-display);
+    font-size: var(--x-fs-ui);
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--x-color-text);
+
+    &:hover {
+      color: var(--x-color-text);
+    }
+
+    svg {
+      color: var(--x-color-accent);
+    }
+  }
+
+  .x-footer__note {
+    color: var(--x-color-text-faint);
+  }
+
+  .x-footer__title {
+    font-family: var(--x-font-ui);
+    font-weight: 600;
+    letter-spacing: var(--x-track-label);
+    text-transform: uppercase;
+    color: var(--x-color-text-faint);
+  }
+
+  .x-footer__link {
+    font-size: var(--x-fs-ui);
+    color: var(--x-color-text-muted);
+
+    &:hover {
+      color: var(--x-color-accent);
+      text-decoration: none;
+    }
+  }
+
+  .x-footer--row {
+    padding-block: var(--x-space-7) var(--x-space-8);
+  }
 }

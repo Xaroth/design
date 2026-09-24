@@ -1,0 +1,26 @@
+---
+import type { HTMLAttributes } from 'astro/types'
+import { inputClass, type InputType } from '../parts/field.ts'
+
+type Props = Omit<HTMLAttributes<'input'>, 'class' | 'type'> & {
+  type?: InputType
+  class?: string
+}
+
+const { type = 'text', class: className, ...rest } = Astro.props
+const hasStart = Astro.slots.has('start')
+const classes = inputClass({ hasStart, className })
+---
+
+{
+  hasStart ? (
+    <span class="x-input-wrap">
+      <span class="x-input-wrap__start" aria-hidden="true">
+        <slot name="start" />
+      </span>
+      <input class={classes} type={type} {...rest} />
+    </span>
+  ) : (
+    <input class={classes} type={type} {...rest} />
+  )
+}
