@@ -1,25 +1,35 @@
 ---
 import type { HTMLAttributes } from 'astro/types'
-import { buttonClass, type ButtonSize, type ButtonVariant } from '../parts/button.ts'
+import { buttonClass, buttonState, type ButtonOptions } from '../parts/button.ts'
 
-type Props = (HTMLAttributes<'button'> | HTMLAttributes<'a'>) & {
-  variant?: ButtonVariant
-  size?: ButtonSize
-  href?: string
-}
+type Props = Omit<HTMLAttributes<'button'>, 'class'> &
+  Omit<ButtonOptions, 'className'> & {
+    class?: string
+    href?: string
+  }
 
-const { variant, size, class: className, href, ...rest } = Astro.props
-const classes = buttonClass({ variant, size, className: className ?? undefined })
+const { variant, tone, size, fullWidth, loading, disabled, class: className, href, type = 'button', ...rest } =
+  Astro.props
+const classes = buttonClass({ variant, tone, size, fullWidth, loading, className })
+const { tag: Tag, attrs } = buttonState({ href, disabled: Boolean(disabled), loading })
+const typeAttr = Tag === 'button' ? { type } : {}
 ---
 
-{
-  href ? (
-    <a class={classes} href={href} {...rest}>
-      <slot />
-    </a>
-  ) : (
-    <button class={classes} type="button" {...rest}>
-      <slot />
-    </button>
-  )
-}
+<Tag class={classes} {...typeAttr} {...attrs} {...rest}>
+  {
+    Astro.slots.has('start') && (
+      <span class="x-button__start">
+        <slot name="start" />
+      </span>
+    )
+  }
+  <span class="x-button__label"><slot /></span>
+  {
+    Astro.slots.has('end') && (
+      <span class="x-button__end">
+        <slot name="end" />
+      </span>
+    )
+  }
+  {loading && <span class="x-button__spinner" aria-hidden="true" />}
+</Tag>

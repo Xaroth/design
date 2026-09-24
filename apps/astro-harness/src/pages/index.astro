@@ -18,15 +18,23 @@ const themes = ['xaroth', 'eve-online']
       themes.map((theme) => (
         <section data-x-theme={theme} style="padding: 32px">
           <h2>{theme}</h2>
-          <p style="display: flex; gap: 12px; flex-wrap: wrap; margin-top: 16px">
-            <Button>Primary</Button>
-            <Button variant="secondary">Secondary</Button>
-            <Button variant="ghost">Ghost</Button>
-            <Button variant="danger">Danger</Button>
-            <Button size="sm">Small</Button>
-            <Button size="lg" href="#">Large link</Button>
-            <Button disabled>Disabled</Button>
-          </p>
+          <div style="display: grid; gap: 12px; margin-top: 16px">
+            {['default', 'danger', 'warning', 'success'].map((tone) => (
+              <p style="display: flex; gap: 12px; flex-wrap: wrap">
+                <Button tone={tone as never}>Primary</Button>
+                <Button tone={tone as never} variant="secondary">Secondary</Button>
+                <Button tone={tone as never} variant="tertiary">Tertiary</Button>
+              </p>
+            ))}
+            <p style="display: flex; gap: 12px; flex-wrap: wrap">
+              <Button size="sm">Small</Button>
+              <Button size="lg" href="#">Large link <span slot="end">→</span></Button>
+              <Button loading>Loading</Button>
+              <Button disabled>Disabled</Button>
+              <Button href="#" disabled>Disabled link</Button>
+            </p>
+            <Button fullWidth variant="secondary">Full width</Button>
+          </div>
         </section>
       ))
     }
