@@ -1,0 +1,39 @@
+{
+  "name": "design-monorepo",
+  "version": "0.0.0",
+  "packageManager": "pnpm@11.9.0",
+  "license": "MIT",
+  "private": true,
+  "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/xaroth/design.git"
+  },
+  "engines": {
+    "node": ">=24"
+  },
+  "scripts": {
+    "build": "pnpm --filter ./packages/* build",
+    "changeset": "changeset",
+    "version-packages": "changeset version",
+    "release": "pnpm build && changeset publish",
+    "storybook": "pnpm --filter @repo/storybook dev",
+    "harness": "pnpm --filter @repo/astro-harness dev",
+    "typecheck": "pnpm -r typecheck",
+    "format": "pnpm format:write",
+    "format:check": "oxfmt --check \"**/*.{ts,tsx}\"",
+    "format:write": "oxfmt --write \"**/*.{ts,tsx}\"",
+    "oxlint": "oxlint .",
+    "syncpack": "syncpack list-mismatches",
+    "syncpack:format": "syncpack format",
+    "test": "pnpm syncpack && pnpm format:check && pnpm typecheck && pnpm oxlint && pnpm -r test"
+  },
+  "devDependencies": {
+    "@changesets/changelog-github": "^0.7.0",
+    "@changesets/cli": "^2.31.0",
+    "oxfmt": "^0.42.0",
+    "oxlint": "^1.58.0",
+    "syncpack": "^13.0.4",
+    "typescript": "catalog:"
+  }
+}

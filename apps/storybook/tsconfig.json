@@ -1,0 +1,16 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "noEmit": true,
+    "allowImportingTsExtensions": true,
+    "types": [
+      "vite/client"
+    ]
+  },
+  "include": [
+    ".storybook/**/*.ts",
+    ".storybook/**/*.tsx",
+    "stories/**/*.ts",
+    "stories/**/*.tsx"
+  ]
+}

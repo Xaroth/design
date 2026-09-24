@@ -1,0 +1,19 @@
+# dependencies
+node_modules/
+.pnpm-store/
+
+# build output
+dist/
+storybook-static/
+.astro/
+
+# caches
+**/.cache/
+*.tsbuildinfo
+
+# test output
+coverage/
+
+# logs
+*.log
+.pnpm-debug.log*

@@ -1,0 +1,14 @@
+:root,
+[data-x-theme] {
+  color-scheme: dark;
+  font-family: var(--x-font-body);
+  font-size: var(--x-fs-body);
+  line-height: 1.65;
+  color: var(--x-color-text);
+  background: var(--x-color-bg);
+}
+
+:focus-visible {
+  outline: var(--x-focus-width) solid var(--x-color-focus);
+  outline-offset: var(--x-focus-offset);
+}

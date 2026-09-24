@@ -1,0 +1,25 @@
+{
+  "name": "@repo/astro-harness",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev --port 4400",
+    "test": "vitest run",
+    "typecheck": "astro check"
+  },
+  "dependencies": {
+    "@xaroth.nl/design": "workspace:*",
+    "astro": "catalog:",
+    "react": "catalog:",
+    "react-dom": "catalog:"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.10",
+    "@types/react": "catalog:",
+    "@types/react-dom": "catalog:",
+    "happy-dom": "^20.0.0",
+    "typescript": "catalog:",
+    "vitest": "catalog:"
+  }
+}

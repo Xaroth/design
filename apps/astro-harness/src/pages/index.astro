@@ -1,0 +1,34 @@
+---
+import '@xaroth.nl/design/scss/core.scss'
+import '@xaroth.nl/design/scss/themes/xaroth.scss'
+import '@xaroth.nl/design/scss/themes/eve-online.scss'
+import Button from '@xaroth.nl/design/astro/Button.astro'
+
+const themes = ['xaroth', 'eve-online']
+---
+
+<html lang="en" data-x-theme="multi">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Astro harness</title>
+  </head>
+  <body>
+    {
+      themes.map((theme) => (
+        <section data-x-theme={theme} style="padding: 32px">
+          <h2>{theme}</h2>
+          <p style="display: flex; gap: 12px; flex-wrap: wrap; margin-top: 16px">
+            <Button>Primary</Button>
+            <Button variant="secondary">Secondary</Button>
+            <Button variant="ghost">Ghost</Button>
+            <Button variant="danger">Danger</Button>
+            <Button size="sm">Small</Button>
+            <Button size="lg" href="#">Large link</Button>
+            <Button disabled>Disabled</Button>
+          </p>
+        </section>
+      ))
+    }
+  </body>
+</html>

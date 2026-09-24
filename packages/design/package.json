@@ -1,0 +1,65 @@
+{
+  "name": "@xaroth.nl/design",
+  "version": "0.1.0",
+  "description": "Shared design system for xaroth.nl and eve-online.tools: CSS core, themes, Astro and React parts.",
+  "license": "MIT",
+  "author": "Xaroth Brook <xaroth+github@xaroth.nl>",
+  "keywords": ["astro", "css", "design-system", "react"],
+  "sideEffects": ["*.css"],
+  "type": "module",
+  "exports": {
+    "./core.css": "./dist/core.css",
+    "./themes/xaroth.css": "./dist/themes/xaroth.css",
+    "./themes/eve-online.css": "./dist/themes/eve-online.css",
+    "./scss/*": "./src/styles/*",
+    "./astro/*": "./src/astro/*",
+    "./parts": {
+      "types": "./dist/parts/index.d.ts",
+      "import": "./dist/parts/index.js"
+    },
+    "./react": {
+      "types": "./dist/react/index.d.ts",
+      "import": "./dist/react/index.js"
+    }
+  },
+  "files": ["dist", "src"],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/xaroth/design.git",
+    "directory": "packages/design"
+  },
+  "scripts": {
+    "build": "pnpm build:css && pnpm build:js",
+    "build:css": "node scripts/build-css.ts",
+    "build:js": "tsc -p tsconfig.build.json",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@fontsource-variable/cinzel": "^5.3.0",
+    "@fontsource-variable/ibm-plex-sans": "^5.3.0",
+    "@fontsource-variable/jetbrains-mono": "^5.3.0",
+    "@fontsource-variable/manrope": "^5.3.0",
+    "@fontsource-variable/oxanium": "^5.3.0",
+    "@fontsource/ibm-plex-mono": "^5.3.0",
+    "@fontsource/spectral": "^5.3.0"
+  },
+  "peerDependencies": {
+    "astro": ">=7",
+    "react": ">=19"
+  },
+  "peerDependenciesMeta": {
+    "astro": {
+      "optional": true
+    },
+    "react": {
+      "optional": true
+    }
+  },
+  "devDependencies": {
+    "@types/node": "catalog:",
+    "@types/react": "catalog:",
+    "react": "catalog:",
+    "sass": "catalog:",
+    "typescript": "catalog:"
+  }
+}

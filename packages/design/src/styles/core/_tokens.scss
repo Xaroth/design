@@ -1,0 +1,48 @@
+// Layout contract shared by every theme. Themes set color, font and shape tokens, never these.
+:root {
+  --x-page: 75rem;
+  --x-gutter: 16px;
+  --x-gap: 16px;
+  --x-prose: 68ch;
+
+  --x-space-1: 4px;
+  --x-space-2: 8px;
+  --x-space-3: 12px;
+  --x-space-4: 16px;
+  --x-space-5: 24px;
+  --x-space-6: 32px;
+  --x-space-7: 48px;
+  --x-space-8: 64px;
+  --x-space-9: 96px;
+  --x-space-10: 128px;
+  --x-section: 80px;
+
+  --x-fs-display: clamp(2.5rem, 1.75rem + 2.5vw, 4rem);
+  --x-fs-h1: clamp(2rem, 1.6rem + 1.4vw, 2.75rem);
+  --x-fs-h2: clamp(1.5rem, 1.3rem + 0.7vw, 2rem);
+  --x-fs-h3: 1.25rem;
+  --x-fs-lead: 1.25rem;
+  --x-fs-body: 1.0625rem;
+  --x-fs-ui: 1rem;
+  --x-fs-small: 0.875rem;
+  --x-fs-label: 0.8125rem;
+
+  --x-control-sm: 36px;
+  --x-control-md: 44px;
+  --x-control-lg: 52px;
+  --x-row: 48px;
+  --x-focus-width: 2px;
+  --x-focus-offset: 2px;
+  --x-ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --x-duration: 150ms;
+
+  @media (min-width: 640px) {
+    --x-gap: 24px;
+    --x-gutter: 24px;
+    --x-section: 128px;
+  }
+
+  @media (min-width: 1024px) {
+    --x-gutter: 32px;
+  }
+}

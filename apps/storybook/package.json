@@ -1,0 +1,28 @@
+{
+  "name": "@repo/storybook",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "storybook dev -p 6006 --no-open",
+    "build": "storybook build",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@xaroth.nl/design": "workspace:*",
+    "react": "catalog:",
+    "react-dom": "catalog:"
+  },
+  "devDependencies": {
+    "@storybook/addon-a11y": "catalog:",
+    "@storybook/addon-docs": "catalog:",
+    "@storybook/react-vite": "catalog:",
+    "@types/react": "catalog:",
+    "@types/react-dom": "catalog:",
+    "@vitejs/plugin-react": "catalog:",
+    "sass": "catalog:",
+    "storybook": "catalog:",
+    "typescript": "catalog:",
+    "vite": "catalog:"
+  }
+}

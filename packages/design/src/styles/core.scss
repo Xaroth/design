@@ -1,0 +1,12 @@
+@use 'sass:meta';
+@use 'layers';
+
+@layer x.reset {
+  @include meta.load-css('core/reset');
+}
+
+@layer x.core {
+  @include meta.load-css('core/tokens');
+  @include meta.load-css('core/base');
+  @include meta.load-css('parts/button');
+}

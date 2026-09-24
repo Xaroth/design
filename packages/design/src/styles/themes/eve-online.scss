@@ -1,0 +1,32 @@
+// eve-online.tools, from design-guide concept 8 (EVE v4). Placeholder values until the port.
+@use '../layers';
+@use '../theme';
+@import '@fontsource-variable/oxanium/index.css';
+@import '@fontsource-variable/ibm-plex-sans/index.css';
+@import '@fontsource-variable/jetbrains-mono/index.css';
+
+
+@layer x.theme {
+  @include theme.scope('eve-online') {
+    --x-font-display: 'Oxanium Variable', 'Oxanium', system-ui, sans-serif;
+    --x-font-body: 'IBM Plex Sans Variable', 'IBM Plex Sans', system-ui, sans-serif;
+    --x-font-ui: var(--x-font-display);
+    --x-font-mono: 'JetBrains Mono Variable', 'JetBrains Mono', ui-monospace, monospace;
+
+    --x-color-bg: #05080c;
+    --x-color-text: #dce8ee;
+    --x-color-accent: #4ddcf2;
+    --x-color-accent-edge: #2a8799;
+    --x-color-on-accent: #03161b;
+    --x-color-danger: #ff6f61;
+    --x-color-on-danger: #26120f;
+    --x-color-focus: #9aefff;
+  }
+
+  @include theme.parts('eve-online') {
+    // Cut corners are the EVE signature.
+    .x-button {
+      clip-path: polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 8px 100%, 0 calc(100% - 8px));
+    }
+  }
+}

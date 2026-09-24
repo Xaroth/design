@@ -1,0 +1,62 @@
+// Structure only. Themes add shape (cut corners, frames) and color in x.theme.
+.x-button {
+  display: inline-flex;
+  gap: var(--x-space-2);
+  align-items: center;
+  justify-content: center;
+  min-height: var(--x-control-md);
+  padding: 0 20px;
+  font-family: var(--x-button-font, var(--x-font-ui));
+  font-size: var(--x-button-fs, 0.875rem);
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: var(--x-button-tracking, 0.14em);
+  text-transform: var(--x-button-case, uppercase);
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+  color: var(--x-button-fg);
+  background: var(--x-button-bg);
+  border: 1px solid var(--x-button-border, transparent);
+  transition:
+    background var(--x-duration) var(--x-ease),
+    color var(--x-duration) var(--x-ease),
+    border-color var(--x-duration) var(--x-ease);
+
+  &:disabled,
+  &[aria-disabled='true'] {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+
+  &--primary {
+    --x-button-fg: var(--x-color-on-accent);
+    --x-button-bg: var(--x-color-accent);
+  }
+
+  &--secondary {
+    --x-button-fg: var(--x-color-accent);
+    --x-button-bg: transparent;
+    --x-button-border: var(--x-color-accent-edge);
+  }
+
+  &--ghost {
+    --x-button-fg: var(--x-color-text);
+    --x-button-bg: transparent;
+  }
+
+  &--danger {
+    --x-button-fg: var(--x-color-on-danger);
+    --x-button-bg: var(--x-color-danger);
+  }
+
+  &--sm {
+    min-height: var(--x-control-sm);
+    padding: 0 var(--x-space-4);
+  }
+
+  &--lg {
+    min-height: var(--x-control-lg);
+    padding: 0 var(--x-space-6);
+  }
+}

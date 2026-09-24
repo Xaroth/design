@@ -1,0 +1,15 @@
+// A theme applies on the page root when the site sets no data-x-theme, or inside [data-x-theme='name'].
+// Docs showing several themes set data-x-theme on <html> (any value) so the root default stops matching.
+@mixin scope($name) {
+  :where(:root:not([data-x-theme])),
+  [data-x-theme='#{$name}'] {
+    @content;
+  }
+}
+
+// Theme-specific part styling, scoped the same way so two loaded themes never style each other's parts.
+@mixin parts($name) {
+  :where(:root:not([data-x-theme]), [data-x-theme='#{$name}']) {
+    @content;
+  }
+}
