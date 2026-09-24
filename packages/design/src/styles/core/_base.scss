@@ -6,6 +6,75 @@
   line-height: 1.65;
   color: var(--x-color-text);
   background: var(--x-color-bg);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizelegibility;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--x-font-heading);
+  font-weight: 600;
+  letter-spacing: var(--x-track-heading);
+  text-wrap: balance;
+  color: var(--x-color-text);
+}
+
+h1 {
+  font-size: var(--x-fs-h1);
+  line-height: 1.15;
+}
+
+h2 {
+  font-size: var(--x-fs-h2);
+  line-height: 1.2;
+}
+
+h3 {
+  font-size: var(--x-fs-h3);
+  line-height: 1.3;
+}
+
+h4 {
+  font-size: var(--x-fs-ui);
+  line-height: 1.4;
+}
+
+p {
+  text-wrap: pretty;
+}
+
+a {
+  color: var(--x-color-accent);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.2em;
+
+  &:hover {
+    color: var(--x-color-accent-strong);
+  }
+}
+
+small {
+  font-size: var(--x-fs-small);
+}
+
+code,
+kbd,
+samp,
+pre {
+  font-family: var(--x-font-mono);
+  font-size: 0.9em;
+}
+
+hr {
+  border: 0;
+  border-top: 1px solid var(--x-color-line);
+}
+
+::selection {
+  color: var(--x-color-on-accent);
+  background: var(--x-color-accent);
 }
 
 :focus-visible {

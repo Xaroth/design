@@ -4,7 +4,7 @@ import { renderToStaticMarkup } from 'react-dom/server'
 import { describe, expect, it } from 'vitest'
 import AstroButton from '@xaroth.nl/design/astro/Button.astro'
 import { Button } from '@xaroth.nl/design/react'
-import { normalize } from './normalize.ts'
+import { normalize } from '../normalize.ts'
 
 const container = await AstroContainer.create()
 

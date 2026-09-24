@@ -1,0 +1,65 @@
+// xaroth.nl, ported from design-guide concept 9 (Dune v4).
+@use '../../theme';
+
+@include theme.scope('xaroth') {
+  --x-font-display: 'Cinzel Variable', 'Cinzel', 'Times New Roman', serif;
+  --x-font-heading: var(--x-font-display);
+  --x-font-body: 'Spectral', Georgia, serif;
+  --x-font-ui: 'Manrope Variable', 'Manrope', system-ui, sans-serif;
+  --x-font-mono: 'IBM Plex Mono', ui-monospace, monospace;
+  // Spectral has a small x-height, so body is nudged up one step.
+  --x-fs-body: 1.125rem;
+  --x-track-display: 0.06em;
+  --x-track-heading: 0.02em;
+  --x-track-label: 0.12em;
+  --x-track-caps: 0.2em;
+
+  --x-color-bg: #0b0806;
+  --x-color-bg-sunk: #080604;
+  --x-color-surface: #15100b;
+  --x-color-surface-2: #1d1610;
+  --x-color-surface-3: #2a2117;
+  --x-color-glass: rgb(34 26 17 / 58%);
+  --x-color-glass-edge: rgb(228 197 135 / 14%);
+  --x-color-line: #2e251a;
+  --x-color-line-strong: #3b2f21;
+  --x-color-field-edge: #7a6342;
+  --x-color-rule: #8a6d42;
+
+  --x-color-text: #e6d8bc;
+  --x-color-text-muted: #b3a283;
+  --x-color-text-faint: #968669;
+
+  --x-color-accent: #c9a45c;
+  --x-color-accent-strong: #e4c587;
+  --x-color-accent-edge: #7a6342;
+  --x-color-accent-wash: rgb(201 164 92 / 10%);
+  --x-color-on-accent: #0b0806;
+  --x-color-focus: #e4c587;
+
+  --x-color-info: #9db3bd;
+  --x-color-on-info: #0b0806;
+  --x-color-info-wash: rgb(157 179 189 / 7%);
+  --x-color-success: #a9b673;
+  --x-color-on-success: #0b0806;
+  --x-color-success-wash: rgb(169 182 115 / 7%);
+  --x-color-warning: #dcaa4a;
+  --x-color-on-warning: #0b0806;
+  --x-color-warning-wash: rgb(220 170 74 / 7%);
+  --x-color-danger: #e0735a;
+  --x-color-on-danger: #0b0806;
+  --x-color-danger-wash: rgb(224 115 90 / 8%);
+
+  // Theme extras, only used by xaroth part styling.
+  --x-color-sand: #d8c29a;
+  --x-color-bronze: #a37b49;
+  --x-color-spice: #e57a32;
+  --x-color-dawn: #fff0d4;
+
+  --x-radius: 2px;
+  --x-cut-sm: 0px;
+  --x-cut-md: 0px;
+  --x-cut-lg: 0px;
+  --x-blur: blur(16px) saturate(130%);
+  --x-shadow: inset 0 1px 0 rgb(228 197 135 / 10%), 0 30px 60px -30px rgb(0 0 0 / 80%);
+}

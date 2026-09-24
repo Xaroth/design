@@ -1,0 +1,64 @@
+// eve-online.tools, ported from design-guide concept 8 (EVE v4).
+@use '../../theme';
+
+@include theme.scope('eve-online') {
+  --x-font-display: 'Oxanium Variable', 'Oxanium', system-ui, sans-serif;
+  --x-font-heading: var(--x-font-display);
+  --x-font-body: 'IBM Plex Sans Variable', 'IBM Plex Sans', system-ui, sans-serif;
+  --x-font-ui: var(--x-font-display);
+  --x-font-mono: 'JetBrains Mono Variable', 'JetBrains Mono', ui-monospace, monospace;
+  --x-track-display: 0.01em;
+  --x-track-heading: 0.01em;
+  --x-track-label: 0.16em;
+  --x-track-caps: 0.14em;
+
+  --x-color-bg: #05080c;
+  --x-color-bg-sunk: #030507;
+  --x-color-surface: #0c141b;
+  --x-color-surface-2: #111b24;
+  --x-color-surface-3: #16232e;
+  --x-color-glass: rgb(10 17 24 / 72%);
+  --x-color-glass-edge: rgb(77 220 242 / 14%);
+  --x-color-line: #17252f;
+  --x-color-line-strong: #2a4352;
+  --x-color-field-edge: #5e7f8f;
+  --x-color-rule: #2a8799;
+
+  --x-color-text: #dce8ee;
+  --x-color-text-muted: #a9bcc6;
+  --x-color-text-faint: #8aa0ad;
+
+  --x-color-accent: #4ddcf2;
+  --x-color-accent-strong: #9aefff;
+  --x-color-accent-edge: #2a8799;
+  --x-color-accent-wash: rgb(77 220 242 / 8%);
+  --x-color-on-accent: #03161b;
+  --x-color-focus: #9aefff;
+
+  --x-color-info: #9aefff;
+  --x-color-on-info: #03161b;
+  --x-color-info-wash: rgb(77 220 242 / 8%);
+  --x-color-success: #5fdd8d;
+  --x-color-on-success: #0e2117;
+  --x-color-success-wash: rgb(95 221 141 / 9%);
+  --x-color-warning: #f2a93b;
+  --x-color-on-warning: #211a0e;
+  --x-color-warning-wash: rgb(242 169 59 / 9%);
+  --x-color-danger: #ff6f61;
+  --x-color-on-danger: #26120f;
+  --x-color-danger-wash: rgb(255 111 97 / 9%);
+
+  // Theme extras, only used by eve-online part styling.
+  --x-color-accent-fill: #0d2129;
+  --x-color-glow: rgb(77 220 242 / 45%);
+  --x-color-rim: #bff4ff;
+  --x-color-flare: #ffe7c2;
+
+  --x-radius: 0px;
+  --x-cut-sm: 6px;
+  --x-cut-md: 12px;
+  --x-cut-lg: 20px;
+  --x-bracket: 12px;
+  --x-blur: blur(14px) saturate(140%);
+  --x-shadow: 0 30px 60px -30px rgb(0 0 0 / 80%);
+}

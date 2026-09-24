@@ -1,6 +1,6 @@
-// xaroth.nl, from design-guide concept 9 (Dune v4). Placeholder values until the port.
+// Theme entry. Tokens plus one partial per part; partials are scoped with theme.parts().
+@use 'sass:meta';
 @use '../layers';
-@use '../theme';
 @import '@fontsource-variable/cinzel/index.css';
 @import '@fontsource/spectral/400.css';
 @import '@fontsource/spectral/400-italic.css';
@@ -8,29 +8,16 @@
 @import '@fontsource/ibm-plex-mono/400.css';
 @import '@fontsource-variable/manrope/index.css';
 
-
 @layer x.theme {
-  @include theme.scope('xaroth') {
-    --x-font-display: 'Cinzel Variable', 'Cinzel', serif;
-    --x-font-body: 'Spectral', Georgia, serif;
-    --x-font-ui: 'Manrope Variable', 'Manrope', system-ui, sans-serif;
-    --x-font-mono: 'IBM Plex Mono', ui-monospace, monospace;
-    --x-fs-body: 1.125rem;
-
-    --x-color-bg: #0b0806;
-    --x-color-text: #e6d8bc;
-    --x-color-accent: #c9a45c;
-    --x-color-accent-edge: #7a6342;
-    --x-color-on-accent: #0b0806;
-    --x-color-danger: #e0735a;
-    --x-color-on-danger: #0b0806;
-    --x-color-warning: #dcaa4a;
-    --x-color-on-warning: #0b0806;
-    --x-color-success: #a9b673;
-    --x-color-on-success: #0b0806;
-    --x-color-focus: #e4c587;
-
-    --x-button-font: var(--x-font-display);
-    --x-button-tracking: 0.16em;
-  }
+  @include meta.load-css('xaroth/tokens');
+  @include meta.load-css('xaroth/button');
+  @include meta.load-css('xaroth/layout');
+  @include meta.load-css('xaroth/prose');
+  @include meta.load-css('xaroth/header');
+  @include meta.load-css('xaroth/footer');
+  @include meta.load-css('xaroth/card');
+  @include meta.load-css('xaroth/tag');
+  @include meta.load-css('xaroth/badge');
+  @include meta.load-css('xaroth/field');
+  @include meta.load-css('xaroth/timeline');
 }

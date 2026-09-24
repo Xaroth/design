@@ -1,0 +1,36 @@
+@use '../../theme';
+@use '../../chamfer';
+
+@include theme.parts('eve-online') {
+  // Cut corners (top left, bottom right) are the EVE signature. The element stays unclipped so the focus
+  // ring shows; ::before paints the fill, ::after the 1px edge as an even-odd ring so diagonals get a border
+  // and transparent fills still work.
+  .x-button {
+    --x-cut: 8px;
+
+    position: relative;
+    isolation: isolate;
+    background: none;
+    border-color: transparent;
+
+    &::before,
+    &::after {
+      content: '';
+      position: absolute;
+      inset: -1px;
+      z-index: -1;
+      pointer-events: none;
+      transition: background var(--x-duration) var(--x-ease);
+    }
+
+    &::before {
+      background: var(--x-button-bg);
+      clip-path: chamfer.shape(var(--x-cut));
+    }
+
+    &::after {
+      background: var(--x-button-border, var(--x-button-bg));
+      clip-path: chamfer.ring(var(--x-cut), 1px);
+    }
+  }
+}

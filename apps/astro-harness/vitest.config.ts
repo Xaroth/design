@@ -10,6 +10,6 @@ export default getViteConfig({
     },
   },
   test: {
-    include: ['test/**/*.test.ts'],
+    include: ['test/parts/*.test.ts'],
   },
 })
