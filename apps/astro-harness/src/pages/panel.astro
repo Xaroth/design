@@ -1,0 +1,71 @@
+---
+import Harness from '../layouts/Harness.astro'
+import Panel from '@xaroth.nl/design/astro/panel'
+import Button from '@xaroth.nl/design/astro/button'
+
+const variants = ['plain', 'raised', 'accent', 'callout'] as const
+const grid = 'display: grid; gap: 24px; grid-template-columns: repeat(auto-fill, minmax(min(100%, 260px), 1fr)); margin-top: 16px'
+---
+
+<Harness title="Panel">
+  {() => (
+    <div style="padding: 0 32px; max-width: 1200px">
+      <p>Variants</p>
+      <div style={grid}>
+        {variants.map((variant) => (
+          <Panel variant={variant}>
+            <p class="x-label">{variant}</p>
+            <p style="margin-top: 8px">A surface for boxes, readouts and forms.</p>
+          </Panel>
+        ))}
+      </div>
+      <p style="margin-top: 32px">Variants with marks</p>
+      <div style={grid}>
+        {variants.map((variant) => (
+          <Panel variant={variant} marks>
+            <p class="x-label">{variant} + marks</p>
+            <p style="margin-top: 8px">Corner marks or a gold top line.</p>
+          </Panel>
+        ))}
+      </div>
+      <p style="margin-top: 32px">Padding</p>
+      <div style={grid}>
+        {(['none', 'sm', 'md', 'lg', 'xl'] as const).map((padding) => (
+          <Panel variant="raised" padding={padding} marks>
+            <p>padding {padding}</p>
+          </Panel>
+        ))}
+      </div>
+      <p style="margin-top: 32px">Id card</p>
+      <div style="display: grid; grid-template-columns: minmax(0, 384px); margin-top: 16px">
+        <Panel as="aside" variant="accent" padding="lg" marks aria-label="Profile">
+          <p class="x-label">Pilot record / @xaroth</p>
+          <h1 style="margin-top: 12px">Xaroth</h1>
+          <p style="margin-top: 12px; color: var(--x-color-text-muted)">Software engineer</p>
+          <p style="margin-top: 16px"><a href="#">github.com/xaroth</a></p>
+        </Panel>
+      </div>
+      <p style="margin-top: 32px">Call to action</p>
+      <Panel as="section" variant="callout" padding="xl" marks aria-labelledby="cta-title" style="margin-top: 16px">
+        <div style="display: flex; flex-wrap: wrap; gap: 24px; align-items: center; justify-content: space-between">
+          <div style="max-width: 38rem">
+            <p class="x-label">Open source</p>
+            <h2 id="cta-title" style="margin-top: 12px">Build your own tool on the same stack</h2>
+            <p style="margin-top: 12px; color: var(--x-color-text-muted)">
+              The typed ESI client, SDE loaders, and this design kit are all public.
+            </p>
+          </div>
+          <div style="display: flex; flex-wrap: wrap; gap: 12px; align-items: center">
+            <Button href="#">View on GitHub</Button>
+            <Button variant="tertiary" href="#">Design kit</Button>
+          </div>
+        </div>
+      </Panel>
+      <p style="margin-top: 32px">Form panel</p>
+      <Panel as="form" variant="plain" padding="lg" style="margin-top: 16px; max-width: 612px">
+        <label>Name <input /></label>
+        <Button variant="secondary" style="margin-top: 16px">Send</Button>
+      </Panel>
+    </div>
+  )}
+</Harness>

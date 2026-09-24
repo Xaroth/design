@@ -1,0 +1,26 @@
+---
+import './breadcrumbs.scss'
+import type { HTMLAttributes } from 'astro/types'
+import { breadcrumbState, breadcrumbsClass, breadcrumbsClasses as c, type BreadcrumbItem } from './index.ts'
+
+type Props = Omit<HTMLAttributes<'nav'>, 'class'> & {
+  class?: string
+  items: BreadcrumbItem[]
+  label?: string
+}
+
+const { class: className, items, label = 'Breadcrumb', ...rest } = Astro.props
+const crumbs = items.map((item, i) => ({ item, ...breadcrumbState(item, i, items.length) }))
+---
+
+<nav class={breadcrumbsClass({ className })} aria-label={label} {...rest}>
+  <ol class={c.list}>
+    {
+      crumbs.map(({ item, tag: El, attrs }) => (
+        <li class={c.item}>
+          <El {...attrs}>{item.label}</El>
+        </li>
+      ))
+    }
+  </ol>
+</nav>

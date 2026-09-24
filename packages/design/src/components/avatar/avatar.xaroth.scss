@@ -1,0 +1,23 @@
+@use '../../styles/theme';
+
+@include theme.parts('xaroth') {
+  // Ring with a lit top and a Cinzel initial.
+  .x-avatar {
+    --x-avatar-scale: 0.4375;
+    --x-avatar-weight: 500;
+
+    color: var(--x-color-sand);
+    background: radial-gradient(circle at 50% 30%, var(--x-color-surface-3), var(--x-color-surface) 70%);
+    border: 1px solid var(--x-color-rule);
+    border-radius: 50%;
+  }
+
+  // The edge sits over the photo, so it stays visible on light images.
+  .x-avatar--image::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border: 1px solid color-mix(in srgb, var(--x-color-accent) 40%, transparent);
+    border-radius: inherit;
+  }
+}

@@ -1,0 +1,29 @@
+---
+import './tabs.scss'
+import type { HTMLAttributes } from 'astro/types'
+import { tabLinkAttrs, tabsClass, tabsClasses as c, type TabItem } from './index.ts'
+
+type Props = Omit<HTMLAttributes<'nav'>, 'class'> & {
+  class?: string
+  items: TabItem[]
+  /** Accessible name of the nav, for example "Tool sections". */
+  label: string
+}
+
+const { class: className, items, label, ...rest } = Astro.props
+---
+
+<nav class={tabsClass({ className })} aria-label={label} {...rest}>
+  <ul class={c.list}>
+    {
+      items.map((item) => (
+        <li class={c.item}>
+          <a class={c.link} {...tabLinkAttrs(item)}>
+            {item.label}
+            {item.count !== undefined && <span class={c.count}>{item.count}</span>}
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+</nav>

@@ -99,7 +99,7 @@ export default {
       },
     },
     {
-      files: ['scripts/**/*.ts', 'packages/**/scripts/**/*.ts', 'packages/**/src/cli/**/*.ts'],
+      files: ['scripts/**/*.ts', 'packages/**/scripts/**/*.ts', 'apps/**/scripts/**/*.ts'],
       rules: {
         'no-console': 'off',
       },

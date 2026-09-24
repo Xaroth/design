@@ -1,0 +1,27 @@
+---
+import Harness from '../layouts/Harness.astro'
+import Tooltip from '@xaroth.nl/design/astro/tooltip'
+import Button from '@xaroth.nl/design/astro/button'
+import Icon from '@xaroth.nl/design/astro/icon'
+---
+
+<Harness title="Tooltip">
+  {(theme: string) => (
+    <div style="padding: 72px 32px 80px 120px; display: flex; gap: 48px; flex-wrap: wrap; align-items: flex-start">
+      <Tooltip id={`${theme}-scopes`} text="Two scopes: achievements and standings." open>
+        <Button variant="secondary" size="sm">Scopes</Button>
+      </Tooltip>
+      <Tooltip id={`${theme}-range`} text="Cyno range 5.0 LY with Jump Drive Calibration V" placement="bottom" open>
+        <Button variant="secondary" size="sm">Bottom</Button>
+      </Tooltip>
+      <Tooltip id={`${theme}-hover`} text="Shown on hover and keyboard focus.">
+        <Button variant="tertiary" size="sm">Hover me</Button>
+      </Tooltip>
+      <Tooltip id={`${theme}-icon`} text="Cached for 5 minutes.">
+        <button type="button" aria-label="Cache info" style="display: inline-grid; place-items: center; width: 36px; height: 36px; color: var(--x-color-text-muted); background: none; border: 0">
+          <Icon name="info" size={20} />
+        </button>
+      </Tooltip>
+    </div>
+  )}
+</Harness>

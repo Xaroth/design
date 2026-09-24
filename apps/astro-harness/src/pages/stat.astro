@@ -1,0 +1,38 @@
+---
+import Harness from '../layouts/Harness.astro'
+import Stat from '@xaroth.nl/design/astro/stat'
+import StatGroup from '@xaroth.nl/design/astro/stat-group'
+---
+
+<Harness title="Stat">
+  {() => (
+    <div style="padding: 0 32px; max-width: 1200px">
+      <p>Plain (home)</p>
+      <StatGroup aria-label="Site stats" style="margin-top: 16px">
+        <Stat label="Tools" value="6" />
+        <Stat label="ESI routes wrapped" value="214" />
+        <Stat label="SDE build" value="3021507" tone="muted" />
+        <Stat label="Uptime, 30d" value="99.94%" />
+      </StatGroup>
+      <p style="margin-top: 32px">Framed (tool)</p>
+      <StatGroup variant="framed" aria-label="Summary" style="margin-top: 16px">
+        <Stat label="Completed" value="2" unit="/ 7" tone="success" />
+        <Stat label="In progress" value="3" />
+        <Stat label="Locked" value="2" tone="muted" />
+        <Stat label="LP earned" value="25,000" tone="warning" />
+      </StatGroup>
+      <p style="margin-top: 32px">Three columns, hints, danger</p>
+      <StatGroup variant="framed" columns={3} style="margin-top: 16px">
+        <Stat label="Errors" value="12" tone="danger" hint="Last 24 hours" />
+        <Stat label="Requests" value="8.2k" hint="Per minute" />
+        <Stat label="Latency" value="140" unit="ms" hint="p95" />
+        <Stat label="Cache" value="93%" tone="success" />
+      </StatGroup>
+      <p style="margin-top: 32px">Two columns, plain</p>
+      <StatGroup columns={2} style="margin-top: 16px">
+        <Stat label="Posts" value="14" />
+        <Stat label="Words" value="31k" hint="Since 2024" />
+      </StatGroup>
+    </div>
+  )}
+</Harness>

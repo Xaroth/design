@@ -1,0 +1,14 @@
+@use '../../styles/theme';
+
+@include theme.parts('eve-online') {
+  // Edged panel aligned to the trigger's start, arrow near the left.
+  .x-tooltip {
+    --x-tooltip-font: var(--x-font-body);
+    --x-tooltip-edge: var(--x-color-line-strong);
+    --x-tooltip-max: 280px;
+    --x-tooltip-left: 0;
+    --x-tooltip-shift: 0;
+    --x-tooltip-arrow-left: 26px;
+    --x-tooltip-gap: 12px;
+  }
+}

@@ -1,0 +1,20 @@
+@use '../../styles/theme';
+
+@include theme.parts('xaroth') {
+  // Quiet UI rows: muted term, plain value, links in gold.
+  .x-description-list {
+    --x-description-list-term-width: 4.5rem;
+    --x-description-list-line: var(--x-color-line-strong);
+
+    a {
+      color: var(--x-color-accent-strong);
+    }
+  }
+
+  // Short terms, so the columns hold on phones too.
+  .x-description-list--columns .x-description-list__item {
+    grid-template-columns: var(--x-description-list-term-width) minmax(0, 1fr);
+    gap: var(--x-space-3);
+    align-items: baseline;
+  }
+}

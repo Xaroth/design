@@ -1,0 +1,76 @@
+@use '../../styles/theme';
+
+@include theme.parts('xaroth') {
+  // Centered Cinzel numbers above their label. Framed groups become one glass band under gold rules, with lines
+  // between the cells.
+  .x-stat {
+    --x-stat-value: var(--x-color-sand);
+    --x-stat-inner-gap: var(--x-space-1);
+
+    text-align: center;
+
+    &__value {
+      order: -1;
+      font-family: var(--x-font-display);
+      font-size: var(--x-fs-h2);
+      font-weight: 500;
+    }
+
+    &__label {
+      font-family: var(--x-font-ui);
+      font-size: var(--x-fs-small);
+      line-height: 1.5;
+      color: var(--x-color-text-muted);
+    }
+
+    &--muted {
+      --x-stat-value: var(--x-color-text-muted);
+    }
+
+    &--success {
+      --x-stat-value: var(--x-color-success);
+    }
+
+    &--warning {
+      --x-stat-value: var(--x-color-warning);
+    }
+
+    &--danger {
+      --x-stat-value: var(--x-color-danger);
+    }
+  }
+
+  .x-stat-group--framed {
+    --x-stat-gap: 0;
+
+    // Clips the cell dividers at the frame, whatever the column count.
+    overflow: hidden;
+    background: var(--x-color-glass);
+    backdrop-filter: var(--x-blur);
+    border: 1px solid var(--x-color-glass-edge);
+    border-block-color: var(--x-color-rule);
+    box-shadow: var(--x-shadow);
+
+    .x-stat {
+      --x-stat-pad: var(--x-space-6) var(--x-space-5);
+      --x-stat-inner-gap: var(--x-space-2);
+
+      box-shadow:
+        -1px 0 0 var(--x-color-line-strong),
+        0 -1px 0 var(--x-color-line-strong);
+    }
+
+    .x-stat__value {
+      letter-spacing: 0.04em;
+    }
+
+    .x-stat__label {
+      font-family: var(--x-font-display);
+      font-size: var(--x-fs-label);
+      font-weight: 600;
+      line-height: 1.3;
+      letter-spacing: var(--x-track-caps);
+      text-transform: uppercase;
+    }
+  }
+}

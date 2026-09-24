@@ -1,0 +1,43 @@
+@use '../../styles/chamfer';
+
+// Cut-corner surface drawn on the pseudo elements, so the element stays unclipped and focus rings inside and
+// around it show. ::before paints the fill, ::after the 1px edge as an even-odd ring, so the diagonals get an
+// edge and translucent fills work. Set --x-surface-cut, --x-surface-fill and --x-surface-edge on the element.
+@mixin cut {
+  isolation: isolate;
+
+  &::before,
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+  }
+
+  &::before {
+    background: var(--x-surface-fill);
+    clip-path: chamfer.shape(var(--x-surface-cut));
+  }
+
+  &::after {
+    background: var(--x-surface-edge);
+    clip-path: chamfer.ring(var(--x-surface-cut), 1px);
+  }
+}
+
+// L marks on the four corners, layered into the fill just inside the edge. The two cut corners clip theirs away.
+@mixin marks($color, $size: var(--x-bracket)) {
+  &::before {
+    background:
+      linear-gradient($color, $color) top 1px left 1px / $size 1px no-repeat,
+      linear-gradient($color, $color) top 1px left 1px / 1px $size no-repeat,
+      linear-gradient($color, $color) top 1px right 1px / $size 1px no-repeat,
+      linear-gradient($color, $color) top 1px right 1px / 1px $size no-repeat,
+      linear-gradient($color, $color) bottom 1px left 1px / $size 1px no-repeat,
+      linear-gradient($color, $color) bottom 1px left 1px / 1px $size no-repeat,
+      linear-gradient($color, $color) bottom 1px right 1px / $size 1px no-repeat,
+      linear-gradient($color, $color) bottom 1px right 1px / 1px $size no-repeat,
+      var(--x-surface-fill);
+  }
+}

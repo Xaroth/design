@@ -1,0 +1,47 @@
+---
+import './alert.scss'
+import type { HTMLAttributes } from 'astro/types'
+import { alertClass, alertIcon, alertRole, type AlertOptions } from './index.ts'
+
+type Props = Omit<HTMLAttributes<'div'>, 'class' | 'title'> &
+  Omit<AlertOptions, 'className'> & {
+    class?: string
+    /** Plain-text title; the `title` slot takes markup. */
+    title?: string
+    /** Sets role="alert" so screen readers interrupt. Only for messages shown in response to an action. */
+    urgent?: boolean
+  }
+
+// `slot` is how a parent places this alert; it is not an attribute of the alert.
+const { tone, framed, title, urgent, role, class: className, slot: _slot, ...rest } = Astro.props
+const hasTitle = title !== undefined || Astro.slots.has('title')
+---
+
+<div class={alertClass({ tone, framed, className })} role={alertRole(urgent, role)} {...rest}>
+  <svg class="x-alert__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+    {alertIcon(tone).map(({ className, d }) => <path class={className} d={d} />)}
+  </svg>
+  <div class="x-alert__content">
+    {
+      hasTitle && (
+        <p class="x-alert__title">
+          <slot name="title">{title}</slot>
+        </p>
+      )
+    }
+    {
+      Astro.slots.has('default') && (
+        <div class="x-alert__body">
+          <slot />
+        </div>
+      )
+    }
+    {
+      Astro.slots.has('actions') && (
+        <div class="x-alert__actions">
+          <slot name="actions" />
+        </div>
+      )
+    }
+  </div>
+</div>

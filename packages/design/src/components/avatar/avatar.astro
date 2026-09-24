@@ -1,0 +1,27 @@
+---
+import './avatar.scss'
+import type { HTMLAttributes } from 'astro/types'
+import { avatarClass, avatarState, type AvatarOptions } from './index.ts'
+
+type Props = Omit<HTMLAttributes<'span'>, 'class'> & Omit<AvatarOptions, 'className'> & { class?: string }
+
+// `slot` is how a parent places this avatar; it is not an attribute of the avatar.
+const { name, src, alt, initials, size, class: className, slot: _slot, ...rest } = Astro.props
+const state = avatarState({ name, src, alt, initials })
+---
+
+<span
+  class={avatarClass({ size, src, className })}
+  {...state.root}
+  {...rest}
+>
+  {
+    src ? (
+      <img class="x-avatar__image" src={src} alt={state.alt} loading="lazy" decoding="async" />
+    ) : (
+      <span class="x-avatar__initials" aria-hidden="true">
+        {state.initials}
+      </span>
+    )
+  }
+</span>

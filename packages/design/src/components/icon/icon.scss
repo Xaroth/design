@@ -1,0 +1,18 @@
+@use '../../styles/layers';
+
+@layer x.core {
+  .x-icon {
+    display: inline-block;
+    flex: none;
+    vertical-align: -0.125em;
+    stroke-width: var(--x-icon-stroke, 1.5);
+    stroke-linecap: var(--x-icon-cap, round);
+    stroke-linejoin: var(--x-icon-join, round);
+
+    // The size prop sets width and height attributes; CSS would override them, so 1em only applies without.
+    &:not([width]) {
+      width: 1em;
+      height: 1em;
+    }
+  }
+}

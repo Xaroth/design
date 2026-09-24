@@ -1,0 +1,42 @@
+@use '../../styles/layers';
+
+@layer x.core {
+  // Box, sizes and initials. Themes draw the shape and frame.
+  .x-avatar {
+    --x-avatar-size: 64px;
+
+    position: relative;
+    isolation: isolate;
+    display: inline-grid;
+    flex: none;
+    place-items: center;
+    width: var(--x-avatar-size);
+    height: var(--x-avatar-size);
+    overflow: hidden;
+    font-family: var(--x-font-display);
+    font-size: calc(var(--x-avatar-size) * var(--x-avatar-scale, 0.4));
+    font-weight: var(--x-avatar-weight, 600);
+    line-height: 1;
+    color: var(--x-color-text);
+    background: var(--x-color-surface-2);
+    user-select: none;
+
+    &--sm {
+      --x-avatar-size: 40px;
+    }
+
+    &--lg {
+      --x-avatar-size: 96px;
+    }
+
+    &--xl {
+      --x-avatar-size: 128px;
+    }
+
+    &__image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+}

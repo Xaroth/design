@@ -1,0 +1,49 @@
+@use '../../styles/layers';
+
+@layer x.core {
+  // Lines and layout. Themes draw the mark and color the lines.
+  .x-divider {
+    --x-divider-line: var(--x-color-line);
+
+    width: 100%;
+    height: 1px;
+    margin-block: var(--x-divider-space, var(--x-space-6));
+    background: var(--x-divider-line);
+    border: 0;
+
+    &--ornament,
+    &--label {
+      display: flex;
+      gap: var(--x-divider-gap, var(--x-space-3));
+      align-items: center;
+      justify-content: center;
+      height: auto;
+      background: none;
+
+      &::before,
+      &::after {
+        content: '';
+        flex: 1 1 0;
+        height: 1px;
+        background: var(--x-divider-line);
+      }
+    }
+
+    &__mark {
+      flex: none;
+    }
+
+    &__label {
+      flex: none;
+      max-width: 70%;
+      font-family: var(--x-font-ui);
+      font-size: var(--x-fs-label);
+      font-weight: 600;
+      line-height: 1.3;
+      letter-spacing: var(--x-track-label);
+      text-align: center;
+      text-transform: uppercase;
+      color: var(--x-color-text-muted);
+    }
+  }
+}

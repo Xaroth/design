@@ -1,0 +1,90 @@
+@use '../../styles/layers';
+
+@layer x.core {
+  // Part-local properties (themes may override):
+  //   --x-description-list-term-*   term font, size, weight, tracking, case and color
+  //   --x-description-list-value-*  value font, size and color
+  //   --x-description-list-gap      space between items without dividers
+  //   --x-description-list-pad      block padding of each item with dividers
+  //   --x-description-list-line     divider color
+  //   --x-description-list-term-width  term column in the columns layout
+  .x-description-list {
+    --x-description-list-term-font: var(--x-font-ui);
+    --x-description-list-term-fs: var(--x-fs-ui);
+    --x-description-list-term-weight: 400;
+    --x-description-list-term-tracking: normal;
+    --x-description-list-term-case: none;
+    --x-description-list-term-color: var(--x-color-text-muted);
+    --x-description-list-value-font: var(--x-font-ui);
+    --x-description-list-value-fs: var(--x-fs-ui);
+    --x-description-list-value-color: var(--x-color-text);
+    --x-description-list-gap: var(--x-space-2);
+    --x-description-list-pad: 10px;
+    --x-description-list-line: var(--x-color-line);
+    --x-description-list-term-width: 7rem;
+
+    display: grid;
+    gap: var(--x-description-list-gap);
+    min-width: 0;
+    margin: 0;
+
+    &__item {
+      display: grid;
+      gap: 2px;
+      min-width: 0;
+    }
+
+    &__term {
+      font-family: var(--x-description-list-term-font);
+      font-size: var(--x-description-list-term-fs);
+      font-weight: var(--x-description-list-term-weight);
+      line-height: 1.4;
+      letter-spacing: var(--x-description-list-term-tracking);
+      text-transform: var(--x-description-list-term-case);
+      color: var(--x-description-list-term-color);
+    }
+
+    &__value {
+      min-width: 0;
+      margin: 0;
+      font-family: var(--x-description-list-value-font);
+      font-size: var(--x-description-list-value-fs);
+      line-height: 1.4;
+      color: var(--x-description-list-value-color);
+      overflow-wrap: anywhere;
+    }
+
+    &--inline &__item {
+      display: flex;
+      gap: var(--x-space-3);
+      align-items: baseline;
+      justify-content: space-between;
+    }
+
+    &--inline &__term {
+      flex: none;
+    }
+
+    &--inline &__value {
+      text-align: right;
+    }
+
+    &--columns &__item {
+      @media (min-width: 640px) {
+        grid-template-columns: var(--x-description-list-term-width) minmax(0, 1fr);
+        gap: var(--x-space-3);
+        align-items: baseline;
+      }
+    }
+
+    &--dividers {
+      gap: 0;
+      border-top: 1px solid var(--x-description-list-line);
+    }
+
+    &--dividers &__item {
+      padding-block: var(--x-description-list-pad);
+      border-bottom: 1px solid var(--x-description-list-line);
+    }
+  }
+}

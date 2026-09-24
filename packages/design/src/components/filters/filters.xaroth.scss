@@ -1,0 +1,17 @@
+@use '../../styles/theme';
+
+@include theme.parts('xaroth') {
+  // Sand segmented switch, sentence-case label.
+  .x-filters {
+    --x-filters-option-hover: var(--x-color-sand);
+    --x-filters-option-on-color: var(--x-color-on-accent);
+    --x-filters-option-on-bg: var(--x-color-sand);
+  }
+
+  // Grouped choices take their own row under the fields when the filters sit on top.
+  @media (min-width: 1024px) {
+    .x-filters--top .x-filter-panel > .x-radio-group {
+      flex-basis: 100%;
+    }
+  }
+}

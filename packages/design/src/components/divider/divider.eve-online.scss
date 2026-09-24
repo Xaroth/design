@@ -1,0 +1,36 @@
+@use '../../styles/theme';
+
+@include theme.parts('eve-online') {
+  // Rule fading out at both ends, lit segments running into a hollow diamond or the label.
+  .x-divider--ornament,
+  .x-divider--label {
+    --x-divider-line: var(--x-color-line-strong);
+    --x-divider-gap: 0;
+
+    &::before {
+      background:
+        linear-gradient(var(--x-color-accent), var(--x-color-accent)) right / 32px 1px no-repeat,
+        linear-gradient(to right, transparent, var(--x-divider-line) 20%);
+    }
+
+    &::after {
+      background:
+        linear-gradient(var(--x-color-accent), var(--x-color-accent)) left / 32px 1px no-repeat,
+        linear-gradient(to left, transparent, var(--x-divider-line) 20%);
+    }
+  }
+
+  .x-divider__mark {
+    width: 8px;
+    height: 8px;
+    margin-inline: 4px;
+    border: 1px solid var(--x-color-accent);
+    rotate: 45deg;
+    box-shadow: 0 0 6px var(--x-color-glow);
+  }
+
+  .x-divider__label {
+    padding-inline: var(--x-space-3);
+    color: var(--x-color-text-faint);
+  }
+}

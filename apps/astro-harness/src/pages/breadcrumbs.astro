@@ -1,0 +1,14 @@
+---
+import Harness from '../layouts/Harness.astro'
+import Breadcrumbs from '@xaroth.nl/design/astro/breadcrumbs'
+---
+
+<Harness title="Breadcrumbs">
+  {() => (
+    <div style="display: grid; gap: 32px; padding: 0 32px">
+      <Breadcrumbs items={[{ label: 'Home', href: '#' }, { label: 'Blog', href: '#blog' }, { label: 'Typed ESI client' }]} />
+      <Breadcrumbs items={[{ label: 'Home', href: '#' }, { label: 'Tools', href: '#tools' }, { label: 'Empire Achievement Tracker' }]} />
+      <Breadcrumbs items={[{ label: 'Home', href: '#' }, { label: 'Archive' }, { label: '2026' }, { label: 'A much longer page title that has to wrap on a narrow screen' }]} />
+    </div>
+  )}
+</Harness>

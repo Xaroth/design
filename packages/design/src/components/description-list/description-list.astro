@@ -1,0 +1,39 @@
+---
+import './description-list.scss'
+import type { HTMLAttributes } from 'astro/types'
+import {
+  descriptionListClass,
+  descriptionListValueSlot,
+  type DescriptionListItem,
+  type DescriptionListOptions,
+} from './index.ts'
+
+type Props = Omit<HTMLAttributes<'dl'>, 'class'> &
+  Omit<DescriptionListOptions, 'className'> & {
+    class?: string
+    /** Plain values. For markup (links, times), fill the `value-<index>` slot. */
+    items: DescriptionListItem[]
+  }
+
+const { items, layout, dividers, class: className, ...rest } = Astro.props
+const slotted = new Map<number, string>()
+for (const i of items.keys()) {
+  const name = descriptionListValueSlot(i)
+  if (Astro.slots.has(name)) {
+    slotted.set(i, await Astro.slots.render(name))
+  }
+}
+---
+
+<dl class={descriptionListClass({ layout, dividers, className })} {...rest}>
+  {
+    items.map((item, i) => (
+      <div class="x-description-list__item">
+        <dt class="x-description-list__term">{item.term}</dt>
+        <dd class="x-description-list__value">
+          {slotted.has(i) ? <Fragment set:html={slotted.get(i)} /> : item.value}
+        </dd>
+      </div>
+    ))
+  }
+</dl>

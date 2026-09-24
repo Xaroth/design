@@ -1,0 +1,66 @@
+---
+import Harness from '../layouts/Harness.astro'
+import Checkbox from '@xaroth.nl/design/astro/checkbox'
+import Container from '@xaroth.nl/design/astro/container'
+import Field from '@xaroth.nl/design/astro/field'
+import FilterLayout from '@xaroth.nl/design/astro/filter-layout'
+import FilterPanel from '@xaroth.nl/design/astro/filter-panel'
+import Input from '@xaroth.nl/design/astro/input'
+import Select from '@xaroth.nl/design/astro/select'
+import Switch from '@xaroth.nl/design/astro/switch'
+import Table from '@xaroth.nl/design/astro/table'
+import type { TableColumn } from '@xaroth.nl/design/parts'
+
+const factions = ['All factions', 'Amarr Empire', 'Caldari State', 'Gallente Federation', 'Minmatar Republic']
+const categories = ['Combat', 'Industry', 'Exploration']
+const columns: TableColumn[] = [
+  { key: 'name', label: 'Achievement' },
+  { key: 'faction', label: 'Faction' },
+  { key: 'category', label: 'Category' },
+  { key: 'reward', label: 'Reward LP', numeric: true },
+]
+const rows = [
+  { name: 'Wardec Veteran', faction: 'Amarr Empire', category: 'Combat', reward: '25,000' },
+  { name: 'Sovereign Hauler', faction: 'Caldari State', category: 'Industry', reward: '4,800' },
+  { name: 'Sisters of Mercy', faction: 'Gallente Federation', category: 'Exploration', reward: '10,000' },
+  { name: 'Tribal Liberator', faction: 'Minmatar Republic', category: 'Combat', reward: '1,250' },
+]
+const layouts = [
+  { key: 'switch', position: 'top', switchable: true },
+  { key: 'side', position: 'side', switchable: false },
+] as const
+---
+
+<Harness title="Filters">
+  {(theme: string) => (
+    <Container style="display: grid; gap: 64px">
+      {layouts.map(({ key, position, switchable }) => (
+        <FilterLayout position={position} switchable={switchable} id={`${theme}-${key}`}>
+          <FilterPanel slot="filters" aria-label="Filter achievements" onsubmit="return false">
+            <Field id={`${theme}-${key}-search`} label="Search">
+              <Input type="search" placeholder="Achievement name">
+                <svg slot="start" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75">
+                  <circle cx="11" cy="11" r="7"></circle>
+                  <path d="M20 20l-4-4"></path>
+                </svg>
+              </Input>
+            </Field>
+            <Field id={`${theme}-${key}-faction`} label="Faction">
+              <Select>{factions.map((f) => <option>{f}</option>)}</Select>
+            </Field>
+            {/* Each site orders its own fields; xaroth puts grouped choices on their own row. */}
+            {theme === 'xaroth' && <Switch name="hide">Hide completed</Switch>}
+            <fieldset class="x-radio-group x-radio-group--horizontal">
+              <legend class="x-radio-group__legend">Category</legend>
+              <div class="x-radio-group__options">
+                {categories.map((c, i) => <Checkbox name="category" value={c} checked={i < 2}>{c}</Checkbox>)}
+              </div>
+            </fieldset>
+            {theme !== 'xaroth' && <Switch name="hide">Hide completed</Switch>}
+          </FilterPanel>
+          <Table columns={columns} rows={rows} label="Achievements" />
+        </FilterLayout>
+      ))}
+    </Container>
+  )}
+</Harness>

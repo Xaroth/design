@@ -1,0 +1,37 @@
+---
+import Harness from '../layouts/Harness.astro'
+import Icon from '@xaroth.nl/design/astro/icon'
+import Button from '@xaroth.nl/design/astro/button'
+import { iconNames } from '@xaroth.nl/design/parts'
+---
+
+<Harness title="Icon">
+  {() => (
+    <div style="padding: 0 32px; display: grid; gap: 32px">
+      <ul style="display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 8px; list-style: none; padding: 0; margin: 0">
+        {iconNames.map((name) => (
+          <li style="display: grid; justify-items: center; gap: 8px; padding: 16px 8px; border: 1px solid var(--x-color-line)">
+            <Icon name={name} size={24} />
+            <span class="x-muted" style="font-family: var(--x-font-mono); font-size: 13px">{name}</span>
+          </li>
+        ))}
+      </ul>
+      <p style="display: flex; gap: 16px; align-items: center; color: var(--x-color-accent)">
+        <Icon name="search" style="font-size: 16px" />
+        <Icon name="search" />
+        <Icon name="search" size={32} />
+        <Icon name="search" size="3rem" label="Search" />
+      </p>
+      <p style="display: flex; gap: 12px; flex-wrap: wrap">
+        <Button variant="secondary">
+          <Icon slot="start" name="github" />
+          GitHub
+        </Button>
+        <Button>
+          Open tool
+          <Icon slot="end" name="arrow-right" />
+        </Button>
+      </p>
+    </div>
+  )}
+</Harness>

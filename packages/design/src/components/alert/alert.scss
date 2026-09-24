@@ -1,0 +1,82 @@
+@use '../../styles/layers';
+
+@layer x.core {
+  // Structure and tone. Themes set the surface, the edge and which icon outline shows.
+  .x-alert {
+    --x-alert-tone: var(--x-color-info);
+    --x-alert-wash: var(--x-color-info-wash);
+
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    gap: var(--x-alert-gap, var(--x-space-3));
+    align-items: start;
+    padding: var(--x-space-4) var(--x-space-5) var(--x-space-4) var(--x-space-4);
+    font-family: var(--x-font-ui);
+    background: var(--x-alert-bg, var(--x-alert-wash));
+    border-left: 2px solid var(--x-alert-tone);
+
+    &--success {
+      --x-alert-tone: var(--x-color-success);
+      --x-alert-wash: var(--x-color-success-wash);
+    }
+
+    &--warning {
+      --x-alert-tone: var(--x-color-warning);
+      --x-alert-wash: var(--x-color-warning-wash);
+    }
+
+    &--danger {
+      --x-alert-tone: var(--x-color-danger);
+      --x-alert-wash: var(--x-color-danger-wash);
+    }
+
+    &__icon {
+      width: 20px;
+      height: 20px;
+      margin-top: 2px;
+      color: var(--x-alert-tone);
+      fill: none;
+      stroke: currentcolor;
+      stroke-width: 1.5;
+    }
+
+    &__glyph {
+      stroke-width: var(--x-alert-glyph-width, 2);
+    }
+
+    &__frame--round {
+      display: none;
+    }
+
+    &__content {
+      display: grid;
+      gap: var(--x-space-1);
+      min-width: 0;
+    }
+
+    &__title {
+      font-size: var(--x-fs-ui);
+      font-weight: var(--x-alert-title-weight, 600);
+      line-height: 1.4;
+      color: var(--x-color-text);
+    }
+
+    &__body {
+      font-size: var(--x-alert-fs, var(--x-fs-small));
+      line-height: var(--x-alert-lh, 1.5);
+      color: var(--x-color-text-muted);
+
+      > * + * {
+        margin-top: var(--x-space-2);
+      }
+    }
+
+    &__actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--x-space-2);
+      align-items: center;
+      margin-top: var(--x-space-2);
+    }
+  }
+}

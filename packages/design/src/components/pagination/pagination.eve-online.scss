@@ -1,0 +1,35 @@
+@use '../../styles/theme';
+
+@include theme.parts('eve-online') {
+  // Mono number cells on panels; the current page is a lit cyan cell.
+  .x-pagination__list {
+    gap: 6px;
+  }
+
+  .x-pagination__link {
+    font-family: var(--x-font-mono);
+
+    &:not([aria-current='page']) {
+      background: var(--x-color-surface);
+    }
+
+    &[aria-current='page'] {
+      box-shadow: 0 0 12px var(--x-color-glow);
+    }
+
+    &--edge {
+      font-family: var(--x-font-display);
+      font-weight: 600;
+      letter-spacing: var(--x-track-label);
+    }
+
+    &--disabled {
+      border-color: var(--x-color-line);
+    }
+  }
+
+  .x-pagination__gap {
+    font-family: var(--x-font-mono);
+    color: var(--x-color-text-faint);
+  }
+}

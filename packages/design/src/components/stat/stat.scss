@@ -1,0 +1,63 @@
+@use '../../styles/layers';
+
+@layer x.core {
+  // A description list of label and value pairs. Themes decide order, framing and value color.
+  .x-stat-group {
+    --x-stat-cols: 4;
+
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--x-stat-gap, var(--x-gap));
+    margin: 0;
+
+    @media (min-width: 640px) {
+      grid-template-columns: repeat(var(--x-stat-cols), minmax(0, 1fr));
+    }
+
+    &--cols-2 {
+      --x-stat-cols: 2;
+    }
+
+    &--cols-3 {
+      --x-stat-cols: 3;
+    }
+  }
+
+  .x-stat {
+    --x-stat-value: var(--x-color-text);
+
+    position: relative;
+    display: grid;
+    gap: var(--x-stat-inner-gap, var(--x-space-2));
+    align-content: start;
+    box-sizing: border-box;
+    min-width: 0;
+    padding: var(--x-stat-pad, 0);
+
+    &__label,
+    &__value,
+    &__hint {
+      min-width: 0;
+      margin: 0;
+    }
+
+    &__value {
+      line-height: 1.1;
+      color: var(--x-stat-value);
+      overflow-wrap: anywhere;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+
+    &__unit {
+      margin-inline-start: 0.25em;
+      font-size: max(0.5em, var(--x-fs-label));
+      color: var(--x-color-text-faint);
+    }
+
+    &__hint {
+      font-size: var(--x-fs-small);
+      line-height: 1.5;
+      color: var(--x-color-text-faint);
+    }
+  }
+}

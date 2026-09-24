@@ -1,0 +1,27 @@
+---
+import './divider.scss'
+import type { HTMLAttributes } from 'astro/types'
+import { dividerClass, dividerState, type DividerOptions } from './index.ts'
+
+type Props = Omit<HTMLAttributes<'div'>, 'class'> & Omit<DividerOptions, 'className'> & { class?: string }
+
+// `slot` is how a parent places this divider; it is not an attribute of the divider.
+const { variant, class: className, slot: _slot, ...rest } = Astro.props
+const { tag: Tag, attrs } = dividerState({ variant })
+---
+
+{
+  Tag === 'hr' ? (
+    <hr class={dividerClass({ variant, className })} {...rest} />
+  ) : (
+    <Tag class={dividerClass({ variant, className })} {...attrs} {...rest}>
+      {variant === 'label' ? (
+        <span class="x-divider__label">
+          <slot />
+        </span>
+      ) : (
+        <span class="x-divider__mark" />
+      )}
+    </Tag>
+  )
+}

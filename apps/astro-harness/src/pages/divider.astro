@@ -1,0 +1,17 @@
+---
+import Harness from '../layouts/Harness.astro'
+import Divider from '@xaroth.nl/design/astro/divider'
+---
+
+<Harness title="Divider">
+  {() => (
+    <div style="padding: 0 32px">
+      <p class="x-muted">Plain</p>
+      <Divider />
+      <p class="x-muted">Ornament</p>
+      <Divider variant="ornament" />
+      <p class="x-muted">Label</p>
+      <Divider variant="label">Or continue with</Divider>
+    </div>
+  )}
+</Harness>

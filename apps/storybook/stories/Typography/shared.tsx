@@ -4,6 +4,7 @@ import { useLayoutEffect, useRef, useState, type ReactNode } from 'react'
 export function Measured({ label, token, children }: { label: string; token: string; children: ReactNode }) {
   const ref = useRef<HTMLDivElement>(null)
   const [size, setSize] = useState('')
+  // Stories remount on theme change (keyed), so measuring once per mount is enough.
   useLayoutEffect(() => {
     const el = ref.current?.firstElementChild
     if (el) {
@@ -12,7 +13,7 @@ export function Measured({ label, token, children }: { label: string; token: str
         `${Math.round(parseFloat(cs.fontSize))}px / ${(parseFloat(cs.lineHeight) / parseFloat(cs.fontSize)).toFixed(2)}`,
       )
     }
-  })
+  }, [])
   return (
     <div style={{ display: 'grid', gridTemplateColumns: '11rem minmax(0, 1fr)', gap: 24, alignItems: 'baseline' }}>
       <div className="x-small x-muted">

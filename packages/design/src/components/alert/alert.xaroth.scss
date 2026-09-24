@@ -1,0 +1,26 @@
+@use '../../styles/theme';
+
+@include theme.parts('xaroth') {
+  // Tinted strip with one toned edge; diamond and circle icon outlines, fine square-capped strokes.
+  .x-alert {
+    --x-alert-gap: var(--x-space-4);
+    --x-alert-glyph-width: 1.5;
+    --x-alert-title-weight: 700;
+    --x-alert-fs: var(--x-fs-ui);
+    --x-alert-lh: 1.55;
+
+    padding: var(--x-space-4) var(--x-space-5);
+  }
+
+  .x-alert__icon {
+    stroke-linecap: square;
+  }
+
+  .x-alert__frame--facet {
+    display: none;
+  }
+
+  .x-alert__frame--round {
+    display: inline;
+  }
+}

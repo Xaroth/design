@@ -1,0 +1,47 @@
+---
+import Harness from '../layouts/Harness.astro'
+import Alert from '@xaroth.nl/design/astro/alert'
+import Button from '@xaroth.nl/design/astro/button'
+
+const kit = [
+  ['info', 'Info', 'ESI responses are cached for up to one hour.'],
+  ['success', 'Success', 'Signed in as Xaroth Brook. Two scopes granted.'],
+  ['warning', 'Warning', 'Error budget at 18. Non-critical requests paused.'],
+  ['danger', 'Error', 'ESI returned 503. Tranquility may be in downtime.'],
+] as const
+const grid = 'display: grid; gap: 24px; grid-template-columns: repeat(auto-fill, minmax(min(100%, 480px), 1fr)); margin-top: 16px'
+---
+
+<Harness title="Alert">
+  {() => (
+    <div style="padding: 0 32px; display: grid; gap: 24px">
+      <Alert tone="info" title="Cached data" framed>
+        ESI caches achievement data for 1 hour. Last fetched 14:02 EVE time, next refresh at 15:02.
+      </Alert>
+      <div style={grid}>
+        {kit.map(([tone, title, text]) => (
+          <Alert tone={tone} title={title}>{text}</Alert>
+        ))}
+      </div>
+      <div style={grid}>
+        {kit.map(([tone, title, text]) => (
+          <Alert tone={tone} title={title} framed>{text}</Alert>
+        ))}
+      </div>
+      <div style={grid}>
+        <Alert tone="danger" title="Session expired" urgent>
+          The SSO token expired. Sign in again to continue.
+          <Fragment slot="actions">
+            <Button size="sm">Sign in</Button>
+            <Button size="sm" variant="tertiary">Dismiss</Button>
+          </Fragment>
+        </Alert>
+        <Alert tone="success" title="Fit saved" />
+        <Alert tone="warning">
+          <p>No title, two paragraphs of body.</p>
+          <p>Scheduled downtime at 11:00 EVE time.</p>
+        </Alert>
+      </div>
+    </div>
+  )}
+</Harness>

@@ -1,0 +1,34 @@
+@use '../../styles/theme';
+
+@include theme.parts('xaroth') {
+  // Tight UI face tabs, gold underline drawn inside the link.
+  .x-tabs__list {
+    gap: var(--x-space-5);
+  }
+
+  .x-tabs__link {
+    font-family: var(--x-font-ui);
+    font-size: var(--x-fs-ui);
+    font-weight: 600;
+    line-height: 1.4;
+    box-shadow: inset 0 -2px 0 transparent;
+
+    &:hover {
+      color: var(--x-color-sand);
+    }
+
+    &[aria-current='page'] {
+      color: var(--x-color-accent-strong);
+      box-shadow: inset 0 -2px 0 var(--x-color-accent);
+
+      .x-tabs__count {
+        color: var(--x-color-accent-strong);
+        border-color: var(--x-color-accent-edge);
+      }
+    }
+  }
+
+  .x-tabs__count {
+    background: var(--x-color-surface);
+  }
+}

@@ -1,0 +1,8 @@
+@use '../../styles/theme';
+
+@include theme.parts('eve-online') {
+  .x-icon {
+    --x-icon-cap: square;
+    --x-icon-join: miter;
+  }
+}

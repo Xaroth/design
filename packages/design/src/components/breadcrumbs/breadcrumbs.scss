@@ -1,0 +1,42 @@
+@use '../../styles/layers';
+
+@layer x.core {
+  // Structure only. Themes draw the separator in .x-breadcrumbs__item + .x-breadcrumbs__item::before.
+  .x-breadcrumbs {
+    &__list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--x-space-1) var(--x-breadcrumbs-gap, 10px);
+      align-items: center;
+      padding: 0;
+      margin: 0;
+      list-style: none;
+    }
+
+    &__item {
+      display: inline-flex;
+      gap: var(--x-breadcrumbs-gap, 10px);
+      align-items: center;
+      min-width: 0;
+      color: var(--x-color-text-faint);
+
+      & + &::before {
+        flex: none;
+      }
+    }
+
+    &__link {
+      color: var(--x-color-text-muted);
+      text-decoration: none;
+      transition: color var(--x-duration) var(--x-ease);
+
+      &:hover {
+        color: var(--x-color-accent);
+      }
+    }
+
+    &__current {
+      color: var(--x-color-text);
+    }
+  }
+}

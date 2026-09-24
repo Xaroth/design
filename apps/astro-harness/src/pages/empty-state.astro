@@ -1,0 +1,32 @@
+---
+import Harness from '../layouts/Harness.astro'
+import Button from '@xaroth.nl/design/astro/button'
+import EmptyState from '@xaroth.nl/design/astro/empty-state'
+---
+
+<Harness title="Empty state">
+  {(theme: string) => (
+    <div style="padding: 0 32px; display: grid; gap: 24px">
+      <EmptyState title={theme === 'xaroth' ? 'Nothing matches' : 'No achievements match'}>
+        {theme === 'xaroth' ? (
+          <svg slot="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square">
+            <path d="M2 17c4-3 8-3 10-1s6 2 10-1" />
+            <path d="M2 21c4-3 8-3 10-1s6 2 10-1" />
+            <circle cx="12" cy="8" r="4" />
+          </svg>
+        ) : (
+          <svg slot="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M12 2 21 7v10l-9 5-9-5V7z" stroke-dasharray="3 2" />
+            <circle cx="12" cy="12" r="3" />
+            <path d="M12 2v4M12 18v4M3 7l3.5 2M21 7l-3.5 2" />
+          </svg>
+        )}
+        {theme === 'xaroth'
+          ? 'No achievements match these filters. Clear the search or pick another faction.'
+          : 'Nothing fits the current filters. Clear the search or pick another faction to see more.'}
+        <Button slot="actions" variant="secondary" size="sm">{theme === 'xaroth' ? 'Clear filters' : 'Reset filters'}</Button>
+      </EmptyState>
+      <EmptyState title="No posts yet" headingLevel={2}>Text only, no icon or actions.</EmptyState>
+    </div>
+  )}
+</Harness>

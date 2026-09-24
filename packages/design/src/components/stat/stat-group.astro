@@ -1,0 +1,11 @@
+---
+import './stat.scss'
+import type { HTMLAttributes } from 'astro/types'
+import { statGroupClass, type StatGroupOptions } from './index.ts'
+
+type Props = Omit<HTMLAttributes<'dl'>, 'class'> & Omit<StatGroupOptions, 'className'> & { class?: string }
+
+const { variant, columns, class: className, ...rest } = Astro.props
+---
+
+<dl class={statGroupClass({ variant, columns, className })} {...rest}><slot /></dl>

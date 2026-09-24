@@ -1,0 +1,8 @@
+@use '../../styles/theme';
+
+@include theme.parts('xaroth') {
+  // Borderless warm panel, centred over the trigger.
+  .x-tooltip {
+    --x-tooltip-edge: var(--x-color-surface-3);
+  }
+}

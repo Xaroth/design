@@ -1,0 +1,43 @@
+---
+import './stat.scss'
+import type { HTMLAttributes } from 'astro/types'
+import { statClass, type StatOptions } from './index.ts'
+
+type Props = Omit<HTMLAttributes<'div'>, 'class'> &
+  Omit<StatOptions, 'className'> & {
+    class?: string
+    /** Plain-text label; the `label` slot takes markup. */
+    label?: string
+    /** The value; the default slot takes markup. */
+    value?: string | number
+    /** Small text after the value: a unit or "/ 44". The `unit` slot takes markup. */
+    unit?: string
+    /** Note under the value. The `hint` slot takes markup. */
+    hint?: string
+  }
+
+const { tone, label, value, unit, hint, class: className, ...rest } = Astro.props
+const hasUnit = unit !== undefined || Astro.slots.has('unit')
+const hasHint = hint !== undefined || Astro.slots.has('hint')
+---
+
+<div class={statClass({ tone, className })} {...rest}>
+  <dt class="x-stat__label"><slot name="label">{label}</slot></dt>
+  <dd class="x-stat__value">
+    <slot>{value}</slot>
+    {
+      hasUnit && (
+        <span class="x-stat__unit">
+          <slot name="unit">{unit}</slot>
+        </span>
+      )
+    }
+  </dd>
+  {
+    hasHint && (
+      <dd class="x-stat__hint">
+        <slot name="hint">{hint}</slot>
+      </dd>
+    )
+  }
+</div>

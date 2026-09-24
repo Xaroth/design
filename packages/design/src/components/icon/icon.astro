@@ -1,0 +1,22 @@
+---
+import './icon.scss'
+import type { HTMLAttributes } from 'astro/types'
+import { iconClass, icons, iconState, type IconOptions } from './index.ts'
+
+type Props = Omit<HTMLAttributes<'svg'>, 'class' | 'name' | 'width' | 'height'> & Omit<IconOptions, 'className'> & { class?: string }
+
+// `slot` is how a parent places this icon; it is not an attribute of the icon.
+const { name, size, label, class: className, slot: _slot, ...rest } = Astro.props
+---
+
+<svg
+  class={iconClass({ className })}
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="1.5"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  {...iconState({ size, label })}
+  {...rest}
+>{icons[name].map((d) => <path d={d} />)}</svg>

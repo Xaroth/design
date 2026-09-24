@@ -1,0 +1,48 @@
+---
+import './empty-state.scss'
+import type { HTMLAttributes } from 'astro/types'
+import { emptyStateClass, type EmptyStateHeadingLevel } from './index.ts'
+
+type Props = Omit<HTMLAttributes<'div'>, 'class' | 'title'> & {
+  class?: string
+  /** Plain-text title; the `title` slot takes markup. */
+  title?: string
+  headingLevel?: EmptyStateHeadingLevel
+}
+
+// `slot` is how a parent places this block; it is not an attribute of the block.
+const { title, headingLevel = 3, class: className, slot: _slot, ...rest } = Astro.props
+const H = `h${headingLevel}` as const
+const hasTitle = title !== undefined || Astro.slots.has('title')
+---
+
+<div class={emptyStateClass({ className })} {...rest}>
+  {
+    Astro.slots.has('icon') && (
+      <span class="x-empty-state__icon" aria-hidden="true">
+        <slot name="icon" />
+      </span>
+    )
+  }
+  {
+    hasTitle && (
+      <H class="x-empty-state__title">
+        <slot name="title">{title}</slot>
+      </H>
+    )
+  }
+  {
+    Astro.slots.has('default') && (
+      <div class="x-empty-state__text">
+        <slot />
+      </div>
+    )
+  }
+  {
+    Astro.slots.has('actions') && (
+      <div class="x-empty-state__actions">
+        <slot name="actions" />
+      </div>
+    )
+  }
+</div>

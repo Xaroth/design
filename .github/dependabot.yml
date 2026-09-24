@@ -1,0 +1,22 @@
+version: 2
+updates:
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: weekly
+    groups:
+      # One PR for everything that should not break; majors come separately.
+      minor-and-patch:
+        update-types: [minor, patch]
+      storybook:
+        patterns: ['storybook', '@storybook/*']
+      astro:
+        patterns: ['astro', '@astrojs/*']
+
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+    groups:
+      actions:
+        patterns: ['*']

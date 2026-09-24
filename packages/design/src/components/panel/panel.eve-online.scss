@@ -1,0 +1,47 @@
+@use '../../styles/theme';
+@use 'surface';
+
+@include theme.parts('eve-online') {
+  // Cut-corner panel; the edge carries the emphasis, raised panels get a lit top.
+  .x-panel {
+    --x-surface-cut: var(--x-cut-md);
+    --x-surface-edge: var(--x-color-line);
+    --x-surface-fill: var(--x-color-surface);
+    --x-panel-lit: linear-gradient(180deg, var(--x-color-surface-2), var(--x-color-surface) 60%);
+
+    @include surface.cut;
+
+    &--pad-sm {
+      --x-surface-cut: var(--x-cut-sm);
+    }
+
+    &--pad-lg,
+    &--pad-xl {
+      --x-surface-cut: var(--x-cut-lg);
+    }
+
+    &--raised {
+      --x-surface-edge: var(--x-color-line-strong);
+      --x-surface-fill: var(--x-panel-lit);
+    }
+
+    &--accent {
+      --x-surface-edge: linear-gradient(
+        135deg,
+        var(--x-color-accent),
+        var(--x-color-accent-edge) 20%,
+        var(--x-color-line-strong) 45%
+      );
+      --x-surface-fill: var(--x-panel-lit);
+    }
+
+    &--callout {
+      --x-surface-edge: linear-gradient(135deg, var(--x-color-warning), var(--x-color-line-strong) 30%);
+      --x-surface-fill: var(--x-panel-lit);
+    }
+
+    &--marks {
+      @include surface.marks(color-mix(in srgb, var(--x-color-accent) 80%, transparent));
+    }
+  }
+}

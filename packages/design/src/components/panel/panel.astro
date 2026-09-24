@@ -1,0 +1,15 @@
+---
+import './panel.scss'
+import type { HTMLAttributes } from 'astro/types'
+import { panelClass, type PanelElement, type PanelOptions } from './index.ts'
+
+type Props = Omit<HTMLAttributes<'div'>, 'class'> &
+  Omit<PanelOptions, 'className'> & {
+    class?: string
+    as?: PanelElement
+  }
+
+const { variant, marks, padding, as: El = 'div', class: className, ...rest } = Astro.props
+---
+
+<El class={panelClass({ variant, marks, padding, className })} {...rest}><slot /></El>

@@ -1,0 +1,40 @@
+---
+import './filters.scss'
+import type { HTMLAttributes } from 'astro/types'
+import {
+  filterLayoutClass,
+  filterPositions,
+  filterSwitchButtonAttrs,
+  filterSwitchLabels,
+  filterSwitchScript,
+  type FilterLayoutOptions,
+} from './index.ts'
+
+type Props = Omit<HTMLAttributes<'div'>, 'class'> &
+  Omit<FilterLayoutOptions, 'className'> & {
+    class?: string
+    /** Adds a Top / Side switch above the filters (hidden below 1024px). Uses a tiny inline script. */
+    switchable?: boolean
+    switchLabel?: string
+  }
+
+const { position = 'top', switchable, switchLabel = 'Filter position', class: className, ...rest } = Astro.props
+---
+
+<div class={filterLayoutClass({ position, className })} {...rest}>
+  {
+    switchable && (
+      <fieldset class="x-filters__switch">
+        <legend class="x-filters__switch-label">{switchLabel}</legend>
+        <span class="x-filters__switch-options">
+          {filterPositions.map((option) => (
+            <button type="button" {...filterSwitchButtonAttrs(option, position)}>{filterSwitchLabels[option]}</button>
+          ))}
+        </span>
+      </fieldset>
+    )
+  }
+  <div class="x-filters__controls"><slot name="filters" /></div>
+  <div class="x-filters__results"><slot /></div>
+</div>
+{switchable && <script is:inline set:html={filterSwitchScript} />}

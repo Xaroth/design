@@ -1,0 +1,60 @@
+---
+import Harness from '../layouts/Harness.astro'
+import DescriptionList from '@xaroth.nl/design/astro/description-list'
+
+const details = [
+  { term: 'Published', value: '14 Mar 2026' },
+  { term: 'Read time', value: '6 min' },
+  { term: 'Author', value: 'Xaroth Brook' },
+]
+const links = [
+  { term: 'GitHub', value: 'github.com/xaroth' },
+  { term: 'Email', value: 'hello@xaroth.nl' },
+  { term: 'EVE', value: 'Xaroth Brook' },
+]
+const now = [
+  { term: 'Reading', value: 'The Shadow Rising' },
+  { term: 'Playing', value: 'a mono-black Commander deck' },
+  { term: 'Building', value: 'a design system for two sites' },
+]
+const stats = [
+  { term: 'Region', value: 'The Forge' },
+  { term: 'Security', value: '0.9' },
+]
+const box = 'display: grid; gap: 12px; align-content: start'
+---
+
+<Harness title="Description list">
+  {() => (
+    <div style="padding: 0 32px; display: grid; gap: 48px; grid-template-columns: repeat(auto-fill, minmax(300px, 360px))">
+      <div style={box}>
+        <p class="x-label">Inline, dividers</p>
+        <DescriptionList items={details} layout="inline" dividers />
+      </div>
+      <div style={box}>
+        <p class="x-label">Inline</p>
+        <DescriptionList items={details} layout="inline" />
+      </div>
+      <div style={box}>
+        <p class="x-label">Columns, links</p>
+        <DescriptionList items={links} layout="columns">
+          <a slot="value-0" href="https://github.com/xaroth">github.com/xaroth</a>
+          <a slot="value-1" href="mailto:hello@xaroth.nl">hello@xaroth.nl</a>
+          <a slot="value-2" href="#">Xaroth Brook</a>
+        </DescriptionList>
+      </div>
+      <div style={box}>
+        <p class="x-label">Columns</p>
+        <DescriptionList items={now} layout="columns" />
+      </div>
+      <div style={box}>
+        <p class="x-label">Stacked</p>
+        <DescriptionList items={stats} />
+      </div>
+      <div style={box}>
+        <p class="x-label">Stacked, dividers</p>
+        <DescriptionList items={stats} dividers />
+      </div>
+    </div>
+  )}
+</Harness>

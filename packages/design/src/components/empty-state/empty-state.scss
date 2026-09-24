@@ -1,0 +1,47 @@
+@use '../../styles/layers';
+
+@layer x.core {
+  // Centered block for an empty result. Themes draw the surface or outline and tint the icon.
+  .x-empty-state {
+    display: grid;
+    gap: var(--x-space-3);
+    justify-items: center;
+    padding: var(--x-space-7) var(--x-space-5);
+    text-align: center;
+
+    &__icon {
+      display: inline-flex;
+      width: var(--x-empty-state-icon, 48px);
+      height: var(--x-empty-state-icon, 48px);
+      color: var(--x-color-field-edge);
+
+      svg {
+        width: 100%;
+        height: 100%;
+      }
+    }
+
+    // Same size at any heading level, so the level can follow the page outline.
+    &__title {
+      font-size: var(--x-fs-h3);
+      line-height: 1.3;
+    }
+
+    &__text {
+      max-width: var(--x-empty-state-measure, 36rem);
+      color: var(--x-color-text-muted);
+
+      > * + * {
+        margin-top: var(--x-space-2);
+      }
+    }
+
+    &__actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--x-space-2);
+      justify-content: center;
+      margin-top: var(--x-space-2);
+    }
+  }
+}

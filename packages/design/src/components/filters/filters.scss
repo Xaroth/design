@@ -1,0 +1,191 @@
+@use '../../styles/layers';
+
+@layer x.core {
+  // Part-local properties (themes may override):
+  //   --x-filters-field-gap        space between filter fields
+  //   --x-filters-switch-*         switch label font, size, case and color
+  //   --x-filters-option-*         switch option font, weight, tracking, colors and fill
+  .x-filters,
+  .x-filter-panel {
+    --x-filters-field-gap: var(--x-space-5);
+  }
+
+  .x-filters {
+    --x-filters-switch-font: var(--x-font-ui);
+    --x-filters-switch-fs: var(--x-fs-small);
+    --x-filters-switch-weight: 400;
+    --x-filters-switch-tracking: normal;
+    --x-filters-switch-case: none;
+    --x-filters-switch-color: var(--x-color-text-muted);
+    --x-filters-option-font: var(--x-font-ui);
+    --x-filters-option-weight: 700;
+    --x-filters-option-tracking: var(--x-track-label);
+    --x-filters-option-color: var(--x-color-text-muted);
+    --x-filters-option-bg: transparent;
+    --x-filters-option-hover: var(--x-color-text);
+    --x-filters-option-on-color: var(--x-color-on-accent);
+    --x-filters-option-on-bg: var(--x-color-accent);
+    --x-filters-option-on-shadow: none;
+
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--x-space-6) var(--x-gap);
+    align-items: start;
+
+    &__switch {
+      display: none;
+      grid-column: 1 / -1;
+      min-width: 0;
+      padding: 0;
+      border: 0;
+      flex-wrap: wrap;
+      gap: var(--x-space-3);
+      align-items: center;
+      // The grid row gap is sized for filters and results; the switch sits closer to what it moves.
+      margin-bottom: calc(var(--x-space-4) - var(--x-space-6));
+
+      // Both positions stack the same way below 1024px, so the switch would do nothing there.
+      @media (min-width: 1024px) {
+        display: flex;
+      }
+    }
+
+    // Floated so the legend lays out as a flex item instead of sitting on the fieldset border.
+    &__switch-label {
+      float: left;
+      padding: 0;
+      font-family: var(--x-filters-switch-font);
+      font-size: var(--x-filters-switch-fs);
+      font-weight: var(--x-filters-switch-weight);
+      line-height: 1.3;
+      letter-spacing: var(--x-filters-switch-tracking);
+      text-transform: var(--x-filters-switch-case);
+      color: var(--x-filters-switch-color);
+    }
+
+    &__switch-options {
+      display: inline-flex;
+      border: 1px solid var(--x-color-line-strong);
+      border-radius: var(--x-radius);
+    }
+
+    &__switch-option {
+      min-width: 64px;
+      height: var(--x-control-sm);
+      padding: 0 var(--x-space-4);
+      margin: 0;
+      font-family: var(--x-filters-option-font);
+      font-size: var(--x-fs-label);
+      font-weight: var(--x-filters-option-weight);
+      line-height: 1;
+      letter-spacing: var(--x-filters-option-tracking);
+      text-transform: uppercase;
+      color: var(--x-filters-option-color);
+      cursor: pointer;
+      background: var(--x-filters-option-bg);
+      border: 0;
+      transition:
+        color var(--x-duration) var(--x-ease),
+        background-color var(--x-duration) var(--x-ease);
+
+      & + & {
+        border-left: 1px solid var(--x-color-line-strong);
+      }
+
+      &:hover {
+        color: var(--x-filters-option-hover);
+      }
+
+      &:focus-visible {
+        position: relative;
+        outline: var(--x-focus-width) solid var(--x-color-focus);
+        outline-offset: var(--x-focus-offset);
+      }
+
+      &[aria-pressed='true'] {
+        color: var(--x-filters-option-on-color);
+        background: var(--x-filters-option-on-bg);
+        box-shadow: var(--x-filters-option-on-shadow);
+      }
+    }
+
+    &__controls,
+    &__results {
+      min-width: 0;
+    }
+
+    @media (min-width: 1024px) {
+      &--side {
+        grid-template-columns: repeat(12, minmax(0, 1fr));
+      }
+
+      &--side &__controls {
+        grid-column: span 3;
+      }
+
+      &--side &__results {
+        grid-column: span 9;
+      }
+    }
+  }
+
+  // Filter form: one column on phones, two from 640px. At 1024px it follows the layout position: one column
+  // beside the results, or one wrapping row above them.
+  .x-filter-panel {
+    display: grid;
+    gap: var(--x-filters-field-gap) var(--x-gap);
+    align-content: start;
+    min-width: 0;
+    margin: 0;
+
+    @media (min-width: 640px) {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    > .x-checkbox,
+    > .x-switch {
+      align-self: end;
+      min-height: var(--x-control-md);
+    }
+
+    @media (min-width: 1024px) {
+      .x-filters--side & {
+        grid-template-columns: minmax(0, 1fr);
+
+        .x-radio-group__options {
+          flex-direction: column;
+        }
+
+        > .x-checkbox,
+        > .x-switch {
+          min-height: var(--x-control-sm);
+        }
+      }
+
+      .x-filters--top & {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: end;
+
+        > * {
+          flex: 1 1 14rem;
+        }
+
+        > .x-radio-group {
+          flex: 1.6 1 auto;
+        }
+
+        > .x-checkbox,
+        > .x-switch {
+          flex: none;
+          margin-left: auto;
+        }
+
+        .x-radio-group__options {
+          align-items: center;
+          min-height: var(--x-control-md);
+        }
+      }
+    }
+  }
+}

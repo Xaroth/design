@@ -1,0 +1,21 @@
+@use '../../styles/theme';
+
+@include theme.parts('xaroth') {
+  // Dashed outline on the page, bronze icon, sand title.
+  .x-empty-state {
+    --x-empty-state-icon: 2.5rem;
+    --x-empty-state-measure: 30rem;
+
+    border: 1px dashed var(--x-color-accent-edge);
+    border-radius: var(--x-radius);
+  }
+
+  .x-empty-state__icon {
+    color: var(--x-color-bronze);
+  }
+
+  .x-empty-state__title {
+    font-weight: 500;
+    color: var(--x-color-sand);
+  }
+}

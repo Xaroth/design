@@ -47,9 +47,21 @@
       "types": "./dist/react.d.ts",
       "import": "./dist/react.js"
     },
+    "./astro/alert": {
+      "source": "./src/components/alert/alert.astro",
+      "default": "./dist/components/alert/alert.astro"
+    },
+    "./astro/avatar": {
+      "source": "./src/components/avatar/avatar.astro",
+      "default": "./dist/components/avatar/avatar.astro"
+    },
     "./astro/badge": {
       "source": "./src/components/badge/badge.astro",
       "default": "./dist/components/badge/badge.astro"
+    },
+    "./astro/breadcrumbs": {
+      "source": "./src/components/breadcrumbs/breadcrumbs.astro",
+      "default": "./dist/components/breadcrumbs/breadcrumbs.astro"
     },
     "./astro/button": {
       "source": "./src/components/button/button.astro",
@@ -58,6 +70,18 @@
     "./astro/card": {
       "source": "./src/components/card/card.astro",
       "default": "./dist/components/card/card.astro"
+    },
+    "./astro/description-list": {
+      "source": "./src/components/description-list/description-list.astro",
+      "default": "./dist/components/description-list/description-list.astro"
+    },
+    "./astro/divider": {
+      "source": "./src/components/divider/divider.astro",
+      "default": "./dist/components/divider/divider.astro"
+    },
+    "./astro/empty-state": {
+      "source": "./src/components/empty-state/empty-state.astro",
+      "default": "./dist/components/empty-state/empty-state.astro"
     },
     "./astro/checkbox": {
       "source": "./src/components/field/checkbox.astro",
@@ -91,6 +115,14 @@
       "source": "./src/components/field/textarea.astro",
       "default": "./dist/components/field/textarea.astro"
     },
+    "./astro/filter-layout": {
+      "source": "./src/components/filters/filter-layout.astro",
+      "default": "./dist/components/filters/filter-layout.astro"
+    },
+    "./astro/filter-panel": {
+      "source": "./src/components/filters/filter-panel.astro",
+      "default": "./dist/components/filters/filter-panel.astro"
+    },
     "./astro/footer": {
       "source": "./src/components/footer/footer.astro",
       "default": "./dist/components/footer/footer.astro"
@@ -98,6 +130,10 @@
     "./astro/header": {
       "source": "./src/components/header/header.astro",
       "default": "./dist/components/header/header.astro"
+    },
+    "./astro/icon": {
+      "source": "./src/components/icon/icon.astro",
+      "default": "./dist/components/icon/icon.astro"
     },
     "./astro/container": {
       "source": "./src/components/layout/container.astro",
@@ -115,6 +151,14 @@
       "source": "./src/components/layout/section.astro",
       "default": "./dist/components/layout/section.astro"
     },
+    "./astro/pagination": {
+      "source": "./src/components/pagination/pagination.astro",
+      "default": "./dist/components/pagination/pagination.astro"
+    },
+    "./astro/panel": {
+      "source": "./src/components/panel/panel.astro",
+      "default": "./dist/components/panel/panel.astro"
+    },
     "./astro/progress": {
       "source": "./src/components/progress/progress.astro",
       "default": "./dist/components/progress/progress.astro"
@@ -127,9 +171,21 @@
       "source": "./src/components/prose/prose.astro",
       "default": "./dist/components/prose/prose.astro"
     },
+    "./astro/stat-group": {
+      "source": "./src/components/stat/stat-group.astro",
+      "default": "./dist/components/stat/stat-group.astro"
+    },
+    "./astro/stat": {
+      "source": "./src/components/stat/stat.astro",
+      "default": "./dist/components/stat/stat.astro"
+    },
     "./astro/table": {
       "source": "./src/components/table/table.astro",
       "default": "./dist/components/table/table.astro"
+    },
+    "./astro/tabs": {
+      "source": "./src/components/tabs/tabs.astro",
+      "default": "./dist/components/tabs/tabs.astro"
     },
     "./astro/tag": {
       "source": "./src/components/tag/tag.astro",
@@ -138,6 +194,10 @@
     "./astro/timeline": {
       "source": "./src/components/timeline/timeline.astro",
       "default": "./dist/components/timeline/timeline.astro"
+    },
+    "./astro/tooltip": {
+      "source": "./src/components/tooltip/tooltip.astro",
+      "default": "./dist/components/tooltip/tooltip.astro"
     }
   },
   "files": [

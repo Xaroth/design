@@ -1,0 +1,28 @@
+---
+import Harness from '../layouts/Harness.astro'
+import Tabs from '@xaroth.nl/design/astro/tabs'
+
+const items = [
+  { label: 'Overview', href: '#', current: true },
+  { label: 'Achievements', href: '#achievements' },
+  { label: 'Settings', href: '#settings' },
+]
+const counted = [
+  { label: 'Overview', href: '#' },
+  { label: 'Achievements', href: '#achievements', count: 7, current: true },
+  { label: 'Skills', href: '#skills', count: 142 },
+  { label: 'Standings', href: '#standings', count: 12 },
+  { label: 'Contracts', href: '#contracts', count: 3 },
+  { label: 'Wallet journal', href: '#wallet' },
+  { label: 'Settings', href: '#settings' },
+]
+---
+
+<Harness title="Tabs">
+  {() => (
+    <div style="display: grid; gap: 48px; max-width: 1264px; padding: 0 32px">
+      <Tabs label="Tool sections" items={items} />
+      <Tabs label="Character sections" items={counted} />
+    </div>
+  )}
+</Harness>

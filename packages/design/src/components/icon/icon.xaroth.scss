@@ -1,0 +1,9 @@
+@use '../../styles/theme';
+
+@include theme.parts('xaroth') {
+  // Square ends read as engraved lines next to Cinzel.
+  .x-icon {
+    --x-icon-cap: square;
+    --x-icon-join: miter;
+  }
+}

@@ -1,0 +1,38 @@
+@use '../../styles/theme';
+
+@include theme.parts('xaroth') {
+  // Display caps with bronze diamonds between items.
+  .x-breadcrumbs {
+    --x-breadcrumbs-gap: var(--x-space-3);
+  }
+
+  .x-breadcrumbs__list {
+    row-gap: var(--x-space-2);
+  }
+
+  .x-breadcrumbs__item {
+    font-family: var(--x-font-display);
+    font-size: var(--x-fs-label);
+    font-weight: 600;
+    line-height: 1.3;
+    letter-spacing: var(--x-track-caps);
+    text-transform: uppercase;
+    color: var(--x-color-text-muted);
+
+    & + .x-breadcrumbs__item::before {
+      content: '';
+      width: 0.3rem;
+      height: 0.3rem;
+      background: var(--x-color-bronze);
+      transform: rotate(45deg);
+    }
+  }
+
+  .x-breadcrumbs__link:hover {
+    color: var(--x-color-accent-strong);
+  }
+
+  .x-breadcrumbs__current {
+    color: var(--x-color-sand);
+  }
+}

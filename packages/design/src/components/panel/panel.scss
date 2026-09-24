@@ -1,0 +1,50 @@
+@use '../../styles/layers';
+
+@layer x.core {
+  // Structure only: padding and stacking. Themes draw the surface, edge and marks.
+  .x-panel {
+    --x-panel-pad: var(--x-space-4);
+
+    position: relative;
+    box-sizing: border-box;
+    min-width: 0;
+    padding: var(--x-panel-pad);
+    color: var(--x-color-text);
+
+    @media (min-width: 640px) {
+      --x-panel-pad: var(--x-space-5);
+    }
+
+    &--pad-none {
+      --x-panel-pad: 0;
+
+      @media (min-width: 640px) {
+        --x-panel-pad: 0;
+      }
+    }
+
+    &--pad-sm {
+      --x-panel-pad: var(--x-space-3);
+
+      @media (min-width: 640px) {
+        --x-panel-pad: var(--x-space-4);
+      }
+    }
+
+    &--pad-lg {
+      --x-panel-pad: var(--x-space-5);
+
+      @media (min-width: 640px) {
+        --x-panel-pad: var(--x-space-6);
+      }
+    }
+
+    &--pad-xl {
+      --x-panel-pad: var(--x-space-6) var(--x-space-5);
+
+      @media (min-width: 640px) {
+        --x-panel-pad: var(--x-space-7);
+      }
+    }
+  }
+}

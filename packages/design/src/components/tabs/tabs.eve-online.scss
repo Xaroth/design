@@ -1,0 +1,39 @@
+@use '../../styles/theme';
+
+@include theme.parts('eve-online') {
+  // Display face tabs with a cyan bar on the list's hairline under the current page.
+  .x-tabs__link {
+    padding: 0 20px;
+    font-family: var(--x-font-display);
+    font-size: var(--x-fs-ui);
+    font-weight: 500;
+    line-height: 1.4;
+
+    &:hover {
+      color: var(--x-color-text);
+    }
+
+    &[aria-current='page'] {
+      color: var(--x-color-accent);
+
+      &::after {
+        content: '';
+        position: absolute;
+        right: 0;
+        bottom: -1px;
+        left: 0;
+        height: 2px;
+        background: var(--x-color-accent);
+      }
+
+      .x-tabs__count {
+        color: var(--x-color-accent);
+        border-color: var(--x-color-accent-edge);
+      }
+    }
+  }
+
+  .x-tabs__count {
+    background: var(--x-color-surface-2);
+  }
+}

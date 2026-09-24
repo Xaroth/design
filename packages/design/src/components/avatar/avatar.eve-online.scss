@@ -1,0 +1,48 @@
+@use '../../styles/theme';
+
+// Hex frame: outer edge, dashed inner hex and range ticks, all in the accent. The fill and image are clipped
+// to the hex; the frame is a mask so it takes the accent from currentcolor.
+$hex: polygon(50% 4%, 90% 27%, 90% 73%, 50% 96%, 10% 73%, 10% 27%);
+$frame: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' fill='none' stroke='%23000'%3E%3Cpath d='M50 4 90 27v46L50 96 10 73V27z' stroke-width='1.2'/%3E%3Cpath d='M50 14 81 32v36L50 86 19 68V32z' stroke-opacity='.3' stroke-dasharray='2 3'/%3E%3Cpath d='M50 4v6M50 90v6M10 27l5 3M90 27l-5 3M10 73l5-3M90 73l-5-3' stroke-width='1.2'/%3E%3C/svg%3E";
+
+@include theme.parts('eve-online') {
+  .x-avatar {
+    --x-avatar-scale: 0.34;
+
+    overflow: visible;
+    color: var(--x-color-accent);
+    background: none;
+
+    &::before,
+    &::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+    }
+
+    &::before {
+      z-index: -1;
+      background: radial-gradient(
+        circle at 50% 40%,
+        color-mix(in oklab, var(--x-color-accent) 16%, var(--x-color-surface)) 0,
+        var(--x-color-bg-sunk) 60%
+      );
+      clip-path: $hex;
+    }
+
+    &::after {
+      background: currentcolor;
+      mask: url($frame) center / 100% 100% no-repeat;
+    }
+
+    &__image {
+      clip-path: $hex;
+    }
+  }
+
+  // The hex fills 80% of the box, so xl gets a larger box to keep the profile size.
+  .x-avatar--xl {
+    --x-avatar-size: 148px;
+  }
+}

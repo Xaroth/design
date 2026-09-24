@@ -1,0 +1,23 @@
+---
+import './tooltip.scss'
+import type { HTMLAttributes } from 'astro/types'
+import { describeTrigger, tooltipClass, tooltipId, type TooltipOptions } from './index.ts'
+
+type Props = Omit<HTMLAttributes<'span'>, 'class' | 'id'> &
+  Omit<TooltipOptions, 'className'> & {
+    class?: string
+    /** Base for the tooltip id that the trigger's aria-describedby points at. Unique per page. */
+    id: string
+    /** Short hint. Never the only place for information needed to use the page. */
+    text: string
+  }
+
+// `slot` is how a parent places this tooltip; it is not an attribute of the tooltip.
+const { id, text, placement, open, class: className, slot: _slot, ...rest } = Astro.props
+const trigger = describeTrigger(await Astro.slots.render('default'), id)
+---
+
+<span class={tooltipClass({ placement, open, className })} {...rest}>
+  <Fragment set:html={trigger} />
+  <span class="x-tooltip__bubble" role="tooltip" id={tooltipId(id)}>{text}</span>
+</span>
