@@ -1,0 +1,17 @@
+---
+import './progress.scss'
+import type { HTMLAttributes } from 'astro/types'
+import { progressClass, progressState, progressStyle, type ProgressName, type ProgressOptions } from './index.ts'
+
+type Props = Omit<HTMLAttributes<'div'>, 'class' | 'style' | 'role'> &
+  Omit<ProgressOptions, 'className'> &
+  ProgressName & { class?: string }
+
+const { value, max, tone, startTone, size, showValue, label, class: className, slot: _slot, ...rest } = Astro.props
+const { width, text, attrs } = progressState({ value, max, label, showValue })
+---
+
+<div class={progressClass({ value, max, tone, startTone, size, className })} style={progressStyle(width)} {...rest} {...attrs}>
+  <span class="x-progress__track"><span class="x-progress__fill"></span></span>
+  {text !== undefined && <span class="x-progress__value">{text}</span>}
+</div>

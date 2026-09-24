@@ -1,0 +1,21 @@
+@use '../../styles/theme';
+@use '../../styles/themes/eve-online/table-look' as look;
+
+@include theme.parts('eve-online') {
+  .x-table-wrap {
+    @include look.frame;
+  }
+
+  .x-table {
+    @include look.table;
+
+    &--hover {
+      @include look.hover;
+    }
+
+    &__cell--num {
+      font-family: var(--x-font-mono);
+      font-size: 0.9375rem;
+    }
+  }
+}

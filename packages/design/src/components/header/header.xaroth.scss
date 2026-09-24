@@ -1,0 +1,137 @@
+@use '../../styles/theme';
+
+@include theme.parts('xaroth') {
+  // Dune v2 top bar: hairline closed by a gold center, diamonds between items and under the current page.
+  .x-header {
+    --x-header-brand-gap: var(--x-space-4);
+    --x-header-mark: 2.25rem;
+
+    border-bottom: 1px solid var(--x-color-line);
+
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: -1px;
+      left: 50%;
+      width: min(28rem, 60%);
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--x-color-accent), transparent);
+      transform: translateX(-50%);
+    }
+  }
+
+  .x-header__brand {
+    font-family: var(--x-font-display);
+    font-size: 1.125rem;
+    font-weight: 600;
+    letter-spacing: var(--x-track-caps);
+    text-transform: uppercase;
+    color: var(--x-color-sand);
+
+    svg {
+      color: var(--x-color-accent);
+      transition: color var(--x-duration) var(--x-ease);
+    }
+
+    &:hover {
+      color: var(--x-color-sand);
+
+      svg {
+        color: var(--x-color-accent-strong);
+      }
+    }
+  }
+
+  .x-header__link {
+    padding: var(--x-space-4) 0;
+    font-family: var(--x-font-display);
+    font-size: var(--x-fs-label);
+    font-weight: 600;
+    line-height: 1.3;
+    letter-spacing: var(--x-track-caps);
+    text-transform: uppercase;
+    color: var(--x-color-text-muted);
+    transition: color var(--x-duration) var(--x-ease);
+
+    &:hover {
+      color: var(--x-color-sand);
+    }
+
+    &[aria-current='page'] {
+      color: var(--x-color-accent-strong);
+    }
+  }
+
+  .x-header__nav {
+    .x-header__list {
+      gap: 0 var(--x-space-6);
+    }
+
+    .x-header__item {
+      gap: var(--x-space-6);
+
+      & + .x-header__item::before {
+        content: '';
+        width: 3px;
+        height: 3px;
+        background: var(--x-color-bronze);
+        transform: rotate(45deg);
+      }
+    }
+
+    // Sits on the header's bottom hairline.
+    .x-header__link[aria-current='page']::after {
+      content: '';
+      position: absolute;
+      bottom: -1px;
+      left: 50%;
+      width: 7px;
+      height: 7px;
+      background: var(--x-color-accent);
+      transform: translate(-50%, 50%) rotate(45deg);
+    }
+  }
+
+  .x-header--inline {
+    .x-header__nav .x-header__link {
+      min-height: var(--x-header-height);
+    }
+
+    .x-header__panel {
+      background: var(--x-color-surface-2);
+      border: 1px solid var(--x-color-line-strong);
+      box-shadow: var(--x-shadow);
+    }
+  }
+
+  .x-header__panel {
+    .x-header__link {
+      gap: var(--x-space-3);
+      padding: var(--x-space-3) var(--x-space-4);
+
+      &[aria-current='page']::before {
+        content: '';
+        width: 5px;
+        height: 5px;
+        background: var(--x-color-accent);
+        transform: rotate(45deg);
+      }
+    }
+  }
+
+  .x-header__panel-actions {
+    justify-content: center;
+    border-top: 1px solid var(--x-color-line);
+  }
+
+  @media (width < 640px) {
+    .x-header {
+      --x-header-mark: 1.75rem;
+    }
+
+    .x-header__brand {
+      font-size: 0.9375rem;
+      letter-spacing: 0.14em;
+    }
+  }
+}

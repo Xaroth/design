@@ -1,0 +1,202 @@
+@use '../../styles/theme';
+@use '../../styles/chamfer';
+@use '../../styles/themes/eve-online/table-look';
+
+@include theme.parts('eve-online') {
+  .x-prose {
+    color: var(--x-color-text-muted);
+
+    > :is(h2, h3, h4) {
+      color: var(--x-color-text);
+    }
+
+    :where(a) {
+      color: var(--x-color-accent);
+    }
+
+    :where(em) {
+      color: var(--x-color-text);
+    }
+
+    // EVE v3 lists: mono 01/02 numbers and open diamond bullets in cyan.
+    :where(ul, ol) {
+      padding-left: 0;
+      list-style: none;
+    }
+
+    :where(ol) {
+      counter-reset: x-item;
+    }
+
+    :where(ul, ol) > :where(li) {
+      position: relative;
+      padding-left: 2.25rem;
+    }
+
+    :where(ol) > :where(li)::before {
+      counter-increment: x-item;
+      content: counter(x-item, decimal-leading-zero);
+      position: absolute;
+      top: 0.15em;
+      left: 0;
+      font-family: var(--x-font-mono);
+      font-size: var(--x-fs-small);
+      color: var(--x-color-accent);
+    }
+
+    :where(ul) > :where(li)::before {
+      content: '';
+      position: absolute;
+      top: 0.68em;
+      left: 6px;
+      width: 6px;
+      height: 6px;
+      border: 1px solid var(--x-color-accent);
+      transform: rotate(45deg);
+    }
+
+    // EVE v2 quote: heading face on a cyan wash, open quote mark, caps cite.
+    :where(blockquote) {
+      padding: var(--x-space-5) var(--x-space-5) var(--x-space-5) var(--x-space-6);
+      font-family: var(--x-font-heading);
+      font-size: 1.3125rem;
+      line-height: 1.5;
+      color: var(--x-color-text);
+      background: linear-gradient(90deg, var(--x-color-accent-wash), transparent);
+      border-left: 2px solid var(--x-color-accent);
+
+      &::before {
+        content: '\201C';
+        position: absolute;
+        top: 8px;
+        left: 10px;
+        font-size: 2rem;
+        line-height: 1;
+        color: var(--x-color-accent);
+      }
+
+      > :is(footer, cite) {
+        font-size: var(--x-fs-label);
+        font-weight: 600;
+        line-height: 1.3;
+        letter-spacing: var(--x-track-label);
+        text-transform: uppercase;
+        color: var(--x-color-text-faint);
+
+        &::before {
+          content: '// ';
+          color: var(--x-color-accent);
+        }
+      }
+    }
+
+    :where(:not(pre)) > :where(code) {
+      padding: 1px 6px;
+      color: var(--x-color-accent-strong);
+      background: var(--x-color-accent-fill);
+      border: 1px solid var(--x-color-line-strong);
+    }
+
+    :where(hr) {
+      height: 1px;
+      background: linear-gradient(90deg, var(--x-color-accent) 0 64px, var(--x-color-line-strong) 64px);
+      border: 0;
+    }
+
+    :where(figure:not(.x-code)) > :is(img, svg, video, picture) {
+      padding: var(--x-space-5);
+      color: var(--x-color-accent);
+      background: var(--x-color-surface);
+      clip-path: chamfer.shape(var(--x-cut-md));
+    }
+
+    :where(figcaption) {
+      color: var(--x-color-text-faint);
+    }
+
+    :where(table:not(.x-table)) {
+      @include table-look.frame;
+      @include table-look.table;
+      @include table-look.hover;
+    }
+  }
+
+  // EVE v2 code block: flat cut panel, labelled bar, zero padded line numbers, colored tokens.
+  .x-code {
+    --x-code-kw: var(--x-color-accent);
+    --x-code-str: var(--x-color-warning);
+    --x-code-num: var(--x-color-flare);
+    --x-code-fn: var(--x-color-accent-strong);
+    --x-code-com: var(--x-color-text-faint);
+    --x-code-bg: var(--x-color-surface);
+
+    isolation: isolate;
+    color: var(--x-color-text);
+
+    &::before,
+    &::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      pointer-events: none;
+    }
+
+    &::before {
+      background: var(--x-code-bg);
+      clip-path: chamfer.shape(var(--x-cut-md));
+    }
+
+    // The edge sits above the content: the sticky line-number gutter has its own background and would cover it.
+    &::after {
+      z-index: 1;
+      background: var(--x-color-line-strong);
+      clip-path: chamfer.ring(var(--x-cut-md), 1px);
+    }
+
+    &__bar {
+      padding: 10px var(--x-space-4) 10px var(--x-space-5);
+      font-family: var(--x-font-ui);
+      font-weight: 600;
+      letter-spacing: var(--x-track-label);
+      text-transform: uppercase;
+      border-bottom: 1px solid var(--x-color-line-strong);
+    }
+
+    &__title {
+      color: var(--x-color-accent);
+    }
+
+    &__lang {
+      color: var(--x-color-text-faint);
+    }
+
+    &__line::before {
+      content: counter(x-line, decimal-leading-zero);
+      width: 2ch;
+      padding-right: 1em;
+      margin-right: 1em;
+      color: var(--x-color-text-faint);
+    }
+
+    &__kw {
+      color: var(--x-code-kw);
+    }
+
+    &__str {
+      color: var(--x-code-str);
+    }
+
+    &__num {
+      color: var(--x-code-num);
+    }
+
+    &__fn {
+      color: var(--x-code-fn);
+    }
+
+    &__com {
+      color: var(--x-code-com);
+    }
+  }
+}

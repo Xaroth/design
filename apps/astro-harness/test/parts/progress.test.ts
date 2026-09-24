@@ -1,6 +1,6 @@
 import { createElement } from 'react'
 import { describe, it } from 'vitest'
-import AstroProgress from '@xaroth.nl/design/astro/Progress.astro'
+import AstroProgress from '@xaroth.nl/design/astro/progress'
 import { Progress } from '@xaroth.nl/design/react'
 import { expectSameHtml } from '../compare.ts'
 

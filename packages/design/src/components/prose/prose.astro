@@ -1,0 +1,14 @@
+---
+import './prose.scss'
+import type { HTMLAttributes } from 'astro/types'
+import { proseClass } from './index.ts'
+
+type Props = Omit<HTMLAttributes<'div'>, 'class'> & {
+  class?: string
+  as?: 'div' | 'article' | 'section' | 'main'
+}
+
+const { as: Tag = 'div', class: className, ...rest } = Astro.props
+---
+
+<Tag class={proseClass({ className })} {...rest}><slot /></Tag>

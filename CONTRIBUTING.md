@@ -1,17 +1,30 @@
 # Adding or changing a part
 
-A part is one UI piece (button, card, header). Every part has the same set of files, and each file has one job.
+Everything for a part lives in one folder, `packages/design/src/components/<part>/`. Related components share a folder (for example `field` holds input, select, checkbox and friends).
 
 | File | Job |
 | --- | --- |
-| `packages/design/src/parts/<part>.ts` | Class recipe (`xCardClass(...)`) and state helpers. The only place class names and state attributes are decided. |
-| `packages/design/src/styles/parts/_<part>.scss` | Structure: layout, spacing, sizes, states. Uses tokens only, no theme look. |
-| `packages/design/src/styles/themes/<theme>/_<part>.scss` | Theme look: shape, ornament, theme-specific color. Everything inside `@include theme.parts('<theme>') { ... }`. |
-| `packages/design/src/astro/<Part>.astro` | Astro component. Uses the recipe. |
-| `packages/design/src/react/<Part>.tsx` | React component. Uses the recipe. Exported from `src/react/index.ts`. |
+| `index.ts` | Class recipe (`cardClass(...)`), state helpers and prop types. The only place class names and state attributes are decided. |
+| `<part>.scss` | Structure: layout, spacing, sizes, states. Tokens only, no theme look. Wrapped in `@layer x.core`. |
+| `<part>.xaroth.scss`, `<part>.eve-online.scss` | Theme look: shape, ornament, theme-specific color. Everything inside `@include theme.parts('<theme>') { ... }`. Built into that theme's single stylesheet. |
+| `<name>.astro` | One file per Astro component, kebab-case (`section-head.astro`). Imports `./<part>.scss` and the recipe. |
+| `<part>.tsx` | The React components of the folder. Imports `./<part>.scss` and the recipe. |
+
+Outside the package:
+
+| File | Job |
+| --- | --- |
 | `apps/astro-harness/test/parts/<part>.test.ts` | Same-HTML test: every meaningful prop combination, Astro vs React, via `expectSameHtml`. |
 | `apps/astro-harness/src/pages/<part>.astro` | Harness page showing the part in both themes. |
 | `apps/storybook/stories/<Part>.stories.tsx` | Story with working controls for every prop. |
+
+Entry files (`src/parts.ts`, `src/react.ts`, `src/styles/all.scss`, `src/styles/themes/_<theme>-parts.scss`) and the package `exports` are generated from the folders: run `pnpm --filter @xaroth.nl/design generate` after adding a folder or an `.astro` file. `pnpm test` fails when they are out of date.
+
+## How sites use it
+
+- Load one theme once: `import '@xaroth.nl/design/themes/xaroth.css'`. It carries tokens, reset, base type and the theme look for every part.
+- Import components by name: `@xaroth.nl/design/astro/section-head`, or `import { SectionHead } from '@xaroth.nl/design/react'`. Each component brings its own structure CSS, so a page only loads what it uses.
+- Apps in this repo resolve the package with the `source` condition, so they read `src` directly and need no build while developing.
 
 ## Rules
 

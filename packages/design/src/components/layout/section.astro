@@ -1,0 +1,15 @@
+---
+import './layout.scss'
+import type { HTMLAttributes } from 'astro/types'
+import { sectionClass, type SectionOptions } from './index.ts'
+
+type Props = Omit<HTMLAttributes<'section'>, 'class'> &
+  Omit<SectionOptions, 'className'> & {
+    class?: string
+    as?: 'section' | 'div' | 'article' | 'aside'
+  }
+
+const { tight, as: Tag = 'section', class: className, ...rest } = Astro.props
+---
+
+<Tag class={sectionClass({ tight, className })} {...rest}><slot /></Tag>

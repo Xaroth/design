@@ -1,0 +1,69 @@
+---
+import './footer.scss'
+import type { HTMLAttributes } from 'astro/types'
+import { footerClass, footerClasses as c, type FooterGroup, type FooterOptions } from './index.ts'
+import { brandTag } from '../header/index.ts'
+
+type Props = Omit<HTMLAttributes<'footer'>, 'class'> &
+  Omit<FooterOptions, 'className'> & {
+    class?: string
+    groups?: FooterGroup[]
+    brandHref?: string
+    brandLabel?: string
+    /** Legal line. The `note` slot takes precedence. */
+    note?: string
+    navLabel?: string
+  }
+
+const {
+  layout,
+  class: className,
+  groups = [],
+  brandHref,
+  brandLabel,
+  note,
+  navLabel = 'Footer',
+  ...rest
+} = Astro.props
+const Brand = brandTag(brandHref)
+const hasNote = Astro.slots.has('note') || Boolean(note)
+---
+
+<footer class={footerClass({ layout, className })} {...rest}>
+  <div class={c.inner}>
+    {
+      Astro.slots.has('brand') && (
+        <Brand class={c.brand} href={brandHref} aria-label={brandLabel}>
+          <slot name="brand" />
+        </Brand>
+      )
+    }
+    {
+      hasNote && (
+        <p class={c.note}>
+          <slot name="note">{note}</slot>
+        </p>
+      )
+    }
+    {
+      groups.length > 0 && (
+        <nav class={c.nav} aria-label={navLabel}>
+          {groups.map((group) => (
+            <div class={c.group}>
+              {group.title && <h2 class={c.title}>{group.title}</h2>}
+              <ul class={c.links}>
+                {group.links.map((link) => (
+                  <li>
+                    <a class={c.link} href={link.href}>
+                      {link.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </nav>
+      )
+    }
+  </div>
+</footer>

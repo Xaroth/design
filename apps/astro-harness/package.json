@@ -19,7 +19,9 @@
     "@types/react": "catalog:",
     "@types/react-dom": "catalog:",
     "happy-dom": "^20.0.0",
+    "sass": "catalog:",
     "typescript": "catalog:",
+    "vite": "catalog:",
     "vitest": "catalog:"
   }
 }

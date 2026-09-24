@@ -1,6 +1,6 @@
 import { createElement, type ReactNode } from 'react'
 import { describe, it } from 'vitest'
-import AstroCard from '@xaroth.nl/design/astro/Card.astro'
+import AstroCard from '@xaroth.nl/design/astro/card'
 import { Card } from '@xaroth.nl/design/react'
 import { expectSameHtml } from '../compare.ts'
 

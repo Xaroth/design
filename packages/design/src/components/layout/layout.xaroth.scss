@@ -1,0 +1,44 @@
+@use '../../styles/theme';
+
+@include theme.parts('xaroth') {
+  // Dune v2 section head: centered, eyebrow between open diamonds, caps title, italic line, centered link.
+  .x-section-head {
+    flex-direction: column;
+    gap: var(--x-space-4);
+    align-items: center;
+    text-align: center;
+
+    &__titles {
+      gap: var(--x-space-4);
+      justify-items: center;
+    }
+
+    &__eyebrow {
+      display: inline-flex;
+      gap: var(--x-space-3);
+      align-items: center;
+      letter-spacing: var(--x-track-caps);
+
+      &::before,
+      &::after {
+        content: '';
+        width: 0.4rem;
+        height: 0.4rem;
+        border: 1px solid currentcolor;
+        transform: rotate(45deg);
+      }
+    }
+
+    &__title {
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--x-color-sand);
+    }
+
+    &__sub {
+      max-width: 34rem;
+      font-style: italic;
+    }
+  }
+}

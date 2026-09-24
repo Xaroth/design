@@ -4,35 +4,146 @@
   "description": "Shared design system for xaroth.nl and eve-online.tools: CSS core, themes, Astro and React parts.",
   "license": "MIT",
   "author": "Xaroth Brook <xaroth+github@xaroth.nl>",
-  "keywords": ["astro", "css", "design-system", "react"],
-  "sideEffects": ["*.css"],
+  "keywords": [
+    "astro",
+    "css",
+    "design-system",
+    "react"
+  ],
+  "sideEffects": [
+    "*.css"
+  ],
   "type": "module",
   "exports": {
-    "./core.css": "./dist/core.css",
-    "./themes/xaroth.css": "./dist/themes/xaroth.css",
-    "./themes/eve-online.css": "./dist/themes/eve-online.css",
+    "./themes/xaroth.css": {
+      "source": "./src/styles/themes/xaroth.scss",
+      "default": "./dist/themes/xaroth.css"
+    },
+    "./themes/eve-online.css": {
+      "source": "./src/styles/themes/eve-online.scss",
+      "default": "./dist/themes/eve-online.css"
+    },
+    "./all.css": {
+      "source": "./src/styles/all.scss",
+      "default": "./dist/all.css"
+    },
     "./scss/*": "./src/styles/*",
-    "./astro/*": "./src/astro/*",
     "./parts": {
-      "types": "./dist/parts/index.d.ts",
-      "import": "./dist/parts/index.js"
+      "source": "./src/parts.ts",
+      "types": "./dist/parts.d.ts",
+      "import": "./dist/parts.js"
     },
     "./react": {
-      "types": "./dist/react/index.d.ts",
-      "import": "./dist/react/index.js"
+      "source": "./src/react.ts",
+      "types": "./dist/react.d.ts",
+      "import": "./dist/react.js"
+    },
+    "./astro/badge": {
+      "source": "./src/components/badge/badge.astro",
+      "default": "./dist/components/badge/badge.astro"
+    },
+    "./astro/button": {
+      "source": "./src/components/button/button.astro",
+      "default": "./dist/components/button/button.astro"
+    },
+    "./astro/card": {
+      "source": "./src/components/card/card.astro",
+      "default": "./dist/components/card/card.astro"
+    },
+    "./astro/checkbox": {
+      "source": "./src/components/field/checkbox.astro",
+      "default": "./dist/components/field/checkbox.astro"
+    },
+    "./astro/field": {
+      "source": "./src/components/field/field.astro",
+      "default": "./dist/components/field/field.astro"
+    },
+    "./astro/input": {
+      "source": "./src/components/field/input.astro",
+      "default": "./dist/components/field/input.astro"
+    },
+    "./astro/radio-group": {
+      "source": "./src/components/field/radio-group.astro",
+      "default": "./dist/components/field/radio-group.astro"
+    },
+    "./astro/radio": {
+      "source": "./src/components/field/radio.astro",
+      "default": "./dist/components/field/radio.astro"
+    },
+    "./astro/select": {
+      "source": "./src/components/field/select.astro",
+      "default": "./dist/components/field/select.astro"
+    },
+    "./astro/switch": {
+      "source": "./src/components/field/switch.astro",
+      "default": "./dist/components/field/switch.astro"
+    },
+    "./astro/textarea": {
+      "source": "./src/components/field/textarea.astro",
+      "default": "./dist/components/field/textarea.astro"
+    },
+    "./astro/footer": {
+      "source": "./src/components/footer/footer.astro",
+      "default": "./dist/components/footer/footer.astro"
+    },
+    "./astro/header": {
+      "source": "./src/components/header/header.astro",
+      "default": "./dist/components/header/header.astro"
+    },
+    "./astro/container": {
+      "source": "./src/components/layout/container.astro",
+      "default": "./dist/components/layout/container.astro"
+    },
+    "./astro/grid": {
+      "source": "./src/components/layout/grid.astro",
+      "default": "./dist/components/layout/grid.astro"
+    },
+    "./astro/section-head": {
+      "source": "./src/components/layout/section-head.astro",
+      "default": "./dist/components/layout/section-head.astro"
+    },
+    "./astro/section": {
+      "source": "./src/components/layout/section.astro",
+      "default": "./dist/components/layout/section.astro"
+    },
+    "./astro/progress": {
+      "source": "./src/components/progress/progress.astro",
+      "default": "./dist/components/progress/progress.astro"
+    },
+    "./astro/code-block": {
+      "source": "./src/components/prose/code-block.astro",
+      "default": "./dist/components/prose/code-block.astro"
+    },
+    "./astro/prose": {
+      "source": "./src/components/prose/prose.astro",
+      "default": "./dist/components/prose/prose.astro"
+    },
+    "./astro/table": {
+      "source": "./src/components/table/table.astro",
+      "default": "./dist/components/table/table.astro"
+    },
+    "./astro/tag": {
+      "source": "./src/components/tag/tag.astro",
+      "default": "./dist/components/tag/tag.astro"
+    },
+    "./astro/timeline": {
+      "source": "./src/components/timeline/timeline.astro",
+      "default": "./dist/components/timeline/timeline.astro"
     }
   },
-  "files": ["dist", "src"],
+  "files": [
+    "dist",
+    "src"
+  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/xaroth/design.git",
     "directory": "packages/design"
   },
   "scripts": {
-    "build": "pnpm build:css && pnpm build:js",
-    "build:css": "node scripts/build-css.ts",
-    "build:js": "tsc -p tsconfig.build.json",
-    "typecheck": "tsc --noEmit"
+    "generate": "node scripts/generate.ts",
+    "build": "node scripts/generate.ts && node scripts/build.ts && tsc -p tsconfig.build.json && node scripts/postbuild.ts",
+    "typecheck": "node scripts/generate.ts --check && tsc --noEmit"
   },
   "dependencies": {
     "@fontsource-variable/cinzel": "^5.3.0",

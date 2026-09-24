@@ -1,6 +1,6 @@
 import { createElement } from 'react'
 import { describe, it } from 'vitest'
-import AstroFooter from '@xaroth.nl/design/astro/Footer.astro'
+import AstroFooter from '@xaroth.nl/design/astro/footer'
 import { Footer } from '@xaroth.nl/design/react'
 import { expectSameHtml } from '../compare.ts'
 

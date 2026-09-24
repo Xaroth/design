@@ -1,0 +1,12 @@
+@use '../../styles/theme';
+@use '../../styles/themes/xaroth/table-look' as look;
+
+@include theme.parts('xaroth') {
+  .x-table-wrap {
+    @include look.frame;
+  }
+
+  .x-table {
+    @include look.table;
+  }
+}

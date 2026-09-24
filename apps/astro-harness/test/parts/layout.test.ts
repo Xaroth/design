@@ -1,9 +1,9 @@
 import { createElement, type ReactElement, type ReactNode } from 'react'
 import { describe, it } from 'vitest'
-import AstroContainer from '@xaroth.nl/design/astro/Container.astro'
-import AstroGrid from '@xaroth.nl/design/astro/Grid.astro'
-import AstroSection from '@xaroth.nl/design/astro/Section.astro'
-import AstroSectionHead from '@xaroth.nl/design/astro/SectionHead.astro'
+import AstroContainer from '@xaroth.nl/design/astro/container'
+import AstroGrid from '@xaroth.nl/design/astro/grid'
+import AstroSection from '@xaroth.nl/design/astro/section'
+import AstroSectionHead from '@xaroth.nl/design/astro/section-head'
 import { Container, Grid, Section, SectionHead } from '@xaroth.nl/design/react'
 import { expectSameHtml } from '../compare.ts'
 

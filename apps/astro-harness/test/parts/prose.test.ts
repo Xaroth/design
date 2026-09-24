@@ -1,7 +1,7 @@
 import { createElement, type ReactElement, type ReactNode } from 'react'
 import { describe, it } from 'vitest'
-import AstroCodeBlock from '@xaroth.nl/design/astro/CodeBlock.astro'
-import AstroProse from '@xaroth.nl/design/astro/Prose.astro'
+import AstroCodeBlock from '@xaroth.nl/design/astro/code-block'
+import AstroProse from '@xaroth.nl/design/astro/prose'
 import { CodeBlock, Prose } from '@xaroth.nl/design/react'
 import { expectSameHtml } from '../compare.ts'
 

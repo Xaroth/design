@@ -26,7 +26,7 @@
     "oxlint": "oxlint .",
     "syncpack": "syncpack list-mismatches",
     "syncpack:format": "syncpack format",
-    "test": "pnpm build && pnpm syncpack && pnpm format:check && pnpm typecheck && pnpm oxlint && pnpm -r test"
+    "test": "pnpm build && pnpm syncpack && pnpm format:check && pnpm typecheck && pnpm oxlint && pnpm -r test && pnpm --filter @repo/storybook build"
   },
   "devDependencies": {
     "@changesets/changelog-github": "^0.7.0",

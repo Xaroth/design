@@ -1,6 +1,6 @@
 import { createElement } from 'react'
 import { describe, it } from 'vitest'
-import AstroBadge from '@xaroth.nl/design/astro/Badge.astro'
+import AstroBadge from '@xaroth.nl/design/astro/badge'
 import { Badge } from '@xaroth.nl/design/react'
 import { expectSameHtml } from '../compare.ts'
 

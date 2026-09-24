@@ -1,0 +1,111 @@
+@use '../../styles/theme';
+
+// Dune v4 buttons: Cinzel caps, square corners, primary with an inner double line, framed secondary,
+// underlined tertiary. Any tone recolors all three.
+@include theme.parts('xaroth') {
+  .x-button {
+    --x-button-font: var(--x-font-display);
+    --x-button-tracking: var(--x-track-caps);
+    --x-button-tone-hi: color-mix(in oklab, var(--x-button-tone) 70%, var(--x-color-dawn));
+    --x-button-text: var(--x-button-tone);
+    --x-button-text-hi: var(--x-button-tone-hi);
+    --x-button-edge: var(--x-button-tone);
+    --x-button-line: color-mix(in oklab, var(--x-button-tone) 65%, var(--x-color-bg));
+    // Toned secondaries follow the v4 danger button: tone wash, full tone edge, filled on hover.
+    --x-button-wash: color-mix(in oklab, var(--x-button-tone) 8%, transparent);
+    --x-button-hover-bg: var(--x-button-tone);
+    --x-button-hover-fg: var(--x-button-on-tone);
+
+    gap: var(--x-space-3);
+    border-radius: 0;
+    transition:
+      background var(--x-duration) var(--x-ease),
+      color var(--x-duration) var(--x-ease),
+      border-color var(--x-duration) var(--x-ease),
+      box-shadow var(--x-duration) var(--x-ease);
+  }
+
+  // Default tone uses the exact v4 colors: gold fills, bright gold text, sand on hover, bronze hairlines.
+  .x-button:not(.x-button--danger, .x-button--warning, .x-button--success) {
+    --x-button-tone-hi: var(--x-color-accent-strong);
+    --x-button-text: var(--x-color-accent-strong);
+    --x-button-text-hi: var(--x-color-sand);
+    --x-button-edge: var(--x-color-rule);
+    --x-button-line: var(--x-color-bronze);
+    --x-button-wash: transparent;
+    --x-button-hover-bg: var(--x-color-surface-2);
+    --x-button-hover-fg: var(--x-color-sand);
+  }
+
+  .x-button--primary {
+    --x-button-border: var(--x-button-bg);
+
+    box-shadow:
+      inset 0 0 0 3px var(--x-button-bg),
+      inset 0 0 0 4px rgb(13 10 7 / 45%);
+
+    &:hover:not(:disabled, [aria-disabled='true']) {
+      --x-button-bg: var(--x-button-tone-hi);
+
+      filter: none;
+    }
+  }
+
+  .x-button--secondary {
+    --x-button-fg: var(--x-button-text);
+    --x-button-bg: var(--x-button-wash);
+    --x-button-border: var(--x-button-edge);
+
+    &:hover:not(:disabled, [aria-disabled='true']) {
+      --x-button-fg: var(--x-button-hover-fg);
+      --x-button-bg: var(--x-button-hover-bg);
+      --x-button-border: var(--x-button-tone);
+    }
+  }
+
+  .x-button--tertiary {
+    --x-button-fg: var(--x-button-text);
+    --x-button-bg: transparent;
+
+    padding: 0 var(--x-space-2);
+
+    &::after {
+      content: '';
+      position: absolute;
+      inset: auto var(--x-space-2) 0.55rem;
+      height: 1px;
+      background: var(--x-button-line);
+      transition: background var(--x-duration) var(--x-ease);
+    }
+
+    &:hover:not(:disabled, [aria-disabled='true']) {
+      --x-button-fg: var(--x-button-text-hi);
+      --x-button-bg: transparent;
+
+      --x-button-line: var(--x-button-tone);
+    }
+  }
+
+  .x-button--lg {
+    --x-button-fs: 0.9375rem;
+  }
+
+  // v4 greys out inactive buttons instead of fading them.
+  .x-button:disabled,
+  .x-button[aria-disabled='true']:not(.x-button--loading) {
+    --x-button-fg: var(--x-color-text-faint);
+    --x-button-bg: var(--x-color-surface);
+    --x-button-border: var(--x-color-line-strong);
+
+    box-shadow: none;
+    opacity: 1;
+  }
+
+  .x-button--tertiary:disabled,
+  .x-button--tertiary[aria-disabled='true']:not(.x-button--loading) {
+    --x-button-bg: transparent;
+    --x-button-border: transparent;
+
+    --x-button-line: var(--x-color-line-strong);
+  }
+}

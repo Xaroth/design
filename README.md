@@ -7,13 +7,13 @@ One core (layout, sizes, part structure) and two themes (color, fonts, shape, or
 ## Use
 
 ```ts
-import '@xaroth.nl/design/core.css'
+// Once per site, in the layout.
 import '@xaroth.nl/design/themes/xaroth.css' // or themes/eve-online.css
 ```
 
 ```astro
 ---
-import Button from '@xaroth.nl/design/astro/Button.astro'
+import Button from '@xaroth.nl/design/astro/button'
 ---
 <Button variant="secondary" href="/tools">Browse tools</Button>
 ```
@@ -23,6 +23,8 @@ import { Button } from '@xaroth.nl/design/react'
 ;<Button variant="secondary">Browse tools</Button>
 ```
 
+Components bring their own structure CSS; the theme file brings tokens, base styles and the theme look. For pages without a bundler, `@xaroth.nl/design/all.css` holds the structure of every part.
+
 A site loads one theme and needs nothing else. To show several themes on one page, set `data-x-theme` on `<html>` (any value) and wrap each section in `data-x-theme="xaroth"` or `data-x-theme="eve-online"`.
 
 ## Conventions
@@ -30,7 +32,7 @@ A site loads one theme and needs nothing else. To show several themes on one pag
 - Classes: `x-` prefix, BEM. `x-card`, `x-card__title`, `x-button--primary`.
 - Tokens: `--x-*`. Core owns layout tokens (space, type scale, control sizes); themes own color, font and shape tokens.
 - Layers: `x.reset`, `x.core`, `x.theme`. Site CSS outside layers always wins.
-- Class names come from one recipe per part in `src/parts`, shared by the Astro and React components.
+- Each part lives in `src/components/<part>/`; see CONTRIBUTING.md. Class names come from the folder's `index.ts`, shared by the Astro and React components.
 - Browsers: Baseline widely available.
 
 ## Repo

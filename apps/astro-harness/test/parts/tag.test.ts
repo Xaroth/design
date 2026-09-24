@@ -1,6 +1,6 @@
 import { createElement } from 'react'
 import { describe, it } from 'vitest'
-import AstroTag from '@xaroth.nl/design/astro/Tag.astro'
+import AstroTag from '@xaroth.nl/design/astro/tag'
 import { Tag } from '@xaroth.nl/design/react'
 import { expectSameHtml } from '../compare.ts'
 

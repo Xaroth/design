@@ -1,0 +1,13 @@
+---
+import './field.scss'
+import type { HTMLAttributes } from 'astro/types'
+import { selectClass } from './index.ts'
+
+type Props = Omit<HTMLAttributes<'select'>, 'class'> & {
+  class?: string
+}
+
+const { class: className, ...rest } = Astro.props
+---
+
+<select class={selectClass({ className })} {...rest}><slot /></select>

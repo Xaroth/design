@@ -1,22 +1,21 @@
-// Theme entry. Tokens plus one partial per part; partials are scoped with theme.parts().
+// Theme entry: layout tokens, reset and base type, this theme's tokens, and its look for every part.
+// Component structure ships with each component; this file is loaded once per site.
 @use 'sass:meta';
 @use '../layers';
 @import '@fontsource-variable/oxanium/index.css';
 @import '@fontsource-variable/ibm-plex-sans/index.css';
 @import '@fontsource-variable/jetbrains-mono/index.css';
 
+@layer x.reset {
+  @include meta.load-css('../core/reset');
+}
+
+@layer x.core {
+  @include meta.load-css('../core/tokens');
+  @include meta.load-css('../core/base');
+}
+
 @layer x.theme {
   @include meta.load-css('eve-online/tokens');
-  @include meta.load-css('eve-online/button');
-  @include meta.load-css('eve-online/layout');
-  @include meta.load-css('eve-online/prose');
-  @include meta.load-css('eve-online/header');
-  @include meta.load-css('eve-online/footer');
-  @include meta.load-css('eve-online/card');
-  @include meta.load-css('eve-online/tag');
-  @include meta.load-css('eve-online/badge');
-  @include meta.load-css('eve-online/field');
-  @include meta.load-css('eve-online/timeline');
-  @include meta.load-css('eve-online/table');
-  @include meta.load-css('eve-online/progress');
+  @include meta.load-css('eve-online-parts');
 }

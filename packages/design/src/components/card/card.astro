@@ -1,0 +1,97 @@
+---
+import './card.scss'
+import type { HTMLAttributes } from 'astro/types'
+import {
+  cardClass,
+  cardIndexStyle,
+  type CardElement,
+  type CardHeadingLevel,
+  type CardOptions,
+} from './index.ts'
+
+type Props = Omit<HTMLAttributes<'article'>, 'class' | 'title'> &
+  Omit<CardOptions, 'className' | 'link'> & {
+    class?: string
+    /** Makes the whole card one link, through the title. Needs a title; keep other content non-interactive. */
+    href?: string
+    /** Plain-text title; the `title` slot takes markup. */
+    title?: string
+    index?: number
+    as?: CardElement
+    headingLevel?: CardHeadingLevel
+  }
+
+const {
+  featured,
+  href,
+  title,
+  index,
+  as: El = 'article',
+  headingLevel = 3,
+  class: className,
+  ...rest
+} = Astro.props
+const H = `h${headingLevel}` as const
+const hasTitle = title !== undefined || Astro.slots.has('title')
+const hasStatus = Astro.slots.has('status')
+const hasFootStart = Astro.slots.has('footStart')
+const hasFootEnd = Astro.slots.has('footEnd')
+---
+
+<El class={cardClass({ featured, link: href !== undefined, className })} {...rest}>
+  {
+    (index !== undefined || hasStatus) && (
+      <div class="x-card__head">
+        {index !== undefined && <span class="x-card__index" style={cardIndexStyle(index)} aria-hidden="true" />}
+        {hasStatus && (
+          <span class="x-card__status">
+            <slot name="status" />
+          </span>
+        )}
+      </div>
+    )
+  }
+  {
+    hasTitle && (
+      <H class="x-card__title">
+        {href !== undefined ? (
+          <a class="x-card__link" href={href}>
+            <slot name="title">{title}</slot>
+          </a>
+        ) : (
+          <slot name="title">{title}</slot>
+        )}
+      </H>
+    )
+  }
+  {
+    Astro.slots.has('default') && (
+      <div class="x-card__body">
+        <slot />
+      </div>
+    )
+  }
+  {
+    Astro.slots.has('tags') && (
+      <div class="x-card__tags">
+        <slot name="tags" />
+      </div>
+    )
+  }
+  {
+    (hasFootStart || hasFootEnd) && (
+      <div class="x-card__foot">
+        {hasFootStart && (
+          <div class="x-card__foot-start">
+            <slot name="footStart" />
+          </div>
+        )}
+        {hasFootEnd && (
+          <div class="x-card__foot-end">
+            <slot name="footEnd" />
+          </div>
+        )}
+      </div>
+    )
+  }
+</El>

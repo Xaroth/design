@@ -1,0 +1,51 @@
+---
+import './field.scss'
+import type { HTMLAttributes } from 'astro/types'
+import { fieldClass, fieldControlAttrs, fieldIds, wireControlHtml } from './index.ts'
+
+type Props = Omit<HTMLAttributes<'div'>, 'class' | 'id'> & {
+  /** Id of the control inside. Help and error text get `${id}-help` and `${id}-error`. */
+  id: string
+  label?: string
+  description?: string
+  error?: string
+  required?: boolean
+  class?: string
+}
+
+const { id, label, description, error, required, class: className, ...rest } = Astro.props
+const hasLabel = Boolean(label) || Astro.slots.has('label')
+const hasDescription = Boolean(description) || Astro.slots.has('description')
+const hasError = Boolean(error) || Astro.slots.has('error')
+const ids = fieldIds(id)
+const control = wireControlHtml(
+  await Astro.slots.render('default'),
+  fieldControlAttrs({ id, hasDescription, hasError, required }),
+)
+---
+
+<div class={fieldClass({ invalid: hasError, className })} {...rest}>
+  {
+    hasLabel && (
+      <label class="x-field__label" for={id}>
+        {Astro.slots.has('label') ? <slot name="label" /> : label}
+        {required && <span class="x-field__required" aria-hidden="true">*</span>}
+      </label>
+    )
+  }
+  <Fragment set:html={control} />
+  {
+    hasDescription && (
+      <p class="x-field__help" id={ids.help}>
+        {Astro.slots.has('description') ? <slot name="description" /> : description}
+      </p>
+    )
+  }
+  {
+    hasError && (
+      <p class="x-field__error" id={ids.error}>
+        {Astro.slots.has('error') ? <slot name="error" /> : error}
+      </p>
+    )
+  }
+</div>

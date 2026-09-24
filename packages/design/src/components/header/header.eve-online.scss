@@ -1,0 +1,88 @@
+@use '../../styles/theme';
+
+@include theme.parts('eve-online') {
+  // EVE v3 bar: glass over the page, hairline below, cyan underline with a glow on the current page.
+  .x-header {
+    --x-header-bg: color-mix(in oklab, var(--x-color-bg) 88%, transparent);
+
+    box-shadow: inset 0 -1px 0 var(--x-color-line);
+    backdrop-filter: blur(10px);
+  }
+
+  .x-header__brand {
+    font-family: var(--x-font-display);
+    font-size: var(--x-fs-ui);
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--x-color-text);
+
+    &:hover {
+      color: var(--x-color-text);
+    }
+
+    svg {
+      color: var(--x-color-accent);
+    }
+  }
+
+  .x-header__link {
+    padding: 0 14px;
+    font-family: var(--x-font-ui);
+    font-size: var(--x-fs-label);
+    font-weight: 600;
+    line-height: 1.3;
+    letter-spacing: var(--x-track-label);
+    text-transform: uppercase;
+    color: var(--x-color-text-muted);
+    transition: color var(--x-duration) var(--x-ease);
+
+    &:hover {
+      color: var(--x-color-text);
+    }
+
+    &[aria-current='page'] {
+      color: var(--x-color-accent);
+
+      &::after {
+        content: '';
+        position: absolute;
+        right: 14px;
+        bottom: 4px;
+        left: 14px;
+        height: 2px;
+        background: var(--x-color-accent);
+        box-shadow: 0 0 10px var(--x-color-glow);
+      }
+    }
+  }
+
+  .x-header__toggle {
+    --x-button-quiet-fg: var(--x-color-text-muted);
+  }
+
+  .x-header__panel {
+    background: var(--x-color-surface-2);
+    border: 1px solid var(--x-color-line-strong);
+
+    .x-header__link[aria-current='page']::after {
+      top: 12px;
+      right: auto;
+      bottom: 12px;
+      left: 0;
+      width: 2px;
+      height: auto;
+    }
+  }
+
+  .x-header__panel-actions {
+    border-top: 1px solid var(--x-color-line);
+  }
+
+  .x-header--stacked {
+    .x-header__panel {
+      background: none;
+      border: 0;
+    }
+  }
+}

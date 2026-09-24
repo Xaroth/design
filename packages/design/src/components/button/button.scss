@@ -1,0 +1,153 @@
+@use '../../styles/layers';
+
+@layer x.core {
+  // Structure and state only. Themes add shape (cut corners, frames) and fine-tune color in x.theme.
+  // A tone picks the color; the variant decides how loudly that color is used.
+  .x-button {
+    --x-button-tone: var(--x-color-accent);
+    --x-button-on-tone: var(--x-color-on-accent);
+    --x-button-quiet-fg: var(--x-color-text);
+
+    position: relative;
+    display: inline-flex;
+    gap: var(--x-space-2);
+    align-items: center;
+    justify-content: center;
+    min-height: var(--x-control-md);
+    padding: 0 20px;
+    font-family: var(--x-button-font, var(--x-font-ui));
+    font-size: var(--x-button-fs, 0.875rem);
+    font-weight: 600;
+    line-height: 1;
+    letter-spacing: var(--x-button-tracking, 0.14em);
+    text-transform: var(--x-button-case, uppercase);
+    text-decoration: none;
+    white-space: nowrap;
+    cursor: pointer;
+    color: var(--x-button-fg);
+    background: var(--x-button-bg);
+    border: 1px solid var(--x-button-border, transparent);
+    transition:
+      background var(--x-duration) var(--x-ease),
+      color var(--x-duration) var(--x-ease),
+      border-color var(--x-duration) var(--x-ease),
+      filter var(--x-duration) var(--x-ease);
+
+    &:disabled,
+    &[aria-disabled='true'] {
+      cursor: not-allowed;
+    }
+
+    &:disabled,
+    &[aria-disabled='true']:not(.x-button--loading) {
+      opacity: 0.5;
+    }
+
+    // Tones
+    &--danger {
+      --x-button-tone: var(--x-color-danger);
+      --x-button-on-tone: var(--x-color-on-danger);
+      --x-button-quiet-fg: var(--x-color-danger);
+    }
+
+    &--warning {
+      --x-button-tone: var(--x-color-warning);
+      --x-button-on-tone: var(--x-color-on-warning);
+      --x-button-quiet-fg: var(--x-color-warning);
+    }
+
+    &--success {
+      --x-button-tone: var(--x-color-success);
+      --x-button-on-tone: var(--x-color-on-success);
+      --x-button-quiet-fg: var(--x-color-success);
+    }
+
+    // Variants
+    &--primary {
+      --x-button-fg: var(--x-button-on-tone);
+      --x-button-bg: var(--x-button-tone);
+
+      &:hover:not(:disabled, [aria-disabled='true']) {
+        filter: brightness(1.1);
+      }
+    }
+
+    &--secondary {
+      --x-button-fg: var(--x-button-tone);
+      --x-button-bg: transparent;
+      --x-button-border: color-mix(in oklab, var(--x-button-tone) 60%, transparent);
+
+      &:hover:not(:disabled, [aria-disabled='true']) {
+        --x-button-bg: color-mix(in oklab, var(--x-button-tone) 12%, transparent);
+        --x-button-border: var(--x-button-tone);
+      }
+    }
+
+    &--tertiary {
+      --x-button-fg: var(--x-button-quiet-fg);
+      --x-button-bg: transparent;
+
+      &:hover:not(:disabled, [aria-disabled='true']) {
+        --x-button-bg: color-mix(in oklab, var(--x-button-tone) 12%, transparent);
+      }
+    }
+
+    // Sizes and layout
+    &--sm {
+      --x-button-fs: var(--x-fs-label);
+
+      min-height: var(--x-control-sm);
+      padding: 0 var(--x-space-4);
+    }
+
+    &--lg {
+      min-height: var(--x-control-lg);
+      padding: 0 var(--x-space-6);
+    }
+
+    &--full {
+      display: flex;
+      width: 100%;
+    }
+
+    &__start,
+    &__end {
+      display: inline-flex;
+      flex: none;
+
+      svg {
+        width: 1.15em;
+        height: 1.15em;
+      }
+    }
+
+    // Loading keeps the label in place (so the width does not jump) and draws a spinner over it.
+    &--loading {
+      cursor: progress;
+
+      .x-button__start,
+      .x-button__label,
+      .x-button__end {
+        visibility: hidden;
+      }
+    }
+
+    &__spinner {
+      position: absolute;
+      inset: 0;
+      width: 1.1em;
+      height: 1.1em;
+      margin: auto;
+      border: 2px solid currentcolor;
+      border-right-color: transparent;
+      border-radius: 50%;
+      animation: x-button-spin 0.8s linear infinite;
+    }
+  }
+
+  @keyframes x-button-spin {
+    to {
+      transform: rotate(1turn);
+    }
+  }
+}

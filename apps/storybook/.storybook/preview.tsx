@@ -1,8 +1,7 @@
 import type { Decorator, Preview } from '@storybook/react-vite'
 import { themes } from '@xaroth.nl/design/parts'
-import '@xaroth.nl/design/scss/core.scss'
-import '@xaroth.nl/design/scss/themes/xaroth.scss'
-import '@xaroth.nl/design/scss/themes/eve-online.scss'
+import '@xaroth.nl/design/themes/xaroth.css'
+import '@xaroth.nl/design/themes/eve-online.css'
 import './preview.css'
 
 const titles: Record<(typeof themes)[number], string> = {

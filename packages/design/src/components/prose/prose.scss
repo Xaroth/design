@@ -1,0 +1,157 @@
+@use '../../styles/table-look';
+@use '../../styles/layers';
+
+@layer x.core {
+  // Long-form content. Text keeps the reading width; code, tables and figures may use the full column.
+  // Themes set list markers, quote, table and code looks.
+  .x-prose {
+    --x-prose-block: 2em;
+
+    min-width: 0;
+
+    > * + * {
+      margin-top: 1em;
+    }
+
+    > :is(p, ul, ol, h2, h3, h4, blockquote, hr) {
+      max-width: var(--x-prose);
+    }
+
+    > :is(h2, h3, h4) {
+      margin-top: 2em;
+      scroll-margin-top: var(--x-space-8);
+    }
+
+    > :is(h2, h3, h4) + * {
+      margin-top: 0.5em;
+    }
+
+    > :first-child {
+      margin-top: 0;
+    }
+
+    > :is(blockquote, figure, table, pre, .x-code, hr) {
+      margin-block: var(--x-prose-block);
+    }
+
+    :where(ul, ol) {
+      display: grid;
+      gap: var(--x-space-2);
+      padding-left: 1.5rem;
+    }
+
+    :where(li) > :where(ul, ol) {
+      margin-top: var(--x-space-2);
+    }
+
+    :where(blockquote) {
+      position: relative;
+
+      > * + * {
+        margin-top: 0.75em;
+      }
+
+      > :is(footer, cite) {
+        display: block;
+        font-style: normal;
+      }
+    }
+
+    :where(:not(pre)) > :where(code) {
+      padding: 0.1em 0.35em;
+      font-size: 0.875em;
+      overflow-wrap: anywhere;
+    }
+
+    :where(figure:not(.x-code)) {
+      display: grid;
+      gap: var(--x-space-3);
+      min-width: 0;
+      overflow-x: auto;
+
+      > :is(img, svg, video, picture) {
+        width: 100%;
+        height: auto;
+      }
+    }
+
+    :where(figcaption) {
+      font-size: var(--x-fs-small);
+      line-height: 1.5;
+      color: var(--x-color-text-muted);
+    }
+
+    // Same look as the Table part; a Table inside prose keeps its own wrapper and is left alone here.
+    :where(table:not(.x-table)) {
+      @include table-look.table;
+      @include table-look.hover;
+    }
+
+    > .x-table-wrap {
+      margin-block: var(--x-prose-block);
+    }
+
+    :where(strong) {
+      font-weight: 600;
+      color: var(--x-color-text);
+    }
+  }
+
+  // Line numbers come from a counter, so selecting and copying the code leaves them out.
+  .x-code {
+    position: relative;
+    min-width: 0;
+    margin: 0;
+
+    &__bar {
+      display: flex;
+      gap: var(--x-space-3);
+      align-items: center;
+      justify-content: space-between;
+      padding: var(--x-space-2) var(--x-space-4);
+      font-size: var(--x-fs-label);
+      line-height: 1.3;
+    }
+
+    &__lang {
+      margin-left: auto;
+    }
+
+    &__pre {
+      padding: var(--x-space-4) var(--x-space-5) var(--x-space-4) 0;
+      margin: 0;
+      overflow-x: auto;
+      font-size: 0.875rem;
+      line-height: 1.7;
+      tab-size: 2;
+      counter-reset: x-line;
+
+      &:focus-visible {
+        outline-offset: -2px;
+      }
+    }
+
+    code {
+      font-size: inherit;
+    }
+
+    // Numbers stay put while long lines scroll sideways.
+    &__line::before {
+      position: sticky;
+      left: 0;
+      counter-increment: x-line;
+      content: counter(x-line);
+      display: inline-block;
+      box-sizing: content-box;
+      width: 3.5ch;
+      // Room between the frame edge and the numbers; the gutter is sticky, so this cannot be padding on <pre>.
+      padding-left: var(--x-code-gutter-start, 1.5ch);
+      padding-right: 1.5ch;
+      margin-right: 1.5ch;
+      text-align: right;
+      user-select: none;
+      background: var(--x-code-bg, transparent);
+      border-right: 1px solid var(--x-color-line-strong);
+    }
+  }
+}

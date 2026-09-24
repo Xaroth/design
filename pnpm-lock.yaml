@@ -102,9 +102,15 @@ importers:
       happy-dom:
         specifier: ^20.0.0
         version: 20.14.5
+      sass:
+        specifier: 'catalog:'
+        version: 1.105.0
       typescript:
         specifier: 'catalog:'
         version: 6.0.2
+      vite:
+        specifier: 'catalog:'
+        version: 8.3.0(@types/node@26.6.2)(esbuild@0.28.2)(sass@1.105.0)(yaml@2.9.1)
       vitest:
         specifier: 'catalog:'
         version: 4.1.9(@types/node@26.6.2)(happy-dom@20.14.5)(vite@8.3.0(@types/node@26.6.2)(esbuild@0.28.2)(sass@1.105.0)(yaml@2.9.1))

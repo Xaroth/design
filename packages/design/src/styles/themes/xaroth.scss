@@ -1,4 +1,5 @@
-// Theme entry. Tokens plus one partial per part; partials are scoped with theme.parts().
+// Theme entry: layout tokens, reset and base type, this theme's tokens, and its look for every part.
+// Component structure ships with each component; this file is loaded once per site.
 @use 'sass:meta';
 @use '../layers';
 @import '@fontsource-variable/cinzel/index.css';
@@ -8,18 +9,16 @@
 @import '@fontsource/ibm-plex-mono/400.css';
 @import '@fontsource-variable/manrope/index.css';
 
+@layer x.reset {
+  @include meta.load-css('../core/reset');
+}
+
+@layer x.core {
+  @include meta.load-css('../core/tokens');
+  @include meta.load-css('../core/base');
+}
+
 @layer x.theme {
   @include meta.load-css('xaroth/tokens');
-  @include meta.load-css('xaroth/button');
-  @include meta.load-css('xaroth/layout');
-  @include meta.load-css('xaroth/prose');
-  @include meta.load-css('xaroth/header');
-  @include meta.load-css('xaroth/footer');
-  @include meta.load-css('xaroth/card');
-  @include meta.load-css('xaroth/tag');
-  @include meta.load-css('xaroth/badge');
-  @include meta.load-css('xaroth/field');
-  @include meta.load-css('xaroth/timeline');
-  @include meta.load-css('xaroth/table');
-  @include meta.load-css('xaroth/progress');
+  @include meta.load-css('xaroth-parts');
 }

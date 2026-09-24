@@ -1,6 +1,6 @@
 import { createElement } from 'react'
 import { describe, it } from 'vitest'
-import AstroTimeline from '@xaroth.nl/design/astro/Timeline.astro'
+import AstroTimeline from '@xaroth.nl/design/astro/timeline'
 import { Timeline, type TimelineEntry } from '@xaroth.nl/design/react'
 import { expectSameHtml } from '../compare.ts'
 

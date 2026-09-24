@@ -1,0 +1,14 @@
+---
+import './layout.scss'
+import type { HTMLAttributes } from 'astro/types'
+import { gridClass } from './index.ts'
+
+type Props = Omit<HTMLAttributes<'div'>, 'class'> & {
+  class?: string
+  as?: 'div' | 'main' | 'section' | 'article' | 'ul' | 'ol'
+}
+
+const { as: Tag = 'div', class: className, ...rest } = Astro.props
+---
+
+<Tag class={gridClass({ className })} {...rest}><slot /></Tag>

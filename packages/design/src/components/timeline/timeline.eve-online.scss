@@ -1,0 +1,27 @@
+@use '../../styles/theme';
+
+// EVE v2 timeline: lit spine fading down, diamond nodes, glowing current node, cyan mono dates.
+@include theme.parts('eve-online') {
+  .x-timeline {
+    --x-timeline-date-fs: 0.9375rem;
+    --x-timeline-rail: 12px;
+  }
+
+  .x-timeline__item:first-child::before {
+    background: linear-gradient(var(--x-color-accent), var(--x-color-line-strong));
+  }
+
+  .x-timeline__item:last-child::before {
+    background: linear-gradient(var(--x-color-line-strong), transparent);
+  }
+
+  .x-timeline__item--current::after {
+    background: var(--x-color-accent);
+    box-shadow: 0 0 10px var(--x-color-glow);
+  }
+
+  .x-timeline__date {
+    font-family: var(--x-font-mono);
+    color: var(--x-color-accent);
+  }
+}
