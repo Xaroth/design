@@ -4,6 +4,7 @@ import { copyFile, mkdir, readdir, readFile, writeFile } from 'node:fs/promises'
 import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import * as sass from 'sass'
+import { themeIds } from '../src/config.ts'
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..')
 const dist = join(root, 'dist')
@@ -14,9 +15,11 @@ const compile = async (src: string, out: string) => {
   await writeFile(join(dist, out), `${css}\n`)
 }
 
-await compile('src/styles/themes/xaroth.scss', 'themes/xaroth.css')
-await compile('src/styles/themes/eve-online.scss', 'themes/eve-online.css')
+for (const theme of themeIds) {
+  await compile(`src/styles/themes/${theme}.scss`, `themes/${theme}.css`)
+}
 await compile('src/styles/all.scss', 'all.css')
+await compile('src/styles/themes.scss', 'themes.css')
 
 // Source imports point at .scss and .ts; published files point at compiled .css and .js.
 export const toDist = (text: string) =>
@@ -32,3 +35,8 @@ for (const family of await readdir(join(root, 'src/components'))) {
   }
 }
 await copyFile(join(root, 'src/env.d.ts'), join(dist, 'env.d.ts'))
+
+// The Astro barrel only re-exports .astro files, which tsc cannot compile; ship it as JS with matching types.
+const barrel = await readFile(join(root, 'src/astro.ts'), 'utf8')
+await writeFile(join(dist, 'astro.js'), barrel)
+await writeFile(join(dist, 'astro.d.ts'), barrel)

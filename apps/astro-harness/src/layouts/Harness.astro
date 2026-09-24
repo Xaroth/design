@@ -1,0 +1,30 @@
+---
+// Renders the page once per theme. Pages pass a function as the default slot: {(theme) => ...}.
+import { themes } from '@xaroth.nl/design/parts'
+import '@xaroth.nl/design/themes.css'
+
+interface Props {
+  title: string
+}
+
+const { title } = Astro.props
+const sections = await Promise.all(themes.map(async (theme) => ({ ...theme, html: await Astro.slots.render('default', [theme.id]) })))
+---
+
+<html lang="en" data-x-theme="multi">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+  </head>
+  <body>
+    {
+      sections.map(({ id, label, html }) => (
+        <section data-x-theme={id} style="padding: 32px 0 64px">
+          <p class="x-label x-muted" style="padding: 0 32px 16px">{label}</p>
+          <Fragment set:html={html} />
+        </section>
+      ))
+    }
+  </body>
+</html>

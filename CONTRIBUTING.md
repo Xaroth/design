@@ -15,15 +15,17 @@ Outside the package:
 | File | Job |
 | --- | --- |
 | `apps/astro-harness/test/parts/<part>.test.ts` | Same-HTML test: every meaningful prop combination, Astro vs React, via `expectSameHtml`. |
-| `apps/astro-harness/src/pages/<part>.astro` | Harness page showing the part in both themes. |
+| `apps/astro-harness/src/pages/<part>.astro` | Harness page, wrapped in `layouts/Harness.astro`, which renders it once per theme. |
 | `apps/storybook/stories/<Part>.stories.tsx` | Story with working controls for every prop. |
 
-Entry files (`src/parts.ts`, `src/react.ts`, `src/styles/all.scss`, `src/styles/themes/_<theme>-parts.scss`) and the package `exports` are generated from the folders: run `pnpm --filter @xaroth.nl/design generate` after adding a folder or an `.astro` file. `pnpm test` fails when they are out of date.
+The theme list lives in `src/config.ts`; scripts, exports, Storybook and the harness read it.
+
+Entry files (`src/parts.ts`, `src/astro.ts`, `src/react.ts`, `src/styles/all.scss`, `src/styles/themes/_<theme>-parts.scss`) and the package `exports` are generated from the folders: run `pnpm --filter @xaroth.nl/design generate` after adding a folder or an `.astro` file. `pnpm test` fails when they are out of date.
 
 ## How sites use it
 
 - Load one theme once: `import '@xaroth.nl/design/themes/xaroth.css'`. It carries tokens, reset, base type and the theme look for every part.
-- Import components by name: `@xaroth.nl/design/astro/section-head`, or `import { SectionHead } from '@xaroth.nl/design/react'`. Each component brings its own structure CSS, so a page only loads what it uses.
+- Import components by name: `@xaroth.nl/design/astro/section-head`, `import { SectionHead } from '@xaroth.nl/design/astro'`, or `import { SectionHead } from '@xaroth.nl/design/react'`. Barrel imports do not pull unused component CSS. Each component brings its own structure CSS, so a page only loads what it uses.
 - Apps in this repo resolve the package with the `source` condition, so they read `src` directly and need no build while developing.
 
 ## Rules
@@ -36,6 +38,11 @@ Entry files (`src/parts.ts`, `src/react.ts`, `src/styles/all.scss`, `src/styles/
 - Accessibility: WCAG 2.2 AA contrast, visible focus, correct roles and labels. Storybook runs axe with `test: 'error'`.
 - Text never below `--x-fs-label` (13px).
 - Stories: one story per component, named like the component. Group in a folder only when a part has more than one component (for example `Form/Input`, `Form/Select`).
+
+## Comments
+
+- Only where the code does not explain itself: a non-obvious reason, a browser quirk, a constraint. Say why, not what.
+- Short and rare. No history ("was", "v2", "ported from"), no design version names, no restating the folder or theme a file is in.
 
 ## Design references
 

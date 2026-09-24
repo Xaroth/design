@@ -23,11 +23,20 @@
       "source": "./src/styles/themes/eve-online.scss",
       "default": "./dist/themes/eve-online.css"
     },
+    "./themes.css": {
+      "source": "./src/styles/themes.scss",
+      "default": "./dist/themes.css"
+    },
     "./all.css": {
       "source": "./src/styles/all.scss",
       "default": "./dist/all.css"
     },
     "./scss/*": "./src/styles/*",
+    "./astro": {
+      "source": "./src/astro.ts",
+      "types": "./dist/astro.d.ts",
+      "default": "./dist/astro.js"
+    },
     "./parts": {
       "source": "./src/parts.ts",
       "types": "./dist/parts.d.ts",
