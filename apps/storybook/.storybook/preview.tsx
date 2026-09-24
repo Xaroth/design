@@ -11,8 +11,10 @@ const titles: Record<(typeof themes)[number], string> = {
 }
 
 // Theme lives on <html>, like a real site, so the whole canvas takes the theme background.
+// Unknown values (for example a remembered theme that no longer exists) fall back to the first theme.
 const withTheme: Decorator = (Story, context) => {
-  document.documentElement.dataset.xTheme = context.globals.theme as string
+  const selected = context.globals.theme as string
+  document.documentElement.dataset.xTheme = (themes as readonly string[]).includes(selected) ? selected : themes[0]
   return <Story />
 }
 
