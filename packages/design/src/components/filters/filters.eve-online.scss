@@ -3,11 +3,7 @@
 @include theme.parts('eve-online') {
   .x-filters {
     --x-filters-switch-font: var(--x-font-display);
-    --x-filters-switch-fs: var(--x-fs-label);
-    --x-filters-switch-weight: 600;
-    --x-filters-switch-tracking: var(--x-track-label);
-    --x-filters-switch-case: uppercase;
-    --x-filters-switch-color: var(--x-color-text-faint);
+    --x-filters-toggle-bg: var(--x-color-surface);
     --x-filters-option-weight: 600;
     --x-filters-option-bg: var(--x-color-surface);
     --x-filters-option-hover: var(--x-color-accent);

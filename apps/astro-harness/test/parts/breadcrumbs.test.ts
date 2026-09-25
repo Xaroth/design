@@ -33,6 +33,10 @@ const cases: { name: string; props: Record<string, unknown> }[] = [
       id: 'crumbs',
     },
   },
+  {
+    name: 'user aria-label loses to label',
+    props: { items: [{ label: 'Home', href: '/' }], label: 'Trail', 'aria-label': 'Other' },
+  },
 ]
 
 describe('Breadcrumbs renders the same HTML in Astro and React', () => {

@@ -83,7 +83,6 @@ const icon = bem('x-icon')
 export const iconClass = ({ className }: Pick<IconOptions, 'className'> = {}): string => icon({}, className)
 
 export const iconState = ({ size, label }: Pick<IconOptions, 'size' | 'label'>) => ({
-  width: size,
-  height: size,
+  ...(size !== undefined && { width: size, height: size }),
   ...(label ? { role: 'img' as const, 'aria-label': label } : { 'aria-hidden': 'true' as const }),
 })

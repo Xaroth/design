@@ -11,7 +11,8 @@
 
     &--raised,
     &--accent {
-      background: linear-gradient(180deg, rgb(228 197 135 / 5%), transparent 40%) var(--x-color-glass);
+      background: linear-gradient(180deg, var(--x-color-surface-3), var(--x-color-surface-2) 70%);
+      border-color: var(--x-color-line-strong);
       box-shadow: var(--x-shadow);
     }
 
@@ -19,7 +20,11 @@
       --x-panel-line: var(--x-color-accent-strong);
       --x-panel-line-inset: 8%;
 
-      border-color: rgb(228 197 135 / 32%);
+      border-color: var(--x-color-accent-edge);
+      border-top-color: var(--x-color-accent);
+      box-shadow:
+        inset 0 1px 0 var(--x-color-accent),
+        var(--x-shadow);
     }
 
     &--marks::before {

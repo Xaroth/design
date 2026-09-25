@@ -3,6 +3,7 @@ import Harness from '../layouts/Harness.astro'
 import { Pagination } from '@xaroth.nl/design/astro'
 
 const href = '#page-{page}'
+const hrefFn = (page: number) => `#page-${page}`
 ---
 
 <Harness title="Pagination">
@@ -12,6 +13,8 @@ const href = '#page-{page}'
       <Pagination page={2} pages={8} href={href} align="start" />
       <Pagination page={5} pages={10} href={href} ends align="start" />
       <Pagination page={10} pages={10} href={href} ends align="start" />
+      <Pagination page={2} pages={8} href={hrefFn} label="Pagination with an href function" />
+      <Pagination page={10} pages={5} href={href} label="Page past the end" />
     </div>
   )}
 </Harness>

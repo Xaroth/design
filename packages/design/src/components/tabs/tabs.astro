@@ -10,10 +10,11 @@ type Props = Omit<HTMLAttributes<'nav'>, 'class'> & {
   label: string
 }
 
-const { class: className, items, label, ...rest } = Astro.props
+const { class: className, items, label, slot: _slot, ...rest } = Astro.props
+const attrs = { ...rest, 'aria-label': label }
 ---
 
-<nav class={tabsClass({ className })} aria-label={label} {...rest}>
+<nav {...attrs} class={tabsClass({ className })}>
   <ul class={c.list}>
     {
       items.map((item) => (

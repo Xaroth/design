@@ -4,6 +4,7 @@ import {
   paginationClass,
   paginationClasses as c,
   paginationEntries,
+  paginationItemClass,
   paginationPageAttrs,
   type PaginationInput,
   type PaginationOptions,
@@ -29,6 +30,7 @@ export function Pagination({
   nextLabel,
   firstLabel,
   lastLabel,
+  summaryLabel,
   label = 'Pagination',
   ...rest
 }: PaginationProps) {
@@ -43,6 +45,7 @@ export function Pagination({
     nextLabel,
     firstLabel,
     lastLabel,
+    summaryLabel,
   })
   return (
     <nav
@@ -54,9 +57,14 @@ export function Pagination({
         {entries.map((entry) => (
           <li
             key={entry.key}
-            className={c.item}
+            className={paginationItemClass(entry)}
           >
-            {entry.kind === 'page' ? (
+            {entry.kind === 'summary' ? (
+              <span className={c.summary}>
+                <span aria-hidden="true">{entry.text}</span>
+                <span className="x-visually-hidden">{entry.label}</span>
+              </span>
+            ) : entry.kind === 'page' ? (
               <a
                 className={c.link}
                 {...paginationPageAttrs(entry)}

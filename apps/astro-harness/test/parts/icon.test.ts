@@ -10,6 +10,9 @@ const cases: { name: string; props: Record<string, unknown> }[] = [
   { name: 'length size', props: { name: 'check', size: '1.5rem' } },
   { name: 'extra class and attrs', props: { name: 'github', class: 'site-icon', 'data-test': 'gh' } },
   { name: 'everything', props: { name: 'danger', size: 32, label: 'Error', class: 'site-icon' } },
+  { name: 'user aria-hidden loses to the label', props: { name: 'search', label: 'Search', 'aria-hidden': 'true' } },
+  { name: 'user aria-hidden on a decorative icon', props: { name: 'check', 'aria-hidden': 'false', id: 'i1' } },
+  { name: 'user viewBox loses', props: { name: 'check', viewBox: '0 0 16 16' } },
 ]
 
 const render = async (props: Record<string, unknown>) => {

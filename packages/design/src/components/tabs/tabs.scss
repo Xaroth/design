@@ -2,7 +2,10 @@
 
 @layer x.core {
   // Structure only. Themes set type, spacing and the current page marker.
+  // Part-local property: --x-tabs-fade, the surface behind the tabs, which the scroll fade blends into.
   .x-tabs {
+    --x-tabs-fade: var(--x-color-bg);
+
     min-width: 0;
 
     // Scrolls inside its own box on narrow screens; the links stay reachable by keyboard.
@@ -14,6 +17,23 @@
       list-style: none;
       border-bottom: 1px solid var(--x-color-line);
       scrollbar-width: none;
+
+      // Focus scrolling keeps a tab clear of the fade.
+      scroll-padding-inline: var(--x-space-6);
+
+      // Fades tabs cut off at the end. Sticky, so it only covers tabs while more are behind it; at the end of the
+      // scroll it sits in the empty space after the last tab.
+      @media (width < 1024px) {
+        &::after {
+          content: '';
+          position: sticky;
+          right: 0;
+          flex: none;
+          width: var(--x-space-6);
+          pointer-events: none;
+          background: linear-gradient(to right, transparent, var(--x-tabs-fade) 85%);
+        }
+      }
     }
 
     &__item {

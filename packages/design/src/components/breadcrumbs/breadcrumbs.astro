@@ -9,11 +9,12 @@ type Props = Omit<HTMLAttributes<'nav'>, 'class'> & {
   label?: string
 }
 
-const { class: className, items, label = 'Breadcrumb', ...rest } = Astro.props
+const { class: className, items, label = 'Breadcrumb', slot: _slot, ...rest } = Astro.props
+const attrs = { ...rest, 'aria-label': label }
 const crumbs = items.map((item, i) => ({ item, ...breadcrumbState(item, i, items.length) }))
 ---
 
-<nav class={breadcrumbsClass({ className })} aria-label={label} {...rest}>
+<nav {...attrs} class={breadcrumbsClass({ className })}>
   <ol class={c.list}>
     {
       crumbs.map(({ item, tag: El, attrs }) => (

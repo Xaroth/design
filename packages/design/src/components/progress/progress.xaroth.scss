@@ -2,12 +2,12 @@
 
 @include theme.parts('xaroth') {
   .x-progress {
-    --x-progress-md: 4px;
+    --x-progress-md: 7px;
     --x-progress-sm: 3px;
     --x-progress-inset: -1px;
     --x-progress-default: var(--x-color-accent);
     --x-progress-head: var(--x-progress-tone);
-    --x-progress-diamond: 8px;
+    --x-progress-diamond: 11px;
   }
 
   .x-progress--sm {
@@ -33,7 +33,11 @@
   }
 
   .x-progress:not(.x-progress--gradient) .x-progress__fill {
-    background: linear-gradient(90deg, var(--x-color-bronze), var(--x-progress-tone));
+    background: linear-gradient(
+      90deg,
+      color-mix(in oklab, var(--x-progress-tone) 70%, var(--x-color-bronze)),
+      var(--x-progress-tone)
+    );
   }
 
   .x-progress__fill {

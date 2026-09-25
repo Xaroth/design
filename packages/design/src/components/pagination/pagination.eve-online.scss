@@ -27,8 +27,12 @@
     }
   }
 
-  .x-pagination__gap {
+  .x-pagination__gap,
+  .x-pagination__summary {
     font-family: var(--x-font-mono);
+  }
+
+  .x-pagination__gap {
     color: var(--x-color-text-faint);
   }
 }

@@ -9,7 +9,7 @@ type Props = Omit<HTMLAttributes<'section'>, 'class'> &
     as?: 'section' | 'div' | 'article' | 'aside'
   }
 
-const { tight, as: Tag = 'section', class: className, ...rest } = Astro.props
+const { tight, as: Tag = 'section', class: className, slot: _slot, ...rest } = Astro.props
 ---
 
-<Tag class={sectionClass({ tight, className })} {...rest}><slot /></Tag>
+<Tag {...rest} class={sectionClass({ tight, className })}><slot /></Tag>

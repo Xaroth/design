@@ -11,9 +11,9 @@ export type BreadcrumbsProps = Omit<HTMLAttributes<HTMLElement>, 'children'> & {
 export function Breadcrumbs({ className, items, label = 'Breadcrumb', ...rest }: BreadcrumbsProps) {
   return (
     <nav
-      className={breadcrumbsClass({ className })}
-      aria-label={label}
       {...rest}
+      aria-label={label}
+      className={breadcrumbsClass({ className })}
     >
       <ol className={c.list}>
         {items.map((item, i) => {

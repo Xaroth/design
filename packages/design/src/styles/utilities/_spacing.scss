@@ -1,17 +1,5 @@
 @use 'sass:map';
-
-$sizes: (
-  'none': 0,
-  '2xs': var(--x-space-1),
-  'xs': var(--x-space-2),
-  'sm': var(--x-space-3),
-  'md': var(--x-space-4),
-  'lg': var(--x-space-5),
-  'xl': var(--x-space-6),
-  '2xl': var(--x-space-7),
-  '3xl': var(--x-space-8),
-  '4xl': var(--x-space-9),
-);
+@use 'scale' as *;
 
 // Physical names for sides (t, r, b, l); x and y map to the logical inline and block axes.
 $sides: (

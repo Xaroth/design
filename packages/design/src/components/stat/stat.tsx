@@ -16,8 +16,8 @@ export function StatGroup({ variant, columns, className, ...rest }: StatGroupPro
 
 export type StatProps = Omit<StatOptions, 'className'> &
   HTMLAttributes<HTMLDivElement> & {
-    label: ReactNode
-    /** The value; children work too. */
+    label?: ReactNode
+    /** The value; children take precedence. */
     value?: ReactNode
     /** Small text after the value: a unit or "/ 44". */
     unit?: ReactNode
@@ -33,7 +33,7 @@ export function Stat({ tone, label, value, unit, hint, className, children, ...r
     >
       <dt className="x-stat__label">{label}</dt>
       <dd className="x-stat__value">
-        {value ?? children}
+        {children ?? value}
         {unit != null && <span className="x-stat__unit">{unit}</span>}
       </dd>
       {hint != null && <dd className="x-stat__hint">{hint}</dd>}

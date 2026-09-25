@@ -75,6 +75,12 @@
       }
     }
 
+    // Escape dismisses. Same weight as the open rules above, so it must stay after them.
+    &.x-tooltip--dismissed .x-tooltip__bubble {
+      visibility: hidden;
+      opacity: 0;
+    }
+
     &--bottom .x-tooltip__bubble {
       top: calc(100% + var(--x-tooltip-gap));
       bottom: auto;

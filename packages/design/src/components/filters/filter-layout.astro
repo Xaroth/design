@@ -2,6 +2,7 @@
 import './filters.scss'
 import type { HTMLAttributes } from 'astro/types'
 import {
+  filterClasses as c,
   filterLayoutClass,
   filterPositions,
   filterSwitchButtonAttrs,
@@ -16,17 +17,33 @@ type Props = Omit<HTMLAttributes<'div'>, 'class'> &
     /** Adds a Top / Side switch above the filters (hidden below 1024px). Uses a tiny inline script. */
     switchable?: boolean
     switchLabel?: string
+    /** Below 1024px the filters fold behind a closed disclosure. */
+    collapsible?: boolean
+    collapsibleLabel?: string
+    /** Number of active filters, shown on the disclosure. */
+    activeCount?: number
+    activeLabel?: string
   }
 
-const { position = 'top', switchable, switchLabel = 'Filter position', class: className, ...rest } = Astro.props
+const {
+  position = 'top',
+  switchable,
+  switchLabel = 'Filter position',
+  collapsible,
+  collapsibleLabel = 'Filters',
+  activeCount,
+  activeLabel = 'active',
+  class: className,
+  ...rest
+} = Astro.props
 ---
 
 <div class={filterLayoutClass({ position, className })} {...rest}>
   {
     switchable && (
-      <fieldset class="x-filters__switch">
-        <legend class="x-filters__switch-label">{switchLabel}</legend>
-        <span class="x-filters__switch-options">
+      <fieldset class={c.switch}>
+        <legend class={c.switchLabel}>{switchLabel}</legend>
+        <span class={c.switchOptions}>
           {filterPositions.map((option) => (
             <button type="button" {...filterSwitchButtonAttrs(option, position)}>{filterSwitchLabels[option]}</button>
           ))}
@@ -34,7 +51,22 @@ const { position = 'top', switchable, switchLabel = 'Filter position', class: cl
       </fieldset>
     )
   }
-  <div class="x-filters__controls"><slot name="filters" /></div>
-  <div class="x-filters__results"><slot /></div>
+  {
+    collapsible && (
+      <details class={c.disclosure}>
+        <summary class={c.toggle}>
+          {collapsibleLabel}
+          {activeCount !== undefined && activeCount > 0 && (
+            <span class={c.count}>
+              {activeCount}
+              <span class="x-visually-hidden">{` ${activeLabel}`}</span>
+            </span>
+          )}
+        </summary>
+      </details>
+    )
+  }
+  <div class={c.controls}><slot name="filters" /></div>
+  <div class={c.results}><slot /></div>
 </div>
 {switchable && <script is:inline set:html={filterSwitchScript} />}

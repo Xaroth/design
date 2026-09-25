@@ -18,10 +18,31 @@
 
     &__item {
       display: flex;
+
+      &--summary {
+        display: none;
+      }
+    }
+
+    // Prev, "2 / 8", Next: the page list would wrap onto several rows.
+    @media (width < 480px) {
+      &__list {
+        flex-wrap: nowrap;
+      }
+
+      &__item--page,
+      &__item--end {
+        display: none;
+      }
+
+      &__item--summary {
+        display: flex;
+      }
     }
 
     &__link,
-    &__gap {
+    &__gap,
+    &__summary {
       display: grid;
       place-items: center;
       min-width: var(--x-control-md);
@@ -62,8 +83,14 @@
       }
     }
 
-    &__gap {
+    &__gap,
+    &__summary {
       border-color: transparent;
+    }
+
+    &__summary {
+      font-variant-numeric: tabular-nums;
+      color: var(--x-color-text);
     }
   }
 }

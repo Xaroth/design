@@ -33,6 +33,12 @@ const cases: { name: string; props: Record<string, unknown> }[] = [
     name: 'extra class and attrs',
     props: { value: 55, label: 'Upload', class: 'site-progress', id: 'p1', title: 'Upload' },
   },
+  { name: 'user aria-valuetext kept', props: { value: 3, max: 8, label: 'Steps', 'aria-valuetext': '3 of 8 steps' } },
+  {
+    name: 'user aria-valuetext loses to showValue',
+    props: { value: 3, max: 8, label: 'Steps', showValue: true, 'aria-valuetext': '3 of 8' },
+  },
+  { name: 'user aria-valuenow on indeterminate', props: { label: 'Loading', 'aria-valuenow': 5 } },
 ]
 
 describe('Progress renders the same HTML in Astro and React', () => {

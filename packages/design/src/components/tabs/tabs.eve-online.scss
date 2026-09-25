@@ -1,6 +1,11 @@
 @use '../../styles/theme';
 
 @include theme.parts('eve-online') {
+  // The fade starts over the last tab's end padding, so it adds little scroll width.
+  .x-tabs__list::after {
+    margin-left: -20px;
+  }
+
   .x-tabs__link {
     padding: 0 20px;
     font-family: var(--x-font-display);

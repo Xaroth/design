@@ -1,8 +1,16 @@
+import { experimental_AstroContainer as AstroContainer } from 'astro/container'
 import { createElement, type ReactElement } from 'react'
-import { describe, it } from 'vitest'
-import { Tooltip } from '@xaroth.nl/design/react'
-import { expectSameHtml } from '../compare.ts'
+import { renderToStaticMarkup } from 'react-dom/server'
+import { describe, expect, it } from 'vitest'
+import { Tooltip, tooltipEscapeScript } from '@xaroth.nl/design/react'
+import { normalize } from '../normalize.ts'
 import { Tooltip as AstroTooltip } from '@xaroth.nl/design/astro'
+import TooltipPage from '../../src/pages/tooltip.astro'
+
+const container = await AstroContainer.create()
+
+// Astro adds the Escape script once per page; React keeps the dismissed state itself.
+const script = `<script>${tooltipEscapeScript}</script>`
 
 type Trigger = { html: string; react: () => ReactElement }
 
@@ -14,9 +22,21 @@ const described: Trigger = {
   html: '<button type="button" aria-describedby="scopes-note">Scopes</button>',
   react: () => createElement('button', { type: 'button', 'aria-describedby': 'scopes-note' }, 'Scopes'),
 }
+const alreadyDescribed: Trigger = {
+  html: '<button type="button" aria-describedby="scopes-tip scopes-note">Scopes</button>',
+  react: () => createElement('button', { type: 'button', 'aria-describedby': 'scopes-tip scopes-note' }, 'Scopes'),
+}
 const link: Trigger = {
   html: '<a href="/scopes">Scopes</a>',
   react: () => createElement('a', { href: '/scopes' }, 'Scopes'),
+}
+const commented: Trigger = {
+  html: '<!-- trigger --><button type="button" title="a > b">Scopes</button>',
+  react: () => createElement('button', { type: 'button', title: 'a > b' }, 'Scopes'),
+}
+const focusableSpan: Trigger = {
+  html: '<span tabindex="0" class="hint">HP</span>',
+  react: () => createElement('span', { tabIndex: 0, className: 'hint' }, 'HP'),
 }
 
 const cases: { name: string; props: Record<string, unknown>; trigger: Trigger }[] = [
@@ -26,7 +46,11 @@ const cases: { name: string; props: Record<string, unknown>; trigger: Trigger }[
   { name: 'open', props: { open: true }, trigger: button },
   { name: 'bottom open', props: { placement: 'bottom', open: true }, trigger: link },
   { name: 'keeps existing description', props: {}, trigger: described },
+  { name: 'does not repeat its own id', props: {}, trigger: alreadyDescribed },
+  { name: 'leading comment and > in a value', props: {}, trigger: commented },
+  { name: 'focusable span', props: {}, trigger: focusableSpan },
   { name: 'extra class and attrs', props: { class: 'site-tip', 'data-test': 'tip' }, trigger: link },
+  { name: 'user role and title on the wrapper', props: { role: 'presentation', title: 'wrap' }, trigger: button },
 ]
 
 describe('Tooltip renders the same HTML in Astro and React', () => {
@@ -34,11 +58,16 @@ describe('Tooltip renders the same HTML in Astro and React', () => {
     it(name, async () => {
       const all: Record<string, unknown> = { id: 'scopes', text: 'Two scopes: achievements and standings.', ...props }
       const { class: className, ...rest } = all
-      await expectSameHtml(
-        AstroTooltip,
-        { props: all, slots: { default: trigger.html } },
-        createElement(Tooltip, { ...rest, className } as never, trigger.react()),
-      )
+      const astro = await container.renderToString(AstroTooltip, { props: all, slots: { default: trigger.html } })
+      const react = renderToStaticMarkup(createElement(Tooltip, { ...rest, className } as never, trigger.react()))
+      expect(astro.includes(script)).toBe(true)
+      expect(normalize(astro.replace(script, ''))).toBe(normalize(react))
     })
   }
+})
+
+it('adds the Escape script once per page', async () => {
+  const html = await container.renderToString(TooltipPage)
+  expect(html.match(/<span class="x-tooltip/g)?.length).toBeGreaterThan(1)
+  expect(html.split(script).length - 1).toBe(1)
 })

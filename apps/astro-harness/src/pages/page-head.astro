@@ -1,0 +1,44 @@
+---
+import Harness from '../layouts/Harness.astro'
+import { Badge, Breadcrumbs, Button, Container, PageHead, Tag } from '@xaroth.nl/design/astro'
+---
+
+<Harness title="Page head">
+  {(theme: string) => (
+    <div class="x-stack-3xl">
+      <Container>
+        <PageHead
+          eyebrow={theme === 'xaroth' ? 'Logbook' : 'Fitting / 06 modules'}
+          title="Building a typed ESI client"
+          lead="ESI publishes an OpenAPI spec for every route. With a bit of cleanup it drives a typed client."
+          titleId={`${theme}-page-title`}
+        >
+          <Breadcrumbs slot="breadcrumbs" items={[{ label: 'Home', href: '#' }, { label: 'Blog', href: '#blog' }, { label: 'Typed ESI client' }]} />
+          <Fragment slot="meta">
+            <time datetime="2026-09-02">2 Sep 2026</time>
+            <span>9 min read</span>
+            <Tag>ESI</Tag>
+            <Tag>TypeScript</Tag>
+          </Fragment>
+          <Fragment slot="actions">
+            <Button variant="secondary" size="sm">Share</Button>
+            <Button size="sm">Open repo</Button>
+          </Fragment>
+        </PageHead>
+        <p>Start aligned with every piece.</p>
+      </Container>
+      <Container>
+        <PageHead align="center" eyebrow="The archive" title="Tools" lead="Six tools, each doing one thing well. Most need no sign-in at all.">
+          <Breadcrumbs slot="breadcrumbs" items={[{ label: 'Home', href: '#' }, { label: 'Tools' }]} />
+          <Badge slot="meta" tone="success">6 live</Badge>
+          <Button slot="actions" variant="secondary" size="sm">Suggest a tool</Button>
+        </PageHead>
+        <p style="text-align: center">Centered.</p>
+      </Container>
+      <Container>
+        <PageHead title="Title only" level={2} />
+        <p>No eyebrow, lead or slots, rendered as h2.</p>
+      </Container>
+    </div>
+  )}
+</Harness>

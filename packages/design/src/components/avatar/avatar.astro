@@ -7,13 +7,10 @@ type Props = Omit<HTMLAttributes<'span'>, 'class'> & Omit<AvatarOptions, 'classN
 
 const { name, src, alt, initials, size, class: className, slot: _slot, ...rest } = Astro.props
 const state = avatarState({ name, src, alt, initials })
+const attrs = { ...rest, ...state.root }
 ---
 
-<span
-  class={avatarClass({ size, src, className })}
-  {...state.root}
-  {...rest}
->
+<span {...attrs} class={avatarClass({ size, src, className })}>
   {
     src ? (
       <img class="x-avatar__image" src={src} alt={state.alt} loading="lazy" decoding="async" />

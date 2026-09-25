@@ -18,6 +18,8 @@ const cases: { name: string; props: Record<string, unknown> }[] = [
   { name: 'large', props: { name: 'Xaroth', size: 'lg' } },
   { name: 'extra large', props: { name: 'Xaroth', size: 'xl' } },
   { name: 'extra class and attrs', props: { name: 'Xaroth', class: 'site-avatar', title: 'Xaroth' } },
+  { name: 'user role and label lose', props: { name: 'Xaroth', role: 'presentation', 'aria-label': 'X', id: 'a1' } },
+  { name: 'user aria-hidden on an image avatar', props: { name: 'Xaroth', src: '/avatar.jpg', 'aria-hidden': 'true' } },
 ]
 
 describe('Avatar renders the same HTML in Astro and React', () => {

@@ -4,7 +4,8 @@
   .x-card {
     --x-card-gap: var(--x-space-4);
     --x-card-glass-hover: rgb(48 37 24 / 66%);
-    --x-card-edge-hover: rgb(228 197 135 / 32%);
+    --x-card-edge-hover: var(--x-color-rule);
+    --x-card-line: var(--x-color-accent);
     --x-card-index-style: upper-roman;
 
     background: linear-gradient(180deg, rgb(228 197 135 / 5%), transparent 40%) var(--x-color-glass);
@@ -13,7 +14,8 @@
     box-shadow: var(--x-shadow);
     transition:
       border-color var(--x-duration) var(--x-ease),
-      background-color var(--x-duration) var(--x-ease);
+      background-color var(--x-duration) var(--x-ease),
+      transform var(--x-duration) var(--x-ease);
 
     &::before {
       content: '';
@@ -23,25 +25,60 @@
       left: 22%;
       height: 1px;
       pointer-events: none;
-      background: linear-gradient(90deg, transparent, var(--x-color-accent), transparent);
+      background: linear-gradient(90deg, transparent, var(--x-card-line), transparent);
+      transition:
+        left var(--x-duration) var(--x-ease),
+        right var(--x-duration) var(--x-ease);
     }
 
     &--link:hover {
       background-color: var(--x-card-glass-hover);
+      --x-card-line: var(--x-color-accent-strong);
+
       border-color: var(--x-card-edge-hover);
+      transform: translateY(-2px);
+
+      &::before {
+        right: 0;
+        left: 0;
+      }
 
       .x-card__title {
         color: var(--x-color-accent-strong);
       }
+
+      @media (prefers-reduced-motion: reduce) {
+        transform: none;
+      }
     }
 
+    // Full gold rule and the spice mark on the top edge.
     &--featured {
-      border-color: var(--x-card-edge-hover);
+      border-color: var(--x-color-accent-edge);
 
       &::before {
-        right: 8%;
-        left: 8%;
-        background: linear-gradient(90deg, transparent, var(--x-color-accent-strong), transparent);
+        right: 0;
+        left: 0;
+        height: 2px;
+        background: linear-gradient(
+          90deg,
+          var(--x-color-bronze),
+          var(--x-color-accent-strong) 50%,
+          var(--x-color-bronze)
+        );
+      }
+
+      &::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 50%;
+        width: 0.75rem;
+        height: 0.75rem;
+        pointer-events: none;
+        background: var(--x-color-spice);
+        box-shadow: 0 0 0 4px var(--x-color-bg);
+        transform: translate(-50%, -50%) rotate(45deg);
       }
     }
 
@@ -63,11 +100,20 @@
       padding-top: var(--x-space-4);
     }
 
+    // Same label voice as the tertiary button.
     &__foot-start,
     &__foot-end {
-      font-family: var(--x-font-mono);
+      font-family: var(--x-font-display);
       font-size: var(--x-fs-label);
-      color: var(--x-color-text-faint);
+      font-weight: 600;
+      line-height: 1.3;
+      letter-spacing: var(--x-track-caps);
+      text-transform: uppercase;
+      color: var(--x-color-text-muted);
+    }
+
+    &__foot-end {
+      color: var(--x-color-accent-strong);
     }
   }
 }

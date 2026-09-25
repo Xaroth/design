@@ -8,7 +8,7 @@ type Props = Omit<HTMLAttributes<'div'>, 'class'> &
     class?: string
     /** Plain-text label; the `label` slot takes markup. */
     label?: string
-    /** The value; the default slot takes markup. */
+    /** The value; the default slot takes markup and precedence. */
     value?: string | number
     /** Small text after the value: a unit or "/ 44". The `unit` slot takes markup. */
     unit?: string
@@ -16,12 +16,12 @@ type Props = Omit<HTMLAttributes<'div'>, 'class'> &
     hint?: string
   }
 
-const { tone, label, value, unit, hint, class: className, ...rest } = Astro.props
+const { tone, label, value, unit, hint, class: className, slot: _slot, ...rest } = Astro.props
 const hasUnit = unit !== undefined || Astro.slots.has('unit')
 const hasHint = hint !== undefined || Astro.slots.has('hint')
 ---
 
-<div class={statClass({ tone, className })} {...rest}>
+<div {...rest} class={statClass({ tone, className })}>
   <dt class="x-stat__label"><slot name="label">{label}</slot></dt>
   <dd class="x-stat__value">
     <slot>{value}</slot>

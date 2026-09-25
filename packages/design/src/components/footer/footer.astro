@@ -1,13 +1,14 @@
 ---
 import './footer.scss'
 import type { HTMLAttributes } from 'astro/types'
-import { footerBrandTag, footerClass, footerClasses as c, type FooterGroup, type FooterOptions } from './index.ts'
+import { footerBrandState, footerClass, footerClasses as c, type FooterGroup, type FooterOptions } from './index.ts'
 
 type Props = Omit<HTMLAttributes<'footer'>, 'class'> &
   Omit<FooterOptions, 'className'> & {
     class?: string
     groups?: FooterGroup[]
     brandHref?: string
+    /** Accessible name for the brand link. Ignored without `brandHref`. */
     brandLabel?: string
     /** Legal line. The `note` slot takes precedence. */
     note?: string
@@ -22,17 +23,18 @@ const {
   brandLabel,
   note,
   navLabel = 'Footer',
+  slot: _slot,
   ...rest
 } = Astro.props
-const Brand = footerBrandTag(brandHref)
+const { tag: Brand, attrs: brand } = footerBrandState(brandHref, brandLabel)
 const hasNote = Astro.slots.has('note') || Boolean(note)
 ---
 
-<footer class={footerClass({ layout, className })} {...rest}>
+<footer {...rest} class={footerClass({ layout, className })}>
   <div class={c.inner}>
     {
       Astro.slots.has('brand') && (
-        <Brand class={c.brand} href={brandHref} aria-label={brandLabel}>
+        <Brand {...brand} class={c.brand}>
           <slot name="brand" />
         </Brand>
       )

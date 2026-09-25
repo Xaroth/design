@@ -1,5 +1,6 @@
 @use '../../styles/theme';
 @use '../../styles/chamfer';
+@use '../panel/surface';
 
 @include theme.parts('eve-online') {
   // ::before paints the edge and ::after the fill 1px inside it, so the element stays unclipped and the focus
@@ -63,6 +64,10 @@
           linear-gradient(var(--b), var(--b)) bottom left / 2px var(--x-bracket) no-repeat,
           var(--x-card-fill);
       }
+    }
+
+    &--link:has(.x-card__link:focus-visible) {
+      @include surface.focus-ring(var(--x-card-cut), 3px, '::before');
     }
 
     &__index {

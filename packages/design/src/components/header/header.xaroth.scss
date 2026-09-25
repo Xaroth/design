@@ -118,11 +118,6 @@
     }
   }
 
-  .x-header__panel-actions {
-    justify-content: center;
-    border-top: 1px solid var(--x-color-line);
-  }
-
   @media (width < 640px) {
     .x-header {
       --x-header-mark: 1.75rem;

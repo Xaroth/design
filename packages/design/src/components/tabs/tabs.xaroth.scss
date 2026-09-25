@@ -3,6 +3,11 @@
 @include theme.parts('xaroth') {
   .x-tabs__list {
     gap: var(--x-space-5);
+
+    // The fade starts in the gap, so it adds little scroll width.
+    &::after {
+      margin-left: calc(-1 * var(--x-space-5));
+    }
   }
 
   .x-tabs__link {

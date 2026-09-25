@@ -1,8 +1,8 @@
 import '../button/button.scss'
 import './header.scss'
-import { createElement, type HTMLAttributes, type ReactNode } from 'react'
+import type { HTMLAttributes, ReactNode } from 'react'
 import {
-  brandTag,
+  brandState,
   headerClass,
   headerClasses as c,
   navLinkAttrs,
@@ -16,10 +16,10 @@ export type HeaderProps = Omit<HTMLAttributes<HTMLElement>, 'children'> &
     brand?: ReactNode
     /** Makes the brand a link, usually to the home page. */
     brandHref?: string
-    /** Accessible name for the brand link, when the visible text is not enough. */
+    /** Accessible name for the brand link, when the visible text is not enough. Ignored without `brandHref`. */
     brandLabel?: string
     items?: HeaderNavItem[]
-    /** Shown at the end of the bar, for example a sign in button. Moves into the menu on small screens. */
+    /** Shown at the end of the bar, for example a sign in button. Stays in the bar at every width. */
     actions?: ReactNode
     navLabel?: string
     menuLabel?: string
@@ -55,14 +55,21 @@ export function Header({
       ))}
     </ul>
   )
+  const { tag: Brand, attrs: brandAttrs } = brandState(brandHref, brandLabel)
   return (
     <header
-      className={headerClass({ layout, sticky, className })}
       {...rest}
+      className={headerClass({ layout, sticky, className })}
     >
       <div className={c.inner}>
-        {brand != null &&
-          createElement(brandTag(brandHref), { className: c.brand, href: brandHref, 'aria-label': brandLabel }, brand)}
+        {brand != null && (
+          <Brand
+            {...brandAttrs}
+            className={c.brand}
+          >
+            {brand}
+          </Brand>
+        )}
         {items.length > 0 && (
           <nav
             className={c.nav}
@@ -79,7 +86,6 @@ export function Header({
             </summary>
             <div className={c.panel}>
               <nav aria-label={navLabel}>{list}</nav>
-              {actions != null && <div className={c.panelActions}>{actions}</div>}
             </div>
           </details>
         )}

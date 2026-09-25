@@ -1,0 +1,60 @@
+---
+import './page-head.scss'
+import type { HTMLAttributes } from 'astro/types'
+import { pageHeadClass, pageHeadClasses as c, pageHeadTag, type PageHeadAlign, type PageHeadLevel } from './index.ts'
+
+type Props = Omit<HTMLAttributes<'header'>, 'class' | 'title'> & {
+  class?: string
+  /** Plain-text title; the `title` slot takes markup. */
+  title?: string
+  eyebrow?: string
+  /** Plain-text lead; the `lead` slot takes markup. */
+  lead?: string
+  level?: PageHeadLevel
+  titleId?: string
+  align?: PageHeadAlign
+}
+
+const { title, eyebrow, lead, level, titleId, align, class: className, slot: _slot, ...rest } = Astro.props
+const Heading = pageHeadTag(level)
+const hasLead = (lead !== undefined && lead !== '') || Astro.slots.has('lead')
+---
+
+<header class={pageHeadClass({ align, className })} {...rest}>
+  {
+    Astro.slots.has('breadcrumbs') && (
+      <div class={c.crumbs}>
+        <slot name="breadcrumbs" />
+      </div>
+    )
+  }
+  <div class={c.body}>
+    <div class={c.titles}>
+      {eyebrow && <p class={c.eyebrow}>{eyebrow}</p>}
+      <Heading class={c.title} id={titleId}>
+        <slot name="title">{title}</slot>
+      </Heading>
+      {
+        hasLead && (
+          <p class={c.lead}>
+            <slot name="lead">{lead}</slot>
+          </p>
+        )
+      }
+      {
+        Astro.slots.has('meta') && (
+          <div class={c.meta}>
+            <slot name="meta" />
+          </div>
+        )
+      }
+    </div>
+    {
+      Astro.slots.has('actions') && (
+        <div class={c.actions}>
+          <slot name="actions" />
+        </div>
+      )
+    }
+  </div>
+</header>

@@ -21,22 +21,32 @@
 
     &--raised {
       --x-surface-edge: var(--x-color-line-strong);
-      --x-surface-fill: var(--x-panel-lit);
+      --x-surface-fill: linear-gradient(180deg, var(--x-color-surface-3), var(--x-color-surface-2) 60%);
+
+      box-shadow: var(--x-shadow);
     }
 
     &--accent {
-      --x-surface-edge: linear-gradient(
-        135deg,
-        var(--x-color-accent),
-        var(--x-color-accent-edge) 20%,
-        var(--x-color-line-strong) 45%
-      );
-      --x-surface-fill: var(--x-panel-lit);
+      --x-surface-edge: var(--x-color-accent-edge);
+      --x-surface-fill:
+        linear-gradient(var(--x-color-accent), var(--x-color-accent)) top / 100% 2px no-repeat, var(--x-panel-lit);
     }
 
     &--callout {
-      --x-surface-edge: linear-gradient(135deg, var(--x-color-warning), var(--x-color-line-strong) 30%);
-      --x-surface-fill: var(--x-panel-lit);
+      --x-surface-edge: var(--x-color-accent);
+      --x-surface-fill:
+        linear-gradient(var(--x-color-accent), var(--x-color-accent)) top / 100% 2px no-repeat,
+        linear-gradient(
+          180deg,
+          color-mix(in srgb, var(--x-color-accent) 16%, var(--x-color-bg)),
+          var(--x-color-accent-fill) 60%
+        );
+
+      box-shadow: var(--x-shadow);
+    }
+
+    &:focus-visible {
+      @include surface.focus-ring(var(--x-surface-cut), 4px);
     }
 
     &--marks {

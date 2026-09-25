@@ -27,6 +27,7 @@ const cases: { name: string; props: Record<string, unknown>; brand?: boolean }[]
   { name: 'no brand', props: { groups, note } },
   { name: 'custom nav label', props: { groups, navLabel: 'Site links' }, brand: true },
   { name: 'extra class and attrs', props: { groups, class: 'site-footer', id: 'end' }, brand: true },
+  { name: 'brand label without href is dropped', props: { groups, brandLabel: 'Home', id: 'f1' }, brand: true },
 ]
 
 describe('Footer renders the same HTML in Astro and React', () => {

@@ -24,6 +24,20 @@ describe('FilterLayout', () => {
     ['switchable top', { switchable: true }],
     ['switchable side', { switchable: true, position: 'side' }],
     ['switchable with label, class and id', { switchable: true, switchLabel: 'Filters', class: 'site', id: 'f' }],
+    ['collapsible', { collapsible: true }],
+    ['collapsible with active count', { collapsible: true, activeCount: 3 }],
+    ['collapsible with zero active', { collapsible: true, activeCount: 0 }],
+    [
+      'collapsible with labels, switchable side',
+      {
+        collapsible: true,
+        collapsibleLabel: 'Filter',
+        activeCount: 1,
+        activeLabel: 'aktiv',
+        switchable: true,
+        position: 'side',
+      },
+    ],
   ]
   for (const [name, props] of cases) {
     it(name, async () => {
@@ -44,6 +58,13 @@ describe('FilterLayout', () => {
       expect(normalize(astro.replace(script, ''))).toBe(normalize(react))
     })
   }
+
+  it('collapsible renders a toggle before the controls', async () => {
+    const html = await container.renderToString(AstroFilterLayout, { props: { collapsible: true, activeCount: 2 } })
+    expect(normalize(html)).toContain(
+      '<details class="x-filters__disclosure"><summary class="x-filters__toggle">Filters<span class="x-filters__count">2<span class="x-visually-hidden"> active</span></span></summary></details><div class="x-filters__controls">',
+    )
+  })
 
   it('empty slots', async () => {
     await expectSameHtml(AstroFilterLayout, {}, createElement(FilterLayout))

@@ -10,4 +10,4 @@ type Props = Omit<HTMLAttributes<'select'>, 'class'> & {
 const { class: className, ...rest } = Astro.props
 ---
 
-<select class={selectClass({ className })} {...rest}><slot /></select>
+<select {...{ ...rest, class: selectClass({ className }) }}><slot /></select>

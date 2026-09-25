@@ -11,9 +11,9 @@ export type TabsProps = Omit<HTMLAttributes<HTMLElement>, 'children'> & {
 export function Tabs({ className, items, label, ...rest }: TabsProps) {
   return (
     <nav
-      className={tabsClass({ className })}
-      aria-label={label}
       {...rest}
+      aria-label={label}
+      className={tabsClass({ className })}
     >
       <ul className={c.list}>
         {items.map((item) => (

@@ -7,13 +7,18 @@
   //   --x-field-bg          control fill
   //   --x-field-bg-focus    control fill while focused
   //   --x-field-bg-disabled control fill while disabled
-  //   --x-field-bg-readonly control fill while read only
+  //   --x-field-bg-readonly, --x-field-edge-readonly  control fill and edge while read only
   //   --x-field-edge-hover  control edge on hover
   //   --x-field-glow        focus glow (box-shadow)
-  //   --x-field-label-*     label font, weight and tracking
+  //   --x-field-label-*     label and legend font, weight, tracking and case
   //   --x-field-help-fs     help and error text size
   //   --x-field-arrow       select arrow color
   //   --x-check-size, --x-check-mark, --x-check-edge, --x-switch-width, --x-switch-height, --x-switch-knob
+  //   --x-check-on-edge, --x-check-on-bg, --x-check-on-glow  choice edge, fill and glow while checked
+  //   --x-check-ink         check mark and on knob color
+  //   --x-check-ink-glow    check mark glow while checked
+  //   --x-switch-knob-off   off knob color
+  // Checked choices take their colors from these so aria-invalid on the input can turn them to danger.
 
   // Every block of this part carries the defaults, so help text and icons inside can read them.
   .x-field,
@@ -30,11 +35,13 @@
     --x-field-bg-focus: var(--x-field-bg);
     --x-field-bg-disabled: var(--x-color-surface);
     --x-field-bg-readonly: transparent;
+    --x-field-edge-readonly: var(--x-color-field-edge);
     --x-field-edge-hover: var(--x-color-text-faint);
     --x-field-glow: none;
     --x-field-label-font: var(--x-font-ui);
     --x-field-label-weight: 600;
     --x-field-label-tracking: var(--x-track-label);
+    --x-field-label-case: uppercase;
     --x-field-help-fs: var(--x-fs-label);
     --x-field-arrow: var(--x-color-accent);
     --x-check-size: 18px;
@@ -43,6 +50,16 @@
     --x-switch-width: 40px;
     --x-switch-height: 22px;
     --x-switch-knob: 14px;
+    --x-switch-knob-off: var(--x-color-text-faint);
+    --x-check-on-edge: var(--x-color-accent);
+    --x-check-on-bg: var(--x-field-bg);
+    --x-check-on-glow: none;
+    --x-check-ink: var(--x-color-accent);
+    --x-check-ink-glow: none;
+  }
+
+  .x-switch {
+    --x-check-on-bg: var(--x-color-accent-wash);
   }
 
   .x-field {
@@ -57,7 +74,7 @@
       font-weight: var(--x-field-label-weight);
       line-height: 1.3;
       letter-spacing: var(--x-field-label-tracking);
-      text-transform: uppercase;
+      text-transform: var(--x-field-label-case);
       color: var(--x-color-text-muted);
     }
 
@@ -114,8 +131,19 @@
       border-color: var(--x-field-edge-hover);
     }
 
-    &:focus-visible {
+    // Read only: no fill, dashed edge, muted text, so it never reads as an editable box.
+    &[readonly] {
+      color: var(--x-color-text-muted);
+      background-color: var(--x-field-bg-readonly);
+      border-style: dashed;
+      border-color: var(--x-field-edge-readonly);
+    }
+
+    &:focus-visible:not([readonly]) {
       background-color: var(--x-field-bg-focus);
+    }
+
+    &:focus-visible {
       border-color: var(--x-color-accent);
       outline: var(--x-focus-width) solid var(--x-color-focus);
       outline-offset: var(--x-focus-offset);
@@ -125,10 +153,6 @@
     &[aria-invalid='true'] {
       border-color: var(--x-color-danger);
       box-shadow: 0 0 0 1px var(--x-color-danger);
-    }
-
-    &[readonly] {
-      background-color: var(--x-field-bg-readonly);
     }
 
     &:disabled {
@@ -242,6 +266,7 @@
       cursor: inherit;
       background: var(--x-field-bg);
       border: 1px solid var(--x-check-edge);
+      box-shadow: var(--x-check-ring, none);
       transition:
         border-color var(--x-duration) var(--x-ease),
         background-color var(--x-duration) var(--x-ease),
@@ -256,15 +281,23 @@
       }
 
       &:hover:not(:disabled) {
-        border-color: var(--x-color-accent);
+        border-color: var(--x-check-edge-hover, var(--x-color-accent));
       }
 
       &:checked {
-        border-color: var(--x-color-accent);
+        background: var(--x-check-on-bg);
+        border-color: var(--x-check-on-edge);
+        box-shadow: var(--x-check-ring, var(--x-check-on-glow));
       }
 
       &[aria-invalid='true'] {
-        border-color: var(--x-color-danger);
+        --x-check-edge: var(--x-color-danger);
+        --x-check-edge-hover: var(--x-color-danger);
+        --x-check-on-edge: var(--x-color-danger);
+        --x-check-on-bg: var(--x-color-danger-wash);
+        --x-check-ink: var(--x-color-danger);
+        --x-check-ink-glow: none;
+        --x-check-ring: 0 0 0 1px var(--x-color-danger);
       }
 
       &:disabled {
@@ -281,12 +314,13 @@
     &::before {
       width: var(--x-check-mark);
       height: var(--x-check-mark);
-      background: var(--x-color-accent);
+      background: var(--x-check-ink);
       opacity: 0;
       transform: scale(0.4);
     }
 
     &:checked::before {
+      box-shadow: var(--x-check-ink-glow);
       opacity: 1;
       transform: none;
     }
@@ -318,14 +352,13 @@
       width: var(--x-switch-knob);
       height: var(--x-switch-knob);
       margin-left: calc((var(--x-switch-height) - 2px - var(--x-switch-knob)) / 2);
-      background: var(--x-color-text-faint);
+      background: var(--x-switch-knob-off);
     }
 
     &:checked {
-      background: var(--x-color-accent-wash);
-
       &::before {
-        background: var(--x-color-accent);
+        background: var(--x-check-ink);
+        box-shadow: var(--x-check-ink-glow);
 
         // The knob sits (height - knob) / 2 from both ends, so it travels width - height.
         transform: translateX(calc(var(--x-switch-width) - var(--x-switch-height)));
@@ -355,7 +388,7 @@
       font-weight: var(--x-field-label-weight);
       line-height: 1.3;
       letter-spacing: var(--x-field-label-tracking);
-      text-transform: uppercase;
+      text-transform: var(--x-field-label-case);
       color: var(--x-color-text-muted);
     }
 

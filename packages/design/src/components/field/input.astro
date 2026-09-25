@@ -10,7 +10,7 @@ type Props = Omit<HTMLAttributes<'input'>, 'class' | 'type'> & {
 
 const { type = 'text', class: className, ...rest } = Astro.props
 const hasStart = Astro.slots.has('start')
-const classes = inputClass({ hasStart, className })
+const input = { ...rest, type, class: inputClass({ hasStart, className }) }
 ---
 
 {
@@ -19,9 +19,9 @@ const classes = inputClass({ hasStart, className })
       <span class="x-input-wrap__start" aria-hidden="true">
         <slot name="start" />
       </span>
-      <input class={classes} type={type} {...rest} />
+      <input {...input} />
     </span>
   ) : (
-    <input class={classes} type={type} {...rest} />
+    <input {...input} />
   )
 }

@@ -26,6 +26,7 @@ const cases: { name: string; props: Record<string, unknown> }[] = [
   },
   { name: 'empty', props: { label: 'Tool sections', items: [] } },
   { name: 'extra class and attrs', props: { label: 'Tool sections', items, class: 'site-tabs', id: 'tabs' } },
+  { name: 'user aria-label loses to label', props: { label: 'Tool sections', items, 'aria-label': 'Other' } },
 ]
 
 describe('Tabs renders the same HTML in Astro and React', () => {

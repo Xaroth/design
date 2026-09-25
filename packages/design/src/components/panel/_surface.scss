@@ -1,3 +1,4 @@
+@use 'sass:math';
 @use '../../styles/chamfer';
 
 // Cut-corner surface drawn on the pseudo elements, so the element stays unclipped and focus rings inside and
@@ -39,5 +40,17 @@
       linear-gradient($color, $color) bottom 1px right 1px / $size 1px no-repeat,
       linear-gradient($color, $color) bottom 1px right 1px / 1px $size no-repeat,
       var(--x-surface-fill);
+  }
+}
+
+// Focus ring that follows the cut, drawn on $layer $out outside the element box. An outline would be a rectangle
+// past the cut corners. A 45 degree cut pushed out by d grows by d * (2 - sqrt(2)).
+@mixin focus-ring($cut, $out, $layer: '::after') {
+  outline: none;
+
+  &#{$layer} {
+    inset: -$out;
+    background: var(--x-color-focus);
+    clip-path: chamfer.ring(calc(#{$cut} + #{$out * (2 - math.sqrt(2))}), 2px);
   }
 }

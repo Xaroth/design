@@ -35,3 +35,9 @@ export const footerClasses = {
 } as const
 
 export const footerBrandTag = (href?: string) => (href === undefined ? ('div' as const) : ('a' as const))
+
+// Only the link takes a name: an aria-label on a plain div is not announced.
+export const footerBrandState = (href?: string, label?: string) =>
+  href === undefined
+    ? { tag: 'div' as const, attrs: {} }
+    : { tag: 'a' as const, attrs: { href, ...(label !== undefined && { 'aria-label': label }) } }

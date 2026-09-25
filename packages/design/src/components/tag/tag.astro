@@ -10,7 +10,8 @@ type Props = Omit<HTMLAttributes<'a'>, 'class'> &
   }
 
 const { active, href, class: className, slot: _slot, ...rest } = Astro.props
-const { tag: El, attrs } = tagState({ href, active })
+const { tag: El, attrs: state } = tagState({ href, active })
+const attrs = { ...rest, ...state }
 ---
 
-<El class={tagClass({ active, className })} {...attrs} {...rest}><slot /></El>
+<El {...attrs} class={tagClass({ active, className })}><slot /></El>

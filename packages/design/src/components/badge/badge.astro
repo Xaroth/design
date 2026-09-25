@@ -8,4 +8,4 @@ type Props = Omit<HTMLAttributes<'span'>, 'class'> & Omit<BadgeOptions, 'classNa
 const { tone, class: className, slot: _slot, ...rest } = Astro.props
 ---
 
-<span class={badgeClass({ tone, className })} {...rest}><slot /></span>
+<span {...rest} class={badgeClass({ tone, className })}><slot /></span>

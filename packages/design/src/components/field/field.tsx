@@ -1,3 +1,5 @@
+'use client'
+
 import './field.scss'
 import {
   Children,
@@ -11,6 +13,7 @@ import {
   type SelectHTMLAttributes,
   type TextareaHTMLAttributes,
 } from 'react'
+import { defined } from '../../html.ts'
 import {
   choiceClass,
   fieldClass,
@@ -64,8 +67,8 @@ export function Field({ id, label, description, error, required, className, chil
 
   return (
     <div
-      className={fieldClass({ invalid: hasError, className })}
       {...rest}
+      className={fieldClass({ invalid: hasError, className })}
     >
       {present(label) && (
         <label
@@ -114,9 +117,9 @@ export function Input({ type = 'text', start, className, ...rest }: InputProps) 
   const hasStart = start != null
   const input = (
     <input
-      className={inputClass({ hasStart, className })}
-      type={type}
       {...rest}
+      type={type}
+      className={inputClass({ hasStart, className })}
     />
   )
   if (!hasStart) {
@@ -140,8 +143,8 @@ export type TextareaProps = TextareaHTMLAttributes<HTMLTextAreaElement>
 export function Textarea({ className, ...rest }: TextareaProps) {
   return (
     <textarea
-      className={textareaClass({ className })}
       {...rest}
+      className={textareaClass({ className })}
     />
   )
 }
@@ -151,8 +154,8 @@ export type SelectProps = SelectHTMLAttributes<HTMLSelectElement>
 export function Select({ className, children, ...rest }: SelectProps) {
   return (
     <select
-      className={selectClass({ className })}
       {...rest}
+      className={selectClass({ className })}
     >
       {children}
     </select>
@@ -168,10 +171,10 @@ function Choice({ kind, className, children, ...rest }: ChoiceProps & { kind: Ch
   return (
     <label className={choiceClass(kind, { className })}>
       <input
-        className={`x-${kind}__input`}
-        type={kind === 'radio' ? 'radio' : 'checkbox'}
-        role={kind === 'switch' ? 'switch' : undefined}
         {...rest}
+        type={kind === 'radio' ? 'radio' : 'checkbox'}
+        {...(kind === 'switch' && { role: 'switch' })}
+        className={`x-${kind}__input`}
       />
       <span className={`x-${kind}__label`}>{children}</span>
     </label>
@@ -230,9 +233,11 @@ function ChoiceGroup({
   const ids = fieldIds(id)
   return (
     <fieldset
-      className={choiceGroupClass({ orientation, invalid: hasError, className })}
-      {...choiceGroupAttrs({ id, hasDescription, hasError, required, kind })}
       {...rest}
+      {...defined(
+        choiceGroupAttrs({ id, hasDescription, hasError, required, kind, describedBy: rest['aria-describedby'] }),
+      )}
+      className={choiceGroupClass({ orientation, invalid: hasError, className })}
     >
       {present(legend) && (
         <legend className="x-choice-group__legend">

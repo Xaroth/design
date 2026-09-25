@@ -43,6 +43,8 @@ const statCases: {
     props: { label: 'X', value: '1', tone },
   })),
   { name: 'extra class and attrs', props: { label: 'X', value: '1', class: 'site-stat', id: 's1' } },
+  { name: 'default slot wins over value', props: { label: 'Tools', value: '5' }, body: ['6', '6'] },
+  { name: 'no label', props: { value: '6' } },
 ]
 
 describe('Stat renders the same HTML in Astro and React', () => {

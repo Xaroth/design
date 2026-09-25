@@ -1,7 +1,8 @@
 ---
 import './tooltip.scss'
 import type { HTMLAttributes } from 'astro/types'
-import { describeTrigger, tooltipClass, tooltipId, type TooltipOptions } from './index.ts'
+import { firstOnPage } from '../../html.ts'
+import { describeTrigger, tooltipClass, tooltipEscapeScript, tooltipId, type TooltipOptions } from './index.ts'
 
 type Props = Omit<HTMLAttributes<'span'>, 'class' | 'id'> &
   Omit<TooltipOptions, 'className'> & {
@@ -14,9 +15,11 @@ type Props = Omit<HTMLAttributes<'span'>, 'class' | 'id'> &
 
 const { id, text, placement, open, class: className, slot: _slot, ...rest } = Astro.props
 const trigger = describeTrigger(await Astro.slots.render('default'), id)
+const withScript = firstOnPage(Astro.request, 'x-tooltip')
 ---
 
-<span class={tooltipClass({ placement, open, className })} {...rest}>
+<span {...{ ...rest, class: tooltipClass({ placement, open, className }) }}>
   <Fragment set:html={trigger} />
   <span class="x-tooltip__bubble" role="tooltip" id={tooltipId(id)}>{text}</span>
 </span>
+{withScript && <script is:inline set:html={tooltipEscapeScript} />}

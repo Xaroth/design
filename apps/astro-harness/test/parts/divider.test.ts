@@ -11,6 +11,8 @@ const cases: { name: string; props: Record<string, unknown>; text?: string }[] =
   { name: 'label', props: { variant: 'label' }, text: 'Or' },
   { name: 'extra class and attrs', props: { variant: 'ornament', class: 'site-rule', 'data-test': 'rule' } },
   { name: 'plain with class', props: { class: 'site-rule' } },
+  { name: 'user role loses on ornament', props: { variant: 'ornament', role: 'presentation', id: 'd1' } },
+  { name: 'user role on label', props: { variant: 'label', role: 'separator' }, text: 'Or' },
 ]
 
 describe('Divider renders the same HTML in Astro and React', () => {

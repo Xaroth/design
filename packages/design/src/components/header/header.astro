@@ -3,7 +3,7 @@ import '../button/button.scss'
 import './header.scss'
 import type { HTMLAttributes } from 'astro/types'
 import {
-  brandTag,
+  brandState,
   headerClass,
   headerClasses as c,
   navLinkAttrs,
@@ -16,6 +16,7 @@ type Props = Omit<HTMLAttributes<'header'>, 'class'> &
     class?: string
     items?: HeaderNavItem[]
     brandHref?: string
+    /** Accessible name for the brand link. Ignored without `brandHref`. */
     brandLabel?: string
     navLabel?: string
     menuLabel?: string
@@ -30,18 +31,18 @@ const {
   brandLabel,
   navLabel = 'Main',
   menuLabel = 'Menu',
+  slot: _slot,
   ...rest
 } = Astro.props
-const Brand = brandTag(brandHref)
-// Rendered once, placed twice: in the bar and in the small screen menu. Only one is displayed at a time.
+const { tag: Brand, attrs: brand } = brandState(brandHref, brandLabel)
 const actions = Astro.slots.has('actions') ? await Astro.slots.render('actions') : undefined
 ---
 
-<header class={headerClass({ layout, sticky, className })} {...rest}>
+<header {...rest} class={headerClass({ layout, sticky, className })}>
   <div class={c.inner}>
     {
       Astro.slots.has('brand') && (
-        <Brand class={c.brand} href={brandHref} aria-label={brandLabel}>
+        <Brand {...brand} class={c.brand}>
           <slot name="brand" />
         </Brand>
       )
@@ -80,7 +81,6 @@ const actions = Astro.slots.has('actions') ? await Astro.slots.render('actions')
                 ))}
               </ul>
             </nav>
-            {actions && <div class={c.panelActions} set:html={actions} />}
           </div>
         </details>
       )

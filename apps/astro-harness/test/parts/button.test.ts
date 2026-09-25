@@ -25,6 +25,13 @@ const cases: { name: string; props: Record<string, unknown>; start?: string; end
   { name: 'start and end icons', props: {}, start: '<svg aria-hidden="true"></svg>', end: '→' },
   { name: 'submit type', props: { type: 'submit' } },
   { name: 'extra class and attrs', props: { class: 'site-cta', 'aria-label': 'Open' } },
+  { name: 'loading submit', props: { type: 'submit', loading: true } },
+  { name: 'loading reset', props: { type: 'reset', loading: true } },
+  { name: 'disabled submit', props: { type: 'submit', disabled: true } },
+  { name: 'user aria-disabled loses to loading', props: { loading: true, 'aria-disabled': 'false' } },
+  { name: 'user aria-busy kept when idle', props: { 'aria-busy': 'true', id: 'b1' } },
+  { name: 'link with anchor attrs', props: { href: '/file.zip', target: '_blank', rel: 'noopener', download: '' } },
+  { name: 'loading link keeps anchor attrs', props: { href: '/file.zip', loading: true, target: '_blank' } },
 ]
 
 describe('Button renders the same HTML in Astro and React', () => {
@@ -49,4 +56,26 @@ describe('Button renders the same HTML in Astro and React', () => {
       expect(normalize(astro)).toBe(normalize(unwrapped))
     })
   }
+})
+
+describe('Button loading state', () => {
+  const render = (props: Record<string, unknown>) =>
+    container.renderToString(AstroButton, { props, slots: { default: 'Save' } })
+
+  // Astro has no click handler, so only a native disabled stops a loading form button.
+  it('disables a loading submit or reset button', async () => {
+    for (const type of ['submit', 'reset']) {
+      const html = await render({ type, loading: true })
+      expect(html).toMatch(/\sdisabled[\s>]/)
+      expect(html).toContain('aria-busy="true"')
+      expect(html).not.toContain('aria-disabled')
+    }
+  })
+
+  it('keeps a loading plain button focusable', async () => {
+    const html = await render({ loading: true })
+    expect(html).not.toMatch(/\sdisabled[\s>]/)
+    expect(html).toContain('aria-disabled="true"')
+    expect(html).toContain('aria-busy="true"')
+  })
 })

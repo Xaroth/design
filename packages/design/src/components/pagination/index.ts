@@ -1,6 +1,6 @@
 import { bem } from '../../bem.ts'
 
-// A URL pattern with {page} in it, or a function. Astro takes the pattern only.
+// A URL pattern with {page} in it, or a function.
 export type PaginationHref = string | ((page: number) => string)
 
 export type PaginationAlign = 'center' | 'start'
@@ -24,15 +24,19 @@ export type PaginationInput = {
   nextLabel?: string
   firstLabel?: string
   lastLabel?: string
+  /** Screen reader text of the compact summary shown on narrow screens. {page} and {pages} are replaced. */
+  summaryLabel?: string
 }
 
 type Edge = 'first' | 'prev' | 'next' | 'last'
 
-// A link to a page, a gap, or an edge control. An edge without href is disabled and renders as a span.
+// A link to a page, a gap, an edge control, or the "2 / 8" summary shown instead of the pages on narrow screens.
+// An edge without href is disabled and renders as a span.
 export type PaginationEntry =
   | { kind: 'page'; key: string; label: string; href: string; current: boolean }
   | { kind: 'gap'; key: string }
   | { kind: 'edge'; key: Edge; label: string; href?: string; rel?: 'prev' | 'next' }
+  | { kind: 'summary'; key: 'summary'; text: string; label: string }
 
 const pagination = bem('x-pagination')
 
@@ -42,6 +46,11 @@ export const paginationClass = ({ align = 'center', className }: PaginationOptio
 export const paginationClasses = {
   list: pagination.el('list'),
   item: pagination.el('item'),
+  // Page links, gaps and First/Last give way to the summary on narrow screens.
+  itemPage: pagination.el('item', { page: true }),
+  itemEnd: pagination.el('item', { end: true }),
+  itemSummary: pagination.el('item', { summary: true }),
+  summary: pagination.el('summary'),
   link: pagination.el('link'),
   edge: pagination.el('link', { edge: true }),
   disabled: pagination.el('link', { edge: true, disabled: true }),
@@ -55,9 +64,16 @@ export const paginationHref = (href: PaginationHref, page: number, firstHref?: s
       ? href(page)
       : href.replaceAll('{page}', String(page))
 
+// Whole pages, at least 1, and a page inside 1..pages.
+export const paginationClamp = (page: number, pages: number): { page: number; pages: number } => {
+  const total = Math.max(1, Math.floor(pages) || 1)
+  return { page: Math.min(total, Math.max(1, Math.floor(page) || 1)), pages: total }
+}
+
 // Keeps the window a fixed width near the ends, so page 1 and 2 of 8 both read 1 2 3 … 8.
 // A gap that would hide a single page shows that page instead.
-export const paginationPages = (page: number, pages: number, siblings = 1): (number | 'gap')[] => {
+export const paginationPages = (requested: number, total: number, siblings = 1): (number | 'gap')[] => {
+  const { page, pages } = paginationClamp(requested, total)
   const width = 2 * siblings + 1
   const start = Math.max(1, Math.min(page - siblings, pages - width + 1))
   const end = Math.min(pages, start + width - 1)
@@ -80,8 +96,6 @@ export const paginationPages = (page: number, pages: number, siblings = 1): (num
 }
 
 export const paginationEntries = ({
-  page,
-  pages,
   href,
   firstHref,
   siblings,
@@ -90,7 +104,10 @@ export const paginationEntries = ({
   nextLabel = 'Next',
   firstLabel = 'First',
   lastLabel = 'Last',
+  summaryLabel = 'Page {page} of {pages}',
+  ...input
 }: PaginationInput): PaginationEntry[] => {
+  const { page, pages } = paginationClamp(input.page, input.pages)
   const to = (p: number) => paginationHref(href, p, firstHref)
   const atStart = page <= 1
   const atEnd = page >= pages
@@ -99,6 +116,12 @@ export const paginationEntries = ({
     entries.push({ kind: 'edge', key: 'first', label: firstLabel, href: atStart ? undefined : to(1) })
   }
   entries.push({ kind: 'edge', key: 'prev', label: prevLabel, href: atStart ? undefined : to(page - 1), rel: 'prev' })
+  entries.push({
+    kind: 'summary',
+    key: 'summary',
+    text: `${page} / ${pages}`,
+    label: summaryLabel.replaceAll('{page}', String(page)).replaceAll('{pages}', String(pages)),
+  })
   paginationPages(page, pages, siblings).forEach((p, i) =>
     entries.push(
       p === 'gap'
@@ -112,6 +135,15 @@ export const paginationEntries = ({
   }
   return entries
 }
+
+export const paginationItemClass = (entry: PaginationEntry): string =>
+  entry.kind === 'summary'
+    ? paginationClasses.itemSummary
+    : entry.kind === 'edge'
+      ? entry.key === 'prev' || entry.key === 'next'
+        ? paginationClasses.item
+        : paginationClasses.itemEnd
+      : paginationClasses.itemPage
 
 export const paginationPageAttrs = (entry: Extract<PaginationEntry, { kind: 'page' }>) => ({
   href: entry.href,

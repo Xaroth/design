@@ -12,12 +12,13 @@ type Props = Omit<HTMLAttributes<'textarea'>, 'class' | 'value'> & {
 
 const { value, defaultValue, class: className, ...rest } = Astro.props
 const text = value ?? defaultValue
+const attrs = { ...rest, class: textareaClass({ className }) }
 ---
 
 {
   text === undefined ? (
-    <textarea class={textareaClass({ className })} {...rest}><slot /></textarea>
+    <textarea {...attrs}><slot /></textarea>
   ) : (
-    <textarea class={textareaClass({ className })} {...rest}>{text}</textarea>
+    <textarea {...attrs}>{text}</textarea>
   )
 }

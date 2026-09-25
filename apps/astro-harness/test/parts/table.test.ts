@@ -4,6 +4,7 @@ import { Table } from '@xaroth.nl/design/react'
 import { tableCellSlot, type TableColumn } from '@xaroth.nl/design/parts'
 import { expectSameHtml } from '../compare.ts'
 import { Table as AstroTable } from '@xaroth.nl/design/astro'
+import DefaultSlot from './fixtures/table-default-slot.astro'
 
 const columns: TableColumn[] = [
   { key: 'name', label: 'Achievement' },
@@ -44,6 +45,7 @@ const cases: {
   },
   { name: 'no rows', props: { ...base, rows: [] } },
   { name: 'class and attrs', props: { ...base, class: 'site-table', id: 't1', 'data-region': 'table' } },
+  { name: 'user role loses', props: { ...base, role: 'grid', id: 't2' } },
   {
     name: 'cell markup',
     props: base,
@@ -76,4 +78,22 @@ describe('Table renders the same HTML in Astro and React', () => {
       )
     })
   }
+})
+
+describe('Table default slot', () => {
+  it('calls a slot function per cell', async () => {
+    const reactRows = rows.map((row) => ({
+      ...row,
+      state: row.state == null ? row.state : createElement('b', null, row.state),
+    }))
+    await expectSameHtml(
+      DefaultSlot,
+      { props: { ...base, mode: 'function' } },
+      createElement(Table, { ...base, rows: reactRows }),
+    )
+  })
+
+  it('ignores plain markup', async () => {
+    await expectSameHtml(DefaultSlot, { props: { ...base, mode: 'markup' } }, createElement(Table, base))
+  })
 })

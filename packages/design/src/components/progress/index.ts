@@ -56,8 +56,8 @@ export const progressClass = ({
   )
 }
 
-// Attributes for the progressbar root, plus the visible text. Style is a string so Astro and React
-// (which serializes a style object the same way) emit the same attribute.
+// Attributes for the progressbar root, plus the visible text. Unset keys are left out so they never erase a user
+// attribute.
 export const progressState = ({
   value,
   max,
@@ -72,14 +72,15 @@ export const progressState = ({
     text: showValue ? text : undefined,
     attrs: {
       role: 'progressbar' as const,
-      'aria-label': label,
+      ...(label !== undefined && { 'aria-label': label }),
       'aria-valuemin': 0,
       'aria-valuemax': top,
-      'aria-valuenow': now,
-      'aria-valuetext': showValue ? text : undefined,
+      ...(now !== undefined && { 'aria-valuenow': now }),
+      ...(showValue && text !== undefined && { 'aria-valuetext': text }),
     },
   }
 }
 
+// A string so Astro emits the same attribute React serializes from a style object.
 export const progressStyle = (width: string | undefined): string | undefined =>
   width === undefined ? undefined : `${progressProperty}:${width}`

@@ -118,6 +118,7 @@ for (const [label, AstroPart, ReactPart] of choices) {
       ['checked', { checked: true }],
       ['disabled', { disabled: true }],
       ['extra class and id', { class: 'site', id: 'c1' }],
+      ['user type and role', { type: 'radio', role: 'menuitemcheckbox', 'aria-describedby': 'hint' }],
     ]
     for (const [name, props] of cases) {
       it(name, async () => {
@@ -166,6 +167,37 @@ describe('Field', () => {
       AstroField,
       { props, slots: { default: control } },
       createElement(Field, props as never, createElement(Input, own as never)),
+    )
+  })
+
+  it('does not repeat a described-by id the control already has', async () => {
+    const own = { 'aria-describedby': 'x-help extra' }
+    const control = await container.renderToString(AstroInput, { props: own })
+    const props = { id: 'x', label: 'X', description: 'Help' }
+    await expectSameHtml(
+      AstroField,
+      { props, slots: { default: control } },
+      createElement(Field, props as never, createElement(Input, own as never)),
+    )
+  })
+
+  it('writes $ in ids literally', async () => {
+    const control = await container.renderToString(AstroInput, { props: { name: 'n' } })
+    const props = { id: "a$&b$'", label: 'X', error: 'Wrong' }
+    await expectSameHtml(
+      AstroField,
+      { props, slots: { default: control } },
+      createElement(Field, props as never, createElement(Input, { name: 'n' })),
+    )
+  })
+
+  it('user attributes on the wrapper', async () => {
+    const control = await container.renderToString(AstroInput, { props: { name: 'n' } })
+    const props = { id: 'x', label: 'X', title: 'wrap', 'data-test': 'f' }
+    await expectSameHtml(
+      AstroField,
+      { props, slots: { default: control } },
+      createElement(Field, props as never, createElement(Input, { name: 'n' })),
     )
   })
 
@@ -229,6 +261,9 @@ describe('RadioGroup', () => {
     ['description and error', { id: 'server', legend: 'Server', description: 'Pick one', error: 'Required' }],
     ['required horizontal', { id: 'server', legend: 'Server', required: true, orientation: 'horizontal' }],
     ['extra class, no legend', { id: 'server', class: 'site-group' }],
+    ['user describedby merges', { id: 'server', legend: 'Server', description: 'Pick', 'aria-describedby': 'note' }],
+    ['user invalid and required kept without error', { id: 'server', 'aria-invalid': 'true', 'aria-required': 'true' }],
+    ['recipe role wins', { id: 'server', role: 'group' }],
   ]
   for (const [name, props] of cases) {
     it(name, async () => {
@@ -258,6 +293,7 @@ describe('CheckboxGroup', () => {
     ['legend', { id: 'category', legend: 'Category' }],
     ['description and error', { id: 'category', legend: 'Category', description: 'Pick any', error: 'Pick one' }],
     ['required horizontal', { id: 'category', legend: 'Category', required: true, orientation: 'horizontal' }],
+    ['user role kept', { id: 'category', role: 'group', 'aria-describedby': 'note' }],
   ]
   for (const [name, props] of cases) {
     it(name, async () => {

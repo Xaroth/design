@@ -36,12 +36,12 @@ const files: Record<string, string> = {
   'src/parts.ts': `${header}${families.map((f) => `export * from './components/${f}/index.ts'\n`).join('')}export * from './config.ts'\n`,
   'src/react.ts': `${header}export * from './parts.ts'\n${families.map((f) => `export * from './components/${f}/${f}.tsx'\n`).join('')}`,
   'src/astro.ts': `${header}${astroBarrel}`,
-  'src/styles/themes.scss': `${header}// Every theme in one file, for docs and previews that switch themes with data-x-theme. Sites load one theme.\n@use 'sass:meta';\n\n${themeIds.map((t) => `@include meta.load-css('themes/${t}');\n`).join('')}`,
-  'src/styles/all.scss': `${header}@use 'sass:meta';\n\n${families.map((f) => `@include meta.load-css('../components/${f}/${f}');\n`).join('')}`,
+  'src/styles/themes.scss': `${header}// Every theme in one file, for docs and previews that switch themes with data-x-theme. Sites load one theme.\n@use 'sass:meta';\n${themeIds.map((t) => `@include meta.load-css('themes/${t}');\n`).join('')}`,
+  'src/styles/all.scss': `${header}@use 'sass:meta';\n${families.map((f) => `@include meta.load-css('../components/${f}/${f}');\n`).join('')}`,
 }
 for (const theme of themeIds) {
   files[`src/styles/themes/_${theme}-parts.scss`] =
-    `${header}@use 'sass:meta';\n\n${families.map((f) => `@include meta.load-css('../../components/${f}/${f}.${theme}');\n`).join('')}`
+    `${header}@use 'sass:meta';\n${families.map((f) => `@include meta.load-css('../../components/${f}/${f}.${theme}');\n`).join('')}`
 }
 
 let stale = 0

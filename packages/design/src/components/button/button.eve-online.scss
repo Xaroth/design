@@ -1,5 +1,6 @@
 @use '../../styles/theme';
 @use '../../styles/chamfer';
+@use '../panel/surface';
 
 @include theme.parts('eve-online') {
   // The element stays unclipped so the focus ring shows; ::before paints the fill, ::after the 1px edge as an even-odd ring so diagonals get a border
@@ -37,6 +38,11 @@
       background: var(--x-button-border, var(--x-button-bg));
       clip-path: chamfer.ring(var(--x-cut), 1px);
     }
+  }
+
+  // ::before sits at -1px, so 5px out leaves a 2px gap to the fill.
+  .x-button:focus-visible {
+    @include surface.focus-ring(var(--x-cut), 5px);
   }
 
   // Default tone uses the palette colors instead of the tone mixes.
@@ -82,7 +88,28 @@
   }
 
   .x-button:not(.x-button--danger, .x-button--warning, .x-button--success).x-button--tertiary {
-    --x-button-quiet-fg: var(--x-color-text-muted);
+    --x-button-quiet-fg: var(--x-color-accent);
+
+    &:hover:not(:disabled, [aria-disabled='true']) {
+      --x-button-fg: var(--x-color-accent-strong);
+    }
+  }
+
+  .x-button--tertiary .x-button__label::before {
+    content: '';
+    display: inline-block;
+    width: 0.4em;
+    height: 0.4em;
+    margin-inline-end: 0.6em;
+    vertical-align: 0.12em;
+    border-block-start: 1.5px solid currentcolor;
+    border-inline-end: 1.5px solid currentcolor;
+    transform: rotate(45deg);
+    transition: transform var(--x-duration) var(--x-ease);
+  }
+
+  .x-button--tertiary:hover:not(:disabled, [aria-disabled='true']) .x-button__label::before {
+    transform: translateX(2px) rotate(45deg);
   }
 
   .x-button--sm {

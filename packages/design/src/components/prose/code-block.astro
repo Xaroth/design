@@ -10,10 +10,10 @@ type Props = Omit<HTMLAttributes<'figure'>, 'class' | 'title'> & {
   title?: string
 }
 
-const { code, lang, title, class: className, ...rest } = Astro.props
+const { code, lang, title, class: className, slot: _slot, ...rest } = Astro.props
 ---
 
-<figure class={codeBlockClass({ className })} {...rest}>
+<figure {...rest} class={codeBlockClass({ className })}>
   {
     (title || lang) && (
       <figcaption class="x-code__bar">

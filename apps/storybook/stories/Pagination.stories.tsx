@@ -16,6 +16,7 @@ const meta = {
     nextLabel: 'Next',
     firstLabel: 'First',
     lastLabel: 'Last',
+    summaryLabel: 'Page {page} of {pages}',
   },
   argTypes: {
     page: { control: { type: 'number', min: 1 } },
@@ -30,6 +31,7 @@ const meta = {
     nextLabel: { control: 'text' },
     firstLabel: { control: 'text' },
     lastLabel: { control: 'text' },
+    summaryLabel: { control: 'text' },
   },
 } satisfies Meta<typeof Pagination>
 

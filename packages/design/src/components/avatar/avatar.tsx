@@ -8,9 +8,9 @@ export function Avatar({ name, src, alt, initials, size, className, ...rest }: A
   const state = avatarState({ name, src, alt, initials })
   return (
     <span
-      className={avatarClass({ size, src, className })}
-      {...state.root}
       {...rest}
+      {...state.root}
+      className={avatarClass({ size, src, className })}
     >
       {/* Lazy also keeps React from emitting a preload link, which the Astro part has no equivalent for. */}
       {src ? (

@@ -25,5 +25,5 @@ export const tabsClasses = {
 
 export const tabLinkAttrs = ({ href, current }: TabItem) => ({
   href,
-  'aria-current': current ? ('page' as const) : undefined,
+  ...(current && { 'aria-current': 'page' as const }),
 })

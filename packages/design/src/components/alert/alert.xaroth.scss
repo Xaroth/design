@@ -22,4 +22,27 @@
   .x-alert__frame--round {
     display: inline;
   }
+
+  // Hairline frame with an inner rule, as on the callout panel; the tone keeps the leading edge.
+  .x-alert--framed {
+    border: 1px solid color-mix(in srgb, var(--x-alert-tone) 30%, var(--x-color-line-strong));
+    border-left: 2px solid var(--x-alert-tone);
+    outline: 1px solid var(--x-color-line);
+    outline-offset: -5px;
+
+    .x-alert__title {
+      font-family: var(--x-font-display);
+      font-size: var(--x-fs-label);
+      font-weight: 600;
+      line-height: 1.3;
+      letter-spacing: var(--x-track-caps);
+      text-transform: uppercase;
+      color: var(--x-alert-tone);
+    }
+  }
+
+  .x-alert--framed.x-alert--info {
+    --x-alert-tone: var(--x-color-accent);
+    --x-alert-wash: var(--x-color-accent-wash);
+  }
 }

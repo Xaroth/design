@@ -29,6 +29,9 @@ const cases: { name: string; props: Record<string, unknown>; brand?: boolean; ac
   { name: 'no items', props: {}, brand: true, actions: true },
   { name: 'no brand', props: { items } },
   { name: 'extra class and attrs', props: { items, class: 'site-header', id: 'top' }, brand: true },
+  { name: 'brand label without href is dropped', props: { items, brandLabel: 'Home' }, brand: true },
+  { name: 'actions without items', props: { items: [] }, actions: true },
+  { name: 'user role and id', props: { items, role: 'banner', id: 'top' }, brand: true, actions: true },
 ]
 
 describe('Header renders the same HTML in Astro and React', () => {

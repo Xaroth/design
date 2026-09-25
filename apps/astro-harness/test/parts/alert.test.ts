@@ -38,6 +38,7 @@ const cases: {
   { name: 'actions without body', props: { title: 'New' }, slots: { actions: ['Undo', 'Undo'] } },
   { name: 'role override', props: { role: 'note', title: 'Note' }, body: 'Plain aside.' },
   { name: 'extra class and attrs', props: { class: 'site-alert', id: 'a1', 'aria-label': 'Cache' }, body: 'x' },
+  { name: 'role wins over urgent', props: { role: 'note', urgent: true }, body: 'Plain aside.' },
 ]
 
 describe('Alert renders the same HTML in Astro and React', () => {

@@ -2,7 +2,7 @@
 
 @include theme.parts('xaroth') {
   .x-description-list {
-    --x-description-list-term-width: 4.5rem;
+    --x-description-list-term-width: 6rem;
     --x-description-list-line: var(--x-color-line-strong);
 
     a {

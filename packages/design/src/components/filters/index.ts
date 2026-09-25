@@ -19,6 +19,17 @@ export const filterLayoutClass = ({ position = 'top', className }: FilterLayoutO
 
 export const filterPanelClass = ({ className }: { className?: string } = {}): string => filterPanel({}, className)
 
+export const filterClasses = {
+  switch: filters.el('switch'),
+  switchLabel: filters.el('switch-label'),
+  switchOptions: filters.el('switch-options'),
+  disclosure: filters.el('disclosure'),
+  toggle: filters.el('toggle'),
+  count: filters.el('count'),
+  controls: filters.el('controls'),
+  results: filters.el('results'),
+} as const
+
 export const filterSwitchLabels: Record<FilterPosition, string> = { top: 'Top', side: 'Side' }
 
 export const filterSwitchButtonAttrs = (option: FilterPosition, position: FilterPosition = 'top') => ({

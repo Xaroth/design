@@ -1,3 +1,4 @@
+'use client'
 import './button.scss'
 import type { AnchorHTMLAttributes, ButtonHTMLAttributes, MouseEvent, ReactNode } from 'react'
 import { buttonClass, buttonState, type ButtonOptions } from './index.ts'
@@ -11,12 +12,28 @@ type Common = Omit<ButtonOptions, 'className'> & {
 
 export type ButtonProps =
   | (Common & ButtonHTMLAttributes<HTMLButtonElement> & { href?: undefined })
-  | (Common & Omit<AnchorHTMLAttributes<HTMLAnchorElement>, 'type'> & { href: string; disabled?: boolean })
+  | (Common &
+      Omit<AnchorHTMLAttributes<HTMLAnchorElement>, 'type'> & { href: string; disabled?: boolean; type?: undefined })
 
 export function Button(props: ButtonProps) {
-  const { variant, tone, size, fullWidth, loading, disabled, className, start, end, children, onClick, ...rest } = props
+  const {
+    variant,
+    tone,
+    size,
+    fullWidth,
+    loading,
+    disabled,
+    className,
+    start,
+    end,
+    children,
+    onClick,
+    href,
+    type,
+    ...rest
+  } = props
   const classes = buttonClass({ variant, tone, size, fullWidth, loading, className })
-  const { tag, attrs } = buttonState({ href: props.href, disabled, loading })
+  const { tag, attrs } = buttonState({ href, disabled, loading, type })
 
   // aria-disabled does not stop clicks or Enter, so inactive buttons swallow them here.
   const handleClick = (event: MouseEvent<HTMLElement>) => {
@@ -55,8 +72,8 @@ export function Button(props: ButtonProps) {
     )
   }
   return (
+    // oxlint-disable-next-line react/button-has-type -- buttonState always sets the type
     <button
-      type="button"
       {...(rest as ButtonHTMLAttributes<HTMLButtonElement>)}
       {...attrs}
       className={classes}

@@ -60,10 +60,14 @@ const grid = 'display: grid; gap: 24px; grid-template-columns: repeat(auto-fill,
             <Field id={`${theme}-area-dis`} label="Textarea disabled">
               <Textarea disabled value="Archived" />
             </Field>
+            <Field id={`${theme}-area-ro`} label="Textarea read only">
+              <Textarea readonly value="Signed by the director" />
+            </Field>
             <CheckboxGroup id={`${theme}-f1`} legend="Checkbox">
               <Checkbox checked>Combat</Checkbox>
               <Checkbox>Industry</Checkbox>
               <Checkbox aria-invalid="true">Invalid</Checkbox>
+              <Checkbox aria-invalid="true" checked>Invalid on</Checkbox>
               <Checkbox disabled>Disabled</Checkbox>
               <Checkbox disabled checked>Disabled on</Checkbox>
               </CheckboxGroup>
@@ -72,12 +76,14 @@ const grid = 'display: grid; gap: 24px; grid-template-columns: repeat(auto-fill,
               <Radio name={`${theme}-r`}>Singularity</Radio>
               <Radio name={`${theme}-r`} disabled>Duality</Radio>
               <Radio name={`${theme}-rd`} disabled checked>Disabled on</Radio>
+              <Radio name={`${theme}-ri`} aria-invalid="true" checked>Invalid on</Radio>
             </RadioGroup>
             <CheckboxGroup id={`${theme}-f2`} legend="Toggle">
               <Switch checked>Auto refresh</Switch>
               <Switch>Hide completed</Switch>
               <Switch disabled>Disabled</Switch>
               <Switch disabled checked>Disabled on</Switch>
+              <Switch aria-invalid="true" checked>Invalid on</Switch>
               </CheckboxGroup>
             <RadioGroup id={`${theme}-hr`} legend="Horizontal" orientation="horizontal" error="Choose a region">
               <Radio name={`${theme}-h`}>Delve</Radio>
@@ -86,6 +92,9 @@ const grid = 'display: grid; gap: 24px; grid-template-columns: repeat(auto-fill,
             </RadioGroup>
             <Field id={`${theme}-terms`} label="Terms" error="Required">
               <Checkbox>I accept the terms</Checkbox>
+            </Field>
+            <Field id={`${theme}-terms-on`} label="Terms checked" error="Accept the new version">
+              <Checkbox checked>I accept the terms</Checkbox>
             </Field>
             <Field id={`${theme}-alerts`} label="Alerts" description="Sends a mail on each kill.">
               <Switch>Kill mails</Switch>

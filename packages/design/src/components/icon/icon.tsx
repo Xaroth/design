@@ -7,7 +7,7 @@ export type IconProps = Omit<IconOptions, 'className'> & Omit<SVGAttributes<SVGS
 export function Icon({ name, size, label, className, ...rest }: IconProps) {
   return (
     <svg
-      className={iconClass({ className })}
+      {...rest}
       viewBox="0 0 24 24"
       fill="none"
       stroke="currentColor"
@@ -15,7 +15,7 @@ export function Icon({ name, size, label, className, ...rest }: IconProps) {
       strokeLinecap="round"
       strokeLinejoin="round"
       {...iconState({ size, label })}
-      {...rest}
+      className={iconClass({ className })}
     >
       {icons[name].map((d) => (
         <path

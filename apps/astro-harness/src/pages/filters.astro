@@ -18,16 +18,16 @@ const rows = [
   { name: 'Tribal Liberator', faction: 'Minmatar Republic', category: 'Combat', reward: '1,250' },
 ]
 const layouts = [
-  { key: 'switch', position: 'top', switchable: true },
-  { key: 'side', position: 'side', switchable: false },
+  { key: 'switch', position: 'top', switchable: true, collapsible: true },
+  { key: 'side', position: 'side', switchable: false, collapsible: false },
 ] as const
 ---
 
 <Harness title="Filters">
   {(theme: string) => (
     <Container style="display: grid; gap: 64px">
-      {layouts.map(({ key, position, switchable }) => (
-        <FilterLayout position={position} switchable={switchable} id={`${theme}-${key}`}>
+      {layouts.map(({ key, position, switchable, collapsible }) => (
+        <FilterLayout position={position} switchable={switchable} collapsible={collapsible} activeCount={2} id={`${theme}-${key}`}>
           <FilterPanel slot="filters" aria-label="Filter achievements" onsubmit="return false">
             <Field id={`${theme}-${key}-search`} label="Search">
               <Input type="search" placeholder="Achievement name">
@@ -40,12 +40,10 @@ const layouts = [
             <Field id={`${theme}-${key}-faction`} label="Faction">
               <Select>{factions.map((f) => <option>{f}</option>)}</Select>
             </Field>
-            {/* Each site orders its own fields; xaroth puts grouped choices on their own row. */}
-            {theme === 'xaroth' && <Switch name="hide">Hide completed</Switch>}
-            <CheckboxGroup id={`${theme}-flt1`} legend="Category" orientation="horizontal">
-                {categories.map((c, i) => <Checkbox name="category" value={c} checked={i < 2}>{c}</Checkbox>)}
-              </CheckboxGroup>
-            {theme !== 'xaroth' && <Switch name="hide">Hide completed</Switch>}
+            <CheckboxGroup id={`${theme}-${key}-category`} legend="Category" orientation="horizontal">
+              {categories.map((c, i) => <Checkbox name="category" value={c} checked={i < 2}>{c}</Checkbox>)}
+            </CheckboxGroup>
+            <Switch name="hide">Hide completed</Switch>
           </FilterPanel>
           <Table columns={columns} rows={rows} label="Achievements" />
         </FilterLayout>

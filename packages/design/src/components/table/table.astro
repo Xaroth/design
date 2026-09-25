@@ -34,20 +34,37 @@ const {
   stickyHeader,
   label,
   class: className,
+  slot: _slot,
   ...rest
 } = Astro.props
+const attrs = { ...rest, role: 'region' as const, tabindex: '0', 'aria-label': label }
 
 // Cell markup, first match wins: the named slot `cell-<rowIndex>-<key>` (static markup), then a default slot
 // function `(cell: TableCell) => markup`, which is called per cell; rendering nothing keeps the plain value.
-const hasRenderer = Astro.slots.has('default')
+// A default slot of plain markup is ignored.
+const renderCell = async (cell: TableCell): Promise<string | undefined> => {
+  const args = [cell]
+  const probe = { called: false }
+  // Astro cannot tell a slot function from plain markup; only a function spreads the arguments it is given.
+  Object.defineProperty(args, Symbol.iterator, {
+    value: function* () {
+      probe.called = true
+      yield cell
+    },
+  })
+  const html = await Astro.slots.render('default', args)
+  return probe.called ? html : undefined
+}
+let hasRenderer = Astro.slots.has('default')
 const slotted = new Map<string, string>()
 for (const [rowIndex, row] of rows.entries()) {
   for (const column of columns) {
     const name = tableCellSlot(rowIndex, column.key)
     let html = Astro.slots.has(name) ? await Astro.slots.render(name) : undefined
     if (html === undefined && hasRenderer) {
-      const cell: TableCell = { row, rowIndex, column, value: row[column.key] }
-      html = (await Astro.slots.render('default', [cell])).trim() || undefined
+      const rendered = await renderCell({ row, rowIndex, column, value: row[column.key] })
+      hasRenderer = rendered !== undefined
+      html = rendered?.trim() || undefined
     }
     if (html !== undefined) {
       slotted.set(name, html)
@@ -56,13 +73,7 @@ for (const [rowIndex, row] of rows.entries()) {
 }
 ---
 
-<div
-  class={tableWrapClass({ stickyHeader, className })}
-  role="region"
-  tabindex="0"
-  aria-label={label}
-  {...rest}
->
+<div {...attrs} class={tableWrapClass({ stickyHeader, className })}>
   <table class={tableClass({ density, striped, hover })}>
     {caption && <caption class="x-table__caption">{caption}</caption>}
     <thead>

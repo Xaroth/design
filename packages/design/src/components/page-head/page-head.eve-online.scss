@@ -1,0 +1,47 @@
+@use '../../styles/theme';
+
+@include theme.parts('eve-online') {
+  .x-page-head {
+    position: relative;
+    padding-bottom: var(--x-space-5);
+    border-bottom: 1px solid var(--x-color-line-strong);
+
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: -1px;
+      left: 0;
+      width: 96px;
+      height: 1px;
+      background: var(--x-color-accent);
+      box-shadow: 0 0 8px var(--x-color-glow);
+    }
+
+    &--center::after {
+      left: calc(50% - 48px);
+    }
+
+    &__eyebrow {
+      display: inline-flex;
+      gap: var(--x-space-2);
+      align-items: center;
+
+      &::before {
+        content: '';
+        width: 18px;
+        height: 1px;
+        background: currentcolor;
+        box-shadow: 0 0 6px var(--x-color-glow);
+      }
+    }
+
+    &__title {
+      font-weight: 600;
+      letter-spacing: var(--x-track-display);
+    }
+
+    &__meta {
+      font-family: var(--x-font-ui);
+    }
+  }
+}

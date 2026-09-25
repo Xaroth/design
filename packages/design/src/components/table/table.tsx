@@ -35,12 +35,12 @@ export function Table({
   return (
     // A focusable named region lets keyboard users scroll a wide table (WCAG 2.1.1).
     <div
+      {...rest}
       // oxlint-disable-next-line jsx-a11y/prefer-tag-over-role
       role="region"
       // oxlint-disable-next-line jsx-a11y/no-noninteractive-tabindex
       tabIndex={0}
       aria-label={label}
-      {...rest}
       className={tableWrapClass({ stickyHeader, className })}
     >
       <table className={tableClass({ density, striped, hover })}>

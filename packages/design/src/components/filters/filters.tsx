@@ -1,6 +1,9 @@
+'use client'
+
 import './filters.scss'
 import { useState, type FormHTMLAttributes, type HTMLAttributes, type ReactNode } from 'react'
 import {
+  filterClasses as c,
   filterLayoutClass,
   filterPanelClass,
   filterPositions,
@@ -17,6 +20,12 @@ export type FilterLayoutProps = HTMLAttributes<HTMLDivElement> &
     /** Adds a Top / Side switch above the filters (hidden below 1024px). */
     switchable?: boolean
     switchLabel?: string
+    /** Below 1024px the filters fold behind a closed disclosure. */
+    collapsible?: boolean
+    collapsibleLabel?: string
+    /** Number of active filters, shown on the disclosure. */
+    activeCount?: number
+    activeLabel?: string
     onPositionChange?: (position: FilterPosition) => void
   }
 
@@ -24,6 +33,10 @@ export function FilterLayout({
   position = 'top',
   switchable,
   switchLabel = 'Filter position',
+  collapsible,
+  collapsibleLabel = 'Filters',
+  activeCount,
+  activeLabel = 'active',
   onPositionChange,
   filters,
   className,
@@ -44,9 +57,9 @@ export function FilterLayout({
       className={filterLayoutClass({ position: current, className })}
     >
       {switchable && (
-        <fieldset className="x-filters__switch">
-          <legend className="x-filters__switch-label">{switchLabel}</legend>
-          <span className="x-filters__switch-options">
+        <fieldset className={c.switch}>
+          <legend className={c.switchLabel}>{switchLabel}</legend>
+          <span className={c.switchOptions}>
             {filterPositions.map((option) => {
               const { class: optionClass, ...attrs } = filterSwitchButtonAttrs(option, current)
               return (
@@ -67,8 +80,21 @@ export function FilterLayout({
           </span>
         </fieldset>
       )}
-      <div className="x-filters__controls">{filters}</div>
-      <div className="x-filters__results">{children}</div>
+      {collapsible && (
+        <details className={c.disclosure}>
+          <summary className={c.toggle}>
+            {collapsibleLabel}
+            {activeCount !== undefined && activeCount > 0 && (
+              <span className={c.count}>
+                {activeCount}
+                <span className="x-visually-hidden">{` ${activeLabel}`}</span>
+              </span>
+            )}
+          </summary>
+        </details>
+      )}
+      <div className={c.controls}>{filters}</div>
+      <div className={c.results}>{children}</div>
     </div>
   )
 }

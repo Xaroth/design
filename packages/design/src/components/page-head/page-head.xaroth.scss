@@ -1,0 +1,47 @@
+@use '../../styles/theme';
+
+@include theme.parts('xaroth') {
+  .x-page-head {
+    &__titles {
+      gap: var(--x-space-4);
+    }
+
+    &__eyebrow {
+      display: inline-flex;
+      gap: var(--x-space-3);
+      align-items: center;
+      letter-spacing: var(--x-track-caps);
+
+      &::before,
+      &::after {
+        content: '';
+        width: 0.4rem;
+        height: 0.4rem;
+        border: 1px solid currentcolor;
+        transform: rotate(45deg);
+      }
+
+      &::after {
+        display: none;
+      }
+    }
+
+    &__title {
+      font-weight: 500;
+      letter-spacing: var(--x-track-display);
+      color: var(--x-color-sand);
+    }
+
+    &__lead {
+      font-style: italic;
+    }
+
+    &--center .x-page-head__eyebrow::after {
+      display: block;
+    }
+
+    &--center .x-page-head__lead {
+      max-width: 40rem;
+    }
+  }
+}

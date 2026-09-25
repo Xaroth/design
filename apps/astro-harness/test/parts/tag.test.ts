@@ -10,6 +10,8 @@ const cases: { name: string; props: Record<string, unknown> }[] = [
   { name: 'link', props: { href: '/tags/esi' } },
   { name: 'active link', props: { href: '/tags/esi', active: true } },
   { name: 'extra class and attrs', props: { href: '/tags/esi', class: 'site-tag', rel: 'tag' } },
+  { name: 'user aria-current kept on inactive link', props: { href: '/tags/esi', 'aria-current': 'page' } },
+  { name: 'user aria-current loses when active', props: { href: '/tags/esi', active: true, 'aria-current': 'page' } },
 ]
 
 describe('Tag renders the same HTML in Astro and React', () => {

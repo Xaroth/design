@@ -6,16 +6,16 @@ import { iconClass, icons, iconState, type IconOptions } from './index.ts'
 type Props = Omit<HTMLAttributes<'svg'>, 'class' | 'name' | 'width' | 'height'> & Omit<IconOptions, 'className'> & { class?: string }
 
 const { name, size, label, class: className, slot: _slot, ...rest } = Astro.props
+const attrs = {
+  ...rest,
+  viewBox: '0 0 24 24',
+  fill: 'none',
+  stroke: 'currentColor',
+  'stroke-width': '1.5',
+  'stroke-linecap': 'round' as const,
+  'stroke-linejoin': 'round' as const,
+  ...iconState({ size, label }),
+}
 ---
 
-<svg
-  class={iconClass({ className })}
-  viewBox="0 0 24 24"
-  fill="none"
-  stroke="currentColor"
-  stroke-width="1.5"
-  stroke-linecap="round"
-  stroke-linejoin="round"
-  {...iconState({ size, label })}
-  {...rest}
->{icons[name].map((d) => <path d={d} />)}</svg>
+<svg {...attrs} class={iconClass({ className })}>{icons[name].map((d) => <path d={d} />)}</svg>

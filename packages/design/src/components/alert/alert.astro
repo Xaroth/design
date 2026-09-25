@@ -16,7 +16,7 @@ const { tone, framed, title, urgent, role, class: className, slot: _slot, ...res
 const hasTitle = title !== undefined || Astro.slots.has('title')
 ---
 
-<div class={alertClass({ tone, framed, className })} role={alertRole(urgent, role)} {...rest}>
+<div {...rest} role={alertRole(urgent, role)} class={alertClass({ tone, framed, className })}>
   <svg class="x-alert__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
     {alertIcon(tone).map(({ className, d }) => <path class={className} d={d} />)}
   </svg>

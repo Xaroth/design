@@ -29,6 +29,7 @@ const {
   as: El = 'article',
   headingLevel = 3,
   class: className,
+  slot: _slot,
   ...rest
 } = Astro.props
 const H = `h${headingLevel}` as const
@@ -38,7 +39,7 @@ const hasFootStart = Astro.slots.has('footStart')
 const hasFootEnd = Astro.slots.has('footEnd')
 ---
 
-<El class={cardClass({ featured, link: href !== undefined, className })} {...rest}>
+<El {...rest} class={cardClass({ featured, link: href !== undefined, className })}>
   {
     (index !== undefined || hasStatus) && (
       <div class="x-card__head">

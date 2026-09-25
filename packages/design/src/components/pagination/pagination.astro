@@ -5,6 +5,7 @@ import {
   paginationClass,
   paginationClasses as c,
   paginationEntries,
+  paginationItemClass,
   paginationPageAttrs,
   type PaginationInput,
   type PaginationOptions,
@@ -12,10 +13,9 @@ import {
 
 type Props = Omit<HTMLAttributes<'nav'>, 'class'> &
   Omit<PaginationOptions, 'className'> &
-  Omit<PaginationInput, 'href'> & {
+  PaginationInput & {
     class?: string
-    /** URL pattern, {page} is replaced by the page number: '/blog/page/{page}'. */
-    href: string
+    /** Accessible name of the nav. */
     label?: string
   }
 
@@ -32,18 +32,36 @@ const {
   nextLabel,
   firstLabel,
   lastLabel,
+  summaryLabel,
   label = 'Pagination',
   ...rest
 } = Astro.props
-const entries = paginationEntries({ page, pages, href, firstHref, siblings, ends, prevLabel, nextLabel, firstLabel, lastLabel })
+const entries = paginationEntries({
+  page,
+  pages,
+  href,
+  firstHref,
+  siblings,
+  ends,
+  prevLabel,
+  nextLabel,
+  firstLabel,
+  lastLabel,
+  summaryLabel,
+})
 ---
 
 <nav class={paginationClass({ align, className })} aria-label={label} {...rest}>
   <ul class={c.list}>
     {
       entries.map((entry) => (
-        <li class={c.item}>
-          {entry.kind === 'page' ? (
+        <li class={paginationItemClass(entry)}>
+          {entry.kind === 'summary' ? (
+            <span class={c.summary}>
+              <span aria-hidden="true">{entry.text}</span>
+              <span class="x-visually-hidden">{entry.label}</span>
+            </span>
+          ) : entry.kind === 'page' ? (
             <a class={c.link} {...paginationPageAttrs(entry)}>
               {entry.label}
             </a>

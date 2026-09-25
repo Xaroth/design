@@ -2,15 +2,19 @@
 
 @include theme.parts('xaroth') {
   .x-filters {
+    --x-filters-switch-weight: 700;
+    --x-filters-switch-tracking: 0.14em;
+    --x-filters-count-color: var(--x-color-accent-strong);
     --x-filters-option-hover: var(--x-color-sand);
     --x-filters-option-on-color: var(--x-color-on-accent);
     --x-filters-option-on-bg: var(--x-color-sand);
   }
 
-  // Grouped choices take their own row under the fields when the filters sit on top.
+  // Grouped choices start their own row under the fields when the filters sit on top, leaving room for a
+  // checkbox or switch after them.
   @media (min-width: 1024px) {
     .x-filters--top .x-filter-panel > .x-choice-group {
-      flex-basis: 100%;
+      flex-basis: calc(100% - 14rem);
     }
   }
 }

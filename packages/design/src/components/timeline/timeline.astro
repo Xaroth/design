@@ -15,11 +15,11 @@ type Props = Omit<HTMLAttributes<'ol'>, 'class'> & {
   headingLevel?: TimelineHeadingLevel
 }
 
-const { items, headingLevel, class: className, ...rest } = Astro.props
+const { items, headingLevel, class: className, slot: _slot, ...rest } = Astro.props
 const Heading = timelineHeading(headingLevel)
 ---
 
-<ol class={timelineClass({ className })} {...rest}>
+<ol {...rest} class={timelineClass({ className })}>
   {
     items.map(({ date, label, title, text, current }) => (
       <li class={timelineItemClass({ current })}>

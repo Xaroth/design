@@ -4,6 +4,12 @@
 @include theme.parts('eve-online') {
   .x-table-wrap {
     @include look.frame;
+
+    // Matches the glass fill over the page background.
+    --x-table-cover: color-mix(in srgb, var(--x-color-surface) 50%, var(--x-color-bg));
+    --x-table-edge: color-mix(in srgb, var(--x-color-accent) 30%, transparent);
+
+    background: var(--x-table-hint), var(--x-color-glass);
   }
 
   .x-table {

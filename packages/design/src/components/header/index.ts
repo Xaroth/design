@@ -32,12 +32,17 @@ export const headerClasses = {
   menu: header.el('menu'),
   toggle: header.el('toggle', {}, buttonClass({ variant: 'tertiary', size: 'sm' })),
   panel: header.el('panel'),
-  panelActions: header.el('panel-actions'),
 } as const
 
 export const navLinkAttrs = ({ href, current }: HeaderNavItem) => ({
   href,
-  'aria-current': current ? ('page' as const) : undefined,
+  ...(current && { 'aria-current': 'page' as const }),
 })
 
 export const brandTag = (href?: string) => (href === undefined ? ('div' as const) : ('a' as const))
+
+// Only the link takes a name: an aria-label on a plain div is not announced.
+export const brandState = (href?: string, label?: string) =>
+  href === undefined
+    ? { tag: 'div' as const, attrs: {} }
+    : { tag: 'a' as const, attrs: { href, ...(label !== undefined && { 'aria-label': label }) } }

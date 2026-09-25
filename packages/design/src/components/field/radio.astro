@@ -8,9 +8,10 @@ type Props = Omit<HTMLAttributes<'input'>, 'class' | 'type' | 'role'> & {
 }
 
 const { class: className, ...rest } = Astro.props
+const input = { ...rest, type: 'radio' as const, class: 'x-radio__input' }
 ---
 
 <label class={choiceClass('radio', { className })}>
-  <input class="x-radio__input" type="radio" {...rest} />
+  <input {...input} />
   <span class="x-radio__label"><slot /></span>
 </label>

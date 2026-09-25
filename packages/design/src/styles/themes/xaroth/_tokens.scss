@@ -1,7 +1,7 @@
 @use '../../theme';
 
 @include theme.scope('xaroth') {
-  --x-font-display: 'Cinzel Variable', 'Cinzel', 'Times New Roman', serif;
+  --x-font-display: 'xaroth numerals', 'Cinzel Variable', 'Cinzel', 'Times New Roman', serif;
   --x-font-heading: var(--x-font-display);
   --x-font-body: 'Spectral', Georgia, serif;
   --x-font-ui: 'Manrope Variable', 'Manrope', system-ui, sans-serif;

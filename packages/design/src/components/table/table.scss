@@ -3,9 +3,25 @@
 
 @layer x.core {
   // Wide tables scroll inside their frame instead of widening the page.
+  // Part-local properties (themes may override):
+  //   --x-table-edge     scroll hint color at an edge with more columns behind it
+  //   --x-table-cover    opaque stand-in for the frame fill, hides the hint at the scroll ends
+  //   --x-table-hint     the hint layers; themes that fill the frame put them in front of their fill
   .x-table-wrap {
+    --x-table-edge: color-mix(in srgb, var(--x-color-accent) 30%, transparent);
+    --x-table-cover: var(--x-color-bg);
+
+    // Covers scroll with the content and sit over the edge shadows only at the ends. The header cells are
+    // opaque, so the hint shows on the body rows.
+    --x-table-hint:
+      linear-gradient(to right, var(--x-table-cover) 60%, transparent) left / 28px 100% no-repeat local,
+      linear-gradient(to left, var(--x-table-cover) 60%, transparent) right / 28px 100% no-repeat local,
+      radial-gradient(farthest-side at 0 50%, var(--x-table-edge), transparent) left / 14px 100% no-repeat scroll,
+      radial-gradient(farthest-side at 100% 50%, var(--x-table-edge), transparent) right / 14px 100% no-repeat scroll;
+
     max-width: 100%;
     overflow: auto;
+    background: var(--x-table-hint), var(--x-table-cover);
 
     &--sticky {
       max-height: var(--x-table-max-height, 70vh);

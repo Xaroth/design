@@ -1,0 +1,18 @@
+---
+import type { TableCell, TableColumn, TableRow } from '@xaroth.nl/design/parts'
+import { Table } from '@xaroth.nl/design/astro'
+
+type Props = { columns: TableColumn[]; rows: TableRow[]; label: string; mode: 'function' | 'markup' }
+
+const { mode, ...props } = Astro.props
+---
+
+{
+  mode === 'function' ? (
+    <Table {...props}>{(cell: TableCell) => (cell.column.key === 'state' && cell.value != null ? <b>{cell.value}</b> : null)}</Table>
+  ) : (
+    <Table {...props}>
+      <b>static</b>
+    </Table>
+  )
+}

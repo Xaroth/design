@@ -9,7 +9,7 @@ type Props = Omit<HTMLAttributes<'div'>, 'class'> &
     as?: PanelElement
   }
 
-const { variant, marks, padding, as: El = 'div', class: className, ...rest } = Astro.props
+const { variant, marks, padding, as: El = 'div', class: className, slot: _slot, ...rest } = Astro.props
 ---
 
-<El class={panelClass({ variant, marks, padding, className })} {...rest}><slot /></El>
+<El {...rest} class={panelClass({ variant, marks, padding, className })}><slot /></El>

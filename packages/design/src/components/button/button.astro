@@ -3,20 +3,20 @@ import './button.scss'
 import type { HTMLAttributes } from 'astro/types'
 import { buttonClass, buttonState, type ButtonOptions } from './index.ts'
 
-type Props = Omit<HTMLAttributes<'button'>, 'class'> &
-  Omit<ButtonOptions, 'className'> & {
-    class?: string
-    href?: string
-  }
+type Common = Omit<ButtonOptions, 'className'> & { class?: string }
 
-const { variant, tone, size, fullWidth, loading, disabled, class: className, href, type = 'button', slot: _slot, ...rest } =
+type Props =
+  | (Common & Omit<HTMLAttributes<'button'>, 'class'> & { href?: undefined })
+  | (Common & Omit<HTMLAttributes<'a'>, 'class' | 'type'> & { href: string; disabled?: boolean; type?: undefined })
+
+const { variant, tone, size, fullWidth, loading, disabled, class: className, href, type, slot: _slot, ...rest } =
   Astro.props
 const classes = buttonClass({ variant, tone, size, fullWidth, loading, className })
-const { tag: Tag, attrs } = buttonState({ href, disabled: Boolean(disabled), loading })
-const typeAttr = Tag === 'button' ? { type } : {}
+const { tag: Tag, attrs: state } = buttonState({ href, disabled: Boolean(disabled), loading, type: type ?? undefined })
+const attrs = { ...rest, ...state }
 ---
 
-<Tag class={classes} {...typeAttr} {...attrs} {...rest}>
+<Tag {...attrs} class={classes}>
   {
     Astro.slots.has('start') && (
       <span class="x-button__start">

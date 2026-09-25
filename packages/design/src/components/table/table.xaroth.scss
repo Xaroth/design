@@ -4,6 +4,12 @@
 @include theme.parts('xaroth') {
   .x-table-wrap {
     @include look.frame;
+
+    // Matches the glass fill over the page background.
+    --x-table-cover: color-mix(in srgb, var(--x-color-surface-2) 30%, var(--x-color-surface));
+    --x-table-edge: color-mix(in srgb, var(--x-color-accent) 34%, transparent);
+
+    background: var(--x-table-hint), var(--x-color-glass);
   }
 
   .x-table {

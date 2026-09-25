@@ -8,7 +8,7 @@ type Props = Omit<HTMLAttributes<'div'>, 'class'> & {
   as?: 'div' | 'article' | 'section' | 'main'
 }
 
-const { as: Tag = 'div', class: className, ...rest } = Astro.props
+const { as: Tag = 'div', class: className, slot: _slot, ...rest } = Astro.props
 ---
 
-<Tag class={proseClass({ className })} {...rest}><slot /></Tag>
+<Tag {...rest} class={proseClass({ className })}><slot /></Tag>

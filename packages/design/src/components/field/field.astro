@@ -24,7 +24,7 @@ const control = wireControlHtml(
 )
 ---
 
-<div class={fieldClass({ invalid: hasError, className })} {...rest}>
+<div {...{ ...rest, class: fieldClass({ invalid: hasError, className }) }}>
   {
     hasLabel && (
       <label class="x-field__label" for={id}>

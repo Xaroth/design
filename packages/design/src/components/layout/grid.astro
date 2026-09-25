@@ -8,7 +8,7 @@ type Props = Omit<HTMLAttributes<'div'>, 'class'> & {
   as?: 'div' | 'main' | 'section' | 'article' | 'ul' | 'ol'
 }
 
-const { as: Tag = 'div', class: className, ...rest } = Astro.props
+const { as: Tag = 'div', class: className, slot: _slot, ...rest } = Astro.props
 ---
 
-<Tag class={gridClass({ className })} {...rest}><slot /></Tag>
+<Tag {...rest} class={gridClass({ className })}><slot /></Tag>

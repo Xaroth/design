@@ -45,6 +45,7 @@ const meta = {
     start: { control: 'inline-radio', options: Object.keys(icons), mapping: icons },
     end: { control: 'inline-radio', options: Object.keys(icons), mapping: icons },
     href: { control: 'text' },
+    type: { control: 'inline-radio', options: ['button', 'submit', 'reset'] },
   },
 } satisfies Meta<typeof Button>
 

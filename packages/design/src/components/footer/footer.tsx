@@ -1,6 +1,6 @@
 import './footer.scss'
-import { createElement, type HTMLAttributes, type ReactNode } from 'react'
-import { footerBrandTag, footerClass, footerClasses as c, type FooterGroup, type FooterOptions } from './index.ts'
+import type { HTMLAttributes, ReactNode } from 'react'
+import { footerBrandState, footerClass, footerClasses as c, type FooterGroup, type FooterOptions } from './index.ts'
 
 export type FooterProps = Omit<HTMLAttributes<HTMLElement>, 'children'> &
   Omit<FooterOptions, 'className'> & {
@@ -8,6 +8,7 @@ export type FooterProps = Omit<HTMLAttributes<HTMLElement>, 'children'> &
     brand?: ReactNode
     /** Makes the brand a link, usually to the home page. */
     brandHref?: string
+    /** Accessible name for the brand link. Ignored without `brandHref`. */
     brandLabel?: string
     /** Legal line. */
     note?: ReactNode
@@ -26,18 +27,21 @@ export function Footer({
   navLabel = 'Footer',
   ...rest
 }: FooterProps) {
+  const { tag: Brand, attrs: brandAttrs } = footerBrandState(brandHref, brandLabel)
   return (
     <footer
-      className={footerClass({ layout, className })}
       {...rest}
+      className={footerClass({ layout, className })}
     >
       <div className={c.inner}>
-        {brand != null &&
-          createElement(
-            footerBrandTag(brandHref),
-            { className: c.brand, href: brandHref, 'aria-label': brandLabel },
-            brand,
-          )}
+        {brand != null && (
+          <Brand
+            {...brandAttrs}
+            className={c.brand}
+          >
+            {brand}
+          </Brand>
+        )}
         {note != null && note !== '' && <p className={c.note}>{note}</p>}
         {groups.length > 0 && (
           <nav

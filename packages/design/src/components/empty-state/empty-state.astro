@@ -15,7 +15,7 @@ const H = `h${headingLevel}` as const
 const hasTitle = title !== undefined || Astro.slots.has('title')
 ---
 
-<div class={emptyStateClass({ className })} {...rest}>
+<div {...rest} class={emptyStateClass({ className })}>
   {
     Astro.slots.has('icon') && (
       <span class="x-empty-state__icon" aria-hidden="true">

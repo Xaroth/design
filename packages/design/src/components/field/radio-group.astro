@@ -1,6 +1,7 @@
 ---
 import './field.scss'
 import type { HTMLAttributes } from 'astro/types'
+import { defined } from '../../html.ts'
 import { choiceGroupAttrs, choiceGroupClass, fieldIds, type ChoiceGroupOrientation } from './index.ts'
 
 type Props = Omit<HTMLAttributes<'fieldset'>, 'class' | 'id' | 'role'> & {
@@ -19,13 +20,18 @@ const hasLegend = Boolean(legend) || Astro.slots.has('legend')
 const hasDescription = Boolean(description) || Astro.slots.has('description')
 const hasError = Boolean(error) || Astro.slots.has('error')
 const ids = fieldIds(id)
+const recipe = choiceGroupAttrs({
+  id,
+  hasDescription,
+  hasError,
+  required,
+  kind: 'radio',
+  describedBy: rest['aria-describedby'] ?? undefined,
+})
+const attrs = { ...rest, ...defined(recipe), class: choiceGroupClass({ orientation, invalid: hasError, className }) }
 ---
 
-<fieldset
-  class={choiceGroupClass({ orientation, invalid: hasError, className })}
-  {...choiceGroupAttrs({ id, hasDescription, hasError, required, kind: 'radio' })}
-  {...rest}
->
+<fieldset {...attrs}>
   {
     hasLegend && (
       <legend class="x-choice-group__legend">

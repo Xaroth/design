@@ -26,6 +26,7 @@ const prefixes = [
   ['x-mx- / x-my-', 'margin, horizontal / vertical'],
   ['x-mt- x-mr- x-mb- x-ml-', 'margin, one side'],
   ['x-gap- / x-gap-x- / x-gap-y-', 'gap in grid and flex layouts'],
+  ['x-stack- / x-cluster-', 'vertical flow / wrapping row with a gap (see Layout helpers)'],
 ]
 
 const wash = 'var(--x-color-accent-wash)'
