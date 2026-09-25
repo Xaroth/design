@@ -16,7 +16,8 @@
       letter-spacing: 0;
     }
 
-    :where(a) {
+    // Plain links only: parts rendered as <a> (x-button, x-tag) keep their own colors.
+    :where(a:not([class])) {
       color: var(--x-color-accent-strong);
       text-decoration-color: var(--x-color-bronze);
 

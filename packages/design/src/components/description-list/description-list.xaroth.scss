@@ -5,7 +5,7 @@
     --x-description-list-term-width: 6rem;
     --x-description-list-line: var(--x-color-line-strong);
 
-    a {
+    a:not([class]) {
       color: var(--x-color-accent-strong);
     }
   }
