@@ -27,15 +27,17 @@ type Value<P, K> = K extends keyof P ? Exclude<P[K], undefined | null> : never
 // React event handlers are typed per element, so an inherited one is never counted as redefined.
 type Own<P, Base> = P extends unknown
   ? keyof {
-      [K in keyof P as K extends `data-${string}`
-        ? never
-        : K extends keyof Base
-          ? K extends `on${string}`
-            ? never
-            : Equal<Pick<P, K>, Pick<Base, K>> extends true
+      [
+        K in keyof P as K extends `data-${string}`
+          ? never
+          : K extends keyof Base
+            ? K extends `on${string}`
               ? never
-              : K
-          : K]: 0
+              : Equal<Pick<P, K>, Pick<Base, K>> extends true
+                ? never
+                : K
+            : K
+      ]: 0
     }
   : never
 
