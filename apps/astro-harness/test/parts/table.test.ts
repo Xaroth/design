@@ -25,6 +25,8 @@ const cases: {
   name: string
   props: Record<string, unknown>
   cells?: { row: number; key: string; html: string; node: ReactNode }[]
+  // A labelling heading lives on the page, outside the part.
+  externalIds?: string[]
 }[] = [
   { name: 'default', props: base },
   { name: 'caption', props: { ...base, caption: 'Seven achievements across the four empires.' } },
@@ -38,7 +40,11 @@ const cases: {
     name: 'all flags',
     props: { ...base, density: 'compact', striped: true, hover: true, stickyHeader: true, caption: 'All' },
   },
-  { name: 'aria-labelledby instead of label', props: { columns, rows, 'aria-labelledby': 'h-ach' } },
+  {
+    name: 'aria-labelledby instead of label',
+    props: { columns, rows, 'aria-labelledby': 'h-ach' },
+    externalIds: ['h-ach'],
+  },
   {
     name: 'numeric with explicit start align',
     props: { ...base, columns: [{ key: 'reward', label: 'Reward', numeric: true, align: 'start' }] },
@@ -62,7 +68,7 @@ const cases: {
 ]
 
 describe('Table renders the same HTML in Astro and React', () => {
-  for (const { name, props, cells = [] } of cases) {
+  for (const { name, props, cells = [], externalIds } of cases) {
     it(name, async () => {
       const { class: className, ...rest } = props
       const slots: Record<string, string> = {}
@@ -75,6 +81,7 @@ describe('Table renders the same HTML in Astro and React', () => {
         AstroTable,
         { props, slots },
         createElement(Table, { ...rest, rows: reactRows, className } as never),
+        { externalIds },
       )
     })
   }

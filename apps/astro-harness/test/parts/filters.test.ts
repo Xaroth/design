@@ -3,7 +3,7 @@ import { createElement } from 'react'
 import { renderToStaticMarkup } from 'react-dom/server'
 import { describe, expect, it } from 'vitest'
 import { FilterLayout, FilterPanel, filterSwitchScript } from '@xaroth.nl/design/react'
-import { expectSameHtml } from '../compare.ts'
+import { expectSameHtml, expectSameMarkup } from '../compare.ts'
 import { normalize } from '../normalize.ts'
 import { FilterLayout as AstroFilterLayout, FilterPanel as AstroFilterPanel } from '@xaroth.nl/design/astro'
 
@@ -55,7 +55,7 @@ describe('FilterLayout', () => {
       )
       const switchable = Boolean(props.switchable)
       expect(astro.includes(script)).toBe(switchable)
-      expect(normalize(astro.replace(script, ''))).toBe(normalize(react))
+      expectSameMarkup(astro.replace(script, ''), react)
     })
   }
 

@@ -1,5 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite'
-import { Badge, Table } from '@xaroth.nl/design/react'
+import type { CSSProperties } from 'react'
+import { Badge, EmptyState, Table } from '@xaroth.nl/design/react'
+import { matrix, Row, Rows } from './shared.tsx'
 
 const columns = [
   { key: 'name', label: 'Achievement' },
@@ -93,3 +95,115 @@ const meta = {
 export default meta
 
 export const Default: StoryObj<typeof meta> = { name: 'Table' }
+
+const aligned = [
+  { key: 'name', label: 'Achievement' },
+  { key: 'category', label: 'Category', align: 'center' as const },
+  { key: 'progress', label: 'Progress', numeric: true },
+  { key: 'reward', label: 'Reward LP', align: 'end' as const },
+]
+
+const many = Array.from({ length: 4 }, (_, i) =>
+  rowSets.badges.map((row) => ({ ...row, name: `${row.name} ${i + 1}` })),
+).flat()
+
+export const Variants: StoryObj<typeof meta> = {
+  parameters: matrix,
+  render: () => (
+    <Rows>
+      {(['comfortable', 'compact'] as const).flatMap((density) =>
+        [false, true].map((striped) => (
+          <Row
+            key={`${density}-${striped}`}
+            label={`${density}${striped ? ', striped' : ''}`}
+            stack
+          >
+            <Table
+              label={`Achievements, ${density}${striped ? ', striped' : ''}`}
+              columns={columns}
+              rows={rowSets.badges.slice(0, 3)}
+              density={density}
+              striped={striped}
+              hover
+            />
+          </Row>
+        )),
+      )}
+      <Row
+        label="Alignment: start, center, numeric, end"
+        stack
+      >
+        <Table
+          label="Alignment"
+          columns={aligned}
+          rows={rows.slice(0, 3)}
+          caption="Numeric columns use tabular figures and align to the end."
+        />
+      </Row>
+      <Row
+        label="Sticky header, scrolls at 16rem"
+        stack
+      >
+        <Table
+          label="Achievements, sticky header"
+          columns={columns}
+          rows={many}
+          stickyHeader
+          striped
+          style={{ '--x-table-max-height': '16rem' } as CSSProperties}
+        />
+      </Row>
+      <Row
+        label="Wide, scrolls sideways"
+        stack
+      >
+        <div style={{ maxWidth: 480 }}>
+          <Table
+            label="Achievements, wide"
+            columns={columns}
+            rows={rowSets.badges.slice(0, 3)}
+            density="compact"
+          />
+        </div>
+      </Row>
+    </Rows>
+  ),
+}
+
+export const States: StoryObj<typeof meta> = {
+  parameters: matrix,
+  render: () => (
+    <Rows>
+      <Row
+        label="No rows"
+        stack
+      >
+        <Table
+          label="Achievements, empty"
+          columns={columns}
+          rows={[]}
+          caption="No achievements match the filters."
+        />
+      </Row>
+      <Row
+        label="Empty cells"
+        stack
+      >
+        <Table
+          label="Achievements, missing values"
+          columns={columns}
+          rows={[
+            { ...rowSets.badges[0], reward: null },
+            { ...rowSets.badges[1], faction: undefined, progress: '' },
+          ]}
+        />
+      </Row>
+      <Row
+        label="Empty state instead of rows"
+        stack
+      >
+        <EmptyState title="Nothing matches">Clear the search or pick another faction to see more.</EmptyState>
+      </Row>
+    </Rows>
+  ),
+}

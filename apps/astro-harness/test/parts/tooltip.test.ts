@@ -3,7 +3,7 @@ import { createElement, type ReactElement } from 'react'
 import { renderToStaticMarkup } from 'react-dom/server'
 import { describe, expect, it } from 'vitest'
 import { Tooltip, tooltipEscapeScript } from '@xaroth.nl/design/react'
-import { normalize } from '../normalize.ts'
+import { expectSameMarkup } from '../compare.ts'
 import { Tooltip as AstroTooltip } from '@xaroth.nl/design/astro'
 import TooltipPage from '../../src/pages/tooltip.astro'
 
@@ -61,7 +61,8 @@ describe('Tooltip renders the same HTML in Astro and React', () => {
       const astro = await container.renderToString(AstroTooltip, { props: all, slots: { default: trigger.html } })
       const react = renderToStaticMarkup(createElement(Tooltip, { ...rest, className } as never, trigger.react()))
       expect(astro.includes(script)).toBe(true)
-      expect(normalize(astro.replace(script, ''))).toBe(normalize(react))
+      // `scopes-note` is page text outside the tooltip.
+      expectSameMarkup(astro.replace(script, ''), react, { externalIds: ['scopes-note'] })
     })
   }
 })

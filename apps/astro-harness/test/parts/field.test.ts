@@ -11,6 +11,7 @@ import {
   Select,
   Switch,
   Textarea,
+  type FieldProps,
 } from '@xaroth.nl/design/react'
 import { expectSameHtml } from '../compare.ts'
 import {
@@ -131,6 +132,8 @@ for (const [label, AstroPart, ReactPart] of choices) {
             { ...split(rest), defaultChecked: checked as boolean | undefined } as never,
             'Combat',
           ),
+          // `hint` is a page element outside the control.
+          { externalIds: ['hint'] },
         )
       })
     }
@@ -167,6 +170,7 @@ describe('Field', () => {
       AstroField,
       { props, slots: { default: control } },
       createElement(Field, props as never, createElement(Input, own as never)),
+      { externalIds: ['extra'] },
     )
   })
 
@@ -178,6 +182,26 @@ describe('Field', () => {
       AstroField,
       { props, slots: { default: control } },
       createElement(Field, props as never, createElement(Input, own as never)),
+      { externalIds: ['extra'] },
+    )
+  })
+
+  it('label, description and error as slots', async () => {
+    const control = await container.renderToString(AstroInput, { props: { name: 'n' } })
+    // Children go in as the third argument, which the props type cannot see.
+    const props: Omit<FieldProps, 'children'> = {
+      id: 'slots',
+      label: createElement('b', null, 'Name'),
+      description: createElement('i', null, 'Help'),
+      error: createElement('i', null, 'Wrong'),
+    }
+    await expectSameHtml(
+      AstroField,
+      {
+        props: { id: 'slots' },
+        slots: { default: control, label: '<b>Name</b>', description: '<i>Help</i>', error: '<i>Wrong</i>' },
+      },
+      createElement(Field, props as FieldProps, createElement(Input, { name: 'n' })),
     )
   })
 
@@ -271,6 +295,8 @@ describe('RadioGroup', () => {
         AstroRadioGroup,
         { props, slots: { default: await radios() } },
         createElement(RadioGroup, split(props) as never, reactRadios),
+        // `note` is a page element outside the group.
+        { externalIds: ['note'] },
       )
     })
   }
@@ -301,6 +327,8 @@ describe('CheckboxGroup', () => {
         AstroCheckboxGroup,
         { props, slots: { default: await boxes() } },
         createElement(CheckboxGroup, split(props) as never, reactBoxes),
+        // `note` is a page element outside the group.
+        { externalIds: ['note'] },
       )
     })
   }

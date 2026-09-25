@@ -3,7 +3,7 @@ import { createElement } from 'react'
 import { renderToStaticMarkup } from 'react-dom/server'
 import { describe, expect, it } from 'vitest'
 import { Button } from '@xaroth.nl/design/react'
-import { normalize } from '../normalize.ts'
+import { expectSameMarkup } from '../compare.ts'
 import { Button as AstroButton } from '@xaroth.nl/design/astro'
 
 const container = await AstroContainer.create()
@@ -53,7 +53,7 @@ describe('Button renders the same HTML in Astro and React', () => {
       )
       // React needs a wrapper element for raw HTML; unwrap it before comparing.
       const unwrapped = react.replace(/<span>(<svg[^]*?<\/svg>|→)<\/span>/g, '$1')
-      expect(normalize(astro)).toBe(normalize(unwrapped))
+      expectSameMarkup(astro, unwrapped)
     })
   }
 })

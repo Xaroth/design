@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite'
 import { Stat, StatGroup, type StatGroupVariant } from '@xaroth.nl/design/react'
+import { matrix, Row, Rows } from '../shared.tsx'
 
 type Args = Parameters<typeof Stat>[0] & { groupVariant: StatGroupVariant }
 
@@ -42,3 +43,43 @@ const meta = {
 export default meta
 
 export const Default: StoryObj<typeof meta> = { name: 'Stat' }
+
+const tones = [
+  ['default', 'In progress', '3', undefined, 'Across four empires'],
+  ['muted', 'Locked', '2', undefined, 'Needs Caldari standing 5.0'],
+  ['success', 'Completed', '2', '/ 7', 'Last one on 14 Mar'],
+  ['warning', 'LP earned', '25,000', 'LP', 'Expires with the season'],
+  ['danger', 'Errors left', '12', '/ 100', 'Slow down: 250 ms delay'],
+] as const
+
+export const Variants: StoryObj<typeof meta> = {
+  parameters: matrix,
+  render: () => (
+    <Rows>
+      {(['framed', 'plain'] as const).map((variant) => (
+        <Row
+          key={variant}
+          label={`Tones, ${variant}`}
+          stack
+        >
+          <StatGroup
+            variant={variant}
+            columns={3}
+            aria-label={`Tones, ${variant}`}
+          >
+            {tones.map(([tone, label, value, unit, hint]) => (
+              <Stat
+                key={tone}
+                tone={tone}
+                label={label}
+                value={value}
+                unit={unit}
+                hint={hint}
+              />
+            ))}
+          </StatGroup>
+        </Row>
+      ))}
+    </Rows>
+  ),
+}

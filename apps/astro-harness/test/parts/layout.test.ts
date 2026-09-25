@@ -13,7 +13,7 @@ import {
 const el = (type: unknown, props: object, ...children: ReactNode[]) =>
   createElement(type as never, props as never, ...children) as ReactElement
 
-type Case = { name: string; props: Record<string, unknown> }
+type Case = { name: string; props: Record<string, unknown>; externalIds?: string[] }
 
 const body = '<p>Content</p>'
 const children = createElement('p', null, 'Content')
@@ -46,17 +46,23 @@ const wrappers = [
     cases: [
       { name: 'default', props: {} },
       { name: 'tight', props: { tight: true } },
-      { name: 'as div with label', props: { as: 'div', class: 'home', 'aria-labelledby': 'tools' } },
+      {
+        name: 'as div with label',
+        props: { as: 'div', class: 'home', 'aria-labelledby': 'tools' },
+        externalIds: ['tools'],
+      },
     ],
   },
 ] as const
 
 describe('layout wrappers render the same HTML in Astro and React', () => {
   for (const { part, astro, react, cases } of wrappers) {
-    for (const { name, props } of cases as readonly Case[]) {
+    for (const { name, props, externalIds } of cases as readonly Case[]) {
       it(`${part}: ${name}`, async () => {
         const { class: className, ...rest } = props
-        await expectSameHtml(astro, { props, slots: { default: body } }, el(react, { ...rest, className }, children))
+        await expectSameHtml(astro, { props, slots: { default: body } }, el(react, { ...rest, className }, children), {
+          externalIds,
+        })
       })
     }
   }

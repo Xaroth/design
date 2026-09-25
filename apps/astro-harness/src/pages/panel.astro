@@ -7,7 +7,7 @@ const grid = 'display: grid; gap: 24px; grid-template-columns: repeat(auto-fill,
 ---
 
 <Harness title="Panel">
-  {() => (
+  {(theme: string) => (
     <div style="padding: 0 32px; max-width: 1200px">
       <p>Variants</p>
       <div style={grid}>
@@ -45,11 +45,11 @@ const grid = 'display: grid; gap: 24px; grid-template-columns: repeat(auto-fill,
         </Panel>
       </div>
       <p style="margin-top: 32px">Call to action</p>
-      <Panel as="section" variant="callout" padding="xl" marks aria-labelledby="cta-title" style="margin-top: 16px">
+      <Panel as="section" variant="callout" padding="xl" marks aria-labelledby={`cta-title-${theme}`} style="margin-top: 16px">
         <div style="display: flex; flex-wrap: wrap; gap: 24px; align-items: center; justify-content: space-between">
           <div style="max-width: 38rem">
             <p class="x-label">Open source</p>
-            <h2 id="cta-title" style="margin-top: 12px">Build your own tool on the same stack</h2>
+            <h2 id={`cta-title-${theme}`} style="margin-top: 12px">Build your own tool on the same stack</h2>
             <p style="margin-top: 12px; color: var(--x-color-text-muted)">
               The typed ESI client, SDE loaders, and this design kit are all public.
             </p>

@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite'
 import { colClass, Container, Grid, type ColSpan, type ColStack } from '@xaroth.nl/design/react'
+import { matrix, Row, Rows } from '../shared.tsx'
 
 type Args = { first: ColSpan; stack: ColStack }
 
@@ -48,3 +49,53 @@ const meta = {
 export default meta
 
 export const Default: StoryObj<typeof meta> = { name: 'Grid' }
+
+const splits: ColSpan[][] = [[12], [6, 6], [4, 4, 4], [3, 3, 3, 3], [8, 4], [3, 9], [2, 8, 2]]
+
+export const Variants: StoryObj<typeof meta> = {
+  parameters: matrix,
+  render: () => (
+    <Container>
+      <Rows>
+        {splits.map((split) => (
+          <Row
+            key={split.join('-')}
+            label={split.join(' + ')}
+            stack
+          >
+            <Grid>
+              {split.map((span, i) => (
+                <div
+                  key={i}
+                  className={colClass({ span })}
+                  style={cell}
+                >
+                  x-col-{span}
+                </div>
+              ))}
+            </Grid>
+          </Row>
+        ))}
+        {(['md', 'sm', 'never'] as const).map((stack) => (
+          <Row
+            key={stack}
+            label={`6 + 6, stack ${stack}`}
+            stack
+          >
+            <Grid>
+              {[6, 6].map((span, i) => (
+                <div
+                  key={i}
+                  className={colClass({ span: span as ColSpan, stack })}
+                  style={cell}
+                >
+                  stack {stack}
+                </div>
+              ))}
+            </Grid>
+          </Row>
+        ))}
+      </Rows>
+    </Container>
+  ),
+}

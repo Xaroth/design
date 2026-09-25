@@ -19,10 +19,11 @@ const searchIcon = (
   </svg>
 )
 
-export const filterFields = (
+// Ids are prefixed so several filter forms can share one story.
+export const makeFilterFields = (prefix = 'f') => (
   <>
     <Field
-      id="f-search"
+      id={`${prefix}-search`}
       label="Search"
     >
       <Input
@@ -32,7 +33,7 @@ export const filterFields = (
       />
     </Field>
     <Field
-      id="f-faction"
+      id={`${prefix}-faction`}
       label="Faction"
     >
       <Select>
@@ -42,14 +43,14 @@ export const filterFields = (
       </Select>
     </Field>
     <CheckboxGroup
-      id="filter-category"
+      id={`${prefix}-category`}
       legend="Category"
       orientation="horizontal"
     >
       {categories.map((c, i) => (
         <Checkbox
           key={c}
-          name="category"
+          name={`${prefix}-category`}
           value={c}
           defaultChecked={i < 2}
         >
@@ -57,18 +58,21 @@ export const filterFields = (
         </Checkbox>
       ))}
     </CheckboxGroup>
-    <Switch name="hide">Hide completed</Switch>
+    <Switch name={`${prefix}-hide`}>Hide completed</Switch>
   </>
 )
 
-export const filterForm = (
+export const makeFilterForm = (prefix = 'f') => (
   <FilterPanel
     aria-label="Filter achievements"
     onSubmit={(e) => e.preventDefault()}
   >
-    {filterFields}
+    {makeFilterFields(prefix)}
   </FilterPanel>
 )
+
+export const filterFields = makeFilterFields()
+export const filterForm = makeFilterForm()
 
 export const results = (
   <Table

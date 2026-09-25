@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite'
-import { Icon, iconNames, type IconProps } from '@xaroth.nl/design/react'
+import { Button, Icon, iconNames, type IconProps } from '@xaroth.nl/design/react'
+import { matrix, Row, Rows } from './shared.tsx'
 
 function IconGallery(props: IconProps) {
   return (
@@ -58,3 +59,82 @@ const meta = {
 export default meta
 
 export const Default: StoryObj<typeof meta> = { name: 'Icon' }
+
+const sizes = [16, 20, 24, 32] as const
+
+export const Variants: StoryObj<typeof meta> = {
+  parameters: matrix,
+  render: () => (
+    <Rows>
+      <Row
+        label={`Every icon at ${sizes.join(', ')} px`}
+        stack
+      >
+        <ul
+          className="x-gap-sm"
+          style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fill, minmax(13rem, 1fr))',
+            padding: 0,
+            margin: 0,
+            listStyle: 'none',
+          }}
+        >
+          {iconNames.map((name) => (
+            <li
+              key={name}
+              className="x-stack-xs x-p-sm"
+              style={{ border: '1px solid var(--x-color-line)' }}
+            >
+              <span className="x-cluster-md">
+                {sizes.map((size) => (
+                  <Icon
+                    key={size}
+                    name={name}
+                    size={size}
+                  />
+                ))}
+              </span>
+              <span className="x-small x-muted">{name}</span>
+            </li>
+          ))}
+        </ul>
+      </Row>
+      <Row label="Colour follows the text: body, muted, accent, in a button">
+        <Icon
+          name="info"
+          size={24}
+        />
+        <span className="x-muted">
+          <Icon
+            name="clock"
+            size={24}
+          />
+        </span>
+        <span style={{ color: 'var(--x-color-accent)' }}>
+          <Icon
+            name="map-pin"
+            size={24}
+          />
+        </span>
+        <Button
+          variant="secondary"
+          start={<Icon name="download" />}
+        >
+          Download SDE
+        </Button>
+      </Row>
+      <Row label="Labelled (announced) and decorative">
+        <Icon
+          name="github"
+          size={24}
+          label="GitHub"
+        />
+        <span className="x-cluster-xs">
+          <Icon name="mail" />
+          <span>xaroth@example.com</span>
+        </span>
+      </Row>
+    </Rows>
+  ),
+}

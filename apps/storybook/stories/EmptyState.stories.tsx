@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite'
 import { Button, EmptyState } from '@xaroth.nl/design/react'
+import { matrix, Row } from './shared.tsx'
 
 const icons = {
   none: undefined,
@@ -75,3 +76,61 @@ const meta = {
 export default meta
 
 export const Default: StoryObj<typeof meta> = { name: 'EmptyState' }
+
+export const Variants: StoryObj<typeof meta> = {
+  parameters: matrix,
+  render: () => (
+    <div
+      className="x-gap-2xl"
+      style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(20rem, 1fr))' }}
+    >
+      <Row
+        label="Full"
+        stack
+      >
+        <EmptyState
+          icon={icons.hex}
+          title="Nothing matches"
+          actions={actionRows.reset}
+        >
+          Nothing fits the current filters. Clear the search or pick another faction to see more.
+        </EmptyState>
+      </Row>
+      <Row
+        label="Other icon, no action"
+        stack
+      >
+        <EmptyState
+          icon={icons.dunes}
+          title="No posts yet"
+        >
+          The logbook is empty. The first post goes up with the ESI client release.
+        </EmptyState>
+      </Row>
+      <Row
+        label="No icon"
+        stack
+      >
+        <EmptyState
+          title="No saved fits"
+          actions={
+            <Button
+              size="sm"
+              href="#fit"
+            >
+              Check a fit
+            </Button>
+          }
+        >
+          Fits you check are saved here for 30 days.
+        </EmptyState>
+      </Row>
+      <Row
+        label="Text only"
+        stack
+      >
+        <EmptyState>No kills in the last 24 hours.</EmptyState>
+      </Row>
+    </div>
+  ),
+}

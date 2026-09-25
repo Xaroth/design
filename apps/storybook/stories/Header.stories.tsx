@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite'
 import { Button, Header } from '@xaroth.nl/design/react'
+import { matrix, Row, Rows } from './shared.tsx'
 
 const brands = {
   xaroth: (
@@ -107,3 +108,88 @@ const meta = {
 export default meta
 
 export const Default: StoryObj<typeof meta> = { name: 'Header' }
+
+const nav = (current?: string) =>
+  ['Home', 'Tools', 'Blog', 'About'].map((label) => ({
+    label,
+    href: label === 'Home' ? '#' : `#${label.toLowerCase()}`,
+    current: label === current,
+  }))
+
+// Headers stack with a gap so each bar reads as its own example.
+export const Variants: StoryObj<typeof meta> = {
+  parameters: { ...matrix, layout: 'fullscreen' },
+  render: () => (
+    <div className="x-py-xl">
+      <Rows>
+        {(['inline', 'stacked'] as const).flatMap((layout) =>
+          (['eve-online', 'xaroth'] as const).map((brand) => (
+            <Row
+              key={`${layout}-${brand}`}
+              label={`${layout}, ${brand} brand`}
+              stack
+              inset
+            >
+              <Header
+                layout={layout}
+                brand={brands[brand]}
+                brandHref="#"
+                items={nav('Home')}
+                actions={actions['sign in']}
+                navLabel={`Main, ${layout} ${brand}`}
+              />
+            </Row>
+          )),
+        )}
+        <Row
+          label="Text brand, no link, no actions"
+          stack
+          inset
+        >
+          <Header
+            brand={brands.text}
+            items={nav('Blog')}
+            navLabel="Main, text brand"
+          />
+        </Row>
+        <Row
+          label="Brand and actions, no nav"
+          stack
+          inset
+        >
+          <Header
+            brand={brands['eve-online']}
+            brandHref="#"
+            brandLabel="eve-online.tools home"
+            actions={actions['sign in']}
+          />
+        </Row>
+      </Rows>
+    </div>
+  ),
+}
+
+export const States: StoryObj<typeof meta> = {
+  parameters: { ...matrix, layout: 'fullscreen' },
+  render: () => (
+    <div className="x-py-xl">
+      <Rows>
+        {['Home', 'Blog', 'About', undefined].map((current) => (
+          <Row
+            key={current ?? 'none'}
+            label={current ? `Current: ${current}` : 'No current page'}
+            stack
+            inset
+          >
+            <Header
+              brand={brands['eve-online']}
+              brandHref="#"
+              items={nav(current)}
+              navLabel={`Main, current ${current ?? 'none'}`}
+            />
+          </Row>
+        ))}
+      </Rows>
+    </div>
+  ),
+}

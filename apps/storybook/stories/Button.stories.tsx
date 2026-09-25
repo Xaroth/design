@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite'
 import { Button } from '@xaroth.nl/design/react'
+import { matrix, Row, Rows } from './shared.tsx'
 
 const arrow = (
   <svg
@@ -51,5 +52,157 @@ const meta = {
 
 export default meta
 
-// Named like the component so Storybook shows it as a single "Button" entry, no folder.
 export const Default: StoryObj<typeof meta> = { name: 'Button' }
+
+const variants = ['primary', 'secondary', 'tertiary'] as const
+const tones = ['default', 'danger', 'warning', 'success'] as const
+const toneLabels = { default: 'Launch', danger: 'Delete fit', warning: 'Overwrite', success: 'Save fit' }
+
+export const Variants: StoryObj<typeof meta> = {
+  parameters: matrix,
+  render: () => (
+    <Rows>
+      {variants.map((variant) => (
+        <Row
+          key={variant}
+          label={variant}
+        >
+          {tones.map((tone) => (
+            <Button
+              key={tone}
+              variant={variant}
+              tone={tone}
+            >
+              {toneLabels[tone]}
+            </Button>
+          ))}
+        </Row>
+      ))}
+      {variants.map((variant) => (
+        <Row
+          key={`${variant}-sizes`}
+          label={`${variant} sizes`}
+        >
+          <Button
+            variant={variant}
+            size="sm"
+          >
+            Small
+          </Button>
+          <Button variant={variant}>Medium</Button>
+          <Button
+            variant={variant}
+            size="lg"
+          >
+            Large
+          </Button>
+        </Row>
+      ))}
+      <Row label="Icons">
+        <Button start={star}>Watchlist</Button>
+        <Button
+          variant="secondary"
+          end={arrow}
+        >
+          Browse tools
+        </Button>
+        <Button
+          variant="tertiary"
+          start={star}
+          end={arrow}
+        >
+          Featured
+        </Button>
+      </Row>
+      <Row label="Link">
+        <Button href="#tools">Browse tools</Button>
+        <Button
+          href="#blog"
+          variant="secondary"
+        >
+          Read the blog
+        </Button>
+        <Button
+          href="#about"
+          variant="tertiary"
+        >
+          About
+        </Button>
+      </Row>
+      <div style={{ maxWidth: 360 }}>
+        <Row
+          label="Full width"
+          stack
+        >
+          <Button fullWidth>Sign in with EVE Online</Button>
+          <Button
+            fullWidth
+            variant="secondary"
+          >
+            Continue without signing in
+          </Button>
+        </Row>
+      </div>
+    </Rows>
+  ),
+}
+
+export const States: StoryObj<typeof meta> = {
+  parameters: matrix,
+  render: () => (
+    <Rows>
+      {variants.map((variant) => (
+        <Row
+          key={variant}
+          label={variant}
+        >
+          <Button variant={variant}>Enabled</Button>
+          <Button
+            variant={variant}
+            disabled
+          >
+            Disabled
+          </Button>
+          <Button
+            variant={variant}
+            loading
+          >
+            Fetching
+          </Button>
+          <Button
+            variant={variant}
+            href="#tools"
+            disabled
+          >
+            Disabled link
+          </Button>
+        </Row>
+      ))}
+      {tones
+        .filter((tone) => tone !== 'default')
+        .map((tone) => (
+          <Row
+            key={tone}
+            label={`${tone} disabled and loading`}
+          >
+            {variants.map((variant) => (
+              <Button
+                key={variant}
+                variant={variant}
+                tone={tone}
+                disabled
+              >
+                {toneLabels[tone]}
+              </Button>
+            ))}
+            <Button
+              tone={tone}
+              loading
+            >
+              {toneLabels[tone]}
+            </Button>
+          </Row>
+        ))}
+    </Rows>
+  ),
+}

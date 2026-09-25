@@ -119,13 +119,14 @@
     }
 
     // Loading keeps the label in place (so the width does not jump) and draws a spinner over it.
+    // Opacity, not visibility, so the label still names the button.
     &--loading {
       cursor: progress;
 
       .x-button__start,
       .x-button__label,
       .x-button__end {
-        visibility: hidden;
+        opacity: 0;
       }
     }
 

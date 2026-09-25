@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite'
 import { Footer } from '@xaroth.nl/design/react'
+import { matrix, Row, Rows } from './shared.tsx'
 
 const brands = {
   'eve-online': (
@@ -73,3 +74,53 @@ const meta = {
 export default meta
 
 export const Default: StoryObj<typeof meta> = { name: 'Footer' }
+
+const groups = meta.args.groups
+const note = meta.args.note
+
+export const Variants: StoryObj<typeof meta> = {
+  parameters: matrix,
+  render: () => (
+    <div className="x-py-xl">
+      <Rows>
+        {(['columns', 'row'] as const).flatMap((layout) =>
+          (['eve-online', 'text'] as const).map((brand) => (
+            <Row
+              key={`${layout}-${brand}`}
+              label={`${layout}, ${brand} brand`}
+              stack
+              inset
+            >
+              <Footer
+                layout={layout}
+                brand={brands[brand]}
+                brandHref="#"
+                note={note}
+                groups={groups}
+                navLabel={`Footer, ${layout} ${brand}`}
+              />
+            </Row>
+          )),
+        )}
+        <Row
+          label="One untitled group, no brand, no note"
+          stack
+          inset
+        >
+          <Footer
+            layout="row"
+            groups={[{ links: groups[0].links }]}
+            navLabel="Footer, minimal"
+          />
+        </Row>
+        <Row
+          label="Note only"
+          stack
+          inset
+        >
+          <Footer note="Built by Xaroth Brook. Source on GitHub." />
+        </Row>
+      </Rows>
+    </div>
+  ),
+}

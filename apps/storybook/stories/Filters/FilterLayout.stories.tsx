@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite'
 import { Container, FilterLayout } from '@xaroth.nl/design/react'
-import { filterForm, results } from './shared.tsx'
+import { matrix, Row, Rows } from '../shared.tsx'
+import { filterForm, makeFilterForm, results } from './shared.tsx'
 
 const meta = {
   title: 'Filters/FilterLayout',
@@ -41,3 +42,33 @@ const meta = {
 export default meta
 
 export const Default: StoryObj<typeof meta> = { name: 'FilterLayout' }
+
+const combos = [
+  { position: 'top', label: 'Top' },
+  { position: 'side', label: 'Side' },
+  { position: 'top', switchable: true, label: 'Top, switchable' },
+  { position: 'side', switchable: true, collapsible: true, activeCount: 2, label: 'Side, switchable, collapsible' },
+] as const
+
+// The collapsible disclosure only shows below 1024px; narrow the preview to see it.
+export const Variants: StoryObj<typeof meta> = {
+  parameters: matrix,
+  render: () => (
+    <Rows>
+      {combos.map(({ label, ...props }, i) => (
+        <Row
+          key={label}
+          label={label}
+          stack
+        >
+          <FilterLayout
+            {...props}
+            filters={makeFilterForm(`v${i}`)}
+          >
+            {results}
+          </FilterLayout>
+        </Row>
+      ))}
+    </Rows>
+  ),
+}

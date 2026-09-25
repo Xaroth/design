@@ -3,11 +3,11 @@ import './tag.scss'
 import type { HTMLAttributes } from 'astro/types'
 import { tagClass, tagState, type TagOptions } from './index.ts'
 
-type Props = Omit<HTMLAttributes<'a'>, 'class'> &
-  Omit<TagOptions, 'className'> & {
-    class?: string
-    href?: string
-  }
+type Common = Omit<TagOptions, 'className'> & { class?: string }
+
+type Props =
+  | (Common & Omit<HTMLAttributes<'span'>, 'class'> & { href?: undefined })
+  | (Common & Omit<HTMLAttributes<'a'>, 'class'> & { href: string })
 
 const { active, href, class: className, slot: _slot, ...rest } = Astro.props
 const { tag: El, attrs: state } = tagState({ href, active })

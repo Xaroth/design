@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite'
-import { Button, Tooltip } from '@xaroth.nl/design/react'
+import { Button, Icon, Tooltip } from '@xaroth.nl/design/react'
+import { matrix, Row, Rows } from './shared.tsx'
 
 const meta = {
   title: 'Tooltip',
@@ -24,6 +25,12 @@ const meta = {
     open: { control: 'boolean' },
     children: { control: false },
   },
+} satisfies Meta<typeof Tooltip>
+
+export default meta
+
+export const Default: StoryObj<typeof meta> = {
+  name: 'Tooltip',
   decorators: [
     (Story) => (
       <div style={{ padding: '96px 160px' }}>
@@ -31,8 +38,107 @@ const meta = {
       </div>
     ),
   ],
-} satisfies Meta<typeof Tooltip>
+}
 
-export default meta
+// One wide cell per tooltip, with room above and below, so open bubbles do not overlap or clip.
+const slot = { display: 'grid', gridTemplateColumns: 'repeat(3, 20rem)', justifyItems: 'center', paddingBlock: 72 }
 
-export const Default: StoryObj<typeof meta> = { name: 'Tooltip' }
+export const Variants: StoryObj<typeof meta> = {
+  parameters: matrix,
+  render: () => (
+    <Rows>
+      {(['top', 'bottom'] as const).map((placement) => (
+        <Row
+          key={placement}
+          label={`Placement ${placement}`}
+        >
+          <div style={slot}>
+            <Tooltip
+              id={`scopes-${placement}`}
+              text="Two scopes: achievements and standings."
+              placement={placement}
+              open
+            >
+              <Button
+                variant="secondary"
+                size="sm"
+              >
+                Scopes
+              </Button>
+            </Tooltip>
+            <Tooltip
+              id={`copy-${placement}`}
+              text="Copy fit"
+              placement={placement}
+              open
+            >
+              <Button
+                variant="tertiary"
+                size="sm"
+                aria-label="Copy"
+              >
+                <Icon name="copy" />
+              </Button>
+            </Tooltip>
+            <Tooltip
+              id={`isk-${placement}`}
+              text="Average Jita sell price over the last 7 days, updated every 5 minutes from ESI."
+              placement={placement}
+              open
+            >
+              <a href="#price">1.2B ISK</a>
+            </Tooltip>
+          </div>
+        </Row>
+      ))}
+    </Rows>
+  ),
+}
+
+export const States: StoryObj<typeof meta> = {
+  parameters: matrix,
+  render: () => (
+    <Rows>
+      <Row label="Open, closed (hover or focus to show), dismissed with Escape">
+        <div style={slot}>
+          <Tooltip
+            id="state-open"
+            text="Shown for docs and previews."
+            open
+          >
+            <Button
+              variant="secondary"
+              size="sm"
+            >
+              Open
+            </Button>
+          </Tooltip>
+          <Tooltip
+            id="state-closed"
+            text="Shown on hover and focus."
+          >
+            <Button
+              variant="secondary"
+              size="sm"
+            >
+              Closed
+            </Button>
+          </Tooltip>
+          <Tooltip
+            id="state-dismissed"
+            text="Hidden until the pointer leaves."
+            open
+            className="x-tooltip--dismissed"
+          >
+            <Button
+              variant="secondary"
+              size="sm"
+            >
+              Dismissed
+            </Button>
+          </Tooltip>
+        </div>
+      </Row>
+    </Rows>
+  ),
+}

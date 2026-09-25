@@ -4,7 +4,8 @@ import { Progress } from '@xaroth.nl/design/react'
 import { expectSameHtml } from '../compare.ts'
 import { Progress as AstroProgress } from '@xaroth.nl/design/astro'
 
-const cases: { name: string; props: Record<string, unknown> }[] = [
+// The heading a labelledby case names lives on the page, outside the part.
+const cases: { name: string; props: Record<string, unknown>; externalIds?: string[] }[] = [
   { name: 'value', props: { value: 72, label: 'Upload' } },
   { name: 'zero', props: { value: 0, label: 'Upload' } },
   { name: 'done', props: { value: 100, label: 'Upload' } },
@@ -28,7 +29,7 @@ const cases: { name: string; props: Record<string, unknown> }[] = [
   { name: 'gradient done', props: { value: 100, startTone: 'warning', label: 'Charge', showValue: true } },
   { name: 'gradient indeterminate', props: { startTone: 'info', tone: 'success', label: 'Loading' } },
   { name: 'gradient small', props: { value: 45, startTone: 'danger', tone: 'success', size: 'sm', label: 'Health' } },
-  { name: 'labelledby', props: { value: 10, 'aria-labelledby': 'progress-head' } },
+  { name: 'labelledby', props: { value: 10, 'aria-labelledby': 'progress-head' }, externalIds: ['progress-head'] },
   {
     name: 'extra class and attrs',
     props: { value: 55, label: 'Upload', class: 'site-progress', id: 'p1', title: 'Upload' },
@@ -42,10 +43,12 @@ const cases: { name: string; props: Record<string, unknown> }[] = [
 ]
 
 describe('Progress renders the same HTML in Astro and React', () => {
-  for (const { name, props } of cases) {
+  for (const { name, props, externalIds } of cases) {
     it(name, async () => {
       const { class: className, ...rest } = props
-      await expectSameHtml(AstroProgress, { props }, createElement(Progress, { ...rest, className } as never))
+      await expectSameHtml(AstroProgress, { props }, createElement(Progress, { ...rest, className } as never), {
+        externalIds,
+      })
     })
   }
 })
