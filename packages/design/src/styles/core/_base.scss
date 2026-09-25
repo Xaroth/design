@@ -1,3 +1,8 @@
+// Reserves the scrollbar's space so pages that do and don't scroll line up.
+:root {
+  scrollbar-gutter: stable;
+}
+
 // Body size lives on body, never on the root: a root font-size would rescale every rem token (page width included).
 :root,
 [data-x-theme] {
@@ -55,7 +60,8 @@ a {
   text-decoration-thickness: 1px;
   text-underline-offset: 0.2em;
 
-  &:hover {
+  // :where keeps this below component link colors, like .x-button.
+  &:where(:hover) {
     color: var(--x-color-accent-strong);
   }
 }
