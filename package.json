@@ -24,7 +24,7 @@
     "format:check": "oxfmt --check \"**/*.{ts,tsx}\"",
     "format:write": "oxfmt --write \"**/*.{ts,tsx}\"",
     "oxlint": "oxlint .",
-    "syncpack": "syncpack list-mismatches",
+    "syncpack": "syncpack lint --dependency-types dev,prod",
     "syncpack:format": "syncpack format",
     "test": "pnpm syncpack && pnpm format:check && pnpm oxlint && pnpm stylelint && pnpm build && pnpm typecheck && pnpm -r test && pnpm --filter @repo/storybook build && pnpm --filter @repo/storybook check",
     "stylelint": "stylelint '**/*.scss' --cache --cache-location node_modules/.cache/stylelint"
