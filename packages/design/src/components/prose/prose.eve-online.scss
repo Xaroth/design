@@ -10,7 +10,8 @@
       color: var(--x-color-text);
     }
 
-    :where(a) {
+    // Plain links only: parts rendered as <a> (x-button, x-tag) keep their own colors.
+    :where(a:not([class])) {
       color: var(--x-color-accent);
     }
 

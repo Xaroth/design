@@ -11,7 +11,7 @@
     --x-description-list-value-font: var(--x-font-mono);
     --x-description-list-value-fs: var(--x-fs-small);
 
-    a {
+    a:not([class]) {
       color: var(--x-color-accent);
     }
 
