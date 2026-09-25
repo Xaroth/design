@@ -47,7 +47,10 @@ const check = async (theme: string, story: (typeof stories)[number]) => {
   const page = await context.newPage()
   const errors: string[] = []
   page.on('pageerror', (e) => errors.push(e.message))
-  await page.goto(`http://localhost:${port}/iframe.html?id=${story.id}&viewMode=story&globals=theme:${theme}`)
+  // a11y.manual stops the addon's own axe run, which would race this one ("Axe is already running").
+  await page.goto(
+    `http://localhost:${port}/iframe.html?id=${story.id}&viewMode=story&globals=theme:${theme};a11y.manual:!true`,
+  )
   await page
     .waitForFunction(() => document.querySelector('#storybook-root')?.childElementCount, null, { timeout: 15000 })
     .catch(() => errors.push('story did not render'))
