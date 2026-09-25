@@ -1,7 +1,7 @@
 import type { OxlintConfig } from 'oxlint'
 
 export default {
-  plugins: ['react', 'typescript', 'jsx-a11y', 'jest'],
+  plugins: ['react', 'typescript', 'jsx-a11y', 'vitest'],
 
   ignorePatterns: ['**/*.{cjs,js,mjs,d.ts,d.mts}', '**/dist', '**/.astro', '**/storybook-static'],
 
@@ -85,14 +85,13 @@ export default {
     'jsx-a11y/mouse-events-have-key-events': 'off',
     'jsx-a11y/no-autofocus': 'off',
 
-    'jest/expect-expect': 'off',
-    'jest/no-export': 'off',
-    'jest/valid-title': 'off',
+    'vitest/expect-expect': 'off',
+    'vitest/valid-title': 'off',
   },
 
   overrides: [
     {
-      files: ['**/*.story.tsx'],
+      files: ['**/*.stories.tsx'],
       rules: {
         'no-console': 'off',
         'react/button-has-type': 'off',

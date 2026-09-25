@@ -5,6 +5,7 @@
   .x-progress {
     --x-progress-tone: var(--x-progress-default, var(--x-color-accent));
     --x-progress-height: var(--x-progress-md, 8px);
+
     // Colour at the fill end: the tone, or the gradient's colour at the current value.
     --x-progress-end: var(--x-progress-tone);
 
@@ -73,6 +74,7 @@
     height: var(--x-progress-height);
     background: var(--x-progress-track, var(--x-color-surface-3));
     border: 1px solid var(--x-progress-edge, var(--x-color-line-strong));
+
     // Lets the gradient fill size itself to the track (100cqw) instead of to the fill.
     container-type: inline-size;
   }

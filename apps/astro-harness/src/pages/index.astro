@@ -1,38 +1,28 @@
 ---
-import Harness from '../layouts/Harness.astro'
-import { Button } from '@xaroth.nl/design/astro'
+// Lists every harness page, so a new part shows up without editing this file.
+const pages = Object.keys(import.meta.glob('./*.astro'))
+  .map((path) => path.slice(2, -'.astro'.length))
+  .filter((name) => name !== 'index')
+  .sort()
 ---
 
-<Harness title="Button">
-  {() => (
-    <div style="padding: 0 32px">
-          <div style="display: grid; gap: 12px; margin-top: 16px">
-            {['default', 'danger', 'warning', 'success'].map((tone) => (
-              <p style="display: flex; gap: 12px; flex-wrap: wrap">
-                <Button tone={tone as never}>Primary</Button>
-                <Button tone={tone as never} variant="secondary">Secondary</Button>
-                <Button tone={tone as never} variant="tertiary">Tertiary</Button>
-              </p>
-            ))}
-            {(['primary', 'secondary', 'tertiary'] as const).map((variant) => (
-              <p style="display: flex; gap: 12px; flex-wrap: wrap; align-items: center">
-                <Button variant={variant} size="sm">Small</Button>
-                <Button variant={variant}>Medium</Button>
-                <Button variant={variant} size="lg">Large</Button>
-                <Button variant={variant} disabled>Disabled</Button>
-                <Button variant={variant} loading>Loading</Button>
-              </p>
-            ))}
-            <p style="display: flex; gap: 12px; flex-wrap: wrap">
-              <Button size="sm">Small</Button>
-              <Button size="lg" href="#">Large link <span slot="end">→</span></Button>
-              <Button loading>Loading</Button>
-              <Button disabled>Disabled</Button>
-              <Button href="#" disabled>Disabled link</Button>
-            </p>
-            <Button fullWidth variant="secondary">Full width</Button>
-          </div>
-        
-    </div>
-  )}
-</Harness>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Harness</title>
+  </head>
+  <body style="font: 16px/1.6 system-ui, sans-serif; padding: 32px; background: #111; color: #eee">
+    <h1>Harness</h1>
+    <p>Every part, rendered once per theme.</p>
+    <ul>
+      {
+        pages.map((name) => (
+          <li>
+            <a href={`/${name}`} style="color: #9cf">{name}</a>
+          </li>
+        ))
+      }
+    </ul>
+  </body>
+</html>

@@ -33,3 +33,5 @@ export const footerClasses = {
   links: footer.el('links'),
   link: footer.el('link'),
 } as const
+
+export const footerBrandTag = (href?: string) => (href === undefined ? ('div' as const) : ('a' as const))

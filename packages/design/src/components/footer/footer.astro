@@ -1,8 +1,7 @@
 ---
 import './footer.scss'
 import type { HTMLAttributes } from 'astro/types'
-import { footerClass, footerClasses as c, type FooterGroup, type FooterOptions } from './index.ts'
-import { brandTag } from '../header/index.ts'
+import { footerBrandTag, footerClass, footerClasses as c, type FooterGroup, type FooterOptions } from './index.ts'
 
 type Props = Omit<HTMLAttributes<'footer'>, 'class'> &
   Omit<FooterOptions, 'className'> & {
@@ -25,7 +24,7 @@ const {
   navLabel = 'Footer',
   ...rest
 } = Astro.props
-const Brand = brandTag(brandHref)
+const Brand = footerBrandTag(brandHref)
 const hasNote = Astro.slots.has('note') || Boolean(note)
 ---
 

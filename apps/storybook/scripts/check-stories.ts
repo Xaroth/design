@@ -39,38 +39,45 @@ const index = JSON.parse(await readFile(join(root, 'index.json'), 'utf8')) as {
 const stories = Object.values(index.entries).filter((e) => e.type === 'story')
 
 const browser = await chromium.launch({ executablePath: process.env.PLAYWRIGHT_CHROMIUM || undefined })
+const context = await browser.newContext({ viewport: { width: 1280, height: 800 } })
+await context.addInitScript({ content: axeSource })
 const failures: string[] = []
 
-for (const theme of themeIds) {
-  for (const story of stories) {
-    const page = await browser.newPage({ viewport: { width: 1280, height: 800 } })
-    const errors: string[] = []
-    page.on('pageerror', (e) => errors.push(e.message))
-    await page.goto(`http://localhost:${port}/iframe.html?id=${story.id}&viewMode=story&globals=theme:${theme}`)
-    await page
-      .waitForFunction(() => document.querySelector('#storybook-root')?.childElementCount, null, { timeout: 15000 })
-      .catch(() => errors.push('story did not render'))
-    await page.evaluate(() => document.fonts.ready)
-    await page.addScriptTag({ content: axeSource })
-    const violations = await page.evaluate(async () => {
-      const result = await (window as any).axe.run('#storybook-root', {
-        runOnly: { type: 'tag', values: ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22aa'] },
-      })
-      return result.violations.map(
-        (v: any) =>
-          `${v.id}: ${v.help} (${v.nodes
-            .map((n: any) => n.target.join(' '))
-            .slice(0, 3)
-            .join(', ')})`,
-      )
+const check = async (theme: string, story: (typeof stories)[number]) => {
+  const page = await context.newPage()
+  const errors: string[] = []
+  page.on('pageerror', (e) => errors.push(e.message))
+  await page.goto(`http://localhost:${port}/iframe.html?id=${story.id}&viewMode=story&globals=theme:${theme}`)
+  await page
+    .waitForFunction(() => document.querySelector('#storybook-root')?.childElementCount, null, { timeout: 15000 })
+    .catch(() => errors.push('story did not render'))
+  await page.evaluate(() => document.fonts.ready)
+  const violations = await page.evaluate(async () => {
+    const result = await (window as any).axe.run('#storybook-root', {
+      runOnly: { type: 'tag', values: ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22aa'] },
     })
-    const label = `${theme} ${story.title} / ${story.name}`
-    for (const message of [...errors, ...violations]) {
-      failures.push(`${label}: ${message}`)
-    }
-    await page.close()
+    return result.violations.map(
+      (v: any) =>
+        `${v.id}: ${v.help} (${v.nodes
+          .map((n: any) => n.target.join(' '))
+          .slice(0, 3)
+          .join(', ')})`,
+    )
+  })
+  for (const message of [...errors, ...violations]) {
+    failures.push(`${theme} ${story.title} / ${story.name}: ${message}`)
   }
+  await page.close()
 }
+
+// A few pages at a time: the check is dominated by page load and font waits, not CPU.
+const jobs = themeIds.flatMap((theme) => stories.map((story) => () => check(theme, story)))
+const workers = Array.from({ length: Math.min(6, jobs.length) }, async () => {
+  for (let job = jobs.shift(); job; job = jobs.shift()) {
+    await job()
+  }
+})
+await Promise.all(workers)
 
 await browser.close()
 server.close()

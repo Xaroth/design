@@ -13,7 +13,7 @@ import '@xaroth.nl/design/themes/xaroth.css' // or themes/eve-online.css
 
 ```astro
 ---
-import Button from '@xaroth.nl/design/astro/button'
+import { Button } from '@xaroth.nl/design/astro'
 ---
 <Button variant="secondary" href="/tools">Browse tools</Button>
 ```
@@ -25,7 +25,9 @@ import { Button } from '@xaroth.nl/design/react'
 
 Components bring their own structure CSS; the theme file brings tokens, base styles and the theme look. For pages without a bundler, `@xaroth.nl/design/all.css` holds the structure of every part.
 
-A site loads one theme and needs nothing else. To show several themes on one page, set `data-x-theme` on `<html>` (any value) and wrap each section in `data-x-theme="xaroth"` or `data-x-theme="eve-online"`.
+A site loads one theme and needs nothing else. Use one theme per build: two pages of one Astro build that import different theme files end up sharing both, because Vite bundles shared CSS across pages.
+
+To show several themes on one page (docs, previews), load `@xaroth.nl/design/themes.css`, set `data-x-theme` on `<html>` (any value) and wrap each section in `data-x-theme="xaroth"` or `data-x-theme="eve-online"`. Wrapped sections must be siblings: a theme nested inside another theme is not supported.
 
 ## Conventions
 
@@ -47,7 +49,8 @@ A site loads one theme and needs nothing else. To show several themes on one pag
 ```sh
 pnpm install
 pnpm build
-pnpm test        # syncpack, format, typecheck, lint, same-HTML test
+pnpm --filter @repo/storybook exec playwright-core install chromium-headless-shell   # once, for the story checks
+pnpm test        # lint, format, types, same-HTML tests, Storybook render and axe checks, published-build check
 pnpm storybook   # http://localhost:6006
 pnpm harness     # http://localhost:4400
 ```

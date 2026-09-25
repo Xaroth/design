@@ -143,6 +143,7 @@
       display: inline-block;
       box-sizing: content-box;
       width: 3.5ch;
+
       // Room between the frame edge and the numbers; the gutter is sticky, so this cannot be padding on <pre>.
       padding-left: var(--x-code-gutter-start, 1.5ch);
       padding-right: 1.5ch;

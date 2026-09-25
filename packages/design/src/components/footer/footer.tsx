@@ -1,7 +1,6 @@
 import './footer.scss'
 import { createElement, type HTMLAttributes, type ReactNode } from 'react'
-import { footerClass, footerClasses as c, type FooterGroup, type FooterOptions } from './index.ts'
-import { brandTag } from '../header/index.ts'
+import { footerBrandTag, footerClass, footerClasses as c, type FooterGroup, type FooterOptions } from './index.ts'
 
 export type FooterProps = Omit<HTMLAttributes<HTMLElement>, 'children'> &
   Omit<FooterOptions, 'className'> & {
@@ -34,7 +33,11 @@ export function Footer({
     >
       <div className={c.inner}>
         {brand != null &&
-          createElement(brandTag(brandHref), { className: c.brand, href: brandHref, 'aria-label': brandLabel }, brand)}
+          createElement(
+            footerBrandTag(brandHref),
+            { className: c.brand, href: brandHref, 'aria-label': brandLabel },
+            brand,
+          )}
         {note != null && note !== '' && <p className={c.note}>{note}</p>}
         {groups.length > 0 && (
           <nav

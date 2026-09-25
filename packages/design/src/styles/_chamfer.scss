@@ -16,6 +16,7 @@
 // meets the straight sides at $c + $w * (sqrt(2) - 1).
 @function ring($c, $w) {
   $d: $w * (math.sqrt(2) - 1);
+
   @return polygon(
     evenodd,
     $c 0,

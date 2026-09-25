@@ -1,3 +1,4 @@
+import '../button/button.scss'
 import './header.scss'
 import { createElement, type HTMLAttributes, type ReactNode } from 'react'
 import {

@@ -1,0 +1,21 @@
+{
+  "name": "@repo/published",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node scripts/check.ts"
+  },
+  "dependencies": {
+    "@astrojs/react": "^7.0.0",
+    "@xaroth.nl/design": "workspace:*",
+    "astro": "catalog:",
+    "react": "catalog:",
+    "react-dom": "catalog:"
+  },
+  "devDependencies": {
+    "@types/node": "catalog:",
+    "@types/react": "catalog:",
+    "@types/react-dom": "catalog:"
+  }
+}

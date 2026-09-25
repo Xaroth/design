@@ -6,6 +6,7 @@
   // and transparent fills still work.
   .x-button {
     --x-cut: 8px;
+
     // Lit top of the primary gradient and the dark tinted fill of the secondary, per tone.
     --x-button-tone-hi: color-mix(in oklab, var(--x-button-tone) 55%, white);
     --x-button-tint: color-mix(in oklab, var(--x-button-tone) 12%, var(--x-color-bg));

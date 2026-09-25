@@ -1,0 +1,23 @@
+---
+import '@xaroth.nl/design/themes/xaroth.css'
+import { Alert, Card, Container, Header, PageHead, Tag } from '@xaroth.nl/design/astro'
+import { Island } from '../components/Island.tsx'
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Published build</title>
+  </head>
+  <body>
+    <Header items={[{ label: 'Home', href: '/', current: true }]}>
+      <span slot="brand">xaroth</span>
+    </Header>
+    <Container class="x-stack-lg x-py-xl">
+      <PageHead title="Published build" lead="Built from dist, like a site." />
+      <Alert tone="info" title="Check">Rendered from the built package.</Alert>
+      <Card title="Card">Body <Tag slot="tags">ESI</Tag></Card>
+      <Island client:load />
+    </Container>
+  </body>
+</html>

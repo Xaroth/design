@@ -41,6 +41,7 @@
       flex-wrap: wrap;
       gap: var(--x-space-3);
       align-items: center;
+
       // The grid row gap is sized for filters and results; the switch sits closer to what it moves.
       margin-bottom: calc(var(--x-space-4) - var(--x-space-6));
 

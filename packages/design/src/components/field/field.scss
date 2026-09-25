@@ -326,6 +326,7 @@
 
       &::before {
         background: var(--x-color-accent);
+
         // The knob sits (height - knob) / 2 from both ends, so it travels width - height.
         transform: translateX(calc(var(--x-switch-width) - var(--x-switch-height)));
       }
