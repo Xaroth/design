@@ -206,25 +206,25 @@ importers:
 
   packages/design:
     dependencies:
-      '@fontsource-variable/cinzel':
+      '@fontsource-variable/alegreya':
         specifier: ^5.3.0
         version: 5.3.0
-      '@fontsource-variable/ibm-plex-sans':
+      '@fontsource-variable/azeret-mono':
         specifier: ^5.3.0
         version: 5.3.0
-      '@fontsource-variable/jetbrains-mono':
+      '@fontsource-variable/red-hat-mono':
         specifier: ^5.3.0
         version: 5.3.0
-      '@fontsource-variable/manrope':
+      '@fontsource-variable/saira':
         specifier: ^5.3.0
         version: 5.3.0
-      '@fontsource-variable/oxanium':
+      '@fontsource-variable/sofia-sans':
         specifier: ^5.3.0
         version: 5.3.0
-      '@fontsource/ibm-plex-mono':
+      '@fontsource/alegreya-sans':
         specifier: ^5.3.0
         version: 5.3.0
-      '@fontsource/spectral':
+      '@fontsource/alegreya-sc':
         specifier: ^5.3.0
         version: 5.3.0
       clsx:
@@ -829,26 +829,26 @@ packages:
     cpu: [x64]
     os: [win32]
 
-  '@fontsource-variable/cinzel@5.3.0':
-    resolution: {integrity: sha512-eFcU0TwaAP5QESF2pV8VoOPJJXJ6sSGm/6mXMwqTdMBPAJMaLhfa6oISHuOtFeddsoHP9RYm4Io0j1j3mNEz2Q==}
+  '@fontsource-variable/alegreya@5.3.0':
+    resolution: {integrity: sha512-K+DFrm7tnqsG6di2w3eW/o4Ic6XNFLtZCKcPldeHEnE9f8uWy4llIp1CqQAu+ByI9MFfs1C7eLv4Rv84yEIerw==}
 
-  '@fontsource-variable/ibm-plex-sans@5.3.0':
-    resolution: {integrity: sha512-agG8tXFEo0hD9+J7npa4vbbWult52eMLVaQ6WQRlhs/iCAojrMAoejru85W9HTVXHfyUj96KM7gp/KGAS87XaQ==}
+  '@fontsource-variable/azeret-mono@5.3.0':
+    resolution: {integrity: sha512-nX76TwGHW53SoMMJoqb415uFqEQ3qnthL/bEeOOI2DjC7MntyIUVItQ45sVLe5+wG4gT0H5B7auAMa77p8Qc3Q==}
 
-  '@fontsource-variable/jetbrains-mono@5.3.0':
-    resolution: {integrity: sha512-F32xpS2NsGYoQi2ADSkKTgpJj7ozajsGgDJ8woTnqjmIB+dxDIqImjl4pXZVEExu8UFZ2ndhmX18EBS/hdz3Lw==}
+  '@fontsource-variable/red-hat-mono@5.3.0':
+    resolution: {integrity: sha512-/mEvTCcruJY64xRgx1gsmsYuGR7MtOduOsuyeHVJ07p+2gGvCqROauIwaTCcVHL4eBGi+Lns4EUIjrPZLCn5gQ==}
 
-  '@fontsource-variable/manrope@5.3.0':
-    resolution: {integrity: sha512-6D5dgokHsWDDMtmXHznKa0hK229NN+1a4BLPmUCLqcO1Pw5EEhWY5RFt0AcXnVRAljFFPfRtLkJePQj6LSsV6g==}
+  '@fontsource-variable/saira@5.3.0':
+    resolution: {integrity: sha512-C1rm7n1OuEx4Se/SAB/5EeUuCviGFFnYTr5vxuQQm2YIOfgbQWx/P6qqhdXlVCBRm/1UzNWCtDK5jNbVmO6W2w==}
 
-  '@fontsource-variable/oxanium@5.3.0':
-    resolution: {integrity: sha512-oVOH5mHRMDLQsxG6h2XAOCxyD+uQL2w5zAjy1FgnAlqt183JDVGPxy9FWK7dDnhEO8huXfP6V2C3QJUj1Ac/Sw==}
+  '@fontsource-variable/sofia-sans@5.3.0':
+    resolution: {integrity: sha512-lVLpBgrjxSMjrrBF70Jr9qBLdFac5tDAvVn9oHlS+vAaVyhUN6dWmr0nNjWzwTh6tYIECP45h4zDfllQbXtqtA==}
 
-  '@fontsource/ibm-plex-mono@5.3.0':
-    resolution: {integrity: sha512-eTgnZjZEGk1QtD3ZstF+Vclo2HLAni8YMy34/DxllwZvyz1lR/1RF/xTiAquOBO7MvqBx8D2Ig2WCPMVfdZu7Q==}
+  '@fontsource/alegreya-sans@5.3.0':
+    resolution: {integrity: sha512-Uf0RbuwzhSS3NQrBFcRzEUm7TxDQW3qdAbQ6JIOhsIW6V+YN2dqlR99lhfEE38R3GHgMCMJBzqSp7aJxhNXSOw==}
 
-  '@fontsource/spectral@5.3.0':
-    resolution: {integrity: sha512-2TL5WWGOZj4SIsBmPFEzKeA60tXXd1Qp1OqaaVEWkJL8IfSGLk6YmiusmC441iFkdJDIuFelu1r8lhCmQUU3mw==}
+  '@fontsource/alegreya-sc@5.3.0':
+    resolution: {integrity: sha512-MksAO+rnvCMXBfrzcznuaoNtGgGwqORHhz5/UP0V4bHq0M9mL9EpOrW44ilAgI/yjzYtWoVlVjvvvEXPJI9PCw==}
 
   '@img/colour@1.1.0':
     resolution: {integrity: sha512-Td76q7j57o/tLVdgS746cYARfSyxk8iEfRxewL9h4OMzYhbW4TAcppl0mT4eyqXddh6L/jwoM75mo7ixa/pCeQ==}
@@ -2829,9 +2829,6 @@ packages:
     resolution: {integrity: sha512-h5bgJWpxJNswbU7qCrV0tIKQCaS3blPDrqKWx+QxzuzL1zGUzij9XCWLrSLsJPu5t+eWA/ycetzYAO5IOMcWAQ==}
     hasBin: true
 
-  magic-string@1.4.1:
-    resolution: {integrity: sha512-8lyCu36ErXR0J9uaGKlKQoiLZKmtI63YGLE8G2o9jyRPdr4X47LusSOwgOJOzcVtp81fTAAjxR7BwKz682Jhow==}
-
   magic-string@1.4.2:
     resolution: {integrity: sha512-vG+rjFRj1PqdIBozIxAGMjPlOhaVe+GXpbttY/iSK7rGcJRMlwNJO7dcUwmUqkymsFLJiNGI06t4D7Fr7yRC9g==}
 
@@ -4530,19 +4527,19 @@ snapshots:
   '@esbuild/win32-x64@0.28.2':
     optional: true
 
-  '@fontsource-variable/cinzel@5.3.0': {}
+  '@fontsource-variable/alegreya@5.3.0': {}
 
-  '@fontsource-variable/ibm-plex-sans@5.3.0': {}
+  '@fontsource-variable/azeret-mono@5.3.0': {}
 
-  '@fontsource-variable/jetbrains-mono@5.3.0': {}
+  '@fontsource-variable/red-hat-mono@5.3.0': {}
 
-  '@fontsource-variable/manrope@5.3.0': {}
+  '@fontsource-variable/saira@5.3.0': {}
 
-  '@fontsource-variable/oxanium@5.3.0': {}
+  '@fontsource-variable/sofia-sans@5.3.0': {}
 
-  '@fontsource/ibm-plex-mono@5.3.0': {}
+  '@fontsource/alegreya-sans@5.3.0': {}
 
-  '@fontsource/spectral@5.3.0': {}
+  '@fontsource/alegreya-sc@5.3.0': {}
 
   '@img/colour@1.1.0':
     optional: true
@@ -5192,7 +5189,7 @@ snapshots:
       '@storybook/builder-vite': 10.6.0(storybook@10.6.0(@types/react@19.3.0)(prettier@3.9.9)(react@19.3.0))(vite@8.3.0(@types/node@24.13.6)(esbuild@0.28.2)(sass@1.105.0)(yaml@2.9.1))
       '@storybook/react': 10.6.0(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)(storybook@10.6.0(@types/react@19.3.0)(prettier@3.9.9)(react@19.3.0))(typescript@6.0.2)
       empathic: 2.1.0
-      magic-string: 1.4.1
+      magic-string: 1.4.2
       react: 19.3.0
       react-docgen: 8.0.4
       react-dom: 19.3.0(react@19.3.0)
@@ -5350,7 +5347,7 @@ snapshots:
       '@jridgewell/trace-mapping': 0.3.31
       '@vitest/spy': 5.0.1
       estree-walker: 3.0.3
-      magic-string: 1.4.1
+      magic-string: 1.4.2
     optionalDependencies:
       vite: 8.3.0(@types/node@24.13.6)(esbuild@0.28.2)(sass@1.105.0)(yaml@2.9.1)
 
@@ -6186,10 +6183,6 @@ snapshots:
       yallist: 3.1.1
 
   lz-string@1.5.0: {}
-
-  magic-string@1.4.1:
-    dependencies:
-      '@jridgewell/sourcemap-codec': 1.6.0
 
   magic-string@1.4.2:
     dependencies:
@@ -7094,7 +7087,7 @@ snapshots:
       chai: 6.2.2
       es-module-lexer: 2.3.2
       expect-type: 1.4.0
-      magic-string: 1.4.1
+      magic-string: 1.4.2
       obug: 2.2.1
       picomatch: 4.0.7
       std-env: 4.2.0

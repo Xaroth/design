@@ -1,13 +1,13 @@
 @use '../../styles/theme';
 
 @include theme.parts('xaroth') {
-  // Cinzel's 1 reads as a capital I, so numbers use the UI face and Cinzel stays for the words.
+  // Small caps suit the edge words; page numbers need the UI face's lining figures.
   .x-pagination__link,
   .x-pagination__gap,
   .x-pagination__summary {
     font-family: var(--x-font-ui);
     font-weight: 600;
-    font-variant-numeric: tabular-nums;
+    font-variant-numeric: lining-nums tabular-nums;
   }
 
   .x-pagination__link {

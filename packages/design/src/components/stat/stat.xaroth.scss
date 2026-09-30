@@ -7,12 +7,13 @@
 
     text-align: center;
 
-    // Cinzel's 1 reads as a capital I, so figures are set in the body face.
+    // Alegreya defaults to old-style figures, which bounce at display sizes.
     &__value {
       order: -1;
       font-family: var(--x-font-body);
       font-size: var(--x-fs-h2);
       font-weight: 400;
+      font-variant-numeric: lining-nums;
     }
 
     &__label {
