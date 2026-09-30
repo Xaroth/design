@@ -2,9 +2,9 @@
 // Component structure ships with each component; this file is loaded once per site.
 @use 'sass:meta';
 @use '../layers';
-@import '@fontsource-variable/oxanium/index.css';
-@import '@fontsource-variable/ibm-plex-sans/index.css';
-@import '@fontsource-variable/jetbrains-mono/index.css';
+@import '@fontsource-variable/saira/index.css';
+@import '@fontsource-variable/sofia-sans/index.css';
+@import '@fontsource-variable/azeret-mono/index.css';
 
 @layer x.reset {
   @include meta.load-css('../core/reset');

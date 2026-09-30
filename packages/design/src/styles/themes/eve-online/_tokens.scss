@@ -1,11 +1,11 @@
 @use '../../theme';
 
 @include theme.scope('eve-online') {
-  --x-font-display: 'Oxanium Variable', 'Oxanium', system-ui, sans-serif;
+  --x-font-display: 'Saira Variable', 'Saira', system-ui, sans-serif;
   --x-font-heading: var(--x-font-display);
-  --x-font-body: 'IBM Plex Sans Variable', 'IBM Plex Sans', system-ui, sans-serif;
+  --x-font-body: 'Sofia Sans Variable', 'Sofia Sans', system-ui, sans-serif;
   --x-font-ui: var(--x-font-display);
-  --x-font-mono: 'JetBrains Mono Variable', 'JetBrains Mono', ui-monospace, monospace;
+  --x-font-mono: 'Azeret Mono Variable', 'Azeret Mono', ui-monospace, monospace;
   --x-track-display: 0.01em;
   --x-track-heading: 0.01em;
   --x-track-label: 0.16em;

@@ -2,31 +2,15 @@
 // Component structure ships with each component; this file is loaded once per site.
 @use 'sass:meta';
 @use '../layers';
-@import '@fontsource-variable/cinzel/index.css';
-@import '@fontsource/spectral/400.css';
-@import '@fontsource/spectral/400-italic.css';
-@import '@fontsource/spectral/600.css';
-@import '@fontsource/ibm-plex-mono/400.css';
-@import '@fontsource-variable/manrope/index.css';
-
-// Cinzel's "1" reads as a capital I, so digits in the display face come from Spectral.
-@font-face {
-  font-family: 'xaroth numerals';
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-  src: url('@fontsource/spectral/files/spectral-latin-400-normal.woff2') format('woff2');
-  unicode-range: U+0030-0039;
-}
-
-@font-face {
-  font-family: 'xaroth numerals';
-  font-style: normal;
-  font-weight: 600;
-  font-display: swap;
-  src: url('@fontsource/spectral/files/spectral-latin-600-normal.woff2') format('woff2');
-  unicode-range: U+0030-0039;
-}
+@import '@fontsource/alegreya-sc/400.css';
+@import '@fontsource/alegreya-sc/500.css';
+@import '@fontsource/alegreya-sc/700.css';
+@import '@fontsource-variable/alegreya/wght.css';
+@import '@fontsource-variable/alegreya/wght-italic.css';
+@import '@fontsource/alegreya-sans/400.css';
+@import '@fontsource/alegreya-sans/500.css';
+@import '@fontsource/alegreya-sans/700.css';
+@import '@fontsource-variable/red-hat-mono/index.css';
 
 @layer x.reset {
   @include meta.load-css('../core/reset');

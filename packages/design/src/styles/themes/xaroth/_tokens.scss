@@ -1,13 +1,13 @@
 @use '../../theme';
 
 @include theme.scope('xaroth') {
-  --x-font-display: 'xaroth numerals', 'Cinzel Variable', 'Cinzel', 'Times New Roman', serif;
+  --x-font-display: 'Alegreya SC', 'Times New Roman', serif;
   --x-font-heading: var(--x-font-display);
-  --x-font-body: 'Spectral', Georgia, serif;
-  --x-font-ui: 'Manrope Variable', 'Manrope', system-ui, sans-serif;
-  --x-font-mono: 'IBM Plex Mono', ui-monospace, monospace;
+  --x-font-body: 'Alegreya Variable', 'Alegreya', Georgia, serif;
+  --x-font-ui: 'Alegreya Sans', system-ui, sans-serif;
+  --x-font-mono: 'Red Hat Mono Variable', 'Red Hat Mono', ui-monospace, monospace;
 
-  // Spectral has a small x-height, so body is nudged up one step.
+  // Alegreya has a small x-height, so body is nudged up one step.
   --x-fs-body: 1.125rem;
   --x-track-display: 0.06em;
   --x-track-heading: 0.02em;
