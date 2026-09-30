@@ -1,6 +1,6 @@
 {
   "name": "@xaroth.nl/design",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Shared design system for xaroth.nl and eve-online.tools: CSS core, themes, Astro and React parts.",
   "license": "MIT",
   "author": "Xaroth Brook <xaroth+github@xaroth.nl>",
