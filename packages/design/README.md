@@ -51,7 +51,7 @@ Class recipes (for example `buttonClass`) and the theme list are available from 
 
 Alert, Avatar, Badge, Breadcrumbs, Button, Card, CheckboxGroup, Checkbox, CodeBlock, ConfirmDialog, Container, DescriptionList, Dialog, Divider, EmptyState, Field, FilterLayout, FilterPanel, Footer, Grid, Header, Icon, Input, Modal, PageHead, Pagination, Panel, Progress, Prose, Radio, RadioGroup, Section, SectionHead, Select, Stat, StatGroup, Switch, Table, Tabs, Tag, Textarea, Timeline, Tooltip.
 
-Props, slots and every variant are documented in the Storybook of the [source repository](https://github.com/xaroth/design).
+Props, slots and every variant are documented in the Storybook of the [source repository](https://github.com/Xaroth/design).
 
 ## Sass
 
