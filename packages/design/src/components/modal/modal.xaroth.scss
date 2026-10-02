@@ -1,0 +1,15 @@
+@use '../../styles/theme';
+
+@include theme.parts('xaroth') {
+  // Raised surface with an inner hairline, as on the framed alert.
+  .x-modal {
+    --x-modal-bg: linear-gradient(180deg, var(--x-color-surface-3), var(--x-color-surface-2) 70%);
+
+    outline: 1px solid var(--x-color-line);
+    outline-offset: -6px;
+  }
+
+  .x-modal::backdrop {
+    backdrop-filter: blur(2px);
+  }
+}

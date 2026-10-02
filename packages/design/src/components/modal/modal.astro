@@ -1,0 +1,20 @@
+---
+import './modal.scss'
+import type { HTMLAttributes } from 'astro/types'
+import { modalAttrs, modalClass, type ModalOptions } from './index.ts'
+
+type Props = Omit<HTMLAttributes<'dialog'>, 'class' | 'id' | 'open' | 'closedby'> &
+  Omit<ModalOptions, 'className'> & {
+    class?: string
+    /** Target for `commandfor` on the buttons that open and close it. Unique per page. */
+    id: string
+    /** False blocks Escape and backdrop close. */
+    dismissible?: boolean
+  }
+
+const { size, dismissible, class: className, slot: _slot, ...rest } = Astro.props
+---
+
+<dialog {...rest} {...modalAttrs({ dismissible })} class={modalClass({ size, className })}>
+  <slot />
+</dialog>

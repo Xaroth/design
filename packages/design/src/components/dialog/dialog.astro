@@ -1,0 +1,75 @@
+---
+import './dialog.scss'
+import type { HTMLAttributes } from 'astro/types'
+import Icon from '../icon/icon.astro'
+import { modalCommand, type ModalOptions } from '../modal/index.ts'
+import Modal from '../modal/modal.astro'
+import { dialogClass, dialogIds } from './index.ts'
+
+type Props = Omit<HTMLAttributes<'dialog'>, 'class' | 'id' | 'open' | 'closedby' | 'title'> &
+  Omit<ModalOptions, 'className'> & {
+    class?: string
+    /** Target for `commandfor` on the buttons that open it, and base for the title and body ids. Unique per page. */
+    id: string
+    /** Heading, and the dialog's accessible name. */
+    title: string
+    /** False blocks Escape, backdrop close and the close button. */
+    dismissible?: boolean
+    /** Close button in the head. */
+    closeButton?: boolean
+    closeLabel?: string
+  }
+
+const {
+  id,
+  title,
+  dismissible = true,
+  closeButton = true,
+  closeLabel = 'Close',
+  class: className,
+  slot: _slot,
+  ...rest
+} = Astro.props
+const ids = dialogIds(id)
+const hasBody = Astro.slots.has('default')
+---
+
+<Modal
+  aria-labelledby={ids.title}
+  aria-describedby={hasBody ? ids.body : undefined}
+  {...rest}
+  id={id}
+  dismissible={dismissible}
+  class={dialogClass({ className })}
+>
+  <div class="x-dialog__head">
+    <h2 class="x-dialog__title" id={ids.title}>{title}</h2>
+    {
+      closeButton && (
+        <button
+          type="button"
+          class="x-dialog__close"
+          aria-label={closeLabel}
+          disabled={!dismissible}
+          {...modalCommand(id, 'close')}
+        >
+          <Icon name="close" />
+        </button>
+      )
+    }
+  </div>
+  {
+    hasBody && (
+      <div class="x-dialog__body" id={ids.body} tabindex="0">
+        <slot />
+      </div>
+    )
+  }
+  {
+    Astro.slots.has('actions') && (
+      <div class="x-dialog__actions">
+        <slot name="actions" />
+      </div>
+    )
+  }
+</Modal>

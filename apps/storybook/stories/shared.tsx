@@ -1,5 +1,5 @@
 import { Container } from '@xaroth.nl/design/react'
-import type { ReactNode } from 'react'
+import { useEffect, useRef, type ReactNode } from 'react'
 
 // Matrix stories render every combination at once, so controls would do nothing there.
 export const matrix = { controls: { disable: true } }
@@ -31,6 +31,24 @@ export function Rows({ children, width }: { children: ReactNode; width?: number 
     <div
       className="x-stack-xl"
       style={width ? { maxWidth: width } : undefined}
+    >
+      {children}
+    </div>
+  )
+}
+
+// Shows every dialog inside as a non-modal in the page flow, so matrix stories can show several at once.
+export function InlineDialogs({ children }: { children: ReactNode }) {
+  const ref = useRef<HTMLDivElement>(null)
+  useEffect(() => {
+    for (const dialog of ref.current?.querySelectorAll('dialog') ?? []) {
+      dialog.show()
+    }
+  }, [])
+  return (
+    <div
+      ref={ref}
+      className="story-inline-dialogs x-cluster-md"
     >
       {children}
     </div>

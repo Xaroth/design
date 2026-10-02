@@ -1,0 +1,16 @@
+@use '../../styles/theme';
+
+@include theme.parts('xaroth') {
+  .x-dialog__head {
+    padding-bottom: var(--x-space-3);
+    border-bottom: 1px solid var(--x-color-line);
+  }
+
+  .x-dialog__title {
+    font-family: var(--x-font-display);
+    font-size: var(--x-fs-ui);
+    letter-spacing: var(--x-track-caps);
+    text-transform: uppercase;
+    color: var(--x-color-accent-strong);
+  }
+}

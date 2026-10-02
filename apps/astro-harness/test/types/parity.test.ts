@@ -5,6 +5,7 @@ import type {
   AnchorHTMLAttributes,
   ButtonHTMLAttributes,
   ComponentProps as ReactProps,
+  DialogHTMLAttributes,
   FieldsetHTMLAttributes,
   FormHTMLAttributes,
   HTMLAttributes,
@@ -143,6 +144,15 @@ it('Astro and React props agree', () => {
   // React reports position changes; Astro switches with an inline script.
   none<Parity<typeof A.FilterLayout, typeof R.FilterLayout, 'div', El, 'onPositionChange'>>()
   none<Parity<typeof A.FilterPanel, typeof R.FilterPanel, 'form', FormHTMLAttributes<HTMLFormElement>>>()
+})
+
+it('modal props agree', () => {
+  // React is controlled through open, onClose and onConfirm, and generates an id when none is given. Astro opens with
+  // invoker commands, so it needs the id and has no open state.
+  type Dlg = DialogHTMLAttributes<HTMLDialogElement>
+  none<Parity<typeof A.Modal, typeof R.Modal, 'dialog', Dlg, 'open' | 'ref' | 'id'>>()
+  none<Parity<typeof A.Dialog, typeof R.Dialog, 'dialog', Dlg, 'open' | 'ref' | 'id'>>()
+  none<Parity<typeof A.ConfirmDialog, typeof R.ConfirmDialog, 'dialog', Dlg, 'open' | 'id' | 'onConfirm'>>()
 })
 
 it('form control props agree', () => {

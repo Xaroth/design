@@ -5,11 +5,15 @@ import {
   brandState,
   breadcrumbState,
   buttonState,
+  confirmFocus,
+  dialogIds,
   choiceGroupAttrs,
   describedBy,
   fieldControlAttrs,
   fieldIds,
   mergeDescribedBy,
+  modalAttrs,
+  modalCommand,
   navLinkAttrs,
   panelClass,
   progressClass,
@@ -327,5 +331,25 @@ describe('other state helpers', () => {
     expect(tagState({ href: '/t', active: true })).toEqual({ tag: 'a', attrs: { href: '/t', 'aria-current': 'true' } })
     expect(tagState({ href: '/t' })).toEqual({ tag: 'a', attrs: { href: '/t' } })
     expect(tagState({ active: true })).toEqual({ tag: 'span', attrs: {} })
+  })
+})
+
+describe('modal and dialog', () => {
+  it('closes on Escape and backdrop unless not dismissible', () => {
+    expect(modalAttrs({})).toEqual({ closedby: 'any' })
+    expect(modalAttrs({ dismissible: false })).toEqual({ closedby: 'none' })
+  })
+
+  it('builds invoker command attributes', () => {
+    expect(modalCommand('fit', 'show-modal')).toEqual({ commandfor: 'fit', command: 'show-modal' })
+  })
+
+  it('derives title and body ids', () => {
+    expect(dialogIds('fit')).toEqual({ title: 'fit-title', body: 'fit-body' })
+  })
+
+  it('starts danger confirmations on cancel', () => {
+    expect(confirmFocus('danger')).toEqual({ cancel: true, confirm: false })
+    expect(confirmFocus()).toEqual({ cancel: false, confirm: true })
   })
 })

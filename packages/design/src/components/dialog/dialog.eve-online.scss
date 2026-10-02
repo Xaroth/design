@@ -1,0 +1,9 @@
+@use '../../styles/theme';
+
+@include theme.parts('eve-online') {
+  .x-dialog__title {
+    font-size: var(--x-fs-ui);
+    letter-spacing: var(--x-track-label);
+    text-transform: uppercase;
+  }
+}
