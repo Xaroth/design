@@ -69,10 +69,10 @@ export function Dialog({
         )}
       </div>
       {children != null && (
-        // oxlint-disable-next-line jsx-a11y/no-noninteractive-tabindex -- a scrolling body must be keyboard scrollable
         <div
           className="x-dialog__body"
           id={ids.body}
+          // oxlint-disable-next-line jsx-a11y/no-noninteractive-tabindex -- a scrolling body must be keyboard scrollable
           tabIndex={0}
         >
           {children}
