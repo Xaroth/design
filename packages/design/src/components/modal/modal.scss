@@ -1,0 +1,78 @@
+@use '../../styles/layers';
+
+@layer x.core {
+  :root:has(.x-modal:modal) {
+    overflow: hidden;
+  }
+
+  // The native dialog in the top layer, centered on both axes. Display is only set while open, so the UA hides a
+  // closed one.
+  .x-modal {
+    --x-modal-width: 28rem;
+    --x-modal-shift: 8px;
+
+    position: fixed;
+    inset: 0;
+    box-sizing: border-box;
+    width: min(var(--x-modal-width), calc(100vw - 2 * var(--x-gutter)));
+    max-width: none;
+    height: fit-content;
+    max-height: calc(100dvh - 2 * var(--x-gutter));
+    padding: var(--x-modal-pad, var(--x-space-5));
+    margin: auto;
+    overflow: auto;
+    color: var(--x-color-text);
+    background: var(--x-modal-bg, var(--x-color-surface-2));
+    border: 1px solid var(--x-modal-edge, var(--x-color-line-strong));
+    border-radius: var(--x-radius);
+    box-shadow: var(--x-shadow);
+    opacity: 0;
+    translate: 0 var(--x-modal-shift);
+    transition:
+      opacity var(--x-duration) var(--x-ease),
+      translate var(--x-duration) var(--x-ease),
+      overlay var(--x-duration) allow-discrete,
+      display var(--x-duration) allow-discrete;
+
+    &[open] {
+      display: flex;
+      flex-direction: column;
+      opacity: 1;
+      translate: 0 0;
+
+      @starting-style {
+        opacity: 0;
+        translate: 0 var(--x-modal-shift);
+      }
+    }
+
+    &::backdrop {
+      background: var(--x-color-overlay);
+      opacity: 0;
+      transition:
+        opacity var(--x-duration) var(--x-ease),
+        overlay var(--x-duration) allow-discrete,
+        display var(--x-duration) allow-discrete;
+    }
+
+    &[open]::backdrop {
+      opacity: 1;
+
+      @starting-style {
+        opacity: 0;
+      }
+    }
+
+    &--md {
+      --x-modal-width: 40rem;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      transition: none;
+
+      &::backdrop {
+        transition: none;
+      }
+    }
+  }
+}

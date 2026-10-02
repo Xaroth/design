@@ -8,3 +8,13 @@ body,
 body {
   background: transparent !important;
 }
+
+/* InlineDialogs in matrix stories: dialogs sit in the flow instead of centered in the viewport. */
+.story-inline-dialogs {
+  align-items: flex-start;
+}
+
+.story-inline-dialogs .x-modal {
+  position: static;
+  margin: 0;
+}

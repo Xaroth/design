@@ -1,0 +1,37 @@
+---
+import Harness from '../layouts/Harness.astro'
+import { Button, ConfirmDialog, Dialog } from '@xaroth.nl/design/astro'
+import { modalCommand } from '@xaroth.nl/design/parts'
+---
+
+<Harness title="Dialog">
+  {(theme: string) => (
+    <div style="padding: 0 32px; display: flex; gap: 16px; flex-wrap: wrap">
+      <Button variant="secondary" {...modalCommand(`${theme}-fit`, 'show-modal')}>Dialog</Button>
+      <Button variant="secondary" {...modalCommand(`${theme}-long`, 'show-modal')}>Long body</Button>
+      <Button tone="danger" variant="secondary" {...modalCommand(`${theme}-remove`, 'show-modal')}>Remove character</Button>
+      <Button variant="secondary" {...modalCommand(`${theme}-sync`, 'show-modal')}>Confirm</Button>
+      <Dialog id={`${theme}-fit`} title="Fit details" size="md">
+        Drake Navy Issue, shield PvE. All modules T2, rigs for EM and thermal.
+        <Fragment slot="actions">
+          <Button variant="secondary" {...modalCommand(`${theme}-fit`, 'close')}>Close</Button>
+          <Button>Copy fit</Button>
+        </Fragment>
+      </Dialog>
+      <Dialog id={`${theme}-long`} title="Terms">
+        {Array.from({ length: 12 }, (_, i) => (
+          <p>Paragraph {i + 1}. The body scrolls while the title and actions stay in view.</p>
+        ))}
+        <Fragment slot="actions">
+          <Button {...modalCommand(`${theme}-long`, 'close')}>Accept</Button>
+        </Fragment>
+      </Dialog>
+      <ConfirmDialog id={`${theme}-remove`} title="Remove character" tone="danger" confirmLabel="Remove">
+        Remove Xaroth Brook and its stored token? Its synced data is deleted too.
+      </ConfirmDialog>
+      <ConfirmDialog id={`${theme}-sync`} title="Sync standings" confirmLabel="Sync now">
+        Fetch standings for all linked characters now?
+      </ConfirmDialog>
+    </div>
+  )}
+</Harness>

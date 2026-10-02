@@ -55,6 +55,15 @@ const check = async (theme: string, story: (typeof stories)[number]) => {
     .waitForFunction(() => document.querySelector('#storybook-root')?.childElementCount, null, { timeout: 15000 })
     .catch(() => errors.push('story did not render'))
   await page.evaluate(() => document.fonts.ready)
+  // Parts that fade in (an opening modal) would be checked for contrast mid-fade.
+  await page.evaluate(() =>
+    Promise.all(
+      document
+        .getAnimations()
+        .filter((a) => a.effect?.getComputedTiming().endTime !== Infinity)
+        .map((a) => a.finished),
+    ),
+  )
   const violations = await page.evaluate(async () => {
     const result = await (window as any).axe.run('#storybook-root', {
       runOnly: { type: 'tag', values: ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22aa'] },

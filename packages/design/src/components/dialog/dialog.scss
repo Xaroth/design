@@ -1,0 +1,82 @@
+@use '../../styles/layers';
+
+@layer x.core {
+  .x-dialog {
+    gap: var(--x-space-4);
+
+    &__head {
+      display: flex;
+      gap: var(--x-space-3);
+      align-items: start;
+      justify-content: space-between;
+    }
+
+    &__title {
+      font-family: var(--x-font-heading);
+      font-size: var(--x-fs-h3);
+      font-weight: 600;
+      line-height: 1.3;
+      letter-spacing: var(--x-track-heading);
+      color: var(--x-color-text);
+    }
+
+    &__close {
+      display: inline-grid;
+      flex: none;
+      place-items: center;
+      width: var(--x-control-sm);
+      height: var(--x-control-sm);
+      margin: calc(var(--x-space-2) * -1) calc(var(--x-space-2) * -1) 0 0;
+      padding: 0;
+      font-size: 1.25rem;
+      cursor: pointer;
+      color: var(--x-color-text-muted);
+      background: none;
+      border: 0;
+      border-radius: var(--x-radius);
+      transition: color var(--x-duration) var(--x-ease);
+
+      &:hover:not(:disabled) {
+        color: var(--x-color-text);
+      }
+
+      &:focus-visible {
+        outline: var(--x-focus-width) solid var(--x-color-focus);
+        outline-offset: calc(var(--x-focus-offset) * -1);
+      }
+
+      &:disabled {
+        cursor: not-allowed;
+        opacity: 0.5;
+      }
+    }
+
+    // The body scrolls, so a long text keeps the title and actions in view. It takes focus so the keyboard can
+    // scroll it.
+    &__body {
+      min-height: 0;
+      overflow: auto;
+      font-family: var(--x-font-body);
+      font-size: var(--x-fs-ui);
+      line-height: 1.55;
+      color: var(--x-color-text-muted);
+
+      &:focus-visible {
+        outline: var(--x-focus-width) solid var(--x-color-focus);
+        outline-offset: var(--x-focus-offset);
+      }
+
+      > * + * {
+        margin-top: var(--x-space-3);
+      }
+    }
+
+    &__actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--x-space-2);
+      justify-content: flex-end;
+      margin-top: var(--x-space-2);
+    }
+  }
+}

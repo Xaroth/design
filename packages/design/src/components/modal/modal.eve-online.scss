@@ -1,0 +1,16 @@
+@use '../../styles/theme';
+@use '../panel/surface';
+
+@include theme.parts('eve-online') {
+  .x-modal {
+    --x-modal-bg: none;
+    --x-modal-edge: transparent;
+    --x-surface-cut: var(--x-cut-lg);
+    --x-surface-edge: var(--x-color-line-strong);
+    --x-surface-fill:
+      linear-gradient(var(--x-color-accent), var(--x-color-accent)) top / 100% 2px no-repeat,
+      linear-gradient(180deg, var(--x-color-surface-3), var(--x-color-surface-2) 60%);
+
+    @include surface.cut;
+  }
+}

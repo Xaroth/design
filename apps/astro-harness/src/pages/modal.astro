@@ -1,0 +1,25 @@
+---
+import Harness from '../layouts/Harness.astro'
+import { Button, Modal } from '@xaroth.nl/design/astro'
+import { modalCommand } from '@xaroth.nl/design/parts'
+---
+
+<Harness title="Modal">
+  {(theme: string) => (
+    <div style="padding: 0 32px; display: flex; gap: 16px; flex-wrap: wrap">
+      <Button variant="secondary" {...modalCommand(`${theme}-sm`, 'show-modal')}>Open small</Button>
+      <Button variant="secondary" {...modalCommand(`${theme}-md`, 'show-modal')}>Open medium</Button>
+      <Button variant="secondary" {...modalCommand(`${theme}-locked`, 'show-modal')}>Open not dismissible</Button>
+      <Modal id={`${theme}-sm`} aria-label="Small modal">
+        <p>Escape or a backdrop click closes this.</p>
+      </Modal>
+      <Modal id={`${theme}-md`} size="md" aria-label="Medium modal">
+        <p>A wider modal for forms and previews.</p>
+      </Modal>
+      <Modal id={`${theme}-locked`} dismissible={false} aria-label="Locked modal">
+        <p style="margin-bottom: 16px">Only the button closes this.</p>
+        <Button {...modalCommand(`${theme}-locked`, 'close')}>Close</Button>
+      </Modal>
+    </div>
+  )}
+</Harness>

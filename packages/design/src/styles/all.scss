@@ -7,6 +7,7 @@
 @include meta.load-css('../components/button/button');
 @include meta.load-css('../components/card/card');
 @include meta.load-css('../components/description-list/description-list');
+@include meta.load-css('../components/dialog/dialog');
 @include meta.load-css('../components/divider/divider');
 @include meta.load-css('../components/empty-state/empty-state');
 @include meta.load-css('../components/field/field');
@@ -15,6 +16,7 @@
 @include meta.load-css('../components/header/header');
 @include meta.load-css('../components/icon/icon');
 @include meta.load-css('../components/layout/layout');
+@include meta.load-css('../components/modal/modal');
 @include meta.load-css('../components/page-head/page-head');
 @include meta.load-css('../components/pagination/pagination');
 @include meta.load-css('../components/panel/panel');

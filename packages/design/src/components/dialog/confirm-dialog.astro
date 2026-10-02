@@ -1,0 +1,35 @@
+---
+import '../modal/modal.scss'
+import './dialog.scss'
+import type { ComponentProps } from 'astro/types'
+import Button from '../button/button.astro'
+import { modalCommand } from '../modal/index.ts'
+import Dialog from './dialog.astro'
+import { confirmFocus, type ConfirmTone } from './index.ts'
+
+// Both buttons close the dialog natively and set its returnValue to "cancel" or "confirm"; read it on `close`.
+type Props = Omit<ComponentProps<typeof Dialog>, 'closeButton' | 'closeLabel' | 'dismissible'> & {
+  confirmLabel: string
+  cancelLabel?: string
+  /** Danger colors the confirm button and starts focus on Cancel. */
+  tone?: ConfirmTone
+  /** Disables both buttons and dismissal, and shows progress on confirm. */
+  pending?: boolean
+}
+
+const { id, confirmLabel, cancelLabel = 'Cancel', tone = 'default', pending, slot: _slot, ...rest } = Astro.props
+const focus = confirmFocus(tone)
+const close = modalCommand(id, 'close')
+---
+
+<Dialog {...rest} id={id} role="alertdialog" dismissible={!pending} closeButton={false}>
+  <slot />
+  <Fragment slot="actions">
+    <Button variant="secondary" value="cancel" disabled={pending} autofocus={focus.cancel} {...close}>
+      {cancelLabel}
+    </Button>
+    <Button tone={tone} value="confirm" loading={pending} autofocus={focus.confirm} {...close}>
+      {confirmLabel}
+    </Button>
+  </Fragment>
+</Dialog>
