@@ -1,5 +1,17 @@
 # @xaroth.nl/design
 
+## 0.3.0
+
+### Minor Changes
+
+- [#13](https://github.com/Xaroth/design/pull/13)
+  [`d74de3d`](https://github.com/Xaroth/design/commit/d74de3d7e82ad8b71f5f6099feacfcaa3dcc25b1) - Add `Modal`, `Dialog`
+  and `ConfirmDialog`, built on the native modal `<dialog>`. `Modal` is the centered surface with backdrop, Escape and
+  backdrop dismissal, and scroll lock. `Dialog` adds a title, body, actions and a close button. `ConfirmDialog` is the
+  "are you sure" preset with a danger tone and a pending state. React is controlled through `open` and `onClose`; Astro
+  opens and closes through invoker commands (`modalCommand`) without client JS. Adds the `--x-color-overlay` token to
+  both themes.
+
 ## 0.2.0
 
 ### Minor Changes
