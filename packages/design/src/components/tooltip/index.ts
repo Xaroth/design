@@ -1,7 +1,7 @@
 import { bem } from '../../bem.ts'
 import { findTag, getAttr, mergeTokens, replaceTag, type Tag } from '../../html.ts'
 
-export type TooltipPlacement = 'top' | 'bottom'
+export type TooltipPlacement = 'top' | 'bottom' | 'left' | 'right'
 
 export type TooltipOptions = {
   placement?: TooltipPlacement
@@ -91,6 +91,31 @@ export function installTooltips(): void {
     const width = bubble.offsetWidth
     const height = bubble.offsetHeight
     const gap = token('--x-tooltip-gap', '10px')
+    const arrow = token('--x-tooltip-arrow', '6px')
+
+    // Side placements center on the trigger and ignore the horizontal alignment tokens.
+    if (tip.matches('.x-tooltip--left, .x-tooltip--right')) {
+      const before = t.left - gap - width >= edge
+      const after = t.right + gap + width <= vw - edge
+      const side = tip.classList.contains('x-tooltip--left')
+        ? before || !after
+          ? 'left'
+          : 'right'
+        : after || !before
+          ? 'right'
+          : 'left'
+      const mid = t.top + t.height / 2
+      const top = Math.max(edge, Math.min(mid - height / 2, vh - edge - height))
+      bubble.dataset.xTooltipSide = side
+      bubble.style.left = `${side === 'left' ? t.left - gap - width : t.right + gap}px`
+      bubble.style.top = `${top}px`
+      bubble.style.setProperty(
+        '--x-tooltip-arrow-y',
+        `${Math.min(Math.max(mid - top, arrow * 2), height - arrow * 2)}px`,
+      )
+      return
+    }
+
     const above = t.top - gap - height >= edge
     const below = t.bottom + gap + height <= vh - edge
     const side = tip.classList.contains('x-tooltip--bottom')
@@ -102,7 +127,6 @@ export function installTooltips(): void {
         : 'bottom'
     const want = t.left + token('--x-tooltip-left', '50%', t.width) + token('--x-tooltip-shift', '-50%', width)
     const left = Math.max(edge, Math.min(want, vw - edge - width))
-    const arrow = token('--x-tooltip-arrow', '6px')
     const arrowLeft = token('--x-tooltip-arrow-left', '50%', width) + want - left
     bubble.dataset.xTooltipSide = side
     bubble.style.left = `${left}px`
