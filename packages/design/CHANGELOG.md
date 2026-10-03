@@ -1,5 +1,16 @@
 # @xaroth.nl/design
 
+## 0.3.1
+
+### Patch Changes
+
+- [#16](https://github.com/Xaroth/design/pull/16)
+  [`975b05f`](https://github.com/Xaroth/design/commit/975b05fec53d9d851cdce703a896d863c01798dd) - Tooltip: show the
+  bubble in the top layer (Popover API) at fixed coordinates. Overflow containers no longer clip it or grow a scrollbar
+  for it, it shows above modal dialogs, flips once when the requested side does not fit, and stays 8px inside the
+  viewport. `open` tooltips keep the inline bubble. Browsers without popover support keep the CSS-only bubble. Adds
+  `tooltipScript` and `installTooltips`; `tooltipEscapeScript` is deprecated.
+
 ## 0.3.0
 
 ### Minor Changes
