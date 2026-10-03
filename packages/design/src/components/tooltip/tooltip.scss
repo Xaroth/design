@@ -1,8 +1,35 @@
 @use '../../styles/layers';
 
+@mixin arrow-top {
+  &::before {
+    inset: 100% 0 auto;
+  }
+
+  &::after {
+    top: calc(100% - var(--x-tooltip-arrow) + 1px);
+    bottom: auto;
+    border-width: 0 1px 1px 0;
+    clip-path: polygon(100% 0, 100% 100%, 0 100%);
+  }
+}
+
+@mixin arrow-bottom {
+  &::before {
+    inset: auto 0 100%;
+  }
+
+  &::after {
+    top: auto;
+    bottom: calc(100% - var(--x-tooltip-arrow) + 1px);
+    border-width: 1px 0 0 1px;
+    clip-path: polygon(0 0, 100% 0, 0 100%);
+  }
+}
+
 @layer x.core {
   // Shown on hover and keyboard focus inside the trigger. The bubble stays in the hover area (bridged by
-  // ::before) so the pointer can move onto it without it closing.
+  // ::before) so the pointer can move onto it without it closing. The bubble is a popover: the tooltip script shows it
+  // in the top layer and places it. Without popover support it falls back to the CSS-only inline bubble.
   .x-tooltip {
     --x-tooltip-gap: 10px;
     --x-tooltip-arrow: 6px;
@@ -14,9 +41,12 @@
 
     &__bubble {
       position: absolute;
+      inset: auto;
       bottom: calc(100% + var(--x-tooltip-gap));
       left: var(--x-tooltip-left, 50%);
       z-index: 20;
+      margin: 0;
+      overflow: visible;
       width: max-content;
       max-width: min(var(--x-tooltip-max, 16rem), calc(100vw - 2 * var(--x-gutter)));
       padding: var(--x-space-2) var(--x-space-3);
@@ -43,7 +73,6 @@
       &::before {
         content: '';
         position: absolute;
-        inset: 100% 0 auto;
         height: calc(var(--x-tooltip-gap) + 2px);
       }
 
@@ -58,10 +87,10 @@
         margin-left: calc(var(--x-tooltip-arrow) * -1);
         background: var(--x-tooltip-bg);
         border: solid var(--x-tooltip-edge);
-        border-width: 0 1px 1px 0;
         rotate: 45deg;
-        clip-path: polygon(100% 0, 100% 100%, 0 100%);
       }
+
+      @include arrow-top;
     }
 
     &:hover,
@@ -81,19 +110,42 @@
       opacity: 0;
     }
 
+    // Overrides the hidden popover's display: none.
+    &--open .x-tooltip__bubble {
+      display: block;
+    }
+
     &--bottom .x-tooltip__bubble {
       top: calc(100% + var(--x-tooltip-gap));
       bottom: auto;
 
-      &::before {
-        inset: auto 0 100%;
+      @include arrow-bottom;
+    }
+
+    // Top and left are set by the script. The side can differ from the placement after a flip.
+    & .x-tooltip__bubble:popover-open {
+      position: fixed;
+      inset: auto;
+      visibility: visible;
+      opacity: 1;
+      translate: 0 0;
+      transition-delay: 0s;
+
+      @starting-style {
+        opacity: 0;
+        translate: 0 4px;
       }
 
       &::after {
-        top: auto;
-        bottom: calc(100% - var(--x-tooltip-arrow) + 1px);
-        border-width: 1px 0 0 1px;
-        clip-path: polygon(0 0, 100% 0, 0 100%);
+        left: var(--x-tooltip-arrow-x, var(--x-tooltip-arrow-left, 50%));
+      }
+
+      &[data-x-tooltip-side='top'] {
+        @include arrow-top;
+      }
+
+      &[data-x-tooltip-side='bottom'] {
+        @include arrow-bottom;
       }
     }
 

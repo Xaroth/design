@@ -2,15 +2,15 @@ import { experimental_AstroContainer as AstroContainer } from 'astro/container'
 import { createElement, type ReactElement } from 'react'
 import { renderToStaticMarkup } from 'react-dom/server'
 import { describe, expect, it } from 'vitest'
-import { Tooltip, tooltipEscapeScript } from '@xaroth.nl/design/react'
+import { Tooltip, tooltipScript } from '@xaroth.nl/design/react'
 import { expectSameMarkup } from '../compare.ts'
 import { Tooltip as AstroTooltip } from '@xaroth.nl/design/astro'
 import TooltipPage from '../../src/pages/tooltip.astro'
 
 const container = await AstroContainer.create()
 
-// Astro adds the Escape script once per page; React keeps the dismissed state itself.
-const script = `<script>${tooltipEscapeScript}</script>`
+// Astro adds the tooltip script once per page; React installs it from an effect.
+const script = `<script>${tooltipScript}</script>`
 
 type Trigger = { html: string; react: () => ReactElement }
 
@@ -67,7 +67,7 @@ describe('Tooltip renders the same HTML in Astro and React', () => {
   }
 })
 
-it('adds the Escape script once per page', async () => {
+it('adds the tooltip script once per page', async () => {
   const html = await container.renderToString(TooltipPage)
   expect(html.match(/<span class="x-tooltip/g)?.length).toBeGreaterThan(1)
   expect(html.split(script).length - 1).toBe(1)

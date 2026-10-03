@@ -139,6 +139,21 @@ export const States: StoryObj<typeof meta> = {
           </Tooltip>
         </div>
       </Row>
+      <Row label="Closed, at the end of a scroll container: the bubble never adds overflow and stays in the viewport">
+        <div style={{ overflow: 'auto', display: 'flex', justifyContent: 'flex-end', padding: 8 }}>
+          <Tooltip
+            id="state-edge"
+            text="Remove this pilot from the fleet roster and all of their scopes."
+          >
+            <Button
+              variant="secondary"
+              size="sm"
+            >
+              Remove
+            </Button>
+          </Tooltip>
+        </div>
+      </Row>
     </Rows>
   ),
 }
