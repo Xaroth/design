@@ -1,5 +1,15 @@
 # @xaroth.nl/design
 
+## 0.4.0
+
+### Minor Changes
+
+- [#21](https://github.com/Xaroth/design/pull/21)
+  [`11069b6`](https://github.com/Xaroth/design/commit/11069b61f39b95d55af2601db33d73940cff02e5) - Tooltip: add `left`
+  and `right` placements. The bubble centers vertically on the trigger, flips once to the other side when it does not
+  fit, stays 8px inside the viewport and keeps the arrow on the trigger's middle. Side placements ignore the horizontal
+  alignment tokens (`--x-tooltip-left`, `--x-tooltip-shift`, `--x-tooltip-arrow-left`).
+
 ## 0.3.1
 
 ### Patch Changes
