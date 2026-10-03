@@ -20,6 +20,11 @@ import { Button, Icon, Tooltip } from '@xaroth.nl/design/astro'
           <Icon name="info" size={20} />
         </button>
       </Tooltip>
+      <div data-test="scroller" style="overflow: auto; width: 100%; padding: 8px; display: flex; justify-content: flex-end">
+        <Tooltip id={`${theme}-edge`} text="Remove this pilot from the fleet roster and all of their scopes.">
+          <Button variant="secondary" size="sm">Remove</Button>
+        </Tooltip>
+      </div>
     </div>
   )}
 </Harness>

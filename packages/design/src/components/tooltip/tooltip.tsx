@@ -1,17 +1,8 @@
 'use client'
 
 import './tooltip.scss'
-import {
-  cloneElement,
-  isValidElement,
-  useEffect,
-  useRef,
-  useState,
-  type HTMLAttributes,
-  type ReactElement,
-  type ReactNode,
-} from 'react'
-import { describedBy, tooltipClass, tooltipId, type TooltipOptions } from './index.ts'
+import { cloneElement, isValidElement, useEffect, type HTMLAttributes, type ReactElement, type ReactNode } from 'react'
+import { describedBy, installTooltips, tooltipClass, tooltipId, type TooltipOptions } from './index.ts'
 
 export type TooltipProps = Omit<TooltipOptions, 'className'> &
   Omit<HTMLAttributes<HTMLSpanElement>, 'id'> & {
@@ -25,31 +16,8 @@ export type TooltipProps = Omit<TooltipOptions, 'className'> &
 
 type Describable = ReactElement<{ 'aria-describedby'?: string }>
 
-export function Tooltip({
-  id,
-  text,
-  placement,
-  open,
-  className,
-  children,
-  onPointerLeave,
-  onFocus,
-  onBlur,
-  ...rest
-}: TooltipProps) {
-  const ref = useRef<HTMLSpanElement>(null)
-  const [dismissed, setDismissed] = useState(false)
-
-  // Escape hides the shown tooltip (WCAG 1.4.13) until the pointer leaves or focus moves in or out.
-  useEffect(() => {
-    const onKeyDown = (event: KeyboardEvent) => {
-      if (event.key === 'Escape' && ref.current?.matches(':hover, :has(:focus-visible)')) {
-        setDismissed(true)
-      }
-    }
-    document.addEventListener('keydown', onKeyDown)
-    return () => document.removeEventListener('keydown', onKeyDown)
-  }, [])
+export function Tooltip({ id, text, placement, open, className, children, ...rest }: TooltipProps) {
+  useEffect(installTooltips, [])
 
   const trigger = isValidElement(children)
     ? cloneElement(children as Describable, {
@@ -59,26 +27,14 @@ export function Tooltip({
   return (
     <span
       {...rest}
-      ref={ref}
-      onPointerLeave={(event) => {
-        setDismissed(false)
-        onPointerLeave?.(event)
-      }}
-      onFocus={(event) => {
-        setDismissed(false)
-        onFocus?.(event)
-      }}
-      onBlur={(event) => {
-        setDismissed(false)
-        onBlur?.(event)
-      }}
-      className={tooltipClass({ placement, open, dismissed, className })}
+      className={tooltipClass({ placement, open, className })}
     >
       {trigger}
       <span
         className="x-tooltip__bubble"
         role="tooltip"
         id={tooltipId(id)}
+        popover="manual"
       >
         {text}
       </span>

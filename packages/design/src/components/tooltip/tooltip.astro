@@ -2,7 +2,7 @@
 import './tooltip.scss'
 import type { HTMLAttributes } from 'astro/types'
 import { firstOnPage } from '../../html.ts'
-import { describeTrigger, tooltipClass, tooltipEscapeScript, tooltipId, type TooltipOptions } from './index.ts'
+import { describeTrigger, tooltipClass, tooltipScript, tooltipId, type TooltipOptions } from './index.ts'
 
 type Props = Omit<HTMLAttributes<'span'>, 'class' | 'id'> &
   Omit<TooltipOptions, 'className'> & {
@@ -20,6 +20,6 @@ const withScript = firstOnPage(Astro.request, 'x-tooltip')
 
 <span {...{ ...rest, class: tooltipClass({ placement, open, className }) }}>
   <Fragment set:html={trigger} />
-  <span class="x-tooltip__bubble" role="tooltip" id={tooltipId(id)}>{text}</span>
+  <span class="x-tooltip__bubble" role="tooltip" id={tooltipId(id)} popover="manual">{text}</span>
 </span>
-{withScript && <script is:inline set:html={tooltipEscapeScript} />}
+{withScript && <script is:inline set:html={tooltipScript} />}
