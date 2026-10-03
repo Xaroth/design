@@ -26,6 +26,48 @@
   }
 }
 
+// Side arrows sit on the vertical edge facing the trigger and follow --x-tooltip-arrow-y (set by the script).
+@mixin arrow-side {
+  &::before {
+    width: calc(var(--x-tooltip-gap) + 2px);
+    height: auto;
+  }
+
+  &::after {
+    top: var(--x-tooltip-arrow-y, 50%);
+    bottom: auto;
+    margin: calc(var(--x-tooltip-arrow) * -1) 0 0;
+  }
+}
+
+@mixin arrow-left {
+  @include arrow-side;
+
+  &::before {
+    inset: 0 auto 0 100%;
+  }
+
+  &::after {
+    left: calc(100% - var(--x-tooltip-arrow) + 1px);
+    border-width: 1px 1px 0 0;
+    clip-path: polygon(0 0, 100% 0, 100% 100%);
+  }
+}
+
+@mixin arrow-right {
+  @include arrow-side;
+
+  &::before {
+    inset: 0 100% 0 auto;
+  }
+
+  &::after {
+    left: calc(var(--x-tooltip-arrow) * -1 - 1px);
+    border-width: 0 0 1px 1px;
+    clip-path: polygon(0 0, 100% 100%, 0 100%);
+  }
+}
+
 @layer x.core {
   // Shown on hover and keyboard focus inside the trigger. The bubble stays in the hover area (bridged by
   // ::before) so the pointer can move onto it without it closing. The bubble is a popover: the tooltip script shows it
@@ -122,6 +164,38 @@
       @include arrow-bottom;
     }
 
+    // Side placements center on the trigger and ignore the horizontal alignment tokens.
+    &--left,
+    &--right {
+      .x-tooltip__bubble {
+        top: 50%;
+        bottom: auto;
+      }
+
+      &:hover,
+      &:has(:focus-visible),
+      &.x-tooltip--open {
+        .x-tooltip__bubble {
+          translate: 0 -50%;
+        }
+      }
+    }
+
+    &--left .x-tooltip__bubble {
+      right: calc(100% + var(--x-tooltip-gap));
+      left: auto;
+      translate: 4px -50%;
+
+      @include arrow-left;
+    }
+
+    &--right .x-tooltip__bubble {
+      left: calc(100% + var(--x-tooltip-gap));
+      translate: -4px -50%;
+
+      @include arrow-right;
+    }
+
     // Top and left are set by the script. The side can differ from the placement after a flip.
     & .x-tooltip__bubble:popover-open {
       position: fixed;
@@ -146,6 +220,22 @@
 
       &[data-x-tooltip-side='bottom'] {
         @include arrow-bottom;
+      }
+
+      &[data-x-tooltip-side='left'] {
+        @include arrow-left;
+
+        @starting-style {
+          translate: 4px 0;
+        }
+      }
+
+      &[data-x-tooltip-side='right'] {
+        @include arrow-right;
+
+        @starting-style {
+          translate: -4px 0;
+        }
       }
     }
 

@@ -20,6 +20,19 @@ import { Button, Icon, Tooltip } from '@xaroth.nl/design/astro'
           <Icon name="info" size={20} />
         </button>
       </Tooltip>
+      <div style="width: 100%; display: flex; justify-content: space-between; align-items: center">
+        <Tooltip id={`${theme}-left`} text="Fleet roster" placement="left" open>
+          <Button variant="secondary" size="sm">Left</Button>
+        </Tooltip>
+        <Tooltip id={`${theme}-right`} text="Fleet roster" placement="right" open>
+          <Button variant="secondary" size="sm">Right</Button>
+        </Tooltip>
+        <Tooltip id={`${theme}-side`} text="Flips to the left at the viewport edge." placement="right">
+          <button type="button" aria-label="Fleet" style="display: inline-grid; place-items: center; width: 36px; height: 36px; color: var(--x-color-text-muted); background: none; border: 0">
+            <Icon name="info" size={20} />
+          </button>
+        </Tooltip>
+      </div>
       <div data-test="scroller" style="overflow: auto; width: 100%; padding: 8px; display: flex; justify-content: flex-end">
         <Tooltip id={`${theme}-edge`} text="Remove this pilot from the fleet roster and all of their scopes.">
           <Button variant="secondary" size="sm">Remove</Button>

@@ -21,7 +21,7 @@ const meta = {
   },
   argTypes: {
     text: { control: 'text' },
-    placement: { control: 'inline-radio', options: ['top', 'bottom'] },
+    placement: { control: 'inline-radio', options: ['top', 'bottom', 'left', 'right'] },
     open: { control: 'boolean' },
     children: { control: false },
   },
@@ -42,17 +42,24 @@ export const Default: StoryObj<typeof meta> = {
 
 // One wide cell per tooltip, with room above and below, so open bubbles do not overlap or clip.
 const slot = { display: 'grid', gridTemplateColumns: 'repeat(3, 20rem)', justifyItems: 'center', paddingBlock: 72 }
+// Side bubbles need the cell's width beside the trigger instead of height.
+const sideSlot = (placement: 'left' | 'right') => ({
+  ...slot,
+  gridTemplateColumns: 'repeat(3, 24rem)',
+  justifyItems: placement === 'left' ? 'end' : 'start',
+  paddingBlock: 24,
+})
 
 export const Variants: StoryObj<typeof meta> = {
   parameters: matrix,
   render: () => (
     <Rows>
-      {(['top', 'bottom'] as const).map((placement) => (
+      {(['top', 'bottom', 'left', 'right'] as const).map((placement) => (
         <Row
           key={placement}
           label={`Placement ${placement}`}
         >
-          <div style={slot}>
+          <div style={placement === 'left' || placement === 'right' ? sideSlot(placement) : slot}>
             <Tooltip
               id={`scopes-${placement}`}
               text="Two scopes: achievements and standings."
