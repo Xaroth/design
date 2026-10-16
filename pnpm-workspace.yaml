@@ -7,21 +7,21 @@ allowBuilds:
   '@parcel/watcher': true
 
 catalog:
-  '@storybook/addon-a11y': 10.6.0
-  '@storybook/addon-docs': 10.6.0
-  '@storybook/react-vite': 10.6.0
+  '@storybook/addon-a11y': 10.6.2
+  '@storybook/addon-docs': 10.6.2
+  '@storybook/react-vite': 10.6.2
   '@types/node': ^24.12.0
   '@types/react': ^19
   '@types/react-dom': ^19
-  '@vitejs/plugin-react': ^6.0.3
-  astro: ^7.3.5
+  '@vitejs/plugin-react': ^6.1.2
+  astro: ^7.3.8
   react: 19.3.0
   react-dom: 19.3.0
-  sass: ^1.105.0
-  storybook: 10.6.0
+  sass: ^1.105.1
+  storybook: 10.6.2
   typescript: 6.0.2
-  vite: ^8.3.1
-  vitest: 5.0.2
+  vite: ^8.3.4
+  vitest: 5.0.4
 
 minimumReleaseAgeExclude:
   - astro@7.3.5
